@@ -9,8 +9,14 @@ class SingUpPC extends Component {
       <Form>
         <FormItem>
           <Input prefix={<Icon type="mail" />} placeholder="email" />
+        </FormItem>
+        <FormItem>
           <Input prefix={<Icon type="user" />} placeholder="username" />
+        </FormItem>
+        <FormItem>
           <Input prefix={<Icon type="lock" />} placeholder="password" />
+        </FormItem>
+        <FormItem>
           <Button
             type="primary"
             htmlType="submit"
