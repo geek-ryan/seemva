@@ -1,32 +1,45 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Checkbox } from 'antd';
+import { Form, Input, Icon, Button } from 'antd';
+
+import PasswordTogglePC from './PasswordTogglePC';
 
 const FormItem = Form.Item;
 
 class SingUpPC extends Component {
+  static defaultProps = {
+    onSubmitRegister: () => {},
+  };
+
   render() {
-    const { onChange, checked } = this.props;
+    const { onSubmitRegister } = this.props;
+    const { getFieldDecorator } = this.props.form;
     return (
       <div>
         <h2>Creat New Account</h2>
-        <Form>
+        <Form onSubmit={onSubmitRegister}>
           <FormItem>
-            <Input prefix={<Icon type="mail" />} placeholder="email" />
-            <Input prefix={<Icon type="user" />} placeholder="username" />
-            <span>
-              view password <Checkbox onChange={onChange} />
-            </span>
-            <Input
-              type={checked ? 'text' : 'password'}
-              prefix={<Icon type="lock" />}
-              placeholder="password"
-            />
+            {getFieldDecorator('email', {
+              rules: [
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!',
+                },
+              ],
+            })(<Input prefix={<Icon type="mail" />} placeholder="email" />)}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('username', {})(
+              <Input prefix={<Icon type="user" />} placeholder="username" />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('password', {})(<PasswordTogglePC />)}
           </FormItem>
           <FormItem>
             <Button
               type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className="login-form__button"
               style={{ width: '100%' }}
               disabled
             >
@@ -39,4 +52,4 @@ class SingUpPC extends Component {
   }
 }
 
-export default SingUpPC;
+export default Form.create()(SingUpPC);
