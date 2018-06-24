@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import { SignUpProvider } from './components/SignUpFormCTX';
+import { SignUpProvider } from './contexts/SignUpCTX';
 import SignUpPage from './pages/SignUpPage';
 
 class App extends Component {

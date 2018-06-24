@@ -7,4 +7,4 @@ import { linkTo } from '@storybook/addon-links';
 
 import SignUpFormPC from './SignUpFormPC';
 
-storiesOf('SignUp PC', module).add('with text', () => <SignUpFormPC />);
+storiesOf('SignUp PC', module).add('empty', () => <SignUpFormPC />);

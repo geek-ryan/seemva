@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import serverAPI from 'serverAPI';
+import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext({
   register: (username, password, email, profile) => {},

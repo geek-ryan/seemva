@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { SignUpConsumer } from '../components/SignUpFormCTX';
+import { SignUpConsumer } from '../contexts/SignUpCTX';
 import SignUpFormPC from '../components/SignUpFormPC';
+import SignUpProfileCC from '../containers/SignUpProfileCC';
 
 class SignUpCC extends Component {
   state = {
@@ -12,7 +13,14 @@ class SignUpCC extends Component {
   };
   render() {
     return (
-      <SignUpConsumer>{({ register }) => <SignUpFormPC />}</SignUpConsumer>
+      <SignUpConsumer>
+        {({ register }) => (
+          <React.Fragment>
+            <SignUpProfileCC />
+            <SignUpFormPC />
+          </React.Fragment>
+        )}
+      </SignUpConsumer>
     );
   }
 }
