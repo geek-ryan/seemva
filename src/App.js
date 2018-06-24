@@ -4,17 +4,21 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { SignUpProvider } from './components/SignUpFormCTX';
 import SignUpPage from './pages/SignUpPage';
 
+import CardViewPC from './components/CardViewPC';
+
 class App extends Component {
   render() {
     return (
-      <Router>
-        <SignUpProvider>
-          <div className="App">
-            <Route path="/sign_up" component={SignUpPage} />
-            <Route exact path="/" component={Home} />
-          </div>
-        </SignUpProvider>
-      </Router>
+      <CardViewPC />
+
+      // <Router>
+      //   <SignUpProvider>
+      //     <div className="App">
+      //       <Route path="/sign_up" component={SignUpPage} />
+      //       <Route exact path="/" component={Home} />
+      //     </div>
+      //   </SignUpProvider>
+      // </Router>
     );
   }
 }
