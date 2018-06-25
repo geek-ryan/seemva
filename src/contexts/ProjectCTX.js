@@ -23,7 +23,7 @@ class ProjectProvider extends Component {
   };
 
   render() {
-    const value = this.state.projects;
+    const value = this.state;
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }

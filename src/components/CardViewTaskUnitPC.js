@@ -3,14 +3,15 @@ import { Form, Input, Icon, Button } from 'antd';
 
 class CardViewTaskUnitPC extends Component {
   render() {
+    // console.log('task props:', this.props);
     return (
       <React.Fragment>
         <Icon type={true ? 'check-circle-o' : 'check-circle'} />
         <Icon type="delete" />
-        <h2>title</h2>
-        <span>xxxx.xx.xx</span>
+        <h2>{this.props.title}</h2>
+        <span>{this.props.startDate}</span>
         <span>-</span>
-        <span>xxxx.xx.xx</span>
+        <span>{this.props.dueDate}</span>
         <div>jake, dave, kate - icon</div>
         <Icon type="message" />
         <span>12</span>

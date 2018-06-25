@@ -5,6 +5,6 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import SignUpFormPC from './SignUpFormPC';
+import SideLinePC from './SideLinePC';
 
-storiesOf('SignUpForm PC', module).add('with text', () => <SignUpFormPC />);
+storiesOf('SignUp PC', module).add('default', () => <SideLinePC />);

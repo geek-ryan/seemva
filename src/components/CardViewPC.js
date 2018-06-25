@@ -7,6 +7,8 @@ import ProjectCardUnitPC from './ProjectCardUnitPC';
 import CardViewAddProjectPC from './CardViewAddProjectPC';
 import SideLinePC from './SideLinePC';
 
+import '../../node_modules/antd/dist/antd.css';
+
 import { ProjectProvider, ProjectConsumer } from '../contexts/ProjectCTX';
 import { TaskProvider, TaskConsumer } from '../contexts/TaskCTX';
 
@@ -24,8 +26,10 @@ class CardViewPC extends Component {
             </div>
             <SearchBarPC />
             <ProjectConsumer>
-              {value =>
-                value.map(project => <ProjectCardUnitPC key={project.id} />)
+              {({ projects }) =>
+                projects.map(project => (
+                  <ProjectCardUnitPC key={project.id} {...project} />
+                ))
               }
             </ProjectConsumer>
             <CardViewAddProjectPC />

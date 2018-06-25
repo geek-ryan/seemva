@@ -54,7 +54,9 @@ class TaskProvider extends Component {
   };
 
   render() {
-    const value = this.state.tasks;
+    const value = {
+      tasks: this.state.tasks,
+    };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }
