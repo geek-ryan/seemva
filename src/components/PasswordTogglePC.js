@@ -1,31 +1,50 @@
 import React, { Component } from 'react';
-import { Input, Icon, Checkbox } from 'antd';
+import { Form, Input, Icon, Checkbox } from 'antd';
 
+const FormItem = Form.Item;
 class PasswordToggle extends Component {
+  static defaultProps = {
+    getFieldDecorator: '',
+    passwordError: '',
+  };
+
   state = {
     checked: false,
   };
+
   handleChangeCheck = () => {
     this.setState({
       checked: !this.state.checked,
     });
   };
-  static defaultProps = {
-    onChangeChecked: () => {},
-    checked: false,
-  };
+
   render() {
     const { checked } = this.state;
+    const { passwordError, getFieldDecorator } = this.props;
     return (
       <React.Fragment>
         <label>
           show password <Checkbox onChange={this.handleChangeCheck} />
         </label>
-        <Input
-          type={checked ? 'text' : 'password'}
-          prefix={<Icon type="lock" />}
-          placeholder="password"
-        />
+        <FormItem
+          validateStatus={passwordError ? 'error' : ''}
+          help={passwordError || ''}
+        >
+          {getFieldDecorator('password', {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your Password!',
+              },
+            ],
+          })(
+            <Input
+              type={checked ? 'text' : 'password'}
+              prefix={<Icon type="lock" />}
+              placeholder="password"
+            />
+          )}
+        </FormItem>
       </React.Fragment>
     );
   }

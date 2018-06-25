@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { AuthConsumer } from '../contexts/AuthCTX';
-import SignUpFormPC from '../components/SignUpFormPC';
-import SignUpProfileCC from '../containers/SignUpProfileCC';
+import LoginFormPC from '../components/LoginFormPC';
 
-class SignUpCC extends Component {
+class LoginCC extends Component {
   state = {
     success: false,
     errorCode: 0,
@@ -13,18 +12,17 @@ class SignUpCC extends Component {
   };
 
   render() {
-    const { success, errorCode, profile } = this.state;
+    const { success, errorCode } = this.state;
     if (success) return <Redirect to="/" />;
     return (
       <AuthConsumer>
-        {({ register, users }) => (
+        {({ login }) => (
           <React.Fragment>
-            <SignUpProfileCC />
-            <SignUpFormPC
-              onSubmitRegister={async values => {
-                const { username, email, password } = values;
+            <LoginFormPC
+              onSubmitLogin={async values => {
+                const { username, password } = values;
                 try {
-                  await register(username, email, password, profile);
+                  await login(username, password);
                   this.setState({ success: true });
                 } catch (e) {
                   if (e.response && e.response === 400) {
@@ -34,9 +32,6 @@ class SignUpCC extends Component {
                   }
                 }
               }}
-              onBlurUserName={username =>
-                users.some(user => user.username === username)
-              }
               errorCode={errorCode}
             />
           </React.Fragment>
@@ -46,4 +41,4 @@ class SignUpCC extends Component {
   }
 }
 
-export default SignUpCC;
+export default LoginCC;

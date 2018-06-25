@@ -17,6 +17,7 @@ class SingUpPC extends Component {
         <Upload
           name="profile"
           listType="picture-card"
+          showUploadList={false}
           className="profile-uploader"
           beforeUpload={beforeUpload}
           onChange={onChangeProfile}

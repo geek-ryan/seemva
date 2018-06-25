@@ -9,11 +9,10 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class SingUpPC extends Component {
+class LoginFormPC extends Component {
   static defaultProps = {
     errorCode: 0,
-    onSubmitRegister: () => {},
-    onBlurUserName: () => {},
+    onSubmitLogin: () => {},
   };
 
   componentDidMount() {
@@ -24,15 +23,9 @@ class SingUpPC extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSubmitRegister(values);
+        this.props.onSubmitLogin(values);
       }
     });
-  };
-
-  validateUsedUserName = (rule, value, callback) => {
-    if (this.props.onBlurUserName(value)) {
-      callback('The name is already used');
-    }
   };
 
   render() {
@@ -44,14 +37,19 @@ class SingUpPC extends Component {
       isFieldTouched,
     } = this.props.form;
 
-    const emailError = isFieldTouched('email') && getFieldError('email');
     const usernameError =
       isFieldTouched('username') && getFieldError('username');
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
     return (
       <div>
-        {errorCode ? (
+        {errorCode === 400 ? (
+          <Alert
+            message="please check your username and password and try again"
+            type="warning"
+            showIcon
+          />
+        ) : errorCode === 500 ? (
           <Alert
             message="Network error : please try again later"
             type="error"
@@ -60,22 +58,8 @@ class SingUpPC extends Component {
         ) : (
           ''
         )}
-        <h2>Creat New Account</h2>
+        <h1>SEEMVA</h1>
         <Form onSubmit={this.handleSubmit}>
-          <FormItem
-            validateStatus={emailError ? 'error' : ''}
-            help={emailError || ''}
-          >
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  required: true,
-                  type: 'email',
-                  message: 'The input is not valid E-mail',
-                },
-              ],
-            })(<Input prefix={<Icon type="mail" />} placeholder="email" />)}
-          </FormItem>
           <FormItem
             validateStatus={usernameError ? 'error' : ''}
             help={usernameError || ''}
@@ -85,9 +69,6 @@ class SingUpPC extends Component {
                 {
                   required: true,
                   message: 'Please input your Username',
-                },
-                {
-                  validator: this.validateUsedUserName,
                 },
               ],
             })(<Input prefix={<Icon type="user" />} placeholder="username" />)}
@@ -104,7 +85,7 @@ class SingUpPC extends Component {
               style={{ width: '100%' }}
               disabled={hasErrors(getFieldsError())}
             >
-              Sign up
+              Log in
             </Button>
           </FormItem>
         </Form>
@@ -113,4 +94,4 @@ class SingUpPC extends Component {
   }
 }
 
-export default Form.create()(SingUpPC);
+export default Form.create()(LoginFormPC);
