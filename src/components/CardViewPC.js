@@ -11,30 +11,39 @@ import '../../node_modules/antd/dist/antd.css';
 
 import { ProjectProvider, ProjectConsumer } from '../contexts/ProjectCTX';
 import { TaskProvider, TaskConsumer } from '../contexts/TaskCTX';
+import { UserProvider, UserConsumer } from '../contexts/UserCTX';
+import { LabelProvider } from '../contexts/LabelCTX';
+import { ActivityProvider } from '../contexts/ActivityCTX';
 
 class CardViewPC extends Component {
   render() {
     return (
       <React.Fragment>
-        <ProjectProvider>
-          <TaskProvider>
-            <SideLinePC />
-            <div>
-              <span>Welcome SeemVA</span>
-              <UserIconPC />
-              <Icon type="plus" />
-            </div>
-            <SearchBarPC />
-            <ProjectConsumer>
-              {({ projects }) =>
-                projects.map(project => (
-                  <ProjectCardUnitPC key={project.id} {...project} />
-                ))
-              }
-            </ProjectConsumer>
-            <CardViewAddProjectPC />
-          </TaskProvider>
-        </ProjectProvider>
+        <UserProvider>
+          <ProjectProvider>
+            <LabelProvider>
+              <TaskProvider>
+                <ActivityProvider>
+                  <SideLinePC />
+                  <div>
+                    <span>Welcome SeemVA</span>
+                    <UserIconPC />
+                    <Icon type="plus" />
+                  </div>
+                  <SearchBarPC />
+                  <ProjectConsumer>
+                    {({ projects }) =>
+                      projects.map(project => (
+                        <ProjectCardUnitPC key={project.id} {...project} />
+                      ))
+                    }
+                  </ProjectConsumer>
+                  <CardViewAddProjectPC />
+                </ActivityProvider>
+              </TaskProvider>
+            </LabelProvider>
+          </ProjectProvider>
+        </UserProvider>
       </React.Fragment>
     );
   }

@@ -2,67 +2,63 @@ import React, { Component } from 'react';
 
 const { Provider, Consumer } = React.createContext();
 
-class UserProvider extends Component {
+class LabelProvider extends Component {
   state = {
-    users: [
+    labels: [
       {
         id: 1,
-        username: 'fds',
+        teamId: 1,
+        color: 'red',
+        body: 'label_01',
       },
       {
-        username: 'loki',
         id: 2,
+        teamId: 1,
+        color: 'blue',
+        body: 'label_02',
       },
       {
-        username: 'jojo',
         id: 3,
+        teamId: 1,
+        color: 'grean',
+        body: 'label_03',
       },
     ],
-    user_tasks: [
+    label_tasks: [
       {
         id: 1,
-        userId: 1,
+        labelId: 1,
         taskId: 1,
       },
       {
         id: 2,
-        userId: 1,
+        labelId: 2,
         taskId: 2,
       },
       {
         id: 3,
-        userId: 1,
+        labelId: 3,
         taskId: 3,
       },
       {
         id: 4,
-        userId: 2,
-        taskId: 1,
+        labelId: 1,
+        taskId: 4,
       },
       {
         id: 5,
-        userId: 2,
-        taskId: 2,
+        labelId: 2,
+        taskId: 5,
       },
       {
         id: 6,
-        userId: 3,
-        taskId: 4,
+        labelId: 3,
+        taskId: 1,
       },
       {
         id: 7,
-        userId: 3,
-        taskId: 5,
-      },
-      {
-        id: 8,
-        userId: 2,
-        taskId: 4,
-      },
-      {
-        id: 9,
-        userId: 1,
-        taskId: 5,
+        labelId: 1,
+        taskId: 2,
       },
     ],
   };
@@ -73,4 +69,4 @@ class UserProvider extends Component {
   }
 }
 
-export { UserProvider, Consumer as UserConsumer };
+export { LabelProvider, Consumer as LabelConsumer };
