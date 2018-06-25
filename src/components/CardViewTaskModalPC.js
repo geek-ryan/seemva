@@ -5,6 +5,8 @@ import { LabelConsumer } from '../contexts/LabelCTX';
 import { TaskConsumer } from '../contexts/TaskCTX';
 import { ActivityConsumer } from '../contexts/ActivityCTX';
 
+import EditableTextareaPC from './EditableTextareaPC';
+
 class CardViewTaskModalPC extends Component {
   state = {
     visible: false,
@@ -40,7 +42,8 @@ class CardViewTaskModalPC extends Component {
   render() {
     return (
       <React.Fragment>
-        <p>{this.props.body}</p>
+        <EditableTextareaPC className="title" body={this.props.title} />
+        <EditableTextareaPC body={this.props.body} />
         <div
           className={this.props.complete ? '' : 'hidden'}
           onClick={this.handleCompleteChange}
@@ -79,9 +82,7 @@ class CardViewTaskModalPC extends Component {
               activities.map(
                 activity =>
                   activity.taskId === this.props.id ? (
-                    <span key={activity.id}>
-                      username / {activity.body} / {activity.logDate}
-                    </span>
+                    <EditableTextareaPC key={activity.id} {...activity} />
                   ) : (
                     ''
                   )

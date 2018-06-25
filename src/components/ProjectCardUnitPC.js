@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button } from 'antd';
+import { Form, Input, Icon, Button, Modal } from 'antd';
 import CardViewTaskUnitPC from './CardViewTaskUnitPC';
 import CardViewAddTaskPC from './CardViewAddTaskPC';
+
+import CardViewTaskModalPC from './CardViewTaskModalPC';
 
 import '../../node_modules/antd/dist/antd.css';
 
 import { TaskProvider, TaskConsumer } from '../contexts/TaskCTX';
 
 class ProjectCardUnitPC extends Component {
+  state = {
+    visible: false,
+  };
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleOk = e => {
+    this.setState({
+      visible: false,
+    });
+  };
+  handleCancel = e => {
+    this.setState({
+      visible: false,
+    });
+  };
   render() {
     return (
       <React.Fragment>
@@ -30,7 +52,14 @@ class ProjectCardUnitPC extends Component {
             });
           }}
         </TaskConsumer>
-        <CardViewAddTaskPC />
+        <CardViewAddTaskPC onClick={this.showModal} />
+        <Modal
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <CardViewTaskModalPC {...this.props} />
+        </Modal>
       </React.Fragment>
     );
   }

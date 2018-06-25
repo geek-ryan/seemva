@@ -112,7 +112,6 @@ class CardViewTaskUnitPC extends Component {
           </LabelConsumer>
         </div>
         <Modal
-          title={this.props.title}
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
