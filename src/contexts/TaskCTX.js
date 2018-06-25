@@ -12,7 +12,7 @@ class TaskProvider extends Component {
         body: '11',
         startDate: '2018.01.01',
         dueDate: '2018.01.01',
-        complete: false,
+        complete: true,
       },
       {
         id: 2,
@@ -53,9 +53,27 @@ class TaskProvider extends Component {
     ],
   };
 
+  handleComplete = id => {
+    this.setState(() => {
+      const arr = this.state.tasks.map(
+        task => (task.id === id ? { ...task, complete: true } : task)
+      );
+      return { tasks: arr };
+    });
+  };
+
+  handleDelete = id => {
+    this.setState(() => {
+      const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
+      return { tasks: arr };
+    });
+  };
+
   render() {
     const value = {
       tasks: this.state.tasks,
+      handleComplete: this.handleComplete,
+      handleDelete: this.handleDelete,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

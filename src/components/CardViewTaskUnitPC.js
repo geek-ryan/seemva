@@ -1,18 +1,66 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button } from 'antd';
+import { Form, Input, Icon, Button, Modal } from 'antd';
 import { UserConsumer } from '../contexts/UserCTX';
 import { LabelConsumer } from '../contexts/LabelCTX';
 import { TaskConsumer } from '../contexts/TaskCTX';
 import { ActivityConsumer } from '../contexts/ActivityCTX';
 
+import CardViewTaskModalPC from './CardViewTaskModalPC';
+
 class CardViewTaskUnitPC extends Component {
+  state = {
+    visible: false,
+    visibleDelete: false,
+  };
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleOk = e => {
+    this.setState({
+      visible: false,
+    });
+  };
+  handleCancel = e => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+  showModalDelete = () => {
+    this.setState({
+      visibleDelete: true,
+    });
+  };
+
+  handleCancelDelete = e => {
+    this.setState({
+      visibleDelete: false,
+    });
+  };
+
+  handleUnitDelete = () => {
+    this.props.onDelete(this.props.id);
+  };
+
   render() {
     // console.log('task props:', this.props);
     return (
       <React.Fragment>
         <Icon type={this.props.complete ? 'check-circle' : 'check-circle-o'} />
-        <Icon type="delete" />
-        <h2>{this.props.title}</h2>
+        <Icon onClick={this.showModalDelete} type="delete" />
+        <Modal
+          title="Delete Task"
+          visible={this.state.visibleDelete}
+          onOk={this.handleUnitDelete}
+          onCancel={this.handleCancelDelete}
+        >
+          <p>Really sure to delete this task?</p>
+        </Modal>
+        <h2 onClick={this.showModal}>{this.props.title}</h2>
         <span>{this.props.startDate}</span>
         <span>-</span>
         <span>{this.props.dueDate}</span>
@@ -63,6 +111,14 @@ class CardViewTaskUnitPC extends Component {
             }
           </LabelConsumer>
         </div>
+        <Modal
+          title={this.props.title}
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <CardViewTaskModalPC {...this.props} />
+        </Modal>
       </React.Fragment>
     );
   }
