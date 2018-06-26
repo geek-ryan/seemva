@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SignUpConsumer } from '../components/SignUpFormCTX';
+import { SignUpConsumer } from '../contexts/SignUpCTX';
 import SignUpFormPC from '../components/SignUpFormPC';
 
 class SignUpCC extends Component {
