@@ -7,4 +7,14 @@ import { linkTo } from '@storybook/addon-links';
 
 import SignUpFormPC from './SignUpFormPC';
 
-storiesOf('SignUp PC', module).add('with text', () => <SignUpFormPC />);
+const users = [{ username: 'jojo' }, { username: 'loki' }, { username: 'fds' }];
+
+storiesOf('SignUp PC', module)
+  .add('empty', () => <SignUpFormPC />)
+  .add('used name', () => (
+    <SignUpFormPC
+      onBlurUserName={username =>
+        users.some(user => user.username === username)
+      }
+    />
+  ));
