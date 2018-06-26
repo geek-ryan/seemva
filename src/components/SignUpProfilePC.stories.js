@@ -11,5 +11,5 @@ storiesOf('SignUp Profile', module)
   .add('empty', () => <SignUpProfilePC />)
   .add('loading', () => <SignUpProfilePC loading="true" />)
   .add('uploaded image', () => (
-    <SignUpProfilePC imageUrl="https://avatars0.githubusercontent.com/u/15900134?s=400&u=b92f6ec77681a5c7065a0811d2453f4c5f694a19&v=4" />
+    <SignUpProfilePC profile="https://ucarecdn.com/42cb0754-f7d7-4f0d-b546-3a4195402409/jojo.jpg" />
   ));
