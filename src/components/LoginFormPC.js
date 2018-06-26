@@ -41,11 +41,12 @@ class LoginFormPC extends Component {
       isFieldTouched('username') && getFieldError('username');
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
+    console.log(getFieldsError());
     return (
       <div>
         {errorCode === 400 ? (
           <Alert
-            message="please check your username and password and try again"
+            message="Please check your username and password, and try again"
             type="warning"
             showIcon
           />

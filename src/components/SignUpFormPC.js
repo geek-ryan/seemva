@@ -16,6 +16,10 @@ class SingUpPC extends Component {
     onBlurUserName: () => {},
   };
 
+  state = {
+    confirmDirty: false,
+  };
+
   componentDidMount() {
     this.props.form.validateFields();
   }
@@ -24,14 +28,20 @@ class SingUpPC extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSubmitRegister(values);
+        this.props.onSubmitLogin(values);
       }
     });
   };
 
   validateUsedUserName = (rule, value, callback) => {
-    if (this.props.onBlurUserName(value)) {
-      callback('The name is already used');
+    console.log(this.state.confirmDirty);
+    this.setState(prevState => ({
+      confirmDirty: prevState && !!this.props.onBlurUserName(value),
+    }));
+    if (value && this.state.confirmDirty) {
+      callback('The name is already used...');
+    } else {
+      callback();
     }
   };
 
@@ -49,6 +59,7 @@ class SingUpPC extends Component {
       isFieldTouched('username') && getFieldError('username');
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
+    console.log(getFieldsError());
     return (
       <div>
         {errorCode ? (

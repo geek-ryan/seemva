@@ -8,7 +8,7 @@ class LoginPage extends Component {
     return (
       <div className="login-page">
         <LoginCC />
-        <Link to="/sign_up">Log in</Link>
+        <Link to="/sign_up">Sign up</Link>
       </div>
     );
   }

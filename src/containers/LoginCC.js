@@ -25,7 +25,7 @@ class LoginCC extends Component {
                   await login(username, password);
                   this.setState({ success: true });
                 } catch (e) {
-                  if (e.response && e.response === 400) {
+                  if (e.response && e.response.status === 400) {
                     this.setState({ errorCode: 400 });
                   } else {
                     this.setState({ errorCode: 500 });

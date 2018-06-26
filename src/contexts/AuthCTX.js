@@ -8,10 +8,22 @@ const { Provider, Consumer } = React.createContext({
 class AuthProvider extends Component {
   state = {
     users: [],
+    loading: false,
+    id: null,
+    usernmae: null,
   };
 
   async componentDidMount() {
-    await this.fetchUser();
+    if (this.state.loading) {
+    } else {
+      await this.fetchUser();
+    }
+  }
+
+  async fetchMe() {
+    this.setState(prevState => ({
+      loading: prevState.loading + 1,
+    }));
   }
 
   async fetchUser() {
