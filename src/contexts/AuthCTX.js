@@ -13,17 +13,25 @@ class AuthProvider extends Component {
     usernmae: null,
   };
 
-  async componentDidMount() {
-    if (this.state.loading) {
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.fetchMe();
     } else {
-      await this.fetchUser();
+      this.fetchUser();
     }
   }
 
   async fetchMe() {
-    this.setState(prevState => ({
-      loading: prevState.loading + 1,
-    }));
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.get('/me');
+      this.setState({
+        id: res.data.id,
+        username: res.data.username,
+      });
+    } finally {
+      this.setState({ loading: false });
+    }
   }
 
   async fetchUser() {
@@ -34,27 +42,41 @@ class AuthProvider extends Component {
   }
 
   register = async (username, password, email, profile) => {
-    const res = await serverAPI.post('/users/register', {
-      username,
-      password,
-      email,
-      profile,
-    });
-    localStorage.setItem('token', `Bearer ${res.data.token}`);
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.post('/users/register', {
+        username,
+        password,
+        email,
+        profile,
+      });
+      localStorage.setItem('token', res.data.token);
+      await this.fetchMe();
+    } finally {
+      this.setState({ loading: false });
+    }
   };
 
   login = async (username, password) => {
-    const res = await serverAPI.post('/users/login', {
-      username,
-      password,
-    });
-    localStorage.setItem('token', `Bearer ${res.data.token}`);
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.post('/users/login', {
+        username,
+        password,
+      });
+      localStorage.setItem('token', res.data.token);
+      await this.fetchMe();
+    } finally {
+      this.setState({ loading: true });
+    }
   };
 
   render() {
     const value = {
       register: this.register,
       login: this.login,
+      id: this.state.id,
+      username: this.state.username,
       users: this.state.users,
     };
     return <Provider value={value}>{this.props.children}</Provider>;

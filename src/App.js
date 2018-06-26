@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 
 import { AuthProvider } from './contexts/AuthCTX';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
+import TeamPage from './pages/TeamPage';
 
 class App extends Component {
   render() {
@@ -11,18 +17,27 @@ class App extends Component {
       <Router>
         <AuthProvider>
           <div className="App">
-            <Route path="/sign_up" component={SignUpPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route exact path="/" component={Home} />
+            <Switch>
+              <Route path="/sign_up" component={SignUpPage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/team/:id" component={TeamPage} />
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  localStorage.getItem('token') ? (
+                    <Redirect to="/team/1" />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                }
+              />
+            </Switch>
           </div>
         </AuthProvider>
       </Router>
     );
   }
-}
-
-function Home() {
-  return <div>HOME</div>;
 }
 
 export default App;
