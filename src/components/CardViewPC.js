@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Modal } from 'antd';
+import { Form, Input, Icon, Button, Modal, Layout } from 'antd';
 
-import UserIconPC from './UserIconPC';
-import SearchBarPC from './SearchBarPC';
 import ProjectCardUnitPC from './ProjectCardUnitPC';
 import CardViewAddProjectPC from './CardViewAddProjectPC';
 import SideLinePC from './SideLinePC';
+import SidebarPC from './SidebarPC';
+import HeaderPC from './HeaderPC';
 
 import '../../node_modules/antd/dist/antd.css';
 
@@ -14,12 +14,34 @@ import { TaskProvider, TaskConsumer } from '../contexts/TaskCTX';
 import { UserProvider, UserConsumer } from '../contexts/UserCTX';
 import { LabelProvider } from '../contexts/LabelCTX';
 import { ActivityProvider } from '../contexts/ActivityCTX';
+import { TeamProvider } from '../contexts/TeamCTX';
+
+const { Header, Footer, Sider, Content } = Layout;
 
 class CardViewPC extends Component {
   state = {
     visible: false,
     visibleUser: false,
+    body: '',
   };
+
+  handleChange = e => {
+    this.setState({ body: e.target.value });
+    console.log(this.state.body);
+  };
+
+  handleAddProject = body => {
+    const obj = {
+      title: body,
+      userId: 1,
+      teamId: 1,
+    };
+    console.log('obj :', obj);
+    this.props.onAdd(obj);
+    this.setState({ body: '' });
+  };
+
+  // modal project -------------------------------
 
   showModal = () => {
     this.setState({
@@ -28,6 +50,8 @@ class CardViewPC extends Component {
   };
 
   handleOk = e => {
+    console.log('click ok');
+    this.handleAddProject(this.state.body);
     this.setState({
       visible: false,
     });
@@ -37,6 +61,8 @@ class CardViewPC extends Component {
       visible: false,
     });
   };
+
+  // modal user -------------------------------
 
   showModalUser = () => {
     this.setState({
@@ -58,48 +84,37 @@ class CardViewPC extends Component {
   render() {
     return (
       <React.Fragment>
-        <UserProvider>
-          <ProjectProvider>
-            <LabelProvider>
-              <TaskProvider>
-                <ActivityProvider>
-                  <SideLinePC />
-                  <div>
-                    <span>Welcome SeemVA</span>
-                    <UserIconPC />
-                    <Icon type="plus" onClick={this.showModalUser} />
-                  </div>
-                  <Modal
-                    title={'New Member'}
-                    visible={this.state.visibleUser}
-                    onOk={this.handleOkUser}
-                    onCancel={this.handleCancelUser}
-                  >
-                    <p>This will be search form for member</p>
-                  </Modal>
-                  <SearchBarPC />
-                  <ProjectConsumer>
-                    {({ projects }) =>
-                      projects.map(project => (
-                        <ProjectCardUnitPC key={project.id} {...project} />
-                      ))
-                    }
-                  </ProjectConsumer>
-                  <div onClick={this.showModal}>
-                    <Icon type="plus" /> Add New Project
-                  </div>
-                  <Modal
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                  >
-                    <p>Title you want</p>
-                  </Modal>
-                </ActivityProvider>
-              </TaskProvider>
-            </LabelProvider>
-          </ProjectProvider>
-        </UserProvider>
+        <ProjectConsumer>
+          {({ projects }) => {
+            return (
+              <TaskConsumer>
+                {({ handleAddTask }) => {
+                  return projects.map(project => (
+                    <ProjectCardUnitPC
+                      key={project.id}
+                      onAdd={handleAddTask}
+                      {...project}
+                    />
+                  ));
+                }}
+              </TaskConsumer>
+            );
+          }}
+        </ProjectConsumer>
+        <div onClick={this.showModal}>
+          <Icon type="plus" /> Add New Project
+        </div>
+        <Modal
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <input
+            value={this.state.body}
+            onChange={this.handleChange}
+            placeholder="project title"
+          />
+        </Modal>
       </React.Fragment>
     );
   }
