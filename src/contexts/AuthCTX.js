@@ -3,6 +3,7 @@ import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext({
   register: (username, password, email, profile) => {},
+  login: async (username, password) => {},
 });
 
 class AuthProvider extends Component {

@@ -13,7 +13,6 @@ class SingUpPC extends Component {
   static defaultProps = {
     errorCode: 0,
     onSubmitRegister: () => {},
-    onBlurUserName: () => {},
   };
 
   state = {
@@ -28,7 +27,7 @@ class SingUpPC extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSubmitLogin(values);
+        this.props.onSubmitRegister(values);
       }
     });
   };
@@ -59,10 +58,15 @@ class SingUpPC extends Component {
       isFieldTouched('username') && getFieldError('username');
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
-    console.log(getFieldsError());
     return (
       <div>
-        {errorCode ? (
+        {errorCode === 400 ? (
+          <Alert
+            message="The name is already used..."
+            type="warning"
+            showIcon
+          />
+        ) : errorCode === 500 ? (
           <Alert
             message="Network error : please try again later"
             type="error"
@@ -96,9 +100,6 @@ class SingUpPC extends Component {
                 {
                   required: true,
                   message: 'Please input your Username',
-                },
-                {
-                  validator: this.validateUsedUserName,
                 },
               ],
             })(<Input prefix={<Icon type="user" />} placeholder="username" />)}
