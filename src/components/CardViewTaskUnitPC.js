@@ -10,7 +10,6 @@ import CardViewTaskModalPC from './CardViewTaskModalPC';
 class CardViewTaskUnitPC extends Component {
   state = {
     visible: false,
-    visibleDelete: false,
   };
 
   showModal = () => {
@@ -24,26 +23,34 @@ class CardViewTaskUnitPC extends Component {
       visible: false,
     });
   };
+
   handleCancel = e => {
     this.setState({
       visible: false,
     });
   };
 
-  showModalDelete = () => {
-    this.setState({
-      visibleDelete: true,
-    });
-  };
-
-  handleCancelDelete = e => {
-    this.setState({
-      visibleDelete: false,
-    });
-  };
-
   handleUnitDelete = () => {
     this.props.onDelete(this.props.id);
+  };
+
+  showDeleteConfirm = () => {
+    const Delete = this.handleUnitDelete;
+
+    Modal.confirm({
+      title: 'Are you sure delete this task?',
+      content: 'Some descriptions',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        Delete();
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
   };
 
   render() {
@@ -54,7 +61,10 @@ class CardViewTaskUnitPC extends Component {
           <Icon
             type={this.props.complete ? 'check-circle' : 'check-circle-o'}
           />
-          <Icon onClick={this.showModalDelete} type="delete" />
+
+          <Icon onClick={this.showDeleteConfirm} type="delete" />
+
+          {/*
           <Modal
             title="Delete Task"
             visible={this.state.visibleDelete}
@@ -62,7 +72,9 @@ class CardViewTaskUnitPC extends Component {
             onCancel={this.handleCancelDelete}
           >
             <p>Really sure to delete this task?</p>
-          </Modal>
+            </Modal>
+          */}
+
           <h2 onClick={this.showModal}>{this.props.title}</h2>
           <span>{this.props.startDate}</span>
           <span>-</span>
@@ -91,7 +103,7 @@ class CardViewTaskUnitPC extends Component {
                 activities.map(
                   activity => (activity.taskId === this.props.id ? i++ : '')
                 );
-                return <span>{i}</span>;
+                return <span key={this.props.id}>{i}</span>;
               }}
             </ActivityConsumer>
           </div>
@@ -119,7 +131,15 @@ class CardViewTaskUnitPC extends Component {
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
-            <CardViewTaskModalPC {...this.props} />
+            <TaskConsumer>
+              {({ handleDelete, handleComplete }) => (
+                <CardViewTaskModalPC
+                  onComplete={this.handleComplete}
+                  onDelete={this.handleDelete}
+                  {...this.props}
+                />
+              )}
+            </TaskConsumer>
           </Modal>
         </Card>
       </React.Fragment>
