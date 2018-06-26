@@ -27,7 +27,6 @@ class SignUpCC extends Component {
                     loading={loading}
                     onOpenDialog={openUploadWiget}
                     onDeletProfile={async () => {
-                      console.log('deleleelelel');
                       await deleteProfile();
                     }}
                   />
@@ -45,9 +44,6 @@ class SignUpCC extends Component {
                         }
                       }
                     }}
-                    onBlurUserName={username =>
-                      users.some(user => user.username === username)
-                    }
                     errorCode={errorCode}
                   />
                 </React.Fragment>
