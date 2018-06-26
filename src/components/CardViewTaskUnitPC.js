@@ -131,7 +131,15 @@ class CardViewTaskUnitPC extends Component {
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
-            <CardViewTaskModalPC {...this.props} />
+            <TaskConsumer>
+              {({ handleDelete, handleComplete }) => (
+                <CardViewTaskModalPC
+                  onComplete={this.handleComplete}
+                  onDelete={this.handleDelete}
+                  {...this.props}
+                />
+              )}
+            </TaskConsumer>
           </Modal>
         </Card>
       </React.Fragment>

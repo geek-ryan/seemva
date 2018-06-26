@@ -11,7 +11,7 @@ import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import TeamPage from './pages/TeamPage';
 
-import Card from './components/CardViewPC'; //for test. not nessasary
+import Card from './pages/CardViewPage'; //for test. not nessasary
 
 class App extends Component {
   render() {
