@@ -48,6 +48,8 @@ class ProjectCardUnitPC extends Component {
     this.props.onAdd(obj);
     this.setState({
       visible: false,
+      title: '',
+      body: '',
     });
   };
   handleCancel = e => {
