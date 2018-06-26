@@ -43,8 +43,21 @@ class ActivityProvider extends Component {
     ],
   };
 
+  handleAddActivity = o => {
+    const arr = this.state.activities.slice();
+    const brr = this.state.activities.slice();
+    const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
+    const obj = { ...o, id: num };
+    brr.push(obj);
+    this.setState({ activities: brr });
+  };
+
   render() {
-    const value = this.state;
+    const value = {
+      value: this.state,
+      activities: this.state.activities,
+      handleAddActivity: this.handleAddActivity,
+    };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }

@@ -64,7 +64,7 @@ class ProjectCardUnitPC extends Component {
         <Card style={{ width: 400 }}>
           <EditableTextareaPC body={this.props.title} />
           <TaskConsumer>
-            {({ tasks, handleComplete, handleDelete }) => {
+            {({ tasks, handleComplete, handleDelete, handleAddTask }) => {
               // console.log(this.props.id);
               return tasks.map(task => {
                 // console.log(Task.projectId);
@@ -73,7 +73,9 @@ class ProjectCardUnitPC extends Component {
                     key={task.id}
                     onComplete={handleComplete}
                     onDelete={handleDelete}
+                    onAdd={handleAddTask}
                     {...task}
+                    taskId={task.id}
                   />
                 ) : (
                   ''

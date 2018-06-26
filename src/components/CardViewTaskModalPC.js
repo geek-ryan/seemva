@@ -65,7 +65,15 @@ class CardViewTaskModalPC extends Component {
           </Button>
         </div>
 
-        <ActivityPC />
+        <ActivityConsumer>
+          {({ activities, handleAddActivity }) => (
+            <ActivityPC
+              onAdd={handleAddActivity}
+              activities={activities}
+              taskId={this.props.taskId}
+            />
+          )}
+        </ActivityConsumer>
       </React.Fragment>
     );
   }

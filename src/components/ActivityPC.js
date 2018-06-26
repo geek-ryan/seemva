@@ -8,37 +8,57 @@ import { ActivityConsumer } from '../contexts/ActivityCTX';
 import EditableTextareaPC from './EditableTextareaPC';
 
 class ActivityPC extends Component {
+  state = {
+    body: '',
+  };
+
+  handleChange = e => {
+    this.setState({ body: e.target.value });
+    console.log(this.state.body);
+  };
+
+  handleAddActivity = () => {
+    console.log('get add button');
+    const obj = {
+      body: this.state.body,
+      taskId: this.props.taskId,
+      userId: 1,
+      logDate: '2018-06-10',
+    };
+    this.props.onAdd(obj);
+  };
+
   render() {
     return (
       <React.Fragment>
         <div>Activities</div>
+
         <Form>
           <Form.Item>
-            <Input placeholder="activity" />
+            <Input placeholder="activity" onChange={this.handleChange} />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={this.handleAddActivity}
+            >
               Submit
             </Button>
           </Form.Item>
         </Form>
-        <div>
-          <ActivityConsumer>
-            {({ activities }) =>
-              activities.map(
-                activity =>
-                  activity.taskId === this.props.id ? (
-                    <div key={activity.id}>
-                      <EditableTextareaPC {...activity} />
-                      <Icon type="close-square-o" />
-                    </div>
-                  ) : (
-                    ''
-                  )
-              )
-            }
-          </ActivityConsumer>
-        </div>
+
+        {this.props.activities.map(
+          activity =>
+            activity.taskId === this.props.taskId ? (
+              <div key={activity.id}>
+                <EditableTextareaPC {...activity} />
+                <Icon type="close-square-o" />
+              </div>
+            ) : (
+              ''
+            )
+        )}
       </React.Fragment>
     );
   }
