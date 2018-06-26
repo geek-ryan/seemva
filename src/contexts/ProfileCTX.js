@@ -25,7 +25,6 @@ class ProfileProvider extends Component {
       loading: true,
     });
     await file.done(fileInfo => {
-      console.log(fileInfo.uuid);
       this.setState({
         profile: fileInfo.cdnUrl,
         loading: false,
@@ -42,7 +41,7 @@ class ProfileProvider extends Component {
     this.setState({
       profile: '',
     });
-    const res = await axios({
+    await axios({
       baseURL: 'https://api.uploadcare.com',
       url: `/files/${imageId}/`,
       method: 'delete',
@@ -53,7 +52,6 @@ class ProfileProvider extends Component {
         }:${process.env.REACT_APP_UPLOADCARE_PRIVATE_KEY}`,
       },
     });
-    console.log(res);
   };
 
   render() {
