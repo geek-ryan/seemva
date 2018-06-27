@@ -6,11 +6,10 @@ import { Icon, Button, Avatar } from 'antd';
 
 class SideNavPC extends Component {
   static defaultProps = {
-    profile:
-      'https://ucarecdn.com/5b14a540-6614-4601-b152-bda6521326d7/IMG_3486.JPG',
-    // profile: '',
-    username: 'chichi',
+    profile: '',
+    username: '',
     onChangeProfile: () => {},
+    onLogout: () => {},
   };
 
   state = {
@@ -25,7 +24,7 @@ class SideNavPC extends Component {
 
   render() {
     const { open } = this.state;
-    const { profile, username, onChangeProfile } = this.props;
+    const { profile, username, onChangeProfile, onLogout } = this.props;
     return (
       <div className={classNames('sidebar', open ? '' : 'sidebar--closed')}>
         <Button
@@ -93,10 +92,11 @@ class SideNavPC extends Component {
             <Link to="/team/3" className="team-menu-item">
               team3
             </Link>
+            <Button icon="plus" className="team-add-button">
+              add team
+            </Button>
           </div>
-          <Button icon="plus" className="team-add-button">
-            add team
-          </Button>
+          <Button onClick={onLogout}>Log out</Button>
         </div>
       </div>
     );
