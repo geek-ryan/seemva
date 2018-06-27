@@ -30,7 +30,9 @@ class ActivityPC extends Component {
 
   handleDeleteActivity = e => {
     console.log(e.target.value);
-    this.props.onDelete(e.target.value);
+    const id = parseInt(e.target.value);
+    const func = this.props.onDelete;
+    func(id);
   };
 
   render() {
@@ -58,11 +60,9 @@ class ActivityPC extends Component {
             activity.taskId === this.props.taskId ? (
               <div key={activity.id}>
                 <EditableTextareaPC {...activity} />
-                <Icon
-                  value={activity.id}
-                  onClick={this.handleDeleteActivity}
-                  type="close-square-o"
-                />
+                <Button value={activity.id} onClick={this.handleDeleteActivity}>
+                  <Icon type="close" />
+                </Button>
               </div>
             ) : (
               ''
