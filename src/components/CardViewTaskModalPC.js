@@ -66,10 +66,11 @@ class CardViewTaskModalPC extends Component {
         </div>
 
         <ActivityConsumer>
-          {({ activities, handleAddActivity }) => (
+          {({ activities, handleAddActivity, handleDeleteActivity }) => (
             <ActivityPC
               onAdd={handleAddActivity}
               activities={activities}
+              onDelete={handleDeleteActivity}
               taskId={this.props.taskId}
             />
           )}

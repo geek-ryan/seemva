@@ -98,7 +98,7 @@ class CardViewTaskUnitPC extends Component {
           <div>
             <Icon type="message" />
             <ActivityConsumer>
-              {({ activities }) => {
+              {({ activities, handleAddActivity, handleDeleteActivity }) => {
                 let i = 0;
                 activities.map(
                   activity => (activity.taskId === this.props.id ? i++ : '')

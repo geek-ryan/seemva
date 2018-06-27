@@ -28,6 +28,11 @@ class ActivityPC extends Component {
     this.props.onAdd(obj);
   };
 
+  handleDeleteActivity = e => {
+    console.log(e.target.value);
+    this.props.onDelete(e.target.value);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -53,7 +58,11 @@ class ActivityPC extends Component {
             activity.taskId === this.props.taskId ? (
               <div key={activity.id}>
                 <EditableTextareaPC {...activity} />
-                <Icon type="close-square-o" />
+                <Icon
+                  value={activity.id}
+                  onClick={this.handleDeleteActivity}
+                  type="close-square-o"
+                />
               </div>
             ) : (
               ''

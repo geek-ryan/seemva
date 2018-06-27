@@ -52,11 +52,21 @@ class ActivityProvider extends Component {
     this.setState({ activities: brr });
   };
 
+  handleDeleteActivity = id => {
+    this.setState(() => {
+      const arr = this.state.activities.map(
+        activity => (activity.id === id ? '' : activity)
+      );
+      return { activities: arr };
+    });
+  };
+
   render() {
     const value = {
       value: this.state,
       activities: this.state.activities,
       handleAddActivity: this.handleAddActivity,
+      handleDeleteActivity: this.handleDeleteActivity,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
