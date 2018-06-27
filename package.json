@@ -28,6 +28,7 @@
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
     "eslint-plugin-prettier": "^2.6.1",
-    "prettier": "^1.13.5"
+    "prettier": "^1.13.5",
+    "storybook-react-router": "^1.0.1"
   }
 }
