@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, DatePicker } from 'antd';
 
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import ActivityPC from '../cardview/ActivityPC';
+
+var moment = require('moment');
 
 class CardViewTaskModalPC extends Component {
   static defaultProps = {
@@ -48,6 +50,26 @@ class CardViewTaskModalPC extends Component {
     });
   };
 
+  handleStartDateChange = (date, dateString) => {
+    const startMoment = moment(dateString, 'YYYY-MM-DD');
+    const dueMoment = moment(this.props.task.dueDate, 'YYYY-MM-DD');
+    if (startMoment > dueMoment) {
+      alert('Please check date again');
+    } else {
+      this.props.handleEditTask(this.props.task.id, 'startDate', dateString);
+    }
+  };
+
+  handleDueDateChange = (date, dateString) => {
+    const startMoment = moment(this.props.task.startDate, 'YYYY-MM-DD');
+    const dueMoment = moment(dateString, 'YYYY-MM-DD');
+    if (startMoment > dueMoment) {
+      alert('Please check date again');
+    } else {
+      this.props.handleEditTask(this.props.task.id, 'dueDate', dateString);
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -70,6 +92,18 @@ class CardViewTaskModalPC extends Component {
           <Button onClick={this.showDeleteConfirm} type="dashed">
             Delete
           </Button>
+        </div>
+        <div>
+          start date:
+          <DatePicker
+            onChange={this.handleStartDateChange}
+            value={moment(this.props.task.startDate, 'YYYY-MM-DD')}
+          />
+          due date:
+          <DatePicker
+            onChange={this.handleDueDateChange}
+            value={moment(this.props.task.dueDate, 'YYYY-MM-DD')}
+          />
         </div>
         <ActivityPC {...this.props} />
       </React.Fragment>
