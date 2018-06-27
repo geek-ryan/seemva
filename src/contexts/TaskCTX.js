@@ -69,11 +69,21 @@ class TaskProvider extends Component {
     });
   };
 
+  handleAddTask = o => {
+    const arr = this.state.tasks.slice();
+    const brr = this.state.tasks.slice();
+    const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
+    const obj = { ...o, id: num };
+    brr.push(obj);
+    this.setState({ tasks: brr });
+  };
+
   render() {
     const value = {
       tasks: this.state.tasks,
       handleComplete: this.handleComplete,
       handleDelete: this.handleDelete,
+      handleAddTask: this.handleAddTask,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

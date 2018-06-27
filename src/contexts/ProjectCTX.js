@@ -23,15 +23,20 @@ class ProjectProvider extends Component {
   };
 
   handleAddProject = o => {
-    const arr = this.state.projects.map();
+    const arr = this.state.projects.slice();
+    const brr = this.state.projects.slice();
     const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
     const obj = { ...o, id: num };
-    arr.push(obj);
-    this.setState({ projects: arr });
+    brr.push(obj);
+    this.setState({ projects: brr });
   };
 
   render() {
-    const value = this.state;
+    const value = {
+      value: this.state,
+      projects: this.state.projects,
+      handleAddProject: this.handleAddProject,
+    };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }

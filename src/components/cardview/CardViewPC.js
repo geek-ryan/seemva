@@ -27,6 +27,7 @@ class CardViewPC extends Component {
 
   handleChange = e => {
     this.setState({ body: e.target.value });
+    console.log(this.state.body);
   };
 
   handleAddProject = body => {
@@ -35,7 +36,7 @@ class CardViewPC extends Component {
       userId: 1,
       teamId: 1,
     };
-    console.log(obj);
+    console.log('obj :', obj);
     this.props.onAdd(obj);
     this.setState({ body: '' });
   };
@@ -84,11 +85,21 @@ class CardViewPC extends Component {
     return (
       <React.Fragment>
         <ProjectConsumer>
-          {({ projects }) =>
-            projects.map(project => (
-              <ProjectCardUnitPC key={project.id} {...project} />
-            ))
-          }
+          {({ projects }) => {
+            return (
+              <TaskConsumer>
+                {({ handleAddTask }) => {
+                  return projects.map(project => (
+                    <ProjectCardUnitPC
+                      key={project.id}
+                      onAdd={handleAddTask}
+                      {...project}
+                    />
+                  ));
+                }}
+              </TaskConsumer>
+            );
+          }}
         </ProjectConsumer>
         <div onClick={this.showModal}>
           <Icon type="plus" /> Add New Project

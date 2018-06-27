@@ -98,7 +98,7 @@ class CardViewTaskUnitPC extends Component {
           <div>
             <Icon type="message" />
             <ActivityConsumer>
-              {({ activities }) => {
+              {({ activities, handleAddActivity, handleDeleteActivity }) => {
                 let i = 0;
                 activities.map(
                   activity => (activity.taskId === this.props.id ? i++ : '')
@@ -131,15 +131,13 @@ class CardViewTaskUnitPC extends Component {
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
-            <TaskConsumer>
-              {({ handleDelete, handleComplete }) => (
-                <CardViewTaskModalPC
-                  onComplete={this.handleComplete}
-                  onDelete={this.handleDelete}
-                  {...this.props}
-                />
-              )}
-            </TaskConsumer>
+            <CardViewTaskModalPC
+              onComplete={this.props.handleComplete}
+              onDelete={this.props.handleDelete}
+              onAdd={this.props.handleAddTask}
+              taskId={this.props.taskId}
+              {...this.props}
+            />
           </Modal>
         </Card>
       </React.Fragment>
