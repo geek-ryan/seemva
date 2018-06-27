@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 
 import { AuthConsumer } from '../contexts/AuthCTX';
 import { ProfileProvider, ProfileConsumer } from '../contexts/ProfileCTX';
-import SignUpFormPC from '../components/SignUpFormPC';
-import SignUpProfilePC from '../components/SignUpProfilePC';
+import SignUpFormPC from '../components/sign/SignUpFormPC';
+import SignUpProfilePC from '../components/sign/SignUpProfilePC';
 
 class SignUpCC extends Component {
   state = {

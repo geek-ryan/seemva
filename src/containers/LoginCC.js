@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { AuthConsumer } from '../contexts/AuthCTX';
-import LoginFormPC from '../components/LoginFormPC';
+import LoginFormPC from '../components/sign/LoginFormPC';
 
 class LoginCC extends Component {
   state = {

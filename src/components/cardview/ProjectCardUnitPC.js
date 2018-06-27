@@ -3,12 +3,12 @@ import { Form, Input, Icon, Button, Modal, Card, DatePicker } from 'antd';
 
 import CardViewTaskUnitPC from './CardViewTaskUnitPC';
 import CardViewAddTaskPC from './CardViewAddTaskPC';
-import CardViewTaskModalPC from './CardViewTaskModalPC';
-import EditableTextareaPC from './EditableTextareaPC';
+import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
+import EditableTextareaPC from '../utils/EditableTextareaPC';
 
-import '../../node_modules/antd/dist/antd.css';
+import '../../../node_modules/antd/dist/antd.css';
 
-import { TaskProvider, TaskConsumer } from '../contexts/TaskCTX';
+import { TaskProvider, TaskConsumer } from '../../contexts/TaskCTX';
 
 class ProjectCardUnitPC extends Component {
   state = {

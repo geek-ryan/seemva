@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Input, Icon, Button, Modal } from 'antd';
-import '../../node_modules/antd/dist/antd.css';
+import '../../../node_modules/antd/dist/antd.css';
 
-import { TeamConsumer } from '../contexts/TeamCTX';
+import { TeamConsumer } from '../../contexts/TeamCTX';
 
 class SidebarPC extends Component {
   state = {

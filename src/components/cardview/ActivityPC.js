@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Form, Input, Icon, Button, Modal } from 'antd';
-import { UserConsumer } from '../contexts/UserCTX';
-import { LabelConsumer } from '../contexts/LabelCTX';
-import { TaskConsumer } from '../contexts/TaskCTX';
-import { ActivityConsumer } from '../contexts/ActivityCTX';
+import { UserConsumer } from '../../contexts/UserCTX';
+import { LabelConsumer } from '../../contexts/LabelCTX';
+import { TaskConsumer } from '../../contexts/TaskCTX';
+import { ActivityConsumer } from '../../contexts/ActivityCTX';
 
-import EditableTextareaPC from './EditableTextareaPC';
+import EditableTextareaPC from '../utils//EditableTextareaPC';
 
 class ActivityPC extends Component {
   state = {

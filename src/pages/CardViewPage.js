@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Input, Icon, Button, Modal, Layout } from 'antd';
 
-import SideLinePC from '../components/SideLinePC';
-import SidebarPC from '../components/SidebarPC';
-import CardViewPC from '../components/CardViewPC';
-import HeaderPC from '../components/HeaderPC';
+import SideLinePC from '../components/layout/SideLinePC';
+import SidebarPC from '../components/layout/SidebarPC';
+import CardViewPC from '../components/cardview/CardViewPC';
+import HeaderPC from '../components/layout/HeaderPC';
 
 import { ProjectProvider, ProjectConsumer } from '../contexts/ProjectCTX';
 import { TaskProvider, TaskConsumer } from '../contexts/TaskCTX';

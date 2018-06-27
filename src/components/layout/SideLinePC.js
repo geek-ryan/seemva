@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Icon, Button } from 'antd';
 
 import SidebarOpenButtonPC from './SidebarOpenButtonPC';
-import UserIconPC from './UserIconPC';
+import UserIconPC from '../utils/UserIconPC';
 import ViewTypeButtonsPC from './ViewTypeButtonsPC';
 
 class SideLinePC extends Component {

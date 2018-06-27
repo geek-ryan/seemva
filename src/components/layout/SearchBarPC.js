@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, Icon, Button } from 'antd';
-import '../../node_modules/antd/dist/antd.css';
+import '../../../node_modules/antd/dist/antd.css';
 
 class SearchBarPC extends Component {
   render() {

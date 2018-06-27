@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Form, Input, Icon, Button, Modal, Card } from 'antd';
-import { UserConsumer } from '../contexts/UserCTX';
-import { LabelConsumer } from '../contexts/LabelCTX';
-import { TaskConsumer } from '../contexts/TaskCTX';
-import { ActivityConsumer } from '../contexts/ActivityCTX';
+import { UserConsumer } from '../../contexts/UserCTX';
+import { LabelConsumer } from '../../contexts/LabelCTX';
+import { TaskConsumer } from '../../contexts/TaskCTX';
+import { ActivityConsumer } from '../../contexts/ActivityCTX';
 
-import CardViewTaskModalPC from './CardViewTaskModalPC';
+import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
 
 class CardViewTaskUnitPC extends Component {
   state = {

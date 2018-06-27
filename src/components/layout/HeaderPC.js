@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Input, Icon, Button, Modal } from 'antd';
-import '../../node_modules/antd/dist/antd.css';
+import '../../../node_modules/antd/dist/antd.css';
 
-import UserIconPC from './UserIconPC';
+import UserIconPC from '../utils/UserIconPC';
 import SearchBarPC from './SearchBarPC';
 
 class HeaderPC extends Component {
