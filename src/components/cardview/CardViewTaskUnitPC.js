@@ -16,7 +16,7 @@ class CardViewTaskUnitPC extends Component {
     handleComplete: () => {},
     handleDelete: () => {},
     handleAddTask: () => {},
-    handleEditTaks: () => {},
+    handleEditTask: () => {},
   };
 
   state = {

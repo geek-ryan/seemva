@@ -12,21 +12,10 @@ class EditableTextareaPC extends Component {
   };
 
   handleOnblur = () => {
-    if (this.props.activity.id && this.props.handleEditActivity) {
-      this.props.handleEditActivity(
-        this.props.activity.id,
-        this.props.keyType,
-        this.state.body
-      );
-    } else if (this.props.task.id && this.props.handleEditTask) {
-      this.props.handleEditTask(
-        this.props.task.id,
-        this.props.keyType,
-        this.state.body
-      );
-    } else if (this.props.project.id && this.props.handleEditProject) {
-      this.props.handleEditProject(
-        this.props.project.id,
+    if (this.props[this.props.datatype].id && this.props.editfunc) {
+      // console.log('get patch', this.props.datatype, this.props.keyType);
+      this.props.editfunc(
+        this.props[this.props.datatype].id,
         this.props.keyType,
         this.state.body
       );
@@ -41,7 +30,7 @@ class EditableTextareaPC extends Component {
 
   handleChange = e => {
     this.setState({ body: e.target.value });
-    console.log(this.state.body);
+    // console.log(this.state.body);
   };
 
   render() {

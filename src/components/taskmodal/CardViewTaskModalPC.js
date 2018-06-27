@@ -53,13 +53,17 @@ class CardViewTaskModalPC extends Component {
       <React.Fragment>
         <EditableTextareaPC
           body={this.props.task.title}
-          taskId={this.props.task.id}
-          keyType="title"
+          keyType={'title'}
+          datatype={'task'}
+          editfunc={this.props.handleEditTask}
+          {...this.props}
         />
         <EditableTextareaPC
           body={this.props.task.body}
-          taskId={this.props.task.id}
-          keyType="body"
+          keyType={'body'}
+          datatype={'task'}
+          editfunc={this.props.handleEditTask}
+          {...this.props}
         />
         <div>
           <Button onClick={this.showConfirm}>Confirm</Button>

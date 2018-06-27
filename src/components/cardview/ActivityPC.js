@@ -62,9 +62,11 @@ class ActivityPC extends Component {
             activity.taskId === this.props.task.id ? (
               <div key={activity.id}>
                 <EditableTextareaPC
-                  keyType={'body'}
                   activity={activity}
                   body={activity.body}
+                  keyType={'body'}
+                  datatype={'activity'}
+                  editfunc={this.props.handleEditActivity}
                   {...this.props}
                 />
                 <Button value={activity.id} onClick={this.handleDeleteActivity}>

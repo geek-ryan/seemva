@@ -23,7 +23,11 @@ class CardViewCC extends Component {
                           {({ labels, label_tasks }) => {
                             return (
                               <ProjectConsumer>
-                                {({ projects, handleAddProject }) => {
+                                {({
+                                  projects,
+                                  handleAddProject,
+                                  handleEditProject,
+                                }) => {
                                   return (
                                     <TaskConsumer>
                                       {({
@@ -31,6 +35,7 @@ class CardViewCC extends Component {
                                         handleComplete,
                                         handleDeleteTask,
                                         handleAddTask,
+                                        handleEditTask,
                                       }) => {
                                         return (
                                           <ActivityConsumer>
@@ -50,6 +55,9 @@ class CardViewCC extends Component {
                                                   handleAddProject={
                                                     handleAddProject
                                                   }
+                                                  handleEditProject={
+                                                    handleEditProject
+                                                  }
                                                   tasks={tasks}
                                                   handleComplete={
                                                     handleComplete
@@ -58,6 +66,9 @@ class CardViewCC extends Component {
                                                     handleDeleteTask
                                                   }
                                                   handleAddTask={handleAddTask}
+                                                  handleEditTask={
+                                                    handleEditTask
+                                                  }
                                                   activities={activities}
                                                   handleAddActivity={
                                                     handleAddActivity

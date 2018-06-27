@@ -64,9 +64,11 @@ class ProjectCardUnitPC extends Component {
       <React.Fragment>
         <Card style={{ width: 400 }}>
           <EditableTextareaPC
-            projectId={this.props.project.id}
-            keyType={'title'}
             body={this.props.project.title}
+            keyType={'title'}
+            datatype={'project'}
+            editfunc={this.props.handleEditProject}
+            {...this.props}
           />
           {this.props.tasks.map(task => {
             return this.props.project.id === task.projectId ? (
