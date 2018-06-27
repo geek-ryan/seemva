@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import { Form, Input, Icon, Button, Modal, Card } from 'antd';
-import { UserConsumer } from '../../contexts/UserCTX';
-import { LabelConsumer } from '../../contexts/LabelCTX';
-import { TaskConsumer } from '../../contexts/TaskCTX';
-import { ActivityConsumer } from '../../contexts/ActivityCTX';
 
 import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
 
 class CardViewTaskUnitPC extends Component {
+  static defaultProps = {
+    project: {},
+    tasks: {},
+    task: {},
+    users: {},
+    activities: {},
+    labels: {},
+    label_tasks: {},
+    handleDeleteTask: () => {},
+    handleComplete: () => {},
+    handleDelete: () => {},
+    handleAddTask: () => {},
+    handleEditTaks: () => {},
+  };
+
   state = {
     visible: false,
   };
@@ -31,7 +42,7 @@ class CardViewTaskUnitPC extends Component {
   };
 
   handleUnitDelete = () => {
-    this.props.onDelete(this.props.id);
+    this.props.handleDeleteTask(this.props.task.id);
   };
 
   showDeleteConfirm = () => {
@@ -54,90 +65,61 @@ class CardViewTaskUnitPC extends Component {
   };
 
   render() {
-    // console.log('task props:', this.props);
     return (
       <React.Fragment>
         <Card style={{ width: 300 }}>
           <Icon
-            type={this.props.complete ? 'check-circle' : 'check-circle-o'}
+            type={this.props.task.complete ? 'check-circle' : 'check-circle-o'}
           />
 
           <Icon onClick={this.showDeleteConfirm} type="delete" />
 
-          {/*
-          <Modal
-            title="Delete Task"
-            visible={this.state.visibleDelete}
-            onOk={this.handleUnitDelete}
-            onCancel={this.handleCancelDelete}
-          >
-            <p>Really sure to delete this task?</p>
-            </Modal>
-          */}
-
-          <h2 onClick={this.showModal}>{this.props.title}</h2>
-          <span>{this.props.startDate}</span>
+          <h2 onClick={this.showModal}>{this.props.task.title}</h2>
+          <span>{this.props.task.startDate}</span>
           <span>-</span>
-          <span>{this.props.dueDate}</span>
+          <span>{this.props.task.dueDate}</span>
           <div>
-            <UserConsumer>
-              {({ users, user_tasks }) =>
-                users.map(user => {
-                  return user_tasks.map(user_task => {
-                    return user.id === user_task.userId &&
-                      this.props.id === user_task.taskId ? (
-                      <span key={user_task.id}> {user.username} </span>
-                    ) : (
-                      ''
-                    );
-                  });
-                })
-              }
-            </UserConsumer>
+            {this.props.users.map(user => {
+              return this.props.user_tasks.map(user_task => {
+                return user.id === user_task.userId &&
+                  this.props.task.id === user_task.taskId ? (
+                  <span key={user_task.id}> {user.username} </span>
+                ) : (
+                  ''
+                );
+              });
+            })}
           </div>
           <div>
             <Icon type="message" />
-            <ActivityConsumer>
-              {({ activities, handleAddActivity, handleDeleteActivity }) => {
-                let i = 0;
-                activities.map(
-                  activity => (activity.taskId === this.props.id ? i++ : '')
-                );
-                return <span key={this.props.id}>{i}</span>;
-              }}
-            </ActivityConsumer>
+            <span>
+              {
+                this.props.activities.filter(
+                  activity => activity.taskId === this.props.task.id
+                ).length
+              }
+            </span>
           </div>
           <div>
-            <LabelConsumer>
-              {({ labels, label_tasks }) =>
-                labels.map(label => {
-                  return label_tasks.map(label_task => {
-                    return label.id === label_task.labelId &&
-                      this.props.id === label_task.taskId ? (
-                      <span key={label_task.id} className={label.color}>
-                        {' '}
-                        {label.body}{' '}
-                      </span>
-                    ) : (
-                      ''
-                    );
-                  });
-                })
-              }
-            </LabelConsumer>
+            {this.props.labels.map(label => {
+              return this.props.label_tasks.map(label_task => {
+                return label.id === label_task.labelId &&
+                  this.props.task.id === label_task.taskId ? (
+                  <span key={label_task.id} className={label.color}>
+                    {label.body}
+                  </span>
+                ) : (
+                  ''
+                );
+              });
+            })}
           </div>
           <Modal
             visible={this.state.visible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
-            <CardViewTaskModalPC
-              onComplete={this.props.handleComplete}
-              onDelete={this.props.handleDelete}
-              onAdd={this.props.handleAddTask}
-              taskId={this.props.taskId}
-              {...this.props}
-            />
+            <CardViewTaskModalPC {...this.props} />
           </Modal>
         </Card>
       </React.Fragment>

@@ -12,12 +12,36 @@ class EditableTextareaPC extends Component {
   };
 
   handleOnblur = () => {
+    if (this.props.activity.id && this.props.handleEditActivity) {
+      this.props.handleEditActivity(
+        this.props.activity.id,
+        this.props.keyType,
+        this.state.body
+      );
+    } else if (this.props.task.id && this.props.handleEditTask) {
+      this.props.handleEditTask(
+        this.props.task.id,
+        this.props.keyType,
+        this.state.body
+      );
+    } else if (this.props.project.id && this.props.handleEditProject) {
+      this.props.handleEditProject(
+        this.props.project.id,
+        this.props.keyType,
+        this.state.body
+      );
+    }
     this.setState({ visible: false });
   };
 
   handleDoubleClick = () => {
     // this.textarea.focus();
     this.setState({ visible: true });
+  };
+
+  handleChange = e => {
+    this.setState({ body: e.target.value });
+    console.log(this.state.body);
   };
 
   render() {
@@ -30,6 +54,7 @@ class EditableTextareaPC extends Component {
               onBlur={this.handleOnblur}
               autoFocus={this.state.visible}
               defaultValue={this.props.body}
+              onChange={this.handleChange}
             />
           ) : (
             <div className="readable">{this.props.body}</div>

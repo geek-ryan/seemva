@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { Form, Input, Icon, Button, Modal, Card, DatePicker } from 'antd';
 
 import CardViewTaskUnitPC from './CardViewTaskUnitPC';
-import CardViewAddTaskPC from './CardViewAddTaskPC';
-import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 
 import '../../../node_modules/antd/dist/antd.css';
 
-import { TaskProvider, TaskConsumer } from '../../contexts/TaskCTX';
-
 class ProjectCardUnitPC extends Component {
+  static defaultProps = {
+    project: {},
+    tasks: {},
+    handleAddProject: () => {},
+  };
+
   state = {
     visible: false,
     title: '',
@@ -21,11 +23,9 @@ class ProjectCardUnitPC extends Component {
 
   handleChangeTitle = e => {
     this.setState({ title: e.target.value });
-    console.log(this.state.title);
   };
   handleChangeBody = e => {
     this.setState({ body: e.target.value });
-    console.log(this.state.body);
   };
 
   // modal ----------------------
@@ -42,16 +42,17 @@ class ProjectCardUnitPC extends Component {
       body: this.state.body,
       startDate: this.state.startDate,
       dueDate: this.state.dueDate,
-      projectId: this.props.id,
+      projectId: this.props.project.id,
       complete: false,
     };
-    this.props.onAdd(obj);
+    this.props.handleAddTask(obj);
     this.setState({
       visible: false,
       title: '',
       body: '',
     });
   };
+
   handleCancel = e => {
     this.setState({
       visible: false,
@@ -62,27 +63,18 @@ class ProjectCardUnitPC extends Component {
     return (
       <React.Fragment>
         <Card style={{ width: 400 }}>
-          <EditableTextareaPC body={this.props.title} />
-          <TaskConsumer>
-            {({ tasks, handleComplete, handleDelete, handleAddTask }) => {
-              // console.log(this.props.id);
-              return tasks.map(task => {
-                // console.log(Task.projectId);
-                return this.props.id === task.projectId ? (
-                  <CardViewTaskUnitPC
-                    key={task.id}
-                    onComplete={handleComplete}
-                    onDelete={handleDelete}
-                    onAdd={handleAddTask}
-                    {...task}
-                    taskId={task.id}
-                  />
-                ) : (
-                  ''
-                );
-              });
-            }}
-          </TaskConsumer>
+          <EditableTextareaPC
+            projectId={this.props.project.id}
+            keyType={'title'}
+            body={this.props.project.title}
+          />
+          {this.props.tasks.map(task => {
+            return this.props.project.id === task.projectId ? (
+              <CardViewTaskUnitPC key={task.id} task={task} {...this.props} />
+            ) : (
+              ''
+            );
+          })}
 
           <div onClick={this.showModal}>
             <Icon type="plus" /> Add New Task

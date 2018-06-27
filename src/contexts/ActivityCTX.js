@@ -61,12 +61,26 @@ class ActivityProvider extends Component {
     });
   };
 
+  handleEditActivity = (id, keyType, body) => {
+    this.setState(() => {
+      let arr = this.state.activities.slice();
+      const brr = arr.map(
+        element =>
+          element.id === parseInt(id)
+            ? { ...element, [keyType]: body }
+            : element
+      );
+      return { activities: brr };
+    });
+  };
+
   render() {
     const value = {
       value: this.state,
       activities: this.state.activities,
       handleAddActivity: this.handleAddActivity,
       handleDeleteActivity: this.handleDeleteActivity,
+      handleEditActivity: this.handleEditActivity,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

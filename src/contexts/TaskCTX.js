@@ -62,7 +62,7 @@ class TaskProvider extends Component {
     });
   };
 
-  handleDelete = id => {
+  handleDeleteTask = id => {
     this.setState(() => {
       const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
       return { tasks: arr };
@@ -82,7 +82,7 @@ class TaskProvider extends Component {
     const value = {
       tasks: this.state.tasks,
       handleComplete: this.handleComplete,
-      handleDelete: this.handleDelete,
+      handleDeleteTask: this.handleDeleteTask,
       handleAddTask: this.handleAddTask,
     };
     return <Provider value={value}>{this.props.children}</Provider>;

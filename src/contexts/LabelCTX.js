@@ -64,7 +64,11 @@ class LabelProvider extends Component {
   };
 
   render() {
-    const value = this.state;
+    const value = {
+      value: this.state,
+      labels: this.state.labels,
+      label_tasks: this.state.label_tasks,
+    };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }
