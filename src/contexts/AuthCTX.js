@@ -3,7 +3,8 @@ import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext({
   register: (username, password, email, profile) => {},
-  login: async (username, password) => {},
+  login: (username, password) => {},
+  logout: () => {},
 });
 
 class AuthProvider extends Component {
@@ -11,7 +12,8 @@ class AuthProvider extends Component {
     users: [],
     loading: false,
     id: null,
-    usernmae: null,
+    username: null,
+    profile: '',
   };
 
   componentDidMount() {
@@ -29,6 +31,7 @@ class AuthProvider extends Component {
       this.setState({
         id: res.data.id,
         username: res.data.username,
+        profile: res.data.profile,
       });
     } finally {
       this.setState({ loading: false });
@@ -72,13 +75,23 @@ class AuthProvider extends Component {
     }
   };
 
+  logout = () => {
+    localStorage.removeItem('token');
+    this.setState({
+      id: null,
+      username: null,
+    });
+  };
+
   render() {
     const value = {
-      register: this.register,
-      login: this.login,
       id: this.state.id,
       username: this.state.username,
+      profile: this.state.profile,
       users: this.state.users,
+      register: this.register,
+      login: this.login,
+      logout: this.logout,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
