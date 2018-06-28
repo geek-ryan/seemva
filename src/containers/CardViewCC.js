@@ -20,7 +20,7 @@ class CardViewCC extends Component {
                     {({ users, user_tasks }) => {
                       return (
                         <LabelConsumer>
-                          {({ labels, label_tasks }) => {
+                          {({ labels, labelTaskAssignees }) => {
                             return (
                               <ProjectConsumer>
                                 {({
@@ -50,7 +50,9 @@ class CardViewCC extends Component {
                                                   users={users}
                                                   user_tasks={user_tasks}
                                                   labels={labels}
-                                                  label_tasks={label_tasks}
+                                                  labelTaskAssignees={
+                                                    labelTaskAssignees
+                                                  }
                                                   projects={projects}
                                                   handleAddProject={
                                                     handleAddProject

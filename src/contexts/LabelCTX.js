@@ -24,7 +24,7 @@ class LabelProvider extends Component {
         body: 'label_03',
       },
     ],
-    label_tasks: [
+    labelTaskAssignees: [
       {
         id: 1,
         labelId: 1,
@@ -67,7 +67,7 @@ class LabelProvider extends Component {
     const value = {
       value: this.state,
       labels: this.state.labels,
-      label_tasks: this.state.label_tasks,
+      labelTaskAssignees: this.state.labelTaskAssignees,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

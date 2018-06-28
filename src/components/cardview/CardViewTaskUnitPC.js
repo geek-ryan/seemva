@@ -11,7 +11,7 @@ class CardViewTaskUnitPC extends Component {
     users: {},
     activities: {},
     labels: {},
-    label_tasks: {},
+    labelTaskAssignees: {},
     handleDeleteTask: () => {},
     handleComplete: () => {},
     handleDelete: () => {},
@@ -100,9 +100,10 @@ class CardViewTaskUnitPC extends Component {
               }
             </span>
           </div>
+
           <div>
             {this.props.labels.map(label => {
-              return this.props.label_tasks.map(label_task => {
+              return this.props.labelTaskAssignees.map(label_task => {
                 return label.id === label_task.labelId &&
                   this.props.task.id === label_task.taskId ? (
                   <span key={label_task.id} className={label.color}>
@@ -114,6 +115,7 @@ class CardViewTaskUnitPC extends Component {
               });
             })}
           </div>
+
           <Modal
             visible={this.state.visible}
             onOk={this.handleOk}
