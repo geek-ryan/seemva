@@ -10,8 +10,8 @@ class TaskProvider extends Component {
         projectId: 1,
         title: 'title 1',
         body: '11',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
+        startDate: '2018-01-01',
+        dueDate: '2018-01-01',
         complete: true,
       },
       {
@@ -19,8 +19,8 @@ class TaskProvider extends Component {
         projectId: 1,
         title: 'title 2',
         body: '22',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
+        startDate: '2018-01-01',
+        dueDate: '2018-01-01',
         complete: false,
       },
       {
@@ -28,8 +28,8 @@ class TaskProvider extends Component {
         projectId: 1,
         title: 'title 3',
         body: '33',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
+        startDate: '2018-01-01',
+        dueDate: '2018-01-01',
         complete: false,
       },
       {
@@ -37,8 +37,8 @@ class TaskProvider extends Component {
         projectId: 2,
         title: 'title 4',
         body: '44',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
+        startDate: '2018-01-01',
+        dueDate: '2018-01-01',
         complete: false,
       },
       {
@@ -46,8 +46,8 @@ class TaskProvider extends Component {
         projectId: 2,
         title: 'title 5',
         body: '55',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
+        startDate: '2018-01-01',
+        dueDate: '2018-01-01',
         complete: false,
       },
     ],
@@ -62,7 +62,7 @@ class TaskProvider extends Component {
     });
   };
 
-  handleDelete = id => {
+  handleDeleteTask = id => {
     this.setState(() => {
       const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
       return { tasks: arr };
@@ -78,12 +78,26 @@ class TaskProvider extends Component {
     this.setState({ tasks: brr });
   };
 
+  handleEditTask = (id, keyType, body) => {
+    this.setState(() => {
+      let arr = this.state.tasks.slice();
+      const brr = arr.map(
+        element =>
+          element.id === parseInt(id)
+            ? { ...element, [keyType]: body }
+            : element
+      );
+      return { tasks: brr };
+    });
+  };
+
   render() {
     const value = {
       tasks: this.state.tasks,
       handleComplete: this.handleComplete,
-      handleDelete: this.handleDelete,
+      handleDeleteTask: this.handleDeleteTask,
       handleAddTask: this.handleAddTask,
+      handleEditTask: this.handleEditTask,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

@@ -68,7 +68,11 @@ class UserProvider extends Component {
   };
 
   render() {
-    const value = this.state;
+    const value = {
+      value: this.state,
+      users: this.state.users,
+      user_tasks: this.state.user_tasks,
+    };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }

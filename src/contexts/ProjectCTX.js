@@ -31,11 +31,25 @@ class ProjectProvider extends Component {
     this.setState({ projects: brr });
   };
 
+  handleEditProject = (id, keyType, body) => {
+    this.setState(() => {
+      let arr = this.state.projects.slice();
+      const brr = arr.map(
+        element =>
+          element.id === parseInt(id)
+            ? { ...element, [keyType]: body }
+            : element
+      );
+      return { projects: brr };
+    });
+  };
+
   render() {
     const value = {
       value: this.state,
       projects: this.state.projects,
       handleAddProject: this.handleAddProject,
+      handleEditProject: this.handleEditProject,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

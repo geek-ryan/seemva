@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Modal } from 'antd';
-import { UserConsumer } from '../../contexts/UserCTX';
-import { LabelConsumer } from '../../contexts/LabelCTX';
-import { TaskConsumer } from '../../contexts/TaskCTX';
-import { ActivityConsumer } from '../../contexts/ActivityCTX';
+import { Form, Input, Icon, Button } from 'antd';
 
-import EditableTextareaPC from '../utils//EditableTextareaPC';
+import EditableTextareaPC from '../utils/EditableTextareaPC';
 
 class ActivityPC extends Component {
+  static defaultProps = {
+    handleComplete: () => {},
+    task: {},
+    handleDeleteTask: () => {},
+  };
+
   state = {
     body: '',
   };
@@ -21,17 +23,17 @@ class ActivityPC extends Component {
     console.log('get add button');
     const obj = {
       body: this.state.body,
-      taskId: this.props.taskId,
+      taskId: this.props.task.id,
       userId: 1,
       logDate: '2018-06-10',
     };
-    this.props.onAdd(obj);
+    this.props.handleAddActivity(obj);
   };
 
   handleDeleteActivity = e => {
     console.log(e.target.value);
     const id = parseInt(e.target.value);
-    const func = this.props.onDelete;
+    const func = this.props.handleDeleteActivity;
     func(id);
   };
 
@@ -57,9 +59,16 @@ class ActivityPC extends Component {
 
         {this.props.activities.map(
           activity =>
-            activity.taskId === this.props.taskId ? (
+            activity.taskId === this.props.task.id ? (
               <div key={activity.id}>
-                <EditableTextareaPC {...activity} />
+                <EditableTextareaPC
+                  activity={activity}
+                  body={activity.body}
+                  keyType={'body'}
+                  datatype={'activity'}
+                  editfunc={this.props.handleEditActivity}
+                  {...this.props}
+                />
                 <Button value={activity.id} onClick={this.handleDeleteActivity}>
                   <Icon type="close" />
                 </Button>

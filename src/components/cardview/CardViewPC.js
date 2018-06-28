@@ -19,9 +19,13 @@ import { TeamProvider } from '../../contexts/TeamCTX';
 const { Header, Footer, Sider, Content } = Layout;
 
 class CardViewPC extends Component {
+  static defaultProps = {
+    teamId: 1,
+    userId: 1,
+  };
+
   state = {
     visible: false,
-    visibleUser: false,
     body: '',
   };
 
@@ -33,11 +37,12 @@ class CardViewPC extends Component {
   handleAddProject = body => {
     const obj = {
       title: body,
-      userId: 1,
-      teamId: 1,
+      userId: this.props.userId,
+      teamId: this.props.teamId,
+      subtitle: 'test',
     };
     console.log('obj :', obj);
-    this.props.onAdd(obj);
+    this.props.handleAddProject(obj);
     this.setState({ body: '' });
   };
 
@@ -62,45 +67,17 @@ class CardViewPC extends Component {
     });
   };
 
-  // modal user -------------------------------
-
-  showModalUser = () => {
-    this.setState({
-      visibleUser: true,
-    });
-  };
-
-  handleOkUser = e => {
-    this.setState({
-      visibleUser: false,
-    });
-  };
-  handleCancelUser = e => {
-    this.setState({
-      visibleUser: false,
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
-        <ProjectConsumer>
-          {({ projects }) => {
-            return (
-              <TaskConsumer>
-                {({ handleAddTask }) => {
-                  return projects.map(project => (
-                    <ProjectCardUnitPC
-                      key={project.id}
-                      onAdd={handleAddTask}
-                      {...project}
-                    />
-                  ));
-                }}
-              </TaskConsumer>
-            );
-          }}
-        </ProjectConsumer>
+        {this.props.projects.map(project => (
+          <ProjectCardUnitPC
+            key={project.id}
+            {...this.props}
+            project={project}
+          />
+        ))}
+
         <div onClick={this.showModal}>
           <Icon type="plus" /> Add New Project
         </div>

@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Modal } from 'antd';
-import { UserConsumer } from '../../contexts/UserCTX';
-import { LabelConsumer } from '../../contexts/LabelCTX';
-import { TaskConsumer } from '../../contexts/TaskCTX';
-import { ActivityConsumer } from '../../contexts/ActivityCTX';
+import { Button, Modal, DatePicker } from 'antd';
 
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import ActivityPC from '../cardview/ActivityPC';
 
+var moment = require('moment');
+
 class CardViewTaskModalPC extends Component {
+  static defaultProps = {
+    handleComplete: () => {},
+    task: {},
+    handleDeleteTask: () => {},
+  };
+
   handleUnitDelete = () => {
-    this.props.onDelete(this.props.id);
+    this.props.handleDeleteTask(this.props.task.id);
   };
 
   handleUnitComplete = () => {
-    this.props.onComplete(this.props.id);
+    this.props.handleComplete(this.props.task.id);
   };
 
   showConfirm = () => {
@@ -25,11 +29,8 @@ class CardViewTaskModalPC extends Component {
       content: 'Some descriptions',
       onOk() {
         Complete();
-        console.log('OK');
       },
-      onCancel() {
-        console.log('Cancel');
-      },
+      onCancel() {},
     });
   };
 
@@ -44,37 +45,67 @@ class CardViewTaskModalPC extends Component {
       cancelText: 'No',
       onOk() {
         Delete();
-        console.log('OK');
       },
-      onCancel() {
-        console.log('Cancel');
-      },
+      onCancel() {},
     });
+  };
+
+  handleStartDateChange = (date, dateString) => {
+    const startMoment = moment(dateString, 'YYYY-MM-DD');
+    const dueMoment = moment(this.props.task.dueDate, 'YYYY-MM-DD');
+    if (startMoment > dueMoment) {
+      alert('Please check date again');
+    } else {
+      this.props.handleEditTask(this.props.task.id, 'startDate', dateString);
+    }
+  };
+
+  handleDueDateChange = (date, dateString) => {
+    const startMoment = moment(this.props.task.startDate, 'YYYY-MM-DD');
+    const dueMoment = moment(dateString, 'YYYY-MM-DD');
+    if (startMoment > dueMoment) {
+      alert('Please check date again');
+    } else {
+      this.props.handleEditTask(this.props.task.id, 'dueDate', dateString);
+    }
   };
 
   render() {
     return (
       <React.Fragment>
-        <EditableTextareaPC className="title" body={this.props.title} />
-        <EditableTextareaPC body={this.props.body} />
-
+        <EditableTextareaPC
+          body={this.props.task.title}
+          keyType={'title'}
+          datatype={'task'}
+          editfunc={this.props.handleEditTask}
+          {...this.props}
+        />
+        <EditableTextareaPC
+          body={this.props.task.body}
+          keyType={'body'}
+          datatype={'task'}
+          editfunc={this.props.handleEditTask}
+          {...this.props}
+        />
         <div>
           <Button onClick={this.showConfirm}>Confirm</Button>
           <Button onClick={this.showDeleteConfirm} type="dashed">
             Delete
           </Button>
         </div>
-
-        <ActivityConsumer>
-          {({ activities, handleAddActivity, handleDeleteActivity }) => (
-            <ActivityPC
-              onAdd={handleAddActivity}
-              activities={activities}
-              onDelete={handleDeleteActivity}
-              taskId={this.props.taskId}
-            />
-          )}
-        </ActivityConsumer>
+        <div>
+          start date:
+          <DatePicker
+            onChange={this.handleStartDateChange}
+            value={moment(this.props.task.startDate, 'YYYY-MM-DD')}
+          />
+          due date:
+          <DatePicker
+            onChange={this.handleDueDateChange}
+            value={moment(this.props.task.dueDate, 'YYYY-MM-DD')}
+          />
+        </div>
+        <ActivityPC {...this.props} />
       </React.Fragment>
     );
   }
