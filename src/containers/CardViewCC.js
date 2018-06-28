@@ -32,6 +32,7 @@ class CardViewCC extends Component {
                             handlePullLabel,
                             handlePushLabel,
                             handleSearchChange,
+                            handleLabelTaskSetting,
                           }) => {
                             return (
                               <ProjectConsumer>
@@ -85,6 +86,9 @@ class CardViewCC extends Component {
                                                   }
                                                   handleSearchChange={
                                                     handleSearchChange
+                                                  }
+                                                  handleLabelTaskSetting={
+                                                    handleLabelTaskSetting
                                                   }
                                                   projects={projects}
                                                   handleAddProject={

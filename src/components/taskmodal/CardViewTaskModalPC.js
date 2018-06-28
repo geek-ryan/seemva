@@ -3,6 +3,7 @@ import { Button, Modal, DatePicker } from 'antd';
 
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import ActivityPC from '../cardview/ActivityPC';
+import LabelSearchBar from '../utils/LabelSearchBar';
 
 var moment = require('moment');
 
@@ -93,6 +94,9 @@ class CardViewTaskModalPC extends Component {
             Delete
           </Button>
         </div>
+
+        <LabelSearchBar taskId={this.props.task.id} {...this.props} />
+
         <div>
           start date:
           <DatePicker

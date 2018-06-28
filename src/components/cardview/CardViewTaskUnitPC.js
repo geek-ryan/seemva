@@ -30,6 +30,7 @@ class CardViewTaskUnitPC extends Component {
   };
 
   handleOk = e => {
+    this.props.handleCombineLabelTask(this.props.task.id, 'edit');
     this.setState({
       visible: false,
     });

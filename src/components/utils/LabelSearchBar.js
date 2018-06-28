@@ -14,6 +14,10 @@ class LabelSearchBar extends Component {
 
   componentDidMount = () => {
     this.props.handleLabelFilter(this.props.teamId);
+    if (this.props.taskId) {
+      console.log('task label setting goinon');
+      this.props.handleLabelTaskSetting(this.props.taskId);
+    }
   };
 
   handleSearchTextChange = e => {
