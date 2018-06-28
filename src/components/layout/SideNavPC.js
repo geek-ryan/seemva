@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
 import { Icon, Button, Avatar } from 'antd';
+import TeamMenuCC from '../../containers/TeamMenuCC';
 
 class SideNavPC extends Component {
   static defaultProps = {
@@ -79,23 +80,7 @@ class SideNavPC extends Component {
             </div>
             <p className="sidebar-user__name">{username}</p>
           </div>
-          <div className="team-menu">
-            <Link
-              to="/team/1"
-              className="team-menu-item team-menu-item--current"
-            >
-              <Icon type="rocket" />Welcome Board
-            </Link>
-            <Link to="/team/2" className="team-menu-item">
-              team2
-            </Link>
-            <Link to="/team/3" className="team-menu-item">
-              team3
-            </Link>
-            <Button icon="plus" className="team-add-button">
-              add team
-            </Button>
-          </div>
+          <TeamMenuCC />
           <Button onClick={onLogout}>Log out</Button>
         </div>
       </div>
