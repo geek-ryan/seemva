@@ -9,6 +9,12 @@ class ProfileProvider extends Component {
     loading: false,
   };
 
+  componentWillUnmount() {
+    this.setState({
+      profile: '',
+    });
+  }
+
   openUploadWiget = () => {
     uploadcare
       .openDialog(null, {
