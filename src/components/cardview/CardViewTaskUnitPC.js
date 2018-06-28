@@ -6,12 +6,12 @@ import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
 class CardViewTaskUnitPC extends Component {
   static defaultProps = {
     project: {},
-    tasks: {},
+    tasks: [],
     task: {},
-    users: {},
-    activities: {},
-    labels: {},
-    labelTaskAssignees: {},
+    users: [],
+    activities: [],
+    labels: [],
+    labelTaskAssignees: [],
     handleDeleteTask: () => {},
     handleComplete: () => {},
     handleDelete: () => {},

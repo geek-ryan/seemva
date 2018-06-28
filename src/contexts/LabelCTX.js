@@ -63,11 +63,20 @@ class LabelProvider extends Component {
     ],
   };
 
+  handleCombineLabelTask = arr => {
+    const brr = this.state.labelTaskAssignees.slice();
+    for (let i = 0; i < arr.length; i++) {
+      brr.push(arr[i]);
+    }
+    this.setState({ labelTaskAssignees: brr });
+  };
+
   render() {
     const value = {
       value: this.state,
       labels: this.state.labels,
       labelTaskAssignees: this.state.labelTaskAssignees,
+      handleCombineLabelTask: this.handleCombineLabelTask,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
