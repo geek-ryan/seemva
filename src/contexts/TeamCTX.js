@@ -17,7 +17,10 @@ class TeamProvider extends Component {
   };
 
   render() {
-    const value = this.state;
+    const value = {
+      value: this.state,
+      teams: this.state.teams,
+    };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
 }

@@ -2,30 +2,43 @@ import React, { Component } from 'react';
 import { Form, Input, Icon, Button, Modal, Card, DatePicker } from 'antd';
 
 import CardViewTaskUnitPC from './CardViewTaskUnitPC';
-import CardViewAddTaskPC from './CardViewAddTaskPC';
-import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 
 import '../../../node_modules/antd/dist/antd.css';
 
-import { TaskProvider, TaskConsumer } from '../../contexts/TaskCTX';
+var moment = require('moment');
 
 class ProjectCardUnitPC extends Component {
+  static defaultProps = {
+    project: {},
+    tasks: {},
+    handleAddProject: () => {},
+    date: [],
+  };
+
   state = {
     visible: false,
     title: '',
     body: '',
-    startDate: '2018-06-06',
-    dueDate: '2018-06-06',
+    startDate: moment().format('YYYY-MM-DD'),
+    dueDate: moment().format('YYYY-MM-DD'),
   };
 
   handleChangeTitle = e => {
     this.setState({ title: e.target.value });
-    console.log(this.state.title);
   };
   handleChangeBody = e => {
     this.setState({ body: e.target.value });
-    console.log(this.state.body);
+  };
+
+  handleDateChange = (date, dateString) => {
+    const startMoment = moment(dateString[0], 'YYYY-MM-DD');
+    const dueMoment = moment(dateString[1], 'YYYY-MM-DD');
+    if (startMoment > dueMoment) {
+      alert('Please check date again');
+    } else {
+      this.setState({ startDate: dateString[0], dueDate: dateString[1] });
+    }
   };
 
   // modal ----------------------
@@ -42,16 +55,17 @@ class ProjectCardUnitPC extends Component {
       body: this.state.body,
       startDate: this.state.startDate,
       dueDate: this.state.dueDate,
-      projectId: this.props.id,
+      projectId: this.props.project.id,
       complete: false,
     };
-    this.props.onAdd(obj);
+    this.props.handleAddTask(obj);
     this.setState({
       visible: false,
       title: '',
       body: '',
     });
   };
+
   handleCancel = e => {
     this.setState({
       visible: false,
@@ -62,27 +76,20 @@ class ProjectCardUnitPC extends Component {
     return (
       <React.Fragment>
         <Card style={{ width: 400 }}>
-          <EditableTextareaPC body={this.props.title} />
-          <TaskConsumer>
-            {({ tasks, handleComplete, handleDelete, handleAddTask }) => {
-              // console.log(this.props.id);
-              return tasks.map(task => {
-                // console.log(Task.projectId);
-                return this.props.id === task.projectId ? (
-                  <CardViewTaskUnitPC
-                    key={task.id}
-                    onComplete={handleComplete}
-                    onDelete={handleDelete}
-                    onAdd={handleAddTask}
-                    {...task}
-                    taskId={task.id}
-                  />
-                ) : (
-                  ''
-                );
-              });
-            }}
-          </TaskConsumer>
+          <EditableTextareaPC
+            body={this.props.project.title}
+            keyType={'title'}
+            datatype={'project'}
+            editfunc={this.props.handleEditProject}
+            {...this.props}
+          />
+          {this.props.tasks.map(task => {
+            return this.props.project.id === task.projectId ? (
+              <CardViewTaskUnitPC key={task.id} task={task} {...this.props} />
+            ) : (
+              ''
+            );
+          })}
 
           <div onClick={this.showModal}>
             <Icon type="plus" /> Add New Task
@@ -99,7 +106,10 @@ class ProjectCardUnitPC extends Component {
               placeholder="Body"
               row={4}
             />
-            <div>2018-06-06 ~ 2018-06-06</div>
+            <DatePicker.RangePicker
+              onChange={this.handleDateChange}
+              value={[moment(), moment()]}
+            />
             <div>Member search input</div>
           </Modal>
         </Card>
