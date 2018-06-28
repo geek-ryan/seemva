@@ -6,19 +6,22 @@ import EditableTextareaPC from '../utils/EditableTextareaPC';
 
 import '../../../node_modules/antd/dist/antd.css';
 
+var moment = require('moment');
+
 class ProjectCardUnitPC extends Component {
   static defaultProps = {
     project: {},
     tasks: {},
     handleAddProject: () => {},
+    date: [],
   };
 
   state = {
     visible: false,
     title: '',
     body: '',
-    startDate: '2018-06-06',
-    dueDate: '2018-06-06',
+    startDate: moment().format('YYYY-MM-DD'),
+    dueDate: moment().format('YYYY-MM-DD'),
   };
 
   handleChangeTitle = e => {
@@ -26,6 +29,16 @@ class ProjectCardUnitPC extends Component {
   };
   handleChangeBody = e => {
     this.setState({ body: e.target.value });
+  };
+
+  handleDateChange = (date, dateString) => {
+    const startMoment = moment(dateString[0], 'YYYY-MM-DD');
+    const dueMoment = moment(dateString[1], 'YYYY-MM-DD');
+    if (startMoment > dueMoment) {
+      alert('Please check date again');
+    } else {
+      this.setState({ startDate: dateString[0], dueDate: dateString[1] });
+    }
   };
 
   // modal ----------------------
@@ -93,7 +106,10 @@ class ProjectCardUnitPC extends Component {
               placeholder="Body"
               row={4}
             />
-            <div>2018-06-06 ~ 2018-06-06</div>
+            <DatePicker.RangePicker
+              onChange={this.handleDateChange}
+              value={[moment(), moment()]}
+            />
             <div>Member search input</div>
           </Modal>
         </Card>
