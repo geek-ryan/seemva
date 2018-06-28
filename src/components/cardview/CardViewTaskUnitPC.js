@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Modal, Card } from 'antd';
+import { Icon, Modal, Card } from 'antd';
 
 import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
 

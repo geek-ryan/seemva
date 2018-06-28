@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Icon, Button } from 'antd';
 import TeamModalPC from './TeamModalPC';
 

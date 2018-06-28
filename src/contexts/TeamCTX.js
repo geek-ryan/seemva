@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext();
 
@@ -21,7 +22,7 @@ class TeamProvider extends Component {
     current: 0,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const id = parseInt(this.props.id);
     this.setState({
       current: id,

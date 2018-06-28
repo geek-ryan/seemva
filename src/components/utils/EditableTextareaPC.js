@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button } from 'antd';
+import { Input } from 'antd';
 import '../../../node_modules/antd/dist/antd.css';
 
 class EditableTextareaPC extends Component {

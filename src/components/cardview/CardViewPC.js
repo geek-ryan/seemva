@@ -1,22 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Modal, Layout } from 'antd';
+import { Icon, Modal } from 'antd';
 
 import ProjectCardUnitPC from './ProjectCardUnitPC';
-import CardViewAddProjectPC from './CardViewAddProjectPC';
-import SideLinePC from '../layout/SideLinePC';
-import SidebarPC from '../layout/SidebarPC';
-import HeaderPC from '../layout/HeaderPC';
-
-import '../../../node_modules/antd/dist/antd.css';
-
-import { ProjectProvider, ProjectConsumer } from '../../contexts/ProjectCTX';
-import { TaskProvider, TaskConsumer } from '../../contexts/TaskCTX';
-import { UserProvider, UserConsumer } from '../../contexts/UserCTX';
-import { LabelProvider } from '../../contexts/LabelCTX';
-import { ActivityProvider } from '../../contexts/ActivityCTX';
-import { TeamProvider } from '../../contexts/TeamCTX';
-
-const { Header, Footer, Sider, Content } = Layout;
 
 class CardViewPC extends Component {
   static defaultProps = {
