@@ -21,17 +21,23 @@ class TeamProvider extends Component {
     current: 0,
   };
 
-  async componentDidMount() {
-    await this.setState({
-      current: this.props.id,
+  componentDidMount() {
+    const id = parseInt(this.props.id);
+    this.setState({
+      current: id,
     });
   }
 
+  changeCurrent = id => {
+    this.setState({
+      current: id,
+    });
+  };
+
   render() {
     const value = {
-      teams: this.state.teams,
-      loading: this.state.loading,
-      current: this.state.current,
+      ...this.state,
+      changeCurrent: this.changeCurrent,
     };
 
     return <Provider value={value}>{this.props.children}</Provider>;

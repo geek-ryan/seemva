@@ -12,7 +12,13 @@ class TeamMenuCC extends Component {
     const { success } = this.state;
     return (
       <TeamConsumer>
-        {({ teams, current }) => <TeamMenuPC teams={teams} current={current} />}
+        {({ teams, current, changeCurrent }) => (
+          <TeamMenuPC
+            teams={teams}
+            current={current}
+            onChangeCurrent={changeCurrent}
+          />
+        )}
       </TeamConsumer>
     );
   }
