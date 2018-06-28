@@ -28,11 +28,6 @@ class ProjectCardUnitPC extends Component {
     body: '',
     startDate: moment().format('YYYY-MM-DD'),
     dueDate: moment().format('YYYY-MM-DD'),
-    filteredLabels: [],
-    matches: [],
-    searching: false,
-    labelString: '',
-    choise: [],
   };
 
   handleChangeTitle = e => {
@@ -63,8 +58,6 @@ class ProjectCardUnitPC extends Component {
     //find task+  assign+ number
     const arr = this.props.tasks.slice();
     const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
-    const array = this.props.labelTaskAssignees.slice();
-    const numLabel = arr.sort((a, b) => b.id - a.id)[0].id + 1;
     //made task content
     const obj = {
       title: this.state.title,
@@ -74,27 +67,13 @@ class ProjectCardUnitPC extends Component {
       projectId: this.props.project.id,
       complete: false,
     };
-    //made label content
-    let assignArr = [];
-    for (let i = 0; i < this.state.choise.length; i++) {
-      const objLabel = {
-        taskId: num,
-        id: numLabel + i,
-        labelId: this.state.choise[i].id,
-      };
-      assignArr.push(objLabel);
-    }
     //Add labelAssign and task
     this.props.handleAddTask(obj);
-    this.props.handleCombineLabelTask(assignArr);
+    this.props.handleCombineLabelTask(num);
     this.setState({
       visible: false,
       title: '',
       body: '',
-      matches: [],
-      searching: false,
-      labelString: '',
-      choise: [],
     });
   };
 
@@ -102,53 +81,6 @@ class ProjectCardUnitPC extends Component {
     this.setState({
       visible: false,
     });
-  };
-
-  //--Label search func-----
-
-  componentDidMount = () => {
-    const arr = this.props.labels.map(
-      label => (label.teamId === this.props.teamId ? label : '')
-    );
-    // console.log(arr);
-    this.setState({ filteredLabels: arr });
-  };
-
-  handleSearchChange = e => {
-    if (e.target.value) {
-      this.setState({ searching: true, labelString: e.target.value });
-      const arr = this.state.filteredLabels.slice();
-      const brr = arr.filter(element => element.body.match(e.target.value));
-      this.setState({ matches: brr });
-    } else {
-      this.setState({ searching: false });
-    }
-  };
-
-  handlePushLabel = e => {
-    if (
-      this.state.choise.filter(
-        element => element.id === parseInt(e.target.value)
-      ).length
-    ) {
-      ('');
-    } else {
-      const chosenOne = this.state.filteredLabels.filter(
-        element => element.id === parseInt(e.target.value)
-      )[0];
-      const arr = this.state.choise.slice();
-      arr.push(chosenOne);
-      this.setState({ choise: arr });
-    }
-  };
-
-  handlePullLabel = e => {
-    console.log('get in');
-    const arr = this.state.choise.slice();
-    console.log(arr, e.target.value);
-    const brr = arr.filter(element => element.id !== parseInt(e.target.value));
-    console.log(brr);
-    this.setState({ choise: brr });
   };
 
   render() {
@@ -194,17 +126,7 @@ class ProjectCardUnitPC extends Component {
               onChange={this.handleDateChange}
               value={[moment(), moment()]}
             />
-            <LabelSearchBar
-              handleSearchChange={this.handleSearchChange}
-              handlePullLabel={this.handlePullLabel}
-              handlePushLabel={this.handlePushLabel}
-              filteredLabels={this.state.filteredLabels}
-              matches={this.state.matches}
-              searching={this.state.searching}
-              labelString={this.state.labelString}
-              choise={this.state.choise}
-              {...this.props}
-            />
+            <LabelSearchBar {...this.props} />
           </Modal>
         </Card>
       </React.Fragment>

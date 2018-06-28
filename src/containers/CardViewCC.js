@@ -23,7 +23,15 @@ class CardViewCC extends Component {
                           {({
                             labels,
                             labelTaskAssignees,
+                            labelFilter,
+                            labelMatch,
+                            labelChosen,
+                            labelSearchText,
                             handleCombineLabelTask,
+                            handleLabelFilter,
+                            handlePullLabel,
+                            handlePushLabel,
+                            handleSearchChange,
                           }) => {
                             return (
                               <ProjectConsumer>
@@ -59,6 +67,24 @@ class CardViewCC extends Component {
                                                   }
                                                   handleCombineLabelTask={
                                                     handleCombineLabelTask
+                                                  }
+                                                  labelFilter={labelFilter}
+                                                  labelMatch={labelMatch}
+                                                  labelChosen={labelChosen}
+                                                  labelSearchText={
+                                                    labelSearchText
+                                                  }
+                                                  handleLabelFilter={
+                                                    handleLabelFilter
+                                                  }
+                                                  handlePullLabel={
+                                                    handlePullLabel
+                                                  }
+                                                  handlePushLabel={
+                                                    handlePushLabel
+                                                  }
+                                                  handleSearchChange={
+                                                    handleSearchChange
                                                   }
                                                   projects={projects}
                                                   handleAddProject={

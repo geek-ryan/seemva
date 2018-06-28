@@ -3,18 +3,31 @@ import { Form, Input, Icon, Button, Dropdown, Menu } from 'antd';
 
 class LabelSearchBar extends Component {
   static defaultProps = {
-    matches: [],
     handlePushLabel: () => {},
     handlePullLabel: () => {},
     handleSearchChange: () => {},
-    choise: [],
+  };
+
+  state = {
     searching: false,
+  };
+
+  componentDidMount = () => {
+    this.props.handleLabelFilter(this.props.teamId);
+  };
+
+  handleSearchTextChange = e => {
+    this.setState({ searching: true });
+    this.props.handleSearchChange(e.target.value);
+    if (!e.target.value) {
+      this.setState({ searching: false });
+    }
   };
 
   render() {
     const result = (
       <div>
-        {this.props.matches.map(element => (
+        {this.props.labelMatch.map(element => (
           <Button
             onClick={this.props.handlePushLabel}
             key={element.id}
@@ -28,7 +41,7 @@ class LabelSearchBar extends Component {
 
     const chosenLabels = (
       <div>
-        {this.props.choise.map(element => (
+        {this.props.labelChosen.map(element => (
           <Button
             onClick={this.props.handlePullLabel}
             key={element.id}
@@ -43,14 +56,16 @@ class LabelSearchBar extends Component {
     return (
       <React.Fragment>
         <div>
-          {this.props.choise.length ? chosenLabels : 'Please choose labels'}
+          {this.props.labelChosen.length
+            ? chosenLabels
+            : 'Please choose labels'}
         </div>
         <Input
-          onChange={this.props.handleSearchChange}
+          onChange={this.handleSearchTextChange}
           placeholder="input search text"
-          value=""
+          value={this.props.labelSearchText}
         />
-        <div>{this.props.searching ? result : 'Loading Labels....'}</div>
+        <div>{this.state.searching ? result : 'Loading Labels....'}</div>
       </React.Fragment>
     );
   }
