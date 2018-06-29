@@ -108,7 +108,11 @@ class LabelProvider extends Component {
         labelNew: true,
       });
     } else {
-      this.setState({ labelMatch: brr, labelSearchText: text });
+      this.setState({
+        labelMatch: brr,
+        labelSearchText: text,
+        labelNew: false,
+      });
     }
   };
 
@@ -154,7 +158,7 @@ class LabelProvider extends Component {
     }
   };
 
-  handleCombineLabelTask = (taskid, type = 'add') => {
+  assigneeCreate = (taskid, type = 'add') => {
     const array = this.state.labelTaskAssignees.slice();
     const numLabel = array.sort((a, b) => b.id - a.id)[0].id + 1;
 
@@ -206,7 +210,7 @@ class LabelProvider extends Component {
     const value = {
       labelState: this.state,
       labelFunc: {
-        handleCombineLabelTask: this.handleCombineLabelTask,
+        assigneeCreate: this.assigneeCreate,
         teamFilter: this.teamFilter,
         pullChoise: this.pullChoise,
         pushChoise: this.pushChoise,

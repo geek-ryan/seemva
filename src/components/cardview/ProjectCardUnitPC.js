@@ -69,7 +69,7 @@ class ProjectCardUnitPC extends Component {
     };
     //Add labelAssign and task
     this.props.taskFunc.Create(obj);
-    this.props.handleCombineLabelTask(num);
+    this.props.labelFunc.assigneeCreate(num);
     this.setState({
       visible: false,
       title: '',
