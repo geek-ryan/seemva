@@ -53,6 +53,13 @@ body {
 }
 
 .sidebar__toggle-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   position: relative;
   z-index: 1;
   width: 200px;
@@ -68,6 +75,9 @@ body {
 }
 
 .sidebar-logo {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
   font-family: "Ceviche One", cursive;
   font-size: 1.8em;
   color: #fff;
@@ -128,6 +138,9 @@ body {
 }
 
 .sidebar-user {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -139,7 +152,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  padding: 4em 0 0.5em;
+  padding: 0.5em 0;
 }
 
 .sidebar-user__name {
@@ -221,6 +234,12 @@ body {
   opacity: 1;
   -webkit-transform: translateX(0);
           transform: translateX(0);
+}
+
+.team-menu {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
 }
 
 .team-menu-item {
@@ -337,5 +356,34 @@ body {
   max-width: 350px;
   margin: 0.5em;
   border-radius: 3px;
+}
+
+.loading-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0.5em 0;
+}
+
+.loading-box i {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 /*# sourceMappingURL=index.css.map */

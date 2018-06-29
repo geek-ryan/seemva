@@ -22,6 +22,8 @@
   }
 
   &__toggle-menu {
+    display: flex;
+    flex-direction: column;
     position: relative;
     z-index: 1;
     width: 200px;
@@ -36,6 +38,7 @@
 }
 
 .sidebar-logo {
+  flex: none;
   font-family: $font-stack;
   font-size: 1.8em;
   color: #fff;
@@ -76,11 +79,12 @@
 }
 
 .sidebar-user {
+  flex: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 4em 0 0.5em;
+  padding: 0.5em 0;
   &__name {
     padding: 0.5em 0;
     color: #fff;
@@ -153,6 +157,7 @@ $avatar-big: 120px;
 }
 
 .team-menu {
+  flex: 1 0 auto;
   &-item {
     display: flex;
     justify-content: center;

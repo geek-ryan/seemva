@@ -26,3 +26,19 @@
     }
   }
 }
+
+.loading-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em 0;
+  i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-color: rgba(#fff, 0.3);
+  }
+}
