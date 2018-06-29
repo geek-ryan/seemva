@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
-import { Icon, Button } from 'antd';
-import TeamModalPC from './TeamModalPC';
+import { Icon, Button, Tooltip } from 'antd';
+import TeamCreateButtonPC from './TeamCreateButtonPC';
+import TeamEditButtonPC from './TeamEditButtonPC';
+import TeamLeaveButtonPC from './TeamLeaveButtonPC';
 
 class TeamMenuPC extends Component {
   static defaultProps = {
@@ -11,28 +13,6 @@ class TeamMenuPC extends Component {
     current: 0,
   };
 
-  state = {
-    visible: false,
-  };
-
-  showModal = () => {
-    this.setState({ visible: true });
-  };
-  handleCancel = () => {
-    this.setState({ visible: false });
-  };
-  handleCreate = () => {
-    const form = this.formRef.props.form;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-
-      console.log('Received values of form: ', values);
-      form.resetFields();
-      this.setState({ visible: false });
-    });
-  };
   render() {
     const { teams, current, onChangeCurrent } = this.props;
     return (
@@ -61,30 +41,13 @@ class TeamMenuPC extends Component {
               {name}
             </Link>
             {admin ? (
-              <Button
-                type="primary"
-                size="small"
-                shape="circle"
-                icon="edit"
-                onClick={() => {}}
-              />
+              <TeamEditButtonPC name={name} />
             ) : (
-              ''
+              <TeamLeaveButtonPC name={name} />
             )}
           </div>
         ))}
-        <Button
-          icon="plus"
-          className="team-add-button"
-          onClick={this.showModal}
-        >
-          add team
-        </Button>
-        <TeamModalPC
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
-        />
+        <TeamCreateButtonPC />
       </div>
     );
   }
