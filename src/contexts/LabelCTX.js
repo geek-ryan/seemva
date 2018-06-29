@@ -68,7 +68,7 @@ class LabelProvider extends Component {
     labelNew: false,
   };
 
-  handleLabelTaskSetting = taskid => {
+  taskFilter = taskid => {
     const arr = this.state.labelTaskAssignees
       .slice()
       .filter(element => element.taskId === taskid)
@@ -83,14 +83,14 @@ class LabelProvider extends Component {
     this.setState({ labelChosen: brr });
   };
 
-  handleLabelFilter = teamid => {
+  teamFilter = teamid => {
     const arr = this.state.labels.map(
       label => (label.teamId === teamid ? label : '')
     );
     this.setState({ labelFilter: arr });
   };
 
-  handleSearchChange = (text, teamId = 1) => {
+  searchText = (text, teamId = 1) => {
     const arr = this.state.labelFilter.slice();
     const brr = arr.filter(element => element.body.match(text));
     if (brr.length < 1) {
@@ -112,7 +112,7 @@ class LabelProvider extends Component {
     }
   };
 
-  handlePushLabel = e => {
+  pushChoise = e => {
     if (
       this.state.labelChosen.filter(
         element => element.id === parseInt(e.target.value)
@@ -129,13 +129,13 @@ class LabelProvider extends Component {
     }
   };
 
-  handlePullLabel = e => {
+  pullChoise = e => {
     const arr = this.state.labelChosen.slice();
     const brr = arr.filter(element => element.id !== parseInt(e.target.value));
     this.setState({ labelChosen: brr });
   };
 
-  handleNewLabel = () => {
+  Create = () => {
     if (this.state.labelNew) {
       const arr = this.state.labels.slice();
       const brr = this.state.labelFilter.slice();
@@ -204,21 +204,32 @@ class LabelProvider extends Component {
 
   render() {
     const value = {
-      value: this.state,
-      labels: this.state.labels,
-      labelTaskAssignees: this.state.labelTaskAssignees,
-      labelFilter: this.state.labelFilter,
-      labelMatch: this.state.labelMatch,
-      labelChosen: this.state.labelChosen,
-      labelNew: this.state.labelNew,
-      labelSearchText: this.state.labelSearchText,
-      handleCombineLabelTask: this.handleCombineLabelTask,
-      handleLabelFilter: this.handleLabelFilter,
-      handlePullLabel: this.handlePullLabel,
-      handlePushLabel: this.handlePushLabel,
-      handleSearchChange: this.handleSearchChange,
-      handleLabelTaskSetting: this.handleLabelTaskSetting,
-      handleNewLabel: this.handleNewLabel,
+      labelState: this.state,
+      labelFunc: {
+        handleCombineLabelTask: this.handleCombineLabelTask,
+        teamFilter: this.teamFilter,
+        pullChoise: this.pullChoise,
+        pushChoise: this.pushChoise,
+        searchText: this.searchText,
+        taskFilter: this.taskFilter,
+        Create: this.Create,
+      },
+
+      // value: this.state,
+      // labels: this.state.labels,
+      // labelTaskAssignees: this.state.labelTaskAssignees,
+      // labelFilter: this.state.labelFilter,
+      // labelMatch: this.state.labelMatch,
+      // labelChosen: this.state.labelChosen,
+      // labelNew: this.state.labelNew,
+      // labelSearchText: this.state.labelSearchText,
+      // handleCombineLabelTask: this.handleCombineLabelTask,
+      // handleLabelFilter: this.handleLabelFilter,
+      // handlePullLabel: this.handlePullLabel,
+      // handlePushLabel: this.handlePushLabel,
+      // handleSearchChange: this.handleSearchChange,
+      // handleLabelTaskSetting: this.handleLabelTaskSetting,
+      // handleNewLabel: this.handleNewLabel,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

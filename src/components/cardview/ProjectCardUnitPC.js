@@ -56,7 +56,7 @@ class ProjectCardUnitPC extends Component {
 
   handleOk = e => {
     //find task+  assign+ number
-    const arr = this.props.tasks.slice();
+    const arr = this.props.taskState.tasks.slice();
     const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
     //made task content
     const obj = {
@@ -68,7 +68,7 @@ class ProjectCardUnitPC extends Component {
       complete: false,
     };
     //Add labelAssign and task
-    this.props.handleAddTask(obj);
+    this.props.taskFunc.Create(obj);
     this.props.handleCombineLabelTask(num);
     this.setState({
       visible: false,
@@ -91,10 +91,10 @@ class ProjectCardUnitPC extends Component {
             body={this.props.project.title}
             keyType={'title'}
             datatype={'project'}
-            editfunc={this.props.handleEditProject}
+            editfunc={this.props.projectFunc.Update}
             {...this.props}
           />
-          {this.props.tasks.map(task => {
+          {this.props.taskState.tasks.map(task => {
             return this.props.project.id === task.projectId ? (
               <CardViewTaskUnitPC key={task.id} task={task} {...this.props} />
             ) : (

@@ -43,7 +43,7 @@ class CardViewTaskUnitPC extends Component {
   };
 
   handleUnitDelete = () => {
-    this.props.handleDeleteTask(this.props.task.id);
+    this.props.taskFunc.Delete(this.props.task.id);
   };
 
   showDeleteConfirm = () => {
@@ -95,7 +95,7 @@ class CardViewTaskUnitPC extends Component {
             <Icon type="message" />
             <span>
               {
-                this.props.activities.filter(
+                this.props.activityState.activities.filter(
                   activity => activity.taskId === this.props.task.id
                 ).length
               }

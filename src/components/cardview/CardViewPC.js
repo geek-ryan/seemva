@@ -42,7 +42,7 @@ class CardViewPC extends Component {
       subtitle: 'test',
     };
     console.log('obj :', obj);
-    this.props.handleAddProject(obj);
+    this.props.projectFunc.Create(obj);
     this.setState({ body: '' });
   };
 
@@ -70,7 +70,7 @@ class CardViewPC extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.projects.map(project => (
+        {this.props.projectState.projects.map(project => (
           <ProjectCardUnitPC
             key={project.id}
             {...this.props}

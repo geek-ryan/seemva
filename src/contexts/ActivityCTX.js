@@ -43,7 +43,7 @@ class ActivityProvider extends Component {
     ],
   };
 
-  handleAddActivity = o => {
+  Create = o => {
     const arr = this.state.activities.slice();
     const brr = this.state.activities.slice();
     const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
@@ -52,7 +52,7 @@ class ActivityProvider extends Component {
     this.setState({ activities: brr });
   };
 
-  handleDeleteActivity = id => {
+  Delete = id => {
     this.setState(() => {
       const arr = this.state.activities.map(
         activity => (activity.id === id ? '' : activity)
@@ -61,7 +61,7 @@ class ActivityProvider extends Component {
     });
   };
 
-  handleEditActivity = (id, keyType, body) => {
+  Edit = (id, keyType, body) => {
     this.setState(() => {
       let arr = this.state.activities.slice();
       const brr = arr.map(
@@ -76,11 +76,12 @@ class ActivityProvider extends Component {
 
   render() {
     const value = {
-      value: this.state,
-      activities: this.state.activities,
-      handleAddActivity: this.handleAddActivity,
-      handleDeleteActivity: this.handleDeleteActivity,
-      handleEditActivity: this.handleEditActivity,
+      activityState: this.state,
+      activityFunc: {
+        Create: this.Create,
+        Delete: this.Delete,
+        Edit: this.Edit,
+      },
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

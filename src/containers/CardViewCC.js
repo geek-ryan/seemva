@@ -20,110 +20,31 @@ class CardViewCC extends Component {
                     {({ users, user_tasks }) => {
                       return (
                         <LabelConsumer>
-                          {({
-                            labels,
-                            labelTaskAssignees,
-                            labelFilter,
-                            labelMatch,
-                            labelChosen,
-                            labelSearchText,
-                            labelNew,
-                            handleCombineLabelTask,
-                            handleLabelFilter,
-                            handlePullLabel,
-                            handlePushLabel,
-                            handleSearchChange,
-                            handleLabelTaskSetting,
-                            handleNewLabel,
-                          }) => {
+                          {({ labelState, labelFunc }) => {
                             return (
                               <ProjectConsumer>
-                                {({
-                                  projects,
-                                  handleAddProject,
-                                  handleEditProject,
-                                }) => {
+                                {({ projectState, projectFunc }) => {
                                   return (
                                     <TaskConsumer>
-                                      {({
-                                        tasks,
-                                        handleComplete,
-                                        handleDeleteTask,
-                                        handleAddTask,
-                                        handleEditTask,
-                                      }) => {
+                                      {({ taskState, taskFunc }) => {
                                         return (
                                           <ActivityConsumer>
                                             {({
-                                              activities,
-                                              handleAddActivity,
-                                              handleDeleteActivity,
-                                              handleEditActivity,
+                                              activityState,
+                                              activityFunc,
                                             }) => {
                                               return (
                                                 <CardViewPC
                                                   users={users}
                                                   user_tasks={user_tasks}
-                                                  labels={labels}
-                                                  labelTaskAssignees={
-                                                    labelTaskAssignees
-                                                  }
-                                                  handleCombineLabelTask={
-                                                    handleCombineLabelTask
-                                                  }
-                                                  labelFilter={labelFilter}
-                                                  labelMatch={labelMatch}
-                                                  labelChosen={labelChosen}
-                                                  labelSearchText={
-                                                    labelSearchText
-                                                  }
-                                                  handleLabelFilter={
-                                                    handleLabelFilter
-                                                  }
-                                                  handlePullLabel={
-                                                    handlePullLabel
-                                                  }
-                                                  handlePushLabel={
-                                                    handlePushLabel
-                                                  }
-                                                  handleSearchChange={
-                                                    handleSearchChange
-                                                  }
-                                                  handleLabelTaskSetting={
-                                                    handleLabelTaskSetting
-                                                  }
-                                                  projects={projects}
-                                                  handleAddProject={
-                                                    handleAddProject
-                                                  }
-                                                  handleEditProject={
-                                                    handleEditProject
-                                                  }
-                                                  tasks={tasks}
-                                                  handleComplete={
-                                                    handleComplete
-                                                  }
-                                                  handleDeleteTask={
-                                                    handleDeleteTask
-                                                  }
-                                                  handleAddTask={handleAddTask}
-                                                  handleEditTask={
-                                                    handleEditTask
-                                                  }
-                                                  activities={activities}
-                                                  handleAddActivity={
-                                                    handleAddActivity
-                                                  }
-                                                  handleDeleteActivity={
-                                                    handleDeleteActivity
-                                                  }
-                                                  handleEditActivity={
-                                                    handleEditActivity
-                                                  }
-                                                  handleNewLabel={
-                                                    handleNewLabel
-                                                  }
-                                                  labelNew={labelNew}
+                                                  labelState={labelState}
+                                                  labelFunc={labelFunc}
+                                                  projectState={projectState}
+                                                  projectFunc={projectFunc}
+                                                  taskState={taskState}
+                                                  taskFunc={taskFunc}
+                                                  activityState={activityState}
+                                                  activityFunc={activityFunc}
                                                 />
                                               );
                                             }}

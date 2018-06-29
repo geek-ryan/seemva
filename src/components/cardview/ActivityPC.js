@@ -27,13 +27,13 @@ class ActivityPC extends Component {
       userId: 1,
       logDate: '2018-06-10',
     };
-    this.props.handleAddActivity(obj);
+    this.props.activityFunc.Create(obj);
   };
 
   handleDeleteActivity = e => {
     console.log(e.target.value);
     const id = parseInt(e.target.value);
-    const func = this.props.handleDeleteActivity;
+    const func = this.props.activityFunc.Delete;
     func(id);
   };
 
@@ -57,7 +57,7 @@ class ActivityPC extends Component {
           </Form.Item>
         </Form>
 
-        {this.props.activities.map(
+        {this.props.activityState.activities.map(
           activity =>
             activity.taskId === this.props.task.id ? (
               <div key={activity.id}>
@@ -66,7 +66,7 @@ class ActivityPC extends Component {
                   body={activity.body}
                   keyType={'body'}
                   datatype={'activity'}
-                  editfunc={this.props.handleEditActivity}
+                  editfunc={this.props.activityFunc.Edit}
                   {...this.props}
                 />
                 <Button value={activity.id} onClick={this.handleDeleteActivity}>
