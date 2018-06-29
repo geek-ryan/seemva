@@ -24,13 +24,18 @@ class CardViewTaskUnitPC extends Component {
   };
 
   showModal = () => {
+    this.props.labelFunc.teamFilter(this.props.teamId);
+    this.props.labelFunc.taskFilter(this.props.task.id);
+    this.props.userFunc.teamFilter();
+    this.props.userFunc.taskFilter(this.props.task.id);
     this.setState({
       visible: true,
     });
   };
 
   handleOk = e => {
-    this.props.handleCombineLabelTask(this.props.task.id, 'edit');
+    this.props.labelFunc.assigneeCreate(this.props.task.id);
+    this.props.userFunc.assigneeCreate(this.props.task.id);
     this.setState({
       visible: false,
     });
@@ -57,11 +62,8 @@ class CardViewTaskUnitPC extends Component {
       cancelText: 'No',
       onOk() {
         Delete();
-        console.log('OK');
       },
-      onCancel() {
-        console.log('Cancel');
-      },
+      onCancel() {},
     });
   };
 

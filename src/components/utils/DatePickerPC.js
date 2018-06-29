@@ -24,7 +24,6 @@ class DatePickerPC extends React.Component {
           rangeValue[1].format('YYYY-MM-DD'),
         ],
       };
-      console.log('Received values of form: ', values);
     });
   };
 

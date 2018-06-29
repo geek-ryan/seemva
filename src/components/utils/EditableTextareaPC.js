@@ -28,7 +28,6 @@ class EditableTextareaPC extends Component {
 
   handleChange = e => {
     this.setState({ body: e.target.value });
-    // console.log(this.state.body);
   };
 
   render() {

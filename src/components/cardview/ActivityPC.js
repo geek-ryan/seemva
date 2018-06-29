@@ -16,11 +16,9 @@ class ActivityPC extends Component {
 
   handleChange = e => {
     this.setState({ body: e.target.value });
-    console.log(this.state.body);
   };
 
   handleAddActivity = () => {
-    console.log('get add button');
     const obj = {
       body: this.state.body,
       taskId: this.props.task.id,
@@ -31,7 +29,6 @@ class ActivityPC extends Component {
   };
 
   handleDeleteActivity = e => {
-    console.log(e.target.value);
     const id = parseInt(e.target.value);
     const func = this.props.activityFunc.Delete;
     func(id);

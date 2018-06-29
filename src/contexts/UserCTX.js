@@ -123,6 +123,37 @@ class UserProvider extends Component {
     });
   };
 
+  assigneeCreate = taskid => {
+    const assignees = this.state.userTaskAssignees.slice();
+    const chosen = this.state.userChosen.slice();
+    const assignLastNum = assignees.sort((a, b) => b.id - a.id)[0].id + 1;
+    let filtered = [];
+
+    for (let j = 0; j < assignees.length; j++) {
+      if (taskid !== assignees[j].taskId) {
+        filtered.push(assignees[j]);
+      }
+    }
+
+    if (chosen.length !== 0) {
+      for (let i = 0; i < chosen.length; i++) {
+        const assignee = {
+          id: assignLastNum + i,
+          taskId: taskid,
+          userId: chosen[i].id,
+        };
+        filtered.push(assignee);
+      }
+    }
+
+    this.setState({
+      userTaskAssignees: filtered,
+      userMatch: [],
+      userChosen: [],
+      userSearchText: '',
+    });
+  };
+
   render() {
     const value = {
       userState: this.state,
@@ -132,6 +163,7 @@ class UserProvider extends Component {
         pushChoise: this.pushChoise,
         pullChoise: this.pullChoise,
         searchText: this.searchText,
+        assigneeCreate: this.assigneeCreate,
       },
     };
     return <Provider value={value}>{this.props.children}</Provider>;

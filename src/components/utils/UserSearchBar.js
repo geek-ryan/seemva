@@ -45,9 +45,6 @@ class UserSearchBar extends Component {
     const chosenLabels = (
       <div>
         {this.props.userState.userChosen.map(element => {
-          console.log(this.props.userState.userChosen);
-          console.log(element);
-
           return (
             <Button
               onClick={this.props.userFunc.pullChoise}

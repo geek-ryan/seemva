@@ -31,7 +31,6 @@ class CardViewPC extends Component {
 
   handleChange = e => {
     this.setState({ body: e.target.value });
-    console.log(this.state.body);
   };
 
   handleAddProject = body => {
@@ -41,7 +40,6 @@ class CardViewPC extends Component {
       teamId: this.props.teamId,
       subtitle: 'test',
     };
-    console.log('obj :', obj);
     this.props.projectFunc.Create(obj);
     this.setState({ body: '' });
   };
@@ -55,7 +53,6 @@ class CardViewPC extends Component {
   };
 
   handleOk = e => {
-    console.log('click ok');
     this.handleAddProject(this.state.body);
     this.setState({
       visible: false,

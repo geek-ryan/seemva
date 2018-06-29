@@ -15,7 +15,6 @@ class LabelSearchBar extends Component {
   componentDidMount = () => {
     this.props.labelFunc.teamFilter(this.props.teamId);
     if (this.props.taskId) {
-      console.log('task label setting goinon');
       this.props.labelFunc.taskFilter(this.props.taskId);
     }
   };
@@ -61,9 +60,6 @@ class LabelSearchBar extends Component {
     const chosenLabels = (
       <div>
         {this.props.labelState.labelChosen.map(element => {
-          console.log(this.props.labelState.labelChosen);
-          console.log(element);
-
           return (
             <Button
               onClick={this.props.labelFunc.pullChoise}

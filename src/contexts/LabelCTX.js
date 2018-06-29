@@ -67,6 +67,12 @@ class LabelProvider extends Component {
     labelSearchText: '',
     labelNew: false,
   };
+  teamFilter = teamid => {
+    const arr = this.state.labels.map(
+      label => (label.teamId === teamid ? label : '')
+    );
+    this.setState({ labelFilter: arr });
+  }; // on team-filtered data to labelChosen
 
   taskFilter = taskid => {
     const arr = this.state.labelTaskAssignees
@@ -81,14 +87,7 @@ class LabelProvider extends Component {
       return k > 0;
     });
     this.setState({ labelChosen: brr });
-  };
-
-  teamFilter = teamid => {
-    const arr = this.state.labels.map(
-      label => (label.teamId === teamid ? label : '')
-    );
-    this.setState({ labelFilter: arr });
-  };
+  }; // on team-task-filtered data to labelChosen
 
   searchText = (text, teamId = 1) => {
     const arr = this.state.labelFilter.slice();
@@ -114,7 +113,7 @@ class LabelProvider extends Component {
         labelNew: false,
       });
     }
-  };
+  }; // on matched label data by seerch text to labelMatch
 
   pushChoise = e => {
     if (
@@ -131,13 +130,13 @@ class LabelProvider extends Component {
       arr.push(chosenOne);
       this.setState({ labelChosen: arr });
     }
-  };
+  }; // on clicked label to labelChosen
 
   pullChoise = e => {
     const arr = this.state.labelChosen.slice();
     const brr = arr.filter(element => element.id !== parseInt(e.target.value));
     this.setState({ labelChosen: brr });
-  };
+  }; // off clicked label from labelChosen
 
   Create = () => {
     if (this.state.labelNew) {
@@ -156,54 +155,37 @@ class LabelProvider extends Component {
         labelNew: false,
       });
     }
-  };
+  }; // on created label to labels
 
-  assigneeCreate = (taskid, type = 'add') => {
-    const array = this.state.labelTaskAssignees.slice();
-    const numLabel = array.sort((a, b) => b.id - a.id)[0].id + 1;
+  assigneeCreate = taskid => {
+    const assignees = this.state.labelTaskAssignees.slice();
+    const chosen = this.state.labelChosen.slice();
+    const assignLastNum = assignees.sort((a, b) => b.id - a.id)[0].id + 1;
+    let filtered = [];
 
-    if (type === 'add') {
-      let assignArr = [];
-      for (let i = 0; i < this.state.labelChosen.length; i++) {
-        const objLabel = {
-          taskId: taskid,
-          id: numLabel + i,
-          labelId: this.state.labelChosen[i].id,
-        };
-        assignArr.push(objLabel);
+    for (let j = 0; j < assignees.length; j++) {
+      if (taskid !== assignees[j].taskId) {
+        filtered.push(assignees[j]);
       }
-      const arr = this.state.labelTaskAssignees.slice();
-      for (let i = 0; i < assignArr.length; i++) {
-        arr.push(assignArr[i]);
-      }
-      this.setState({
-        labelTaskAssignees: arr,
-        labelMatch: [],
-        labelChosen: [],
-        labelSearchText: '',
-      });
-    } else {
-      const arr = this.state.labelTaskAssignees.slice().filter(element => {
-        let k = 0;
-        for (let i = 0; i < this.state.labelChosen.length; i++) {
-          element.taskId === taskid ? '' : k++;
-        }
-        return k > 0;
-      });
-      for (let i = 0; i < this.state.labelChosen.length; i++) {
-        arr.push({
-          id: numLabel + i,
-          taskId: taskid,
-          labelId: this.state.labelChosen[i].id,
-        });
-      }
-      this.setState({
-        labelTaskAssignees: arr,
-        labelMatch: [],
-        labelChosen: [],
-        labelSearchText: '',
-      });
     }
+
+    if (chosen.length !== 0) {
+      for (let i = 0; i < chosen.length; i++) {
+        const assignee = {
+          id: assignLastNum + i,
+          taskId: taskid,
+          labelId: chosen[i].id,
+        };
+        filtered.push(assignee);
+      }
+    }
+
+    this.setState({
+      labelTaskAssignees: filtered,
+      labelMatch: [],
+      labelChosen: [],
+      labelSearchText: '',
+    });
   };
 
   render() {
