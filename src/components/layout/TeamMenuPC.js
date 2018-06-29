@@ -19,7 +19,6 @@ class TeamMenuPC extends Component {
 
   render() {
     const {
-      authID,
       teams,
       loading,
       current,
@@ -44,30 +43,25 @@ class TeamMenuPC extends Component {
             <Icon type="loading" />
           </div>
         ) : (
-          teams.map(
-            ({ userID, id, admin, name }) =>
-              userID === authID ? (
-                <div
-                  className={classNames(
-                    'team-menu-item',
-                    current === id ? 'team-menu-item--current' : ''
-                  )}
-                  key={id}
-                >
-                  <Link to={`/card/${id}`} onClick={() => onChangeCurrent(id)}>
-                    {current === id ? <Icon type="rocket" /> : ''}
-                    {name}
-                  </Link>
-                  {admin ? (
-                    <TeamEditButtonPC name={name} />
-                  ) : (
-                    <TeamLeaveButtonPC name={name} />
-                  )}
-                </div>
+          teams.map(({ id, admin, name }) => (
+            <div
+              className={classNames(
+                'team-menu-item',
+                current === id ? 'team-menu-item--current' : ''
+              )}
+              key={id}
+            >
+              <Link to={`/card/${id}`} onClick={() => onChangeCurrent(id)}>
+                {current === id ? <Icon type="rocket" /> : ''}
+                {name}
+              </Link>
+              {admin ? (
+                <TeamEditButtonPC name={name} />
               ) : (
-                ''
-              )
-          )
+                <TeamLeaveButtonPC name={name} />
+              )}
+            </div>
+          ))
         )}
         <TeamCreateButtonPC onCreateTeam={onCreateTeam} />
       </div>

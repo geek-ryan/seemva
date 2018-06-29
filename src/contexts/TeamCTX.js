@@ -12,24 +12,6 @@ class TeamProvider extends Component {
       //   admin: true,
       //   name: 'team1',
       // },
-      // {
-      //   id: 2,
-      //   userID: 1,
-      //   admin: false,
-      //   name: 'fds-team2',
-      // },
-      // {
-      //   id: 3,
-      //   userID: 2,
-      //   admin: true,
-      //   name: 'syami team1',
-      // },
-      // {
-      //   id: 4,
-      //   userID: 2,
-      //   admin: true,
-      //   name: 'syami team2',
-      // },
     ],
     loading: false,
     current: 0,
@@ -38,15 +20,18 @@ class TeamProvider extends Component {
   async componentDidMount() {
     const id = parseInt(this.props.id, 10);
     this.changeCurrent(id);
-    await this.fetchData();
+    const res = await serverAPI.get('/me');
+    await this.fetchData(res.data.id);
   }
 
-  async fetchData() {
+  fetchData = async userID => {
     this.setState({
       loading: true,
     });
     try {
-      const res = await serverAPI.get(`/team-assignees/?_expand=team`);
+      const res = await serverAPI.get(
+        `/team-assignees?userId=${userID}&_expand=team`
+      );
       const teams = res.data.map(assignee => ({
         id: assignee.team.id,
         userID: assignee.userId,
@@ -61,7 +46,7 @@ class TeamProvider extends Component {
         loading: false,
       });
     }
-  }
+  };
 
   createTeam = async (userID, teamname) => {
     const prevState = this.state.teams.concat();
