@@ -14,7 +14,7 @@ class TeamMenuPC extends Component {
   };
 
   render() {
-    const { teams, current, onChangeCurrent } = this.props;
+    const { authID, teams, current, onChangeCurrent } = this.props;
     return (
       <div className="team-menu">
         <div
@@ -23,30 +23,35 @@ class TeamMenuPC extends Component {
             current ? '' : 'team-menu-item--current'
           )}
         >
-          <Link to="/team" onClick={() => onChangeCurrent(0)}>
+          <Link to="/card" onClick={() => onChangeCurrent(0)}>
             {current ? '' : <Icon type="rocket" />}
             Welcome team
           </Link>
         </div>
-        {teams.map(({ id, name, admin }) => (
-          <div
-            className={classNames(
-              'team-menu-item',
-              current === id ? 'team-menu-item--current' : ''
-            )}
-            key={id}
-          >
-            <Link to={`/team/${id}`} onClick={() => onChangeCurrent(id)}>
-              {current === id ? <Icon type="rocket" /> : ''}
-              {name}
-            </Link>
-            {admin ? (
-              <TeamEditButtonPC name={name} />
+        {teams.map(
+          ({ userID, id, admin, name }) =>
+            userID === authID ? (
+              <div
+                className={classNames(
+                  'team-menu-item',
+                  current === id ? 'team-menu-item--current' : ''
+                )}
+                key={id}
+              >
+                <Link to={`/card/${id}`} onClick={() => onChangeCurrent(id)}>
+                  {current === id ? <Icon type="rocket" /> : ''}
+                  {name}
+                </Link>
+                {admin ? (
+                  <TeamEditButtonPC name={name} />
+                ) : (
+                  <TeamLeaveButtonPC name={name} />
+                )}
+              </div>
             ) : (
-              <TeamLeaveButtonPC name={name} />
-            )}
-          </div>
-        ))}
+              ''
+            )
+        )}
         <TeamCreateButtonPC />
       </div>
     );

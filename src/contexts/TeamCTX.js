@@ -5,31 +5,44 @@ const { Provider, Consumer } = React.createContext();
 
 class TeamProvider extends Component {
   state = {
-    teams: [],
+    teams: [
+      {
+        id: 1,
+        userID: 1,
+        admin: true,
+        name: 'team1',
+      },
+      {
+        id: 2,
+        userID: 1,
+        admin: false,
+        name: 'fds-team2',
+      },
+      {
+        id: 3,
+        userID: 2,
+        admin: true,
+        name: 'syami team1',
+      },
+      {
+        id: 4,
+        userID: 2,
+        admin: true,
+        name: 'syami team2',
+      },
+    ],
     loading: false,
     current: 0,
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.userId == null || props.userId !== state.userID) {
-      return {
-        userID: props.userId,
-        receiveError: null,
-      };
-    }
-    return null;
+  async componentDidMount() {
+    await this.fetchData();
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    if (this.state.userID != null && this.state.receiveError === null) {
-      await this.fetchData(this.state.userID);
-    }
-  }
-
-  fetchData = async userID => {
-    const id = parseInt(this.props.id);
+  fetchData = async () => {
+    const id = parseInt(this.props.id, 10);
     try {
-      const res = await serverAPI.get(`/users/${userID}?_embed=team-assignees`);
+      const res = await serverAPI.get(`/team-assignees?_expand=teams`);
       const teams = res.data.map(() => {});
       this.setState({
         teams,

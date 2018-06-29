@@ -1,14 +1,13 @@
 import React from 'react';
 
 import withAuth from '../hocs/withAuth';
-import withUserMe from '../hocs/withUserMe';
 import { TeamProvider } from '../contexts/TeamCTX';
 import SideNavCC from '../containers/SideNavCC';
 import CardViewPage from '../pages/CardViewPage';
 
-function TeamPage({ userId, match }) {
+function TeamPage({ match }) {
   return (
-    <TeamProvider id={match.params.id} userId={userId}>
+    <TeamProvider id={match.params.id}>
       <div className="team-page">
         <SideNavCC />
         <div className="team-content">
@@ -24,4 +23,4 @@ function TeamPage({ userId, match }) {
   );
 }
 
-export default withAuth(withUserMe(TeamPage));
+export default withAuth(TeamPage);
