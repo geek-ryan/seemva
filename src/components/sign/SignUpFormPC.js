@@ -33,7 +33,6 @@ class SingUpPC extends Component {
   };
 
   validateUsedUserName = (rule, value, callback) => {
-    console.log(this.state.confirmDirty);
     this.setState(prevState => ({
       confirmDirty: prevState && !!this.props.onBlurUserName(value),
     }));

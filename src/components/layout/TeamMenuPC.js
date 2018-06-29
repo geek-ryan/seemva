@@ -9,12 +9,23 @@ import TeamLeaveButtonPC from './TeamLeaveButtonPC';
 
 class TeamMenuPC extends Component {
   static defaultProps = {
+    authID: 0,
     teams: [],
+    loading: false,
     current: 0,
+    onChangeCurrent: () => {},
+    onCreateTeams: name => {},
   };
 
   render() {
-    const { authID, teams, current, onChangeCurrent } = this.props;
+    const {
+      authID,
+      teams,
+      loading,
+      current,
+      onChangeCurrent,
+      onCreateTeam,
+    } = this.props;
     return (
       <div className="team-menu">
         <div
@@ -28,31 +39,37 @@ class TeamMenuPC extends Component {
             Welcome team
           </Link>
         </div>
-        {teams.map(
-          ({ userID, id, admin, name }) =>
-            userID === authID ? (
-              <div
-                className={classNames(
-                  'team-menu-item',
-                  current === id ? 'team-menu-item--current' : ''
-                )}
-                key={id}
-              >
-                <Link to={`/card/${id}`} onClick={() => onChangeCurrent(id)}>
-                  {current === id ? <Icon type="rocket" /> : ''}
-                  {name}
-                </Link>
-                {admin ? (
-                  <TeamEditButtonPC name={name} />
-                ) : (
-                  <TeamLeaveButtonPC name={name} />
-                )}
-              </div>
-            ) : (
-              ''
-            )
+        {loading ? (
+          <div className="loading-box">
+            <Icon type="loading" />
+          </div>
+        ) : (
+          teams.map(
+            ({ userID, id, admin, name }) =>
+              userID === authID ? (
+                <div
+                  className={classNames(
+                    'team-menu-item',
+                    current === id ? 'team-menu-item--current' : ''
+                  )}
+                  key={id}
+                >
+                  <Link to={`/card/${id}`} onClick={() => onChangeCurrent(id)}>
+                    {current === id ? <Icon type="rocket" /> : ''}
+                    {name}
+                  </Link>
+                  {admin ? (
+                    <TeamEditButtonPC name={name} />
+                  ) : (
+                    <TeamLeaveButtonPC name={name} />
+                  )}
+                </div>
+              ) : (
+                ''
+              )
+          )
         )}
-        <TeamCreateButtonPC />
+        <TeamCreateButtonPC onCreateTeam={onCreateTeam} />
       </div>
     );
   }

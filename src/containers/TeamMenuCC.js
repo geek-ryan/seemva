@@ -10,11 +10,13 @@ class TeamMenuCC extends Component {
       <AuthConsumer>
         {({ id }) => (
           <TeamConsumer>
-            {({ teams, current, changeCurrent }) => (
+            {({ teams, loading, current, createTeam, changeCurrent }) => (
               <TeamMenuPC
                 authID={id}
+                loading={loading}
                 teams={teams}
                 current={current}
+                onCreateTeam={name => createTeam(id, name)}
                 onChangeCurrent={changeCurrent}
               />
             )}

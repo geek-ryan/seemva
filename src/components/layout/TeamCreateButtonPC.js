@@ -14,9 +14,9 @@ class TeamCreateButtonPC extends Component {
     this.setState({ visible: false });
   };
 
-  handleCreate = values => {
-    console.log(values);
-    this.setState({ visible: false });
+  handleCreate = ({ name }) => {
+    this.props.onCreateTeam(name);
+    this.handleCancel();
   };
   render() {
     const { visible } = this.state;

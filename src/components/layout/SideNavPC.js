@@ -51,17 +51,17 @@ class SideNavPC extends Component {
                 'board-type-menu__item--current'
               )}
             >
-              <Link to="/team/1/card">
+              <Link to="/card/1">
                 <Icon type="appstore-o" />
               </Link>
             </div>
             <div className="board-type-menu__item">
-              <Link to="/team/1/timeline">
+              <Link to="/timeline/1">
                 <Icon type="clock-circle-o" />
               </Link>
             </div>
             <div className="board-type-menu__item">
-              <Link to="/team/1/calendar">
+              <Link to="/calendar/1">
                 <Icon type="calendar" />
               </Link>
             </div>
@@ -81,7 +81,9 @@ class SideNavPC extends Component {
             <p className="sidebar-user__name">{username}</p>
           </div>
           <TeamMenuCC />
-          <Button onClick={onLogout}>Log out</Button>
+          <Button ghost onClick={onLogout}>
+            Log out
+          </Button>
         </div>
       </div>
     );
