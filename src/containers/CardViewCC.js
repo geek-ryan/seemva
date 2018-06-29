@@ -17,7 +17,7 @@ class CardViewCC extends Component {
               <TaskProvider>
                 <ActivityProvider>
                   <UserConsumer>
-                    {({ users, user_tasks }) => {
+                    {({ userState, userFunc }) => {
                       return (
                         <LabelConsumer>
                           {({ labelState, labelFunc }) => {
@@ -35,8 +35,8 @@ class CardViewCC extends Component {
                                             }) => {
                                               return (
                                                 <CardViewPC
-                                                  users={users}
-                                                  user_tasks={user_tasks}
+                                                  userState={userState}
+                                                  userFunc={userFunc}
                                                   labelState={labelState}
                                                   labelFunc={labelFunc}
                                                   projectState={projectState}

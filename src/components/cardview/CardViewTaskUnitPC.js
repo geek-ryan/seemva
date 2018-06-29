@@ -80,8 +80,8 @@ class CardViewTaskUnitPC extends Component {
           <span>-</span>
           <span>{this.props.task.dueDate}</span>
           <div>
-            {this.props.users.map(user => {
-              return this.props.user_tasks.map(user_task => {
+            {this.props.userState.users.map(user => {
+              return this.props.userState.userTaskAssignees.map(user_task => {
                 return user.id === user_task.userId &&
                   this.props.task.id === user_task.taskId ? (
                   <span key={user_task.id}> {user.username} </span>
@@ -103,17 +103,19 @@ class CardViewTaskUnitPC extends Component {
           </div>
 
           <div>
-            {this.props.labels.map(label => {
-              return this.props.labelTaskAssignees.map(label_task => {
-                return label.id === label_task.labelId &&
-                  this.props.task.id === label_task.taskId ? (
-                  <span key={label_task.id} className={label.color}>
-                    {label.body}
-                  </span>
-                ) : (
-                  ''
-                );
-              });
+            {this.props.labelState.labels.map(label => {
+              return this.props.labelState.labelTaskAssignees.map(
+                label_task => {
+                  return label.id === label_task.labelId &&
+                    this.props.task.id === label_task.taskId ? (
+                    <span key={label_task.id} className={label.color}>
+                      {label.body}
+                    </span>
+                  ) : (
+                    ''
+                  );
+                }
+              );
             })}
           </div>
 
