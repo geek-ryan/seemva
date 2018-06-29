@@ -27,12 +27,14 @@ class CardViewCC extends Component {
                             labelMatch,
                             labelChosen,
                             labelSearchText,
+                            labelNew,
                             handleCombineLabelTask,
                             handleLabelFilter,
                             handlePullLabel,
                             handlePushLabel,
                             handleSearchChange,
                             handleLabelTaskSetting,
+                            handleNewLabel,
                           }) => {
                             return (
                               <ProjectConsumer>
@@ -118,6 +120,10 @@ class CardViewCC extends Component {
                                                   handleEditActivity={
                                                     handleEditActivity
                                                   }
+                                                  handleNewLabel={
+                                                    handleNewLabel
+                                                  }
+                                                  labelNew={labelNew}
                                                 />
                                               );
                                             }}

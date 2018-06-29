@@ -43,17 +43,37 @@ class LabelSearchBar extends Component {
       </div>
     );
 
-    const chosenLabels = (
+    const newLabel = (
       <div>
-        {this.props.labelChosen.map(element => (
+        {this.props.labelMatch.map(element => (
           <Button
-            onClick={this.props.handlePullLabel}
-            key={element.id}
-            value={element.id}
+            onClick={this.props.handleNewLabel}
+            key={this.props.labelMatch[0].id}
+            value={this.props.labelMatch[0].id}
           >
-            {element.body}
+            {this.props.labelMatch[0].body}
+            <Icon type="plus" />
           </Button>
         ))}
+      </div>
+    );
+
+    const chosenLabels = (
+      <div>
+        {this.props.labelChosen.map(element => {
+          console.log(this.props.labelChosen);
+          console.log(element);
+
+          return (
+            <Button
+              onClick={this.props.handlePullLabel}
+              key={element.id}
+              value={element.id}
+            >
+              {element.body}
+            </Button>
+          );
+        })}
       </div>
     );
 
@@ -69,7 +89,13 @@ class LabelSearchBar extends Component {
           placeholder="input search text"
           value={this.props.labelSearchText}
         />
-        <div>{this.state.searching ? result : 'Loading Labels....'}</div>
+        <div>
+          {this.state.searching
+            ? this.props.labelNew
+              ? newLabel
+              : result
+            : 'Loading Labels....'}
+        </div>
       </React.Fragment>
     );
   }

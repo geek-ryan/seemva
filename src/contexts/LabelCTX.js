@@ -65,6 +65,7 @@ class LabelProvider extends Component {
     labelMatch: [],
     labelChosen: [],
     labelSearchText: '',
+    labelNew: false,
   };
 
   handleLabelTaskSetting = taskid => {
@@ -79,7 +80,6 @@ class LabelProvider extends Component {
       }
       return k > 0;
     });
-    console.log('arrbrr', arr, brr);
     this.setState({ labelChosen: brr });
   };
 
@@ -90,10 +90,26 @@ class LabelProvider extends Component {
     this.setState({ labelFilter: arr });
   };
 
-  handleSearchChange = text => {
+  handleSearchChange = (text, teamId = 1) => {
     const arr = this.state.labelFilter.slice();
     const brr = arr.filter(element => element.body.match(text));
-    this.setState({ labelMatch: brr, labelSearchText: text });
+    if (brr.length < 1) {
+      const array = this.state.labels.slice();
+      const numLabel = array.sort((a, b) => b.id - a.id)[0].id + 1;
+      const obj = {
+        id: numLabel,
+        teamId: parseInt(teamId),
+        color: 'blue',
+        body: text,
+      };
+      this.setState({
+        labelMatch: [obj],
+        labelSearchText: text,
+        labelNew: true,
+      });
+    } else {
+      this.setState({ labelMatch: brr, labelSearchText: text });
+    }
   };
 
   handlePushLabel = e => {
@@ -119,8 +135,26 @@ class LabelProvider extends Component {
     this.setState({ labelChosen: brr });
   };
 
+  handleNewLabel = () => {
+    if (this.state.labelNew) {
+      const arr = this.state.labels.slice();
+      const brr = this.state.labelFilter.slice();
+      const crr = this.state.labelChosen.slice();
+      arr.push(this.state.labelMatch[0]);
+      brr.push(this.state.labelMatch[0]);
+      crr.push(this.state.labelMatch[0]);
+      this.setState({
+        labels: arr,
+        labelFilter: brr,
+        labelChosen: crr,
+        labelMatch: [],
+        labelSearchText: '',
+        labelNew: false,
+      });
+    }
+  };
+
   handleCombineLabelTask = (taskid, type = 'add') => {
-    console.log('hahah', taskid, type);
     const array = this.state.labelTaskAssignees.slice();
     const numLabel = array.sort((a, b) => b.id - a.id)[0].id + 1;
 
@@ -152,7 +186,6 @@ class LabelProvider extends Component {
         }
         return k > 0;
       });
-      console.log('arr', arr);
       for (let i = 0; i < this.state.labelChosen.length; i++) {
         arr.push({
           id: numLabel + i,
@@ -177,6 +210,7 @@ class LabelProvider extends Component {
       labelFilter: this.state.labelFilter,
       labelMatch: this.state.labelMatch,
       labelChosen: this.state.labelChosen,
+      labelNew: this.state.labelNew,
       labelSearchText: this.state.labelSearchText,
       handleCombineLabelTask: this.handleCombineLabelTask,
       handleLabelFilter: this.handleLabelFilter,
@@ -184,6 +218,7 @@ class LabelProvider extends Component {
       handlePushLabel: this.handlePushLabel,
       handleSearchChange: this.handleSearchChange,
       handleLabelTaskSetting: this.handleLabelTaskSetting,
+      handleNewLabel: this.handleNewLabel,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
