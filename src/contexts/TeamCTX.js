@@ -5,29 +5,43 @@ const { Provider, Consumer } = React.createContext();
 
 class TeamProvider extends Component {
   state = {
-    // userId를 받아서 team-assignee의 정보와 일치할 경우 team의 정보를 받아옴
-    teams: [
-      {
-        id: 1, // team의 id
-        name: 'team1',
-        admin: true,
-      },
-      {
-        id: 2,
-        name: 'fds-team2',
-        admin: false,
-      },
-    ],
+    teams: [],
     loading: false,
     current: 0,
   };
 
-  async componentDidMount() {
-    const id = parseInt(this.props.id);
-    this.setState({
-      current: id,
-    });
+  static getDerivedStateFromProps(props, state) {
+    if (props.userId == null || props.userId !== state.userID) {
+      return {
+        userID: props.userId,
+        receiveError: null,
+      };
+    }
+    return null;
   }
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.state.userID != null && this.state.receiveError === null) {
+      await this.fetchData(this.state.userID);
+    }
+  }
+
+  fetchData = async userID => {
+    const id = parseInt(this.props.id);
+    try {
+      const res = await serverAPI.get(`/users/${userID}?_embed=team-assignees`);
+      const teams = res.data.map(() => {});
+      this.setState({
+        teams,
+        loading: true,
+      });
+    } finally {
+      this.setState({
+        loading: false,
+        current: id,
+      });
+    }
+  };
 
   changeCurrent = id => {
     this.setState({
@@ -38,6 +52,7 @@ class TeamProvider extends Component {
   render() {
     const value = {
       ...this.state,
+      initialize: this.initialize,
       changeCurrent: this.changeCurrent,
     };
 
