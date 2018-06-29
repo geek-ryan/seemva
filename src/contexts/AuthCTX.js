@@ -45,7 +45,7 @@ class AuthProvider extends Component {
     });
   }
 
-  register = async (username, password, email, profile) => {
+  register = async ({ username, password, email, profile }) => {
     this.setState({ loading: true });
     try {
       const res = await serverAPI.post('/users/register', {
