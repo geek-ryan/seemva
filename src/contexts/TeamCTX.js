@@ -68,7 +68,6 @@ class TeamProvider extends Component {
     try {
       this.setState({ loading: true });
       const res = await serverAPI.post('/teams', { teamname });
-      console.log(res.data, res.data.id);
       this.setState(prevState => ({
         teams: prevState.teams.concat({
           id: res.data.id,
@@ -86,6 +85,7 @@ class TeamProvider extends Component {
     } catch (e) {
       this.setState({
         teams: prevState,
+        loading: false,
       });
     }
   };
