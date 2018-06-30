@@ -5,6 +5,7 @@ const { Provider, Consumer } = React.createContext();
 
 class TeamProvider extends Component {
   state = {
+    userID: 0,
     teams: [
       // {
       //   id: 1,
@@ -21,7 +22,8 @@ class TeamProvider extends Component {
     const id = parseInt(this.props.id, 10);
     this.changeCurrent(id);
     const res = await serverAPI.get('/me');
-    await this.fetchData(res.data.id);
+    this.setState({ userID: res.data.id });
+    await this.fetchData(this.state.userID);
   }
 
   fetchData = async userID => {
@@ -48,7 +50,7 @@ class TeamProvider extends Component {
     }
   };
 
-  createTeam = async (userID, teamname) => {
+  createTeam = async teamname => {
     const prevState = this.state.teams.concat();
     try {
       this.setState({ loading: true });
@@ -56,14 +58,14 @@ class TeamProvider extends Component {
       this.setState(prevState => ({
         teams: prevState.teams.concat({
           id: res.data.id,
-          userID: userID,
+          userID: this.state.userID,
           admin: true,
           name: teamname,
         }),
         loading: false,
       }));
       await serverAPI.post('/team-assignees', {
-        userId: userID,
+        userId: this.state.userID,
         admin: true,
         teamId: res.data.id,
       });
@@ -75,6 +77,31 @@ class TeamProvider extends Component {
     }
   };
 
+  deleteTeam = async (teamID, admin) => {
+    const prevState = this.state.teams.concat();
+    try {
+      await serverAPI.delete(`/teams/${teamID}`);
+      this.setState(prevState => ({
+        teams: prevState.teams.filter(team => team.id !== teamID),
+      }));
+      const res = admin
+        ? await serverAPI.get(`/team-assignees?teamId=${teamID}`)
+        : await serverAPI.delete(
+            `/team-assignees?userId=${this.state.userID}&teamId=${teamID}`
+          );
+      for (const { id } of res.data) {
+        await serverAPI.delete(`/team-assignees/${id}`);
+      }
+    } catch (e) {
+      this.setState({
+        teams: prevState,
+        loading: false,
+      });
+    }
+  };
+
+  editTeam = async teamID => {};
+
   changeCurrent = id => {
     this.setState({
       current: id,
@@ -85,6 +112,7 @@ class TeamProvider extends Component {
     const value = {
       ...this.state,
       createTeam: this.createTeam,
+      deleteTeam: this.deleteTeam,
       changeCurrent: this.changeCurrent,
     };
 

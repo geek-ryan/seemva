@@ -9,11 +9,11 @@ import TeamLeaveButtonPC from './TeamLeaveButtonPC';
 
 class TeamMenuPC extends Component {
   static defaultProps = {
-    authID: 0,
     teams: [],
     loading: false,
     current: 0,
     onChangeCurrent: () => {},
+    onDeleteTeam: teamID => {},
     onCreateTeams: name => {},
   };
 
@@ -22,6 +22,7 @@ class TeamMenuPC extends Component {
       teams,
       loading,
       current,
+      onDeleteTeam,
       onChangeCurrent,
       onCreateTeam,
     } = this.props;
@@ -56,9 +57,15 @@ class TeamMenuPC extends Component {
                 {name}
               </Link>
               {admin ? (
-                <TeamEditButtonPC name={name} />
+                <TeamEditButtonPC
+                  name={name}
+                  onDelete={() => onDeleteTeam(id, admin)}
+                />
               ) : (
-                <TeamLeaveButtonPC name={name} />
+                <TeamLeaveButtonPC
+                  name={name}
+                  onDelete={() => onDeleteTeam(id, admin)}
+                />
               )}
             </div>
           ))

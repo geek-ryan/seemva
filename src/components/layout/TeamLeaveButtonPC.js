@@ -9,10 +9,10 @@ class TeamCreateButtonPC extends Component {
 
   showLeaveConfirm = () => {
     Modal.confirm({
-      title: 'Delete Team',
+      title: 'Leave Team',
       content: (
         <div>
-          Are you sure you want to delete
+          Are you sure you want to leave
           <em style={{ color: 'red' }}> "{this.props.name}"</em>? This cannot be
           undone.
         </div>

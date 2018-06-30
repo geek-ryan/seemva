@@ -23,6 +23,10 @@ class TeamCreateButtonPC extends Component {
   };
 
   showDeleteConfirm = () => {
+    const onDelete = this.props.onDelete;
+    const closeModal = () => {
+      this.setState({ visible: false });
+    };
     Modal.confirm({
       title: 'Delete Team',
       content: (
@@ -36,7 +40,8 @@ class TeamCreateButtonPC extends Component {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        console.log('OK');
+        onDelete();
+        closeModal();
       },
     });
   };
