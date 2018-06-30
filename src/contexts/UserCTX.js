@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext();
 
 class UserProvider extends Component {
   state = {
+    loading: false,
     users: [
       {
         id: 1,
@@ -71,6 +73,23 @@ class UserProvider extends Component {
     userSearchText: '',
   };
 
+  componentDidMount = async () => {
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.get('/users');
+      const rees = await serverAPI.get('/task-user-assignees');
+      this.setState({
+        users: res.data,
+        userTaskAssignees: rees.data,
+        loading: false,
+      });
+    } catch (e) {
+      this.setState({
+        loading: false,
+      });
+    }
+  };
+
   teamFilter = (teamid = 1) => {
     const arr = this.state.users.slice();
     this.setState({ userFilter: arr });
@@ -123,35 +142,52 @@ class UserProvider extends Component {
     });
   };
 
-  assigneeCreate = taskid => {
-    const assignees = this.state.userTaskAssignees.slice();
-    const chosen = this.state.userChosen.slice();
-    const assignLastNum = assignees.sort((a, b) => b.id - a.id)[0].id + 1;
-    let filtered = [];
+  assigneeCreate = async taskid => {
+    try {
+      const assignees = this.state.userTaskAssignees.slice(); //all of assignees
+      const chosen = this.state.userChosen.slice();
+      let filteredAssignees = [];
+      let preChosenAssignees = [];
 
-    for (let j = 0; j < assignees.length; j++) {
-      if (taskid !== assignees[j].taskId) {
-        filtered.push(assignees[j]);
+      for (let j = 0; j < assignees.length; j++) {
+        if (taskid !== assignees[j].taskId) {
+          filteredAssignees.push(assignees[j]); // non tasked = non pre chosen assignees
+        } else {
+          preChosenAssignees.push(assignees[j]); // pre-chosen assignees
+        }
       }
-    }
 
-    if (chosen.length !== 0) {
-      for (let i = 0; i < chosen.length; i++) {
-        const assignee = {
-          id: assignLastNum + i,
-          taskId: taskid,
-          userId: chosen[i].id,
-        };
-        filtered.push(assignee);
+      if (chosen.length !== 0) {
+        //request of newbees
+        for (let i = 0; i < chosen.length; i++) {
+          const newbees = await serverAPI.post('/task-user-assignees', {
+            taskId: taskid,
+            userId: chosen[i].id,
+          });
+          filteredAssignees.push(newbees.data); // fixed chosen assignees
+        }
       }
-    }
 
-    this.setState({
-      userTaskAssignees: filtered,
-      userMatch: [],
-      userChosen: [],
-      userSearchText: '',
-    });
+      // request for deleting
+      for (let i = 0; i < preChosenAssignees.length; i++) {
+        const oldbees = await serverAPI.delete(
+          `/task-user-assignees/${preChosenAssignees[i].id}`
+        );
+      }
+
+      // setState
+      this.setState({
+        userTaskAssignees: filteredAssignees,
+        userMatch: [],
+        userChosen: [],
+        userSearchText: '',
+      });
+    } catch (e) {
+      this.setState(prevState => ({
+        tasks: prevState.tasks,
+        loading: false,
+      }));
+    }
   };
 
   render() {
