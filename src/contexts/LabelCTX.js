@@ -74,7 +74,12 @@ class LabelProvider extends Component {
     this.setState({ loading: true });
     try {
       const res = await serverAPI.get('/labels');
-      this.setState({ labels: res.data, loading: false });
+      const rees = await serverAPI.get('/task-label-assignees');
+      this.setState({
+        labels: res.data,
+        labelTaskAssignees: rees.data,
+        loading: false,
+      });
     } catch (e) {
       this.setState({
         loading: false,
@@ -179,39 +184,44 @@ class LabelProvider extends Component {
 
   assigneeCreate = async taskid => {
     try {
-      const assignees = this.state.labelTaskAssignees.slice();
+      const assignees = this.state.labelTaskAssignees.slice(); //all of assignees
       const chosen = this.state.labelChosen.slice();
-      const assignLastNum = assignees.sort((a, b) => b.id - a.id)[0].id + 1;
-      let filtered = [];
+      let filteredAssignees = [];
+      let preChosenAssignees = [];
 
       for (let j = 0; j < assignees.length; j++) {
         if (taskid !== assignees[j].taskId) {
-          filtered.push(assignees[j]);
+          filteredAssignees.push(assignees[j]); // non tasked = non pre chosen assignees
+        } else {
+          preChosenAssignees.push(assignees[j]); // pre-chosen assignees
         }
       }
 
       if (chosen.length !== 0) {
+        //request of newbees
         for (let i = 0; i < chosen.length; i++) {
-          const assignee = {
-            id: assignLastNum + i,
+          const newbees = await serverAPI.post('/task-label-assignees', {
             taskId: taskid,
             labelId: chosen[i].id,
-          };
-          filtered.push(assignee);
+          });
+          filteredAssignees.push(newbees.data); // fixed chosen assignees
         }
       }
 
+      // request for deleting
+      for (let i = 0; i < preChosenAssignees.length; i++) {
+        const oldbees = await serverAPI.delete(
+          `/task-label-assignees/${preChosenAssignees[i].id}`
+        );
+      }
+
+      // setState
       this.setState({
-        labelTaskAssignees: filtered,
+        labelTaskAssignees: filteredAssignees,
         labelMatch: [],
         labelChosen: [],
         labelSearchText: '',
       });
-
-      // const pre = this.state.tasks.slice();
-      // const res = await serverAPI.post('/tasks', o);
-      // pre.push(res.data);
-      // this.setState({ tasks: pre, loading: false });
     } catch (e) {
       this.setState(prevState => ({
         tasks: prevState.tasks,
@@ -232,22 +242,6 @@ class LabelProvider extends Component {
         taskFilter: this.taskFilter,
         Create: this.Create,
       },
-
-      // value: this.state,
-      // labels: this.state.labels,
-      // labelTaskAssignees: this.state.labelTaskAssignees,
-      // labelFilter: this.state.labelFilter,
-      // labelMatch: this.state.labelMatch,
-      // labelChosen: this.state.labelChosen,
-      // labelNew: this.state.labelNew,
-      // labelSearchText: this.state.labelSearchText,
-      // handleCombineLabelTask: this.handleCombineLabelTask,
-      // handleLabelFilter: this.handleLabelFilter,
-      // handlePullLabel: this.handlePullLabel,
-      // handlePushLabel: this.handlePushLabel,
-      // handleSearchChange: this.handleSearchChange,
-      // handleLabelTaskSetting: this.handleLabelTaskSetting,
-      // handleNewLabel: this.handleNewLabel,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
