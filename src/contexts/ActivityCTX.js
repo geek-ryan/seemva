@@ -5,6 +5,7 @@ const { Provider, Consumer } = React.createContext();
 
 class ActivityProvider extends Component {
   state = {
+    loading: false,
     activities: [
       {
         id: 1,
@@ -44,37 +45,73 @@ class ActivityProvider extends Component {
     ],
   };
 
-  componentDidMount = () => {};
-
-  Create = o => {
-    const arr = this.state.activities.slice();
-    const brr = this.state.activities.slice();
-    const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
-    const obj = { ...o, id: num };
-    brr.push(obj);
-    this.setState({ activities: brr });
+  componentDidMount = async () => {
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.get('/activities');
+      this.setState({ activities: res.data, loading: false });
+    } catch (e) {
+      this.setState({
+        loading: false,
+      });
+    }
   };
 
-  Delete = id => {
-    this.setState(() => {
-      const arr = this.state.activities.map(
-        activity => (activity.id === id ? '' : activity)
-      );
-      return { activities: arr };
-    });
+  Create = async o => {
+    const pre = this.state.activities.slice();
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.post('/activities', o);
+      pre.push(res.data);
+      this.setState({ activities: pre, loading: false });
+    } catch (e) {
+      this.setState(prevState => ({
+        activities: prevState.activities,
+        loading: false,
+      }));
+    }
   };
 
-  Edit = (id, keyType, body) => {
-    this.setState(() => {
-      let arr = this.state.activities.slice();
-      const brr = arr.map(
-        element =>
-          element.id === parseInt(id)
-            ? { ...element, [keyType]: body }
-            : element
-      );
-      return { activities: brr };
-    });
+  Delete = async id => {
+    this.setState({ loading: true });
+    try {
+      this.setState(() => {
+        const arr = this.state.activities.map(
+          activity => (activity.id === id ? '' : activity)
+        );
+        return { activities: arr, loading: false };
+      });
+      const res = await serverAPI.delete(`/activities/${id}`);
+    } catch (e) {
+      this.setState(prevState => ({
+        activities: prevState.activities,
+        loading: false,
+      }));
+    }
+  };
+
+  Update = async (id, keyType, body) => {
+    this.setState({ loading: true });
+    try {
+      this.setState(() => {
+        let arr = this.state.activities.slice();
+        const brr = arr.map(
+          element =>
+            element.id === parseInt(id)
+              ? { ...element, [keyType]: body }
+              : element
+        );
+        return { activities: brr, loading: false };
+      });
+      const res = await serverAPI.patch(`/activities/${id}`, {
+        [keyType]: body,
+      });
+    } catch (e) {
+      this.setState(prevState => ({
+        activities: prevState.activities,
+        loading: false,
+      }));
+    }
   };
 
   render() {
@@ -83,7 +120,7 @@ class ActivityProvider extends Component {
       activityFunc: {
         Create: this.Create,
         Delete: this.Delete,
-        Edit: this.Edit,
+        Update: this.Update,
       },
     };
     return <Provider value={value}>{this.props.children}</Provider>;

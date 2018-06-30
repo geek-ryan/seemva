@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext();
 
 class TaskProvider extends Component {
   state = {
+    loading: false,
     tasks: [
       {
         id: 1,
@@ -53,42 +55,90 @@ class TaskProvider extends Component {
     ],
   };
 
-  Complete = id => {
-    this.setState(() => {
-      const arr = this.state.tasks.map(
-        task => (task.id === id ? { ...task, complete: true } : task)
-      );
-      return { tasks: arr };
-    });
+  Complete = async id => {
+    this.setState({ loading: true });
+    try {
+      this.setState(() => {
+        const arr = this.state.tasks.map(
+          task => (task.id === id ? { ...task, complete: true } : task)
+        );
+        return { tasks: arr, loding: false };
+      });
+      const res = await serverAPI.patch(`/tasks/${id}`, {
+        complete: true,
+      });
+    } catch (e) {
+      this.setState(prevState => ({
+        tasks: prevState.tasks,
+        loading: false,
+      }));
+    }
   };
 
-  Delete = id => {
-    this.setState(() => {
-      const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
-      return { tasks: arr };
-    });
+  componentDidMount = async () => {
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.get('/tasks');
+      this.setState({ tasks: res.data, loading: false });
+    } catch (e) {
+      this.setState({
+        loading: false,
+      });
+    }
   };
 
-  Create = o => {
-    const arr = this.state.tasks.slice();
-    const brr = this.state.tasks.slice();
-    const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
-    const obj = { ...o, id: num };
-    brr.push(obj);
-    this.setState({ tasks: brr });
+  Delete = async id => {
+    this.setState({ loading: true });
+    try {
+      this.setState(() => {
+        const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
+        return { tasks: arr, loding: false };
+      });
+      const res = await serverAPI.delete(`/tasks/${id}`);
+    } catch (e) {
+      this.setState(prevState => ({
+        tasks: prevState.tasks,
+        loading: false,
+      }));
+    }
   };
 
-  Update = (id, keyType, body) => {
-    this.setState(() => {
-      let arr = this.state.tasks.slice();
-      const brr = arr.map(
-        element =>
-          element.id === parseInt(id)
-            ? { ...element, [keyType]: body }
-            : element
-      );
-      return { tasks: brr };
-    });
+  Create = async o => {
+    try {
+      const pre = this.state.tasks.slice();
+      const res = await serverAPI.post('/tasks', o);
+      pre.push(res.data);
+      this.setState({ tasks: pre, loading: false });
+    } catch (e) {
+      this.setState(prevState => ({
+        tasks: prevState.tasks,
+        loading: false,
+      }));
+    }
+  };
+
+  Update = async (id, keyType, body) => {
+    this.setState({ loading: true });
+    try {
+      this.setState(() => {
+        let arr = this.state.tasks.slice();
+        const brr = arr.map(
+          element =>
+            element.id === parseInt(id)
+              ? { ...element, [keyType]: body }
+              : element
+        );
+        return { tasks: brr };
+      });
+      const res = await serverAPI.patch(`/tasks/${id}`, {
+        [keyType]: body,
+      });
+    } catch (e) {
+      this.setState(prevState => ({
+        tasks: prevState.tasks,
+        loading: false,
+      }));
+    }
   };
 
   render() {

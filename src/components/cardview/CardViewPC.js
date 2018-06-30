@@ -3,11 +3,6 @@ import { Icon, Modal } from 'antd';
 
 import ProjectCardUnitPC from './ProjectCardUnitPC';
 
-<<<<<<< HEAD
-=======
-import '../../../node_modules/antd/dist/antd.css';
-
->>>>>>> 5dcca9d36e00e39415376588ef13dbb164552312
 class CardViewPC extends Component {
   static defaultProps = {
     teamId: 1,

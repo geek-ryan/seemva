@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext();
 
 class LabelProvider extends Component {
   state = {
+    loading: false,
     labels: [
       {
         id: 1,
@@ -67,6 +69,19 @@ class LabelProvider extends Component {
     labelSearchText: '',
     labelNew: false,
   };
+
+  componentDidMount = async () => {
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.get('/labels');
+      this.setState({ labels: res.data, loading: false });
+    } catch (e) {
+      this.setState({
+        loading: false,
+      });
+    }
+  };
+
   teamFilter = teamid => {
     const arr = this.state.labels.map(
       label => (label.teamId === teamid ? label : '')
@@ -93,10 +108,7 @@ class LabelProvider extends Component {
     const arr = this.state.labelFilter.slice();
     const brr = arr.filter(element => element.body.match(text));
     if (brr.length < 1) {
-      const array = this.state.labels.slice();
-      const numLabel = array.sort((a, b) => b.id - a.id)[0].id + 1;
       const obj = {
-        id: numLabel,
         teamId: parseInt(teamId),
         color: 'blue',
         body: text,
@@ -138,54 +150,74 @@ class LabelProvider extends Component {
     this.setState({ labelChosen: brr });
   }; // off clicked label from labelChosen
 
-  Create = () => {
-    if (this.state.labelNew) {
-      const arr = this.state.labels.slice();
-      const brr = this.state.labelFilter.slice();
-      const crr = this.state.labelChosen.slice();
-      arr.push(this.state.labelMatch[0]);
-      brr.push(this.state.labelMatch[0]);
-      crr.push(this.state.labelMatch[0]);
-      this.setState({
-        labels: arr,
-        labelFilter: brr,
-        labelChosen: crr,
-        labelMatch: [],
-        labelSearchText: '',
-        labelNew: false,
-      });
+  Create = async () => {
+    try {
+      if (this.state.labelNew) {
+        const res = await serverAPI.post('/labels', this.state.labelMatch[0]);
+        const arr = this.state.labels.slice();
+        const brr = this.state.labelFilter.slice();
+        const crr = this.state.labelChosen.slice();
+        arr.push(res.data);
+        brr.push(res.data);
+        crr.push(res.data);
+        this.setState({
+          labels: arr,
+          labelFilter: brr,
+          labelChosen: crr,
+          labelMatch: [],
+          labelSearchText: '',
+          labelNew: false,
+        });
+      }
+    } catch (e) {
+      this.setState(prevState => ({
+        tasks: prevState.tasks,
+        loading: false,
+      }));
     }
   }; // on created label to labels
 
-  assigneeCreate = taskid => {
-    const assignees = this.state.labelTaskAssignees.slice();
-    const chosen = this.state.labelChosen.slice();
-    const assignLastNum = assignees.sort((a, b) => b.id - a.id)[0].id + 1;
-    let filtered = [];
+  assigneeCreate = async taskid => {
+    try {
+      const assignees = this.state.labelTaskAssignees.slice();
+      const chosen = this.state.labelChosen.slice();
+      const assignLastNum = assignees.sort((a, b) => b.id - a.id)[0].id + 1;
+      let filtered = [];
 
-    for (let j = 0; j < assignees.length; j++) {
-      if (taskid !== assignees[j].taskId) {
-        filtered.push(assignees[j]);
+      for (let j = 0; j < assignees.length; j++) {
+        if (taskid !== assignees[j].taskId) {
+          filtered.push(assignees[j]);
+        }
       }
-    }
 
-    if (chosen.length !== 0) {
-      for (let i = 0; i < chosen.length; i++) {
-        const assignee = {
-          id: assignLastNum + i,
-          taskId: taskid,
-          labelId: chosen[i].id,
-        };
-        filtered.push(assignee);
+      if (chosen.length !== 0) {
+        for (let i = 0; i < chosen.length; i++) {
+          const assignee = {
+            id: assignLastNum + i,
+            taskId: taskid,
+            labelId: chosen[i].id,
+          };
+          filtered.push(assignee);
+        }
       }
-    }
 
-    this.setState({
-      labelTaskAssignees: filtered,
-      labelMatch: [],
-      labelChosen: [],
-      labelSearchText: '',
-    });
+      this.setState({
+        labelTaskAssignees: filtered,
+        labelMatch: [],
+        labelChosen: [],
+        labelSearchText: '',
+      });
+
+      // const pre = this.state.tasks.slice();
+      // const res = await serverAPI.post('/tasks', o);
+      // pre.push(res.data);
+      // this.setState({ tasks: pre, loading: false });
+    } catch (e) {
+      this.setState(prevState => ({
+        tasks: prevState.tasks,
+        loading: false,
+      }));
+    }
   };
 
   render() {
