@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Modal, Layout } from 'antd';
+import { Icon, Modal } from 'antd';
 
 import ProjectCardUnitPC from './ProjectCardUnitPC';
-import CardViewAddProjectPC from './CardViewAddProjectPC';
-import SideLinePC from '../layout/SideLinePC';
-import SidebarPC from '../layout/SidebarPC';
-import HeaderPC from '../layout/HeaderPC';
 
 import '../../../node_modules/antd/dist/antd.css';
-
-import { ProjectProvider, ProjectConsumer } from '../../contexts/ProjectCTX';
-import { TaskProvider, TaskConsumer } from '../../contexts/TaskCTX';
-import { UserProvider, UserConsumer } from '../../contexts/UserCTX';
-import { LabelProvider } from '../../contexts/LabelCTX';
-import { ActivityProvider } from '../../contexts/ActivityCTX';
-import { TeamProvider } from '../../contexts/TeamCTX';
-
-const { Header, Footer, Sider, Content } = Layout;
 
 class CardViewPC extends Component {
   static defaultProps = {
@@ -31,7 +18,6 @@ class CardViewPC extends Component {
 
   handleChange = e => {
     this.setState({ body: e.target.value });
-    console.log(this.state.body);
   };
 
   handleAddProject = body => {
@@ -41,8 +27,7 @@ class CardViewPC extends Component {
       teamId: this.props.teamId,
       subtitle: 'test',
     };
-    console.log('obj :', obj);
-    this.props.handleAddProject(obj);
+    this.props.projectFunc.Create(obj);
     this.setState({ body: '' });
   };
 
@@ -55,7 +40,6 @@ class CardViewPC extends Component {
   };
 
   handleOk = e => {
-    console.log('click ok');
     this.handleAddProject(this.state.body);
     this.setState({
       visible: false,
@@ -70,7 +54,7 @@ class CardViewPC extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.projects.map(project => (
+        {this.props.projectState.projects.map(project => (
           <ProjectCardUnitPC
             key={project.id}
             {...this.props}

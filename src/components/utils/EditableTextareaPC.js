@@ -12,7 +12,6 @@ class EditableTextareaPC extends Component {
 
   handleOnblur = () => {
     if (this.props[this.props.datatype].id && this.props.editfunc) {
-      // console.log('get patch', this.props.datatype, this.props.keyType);
       this.props.editfunc(
         this.props[this.props.datatype].id,
         this.props.keyType,
@@ -29,7 +28,6 @@ class EditableTextareaPC extends Component {
 
   handleChange = e => {
     this.setState({ body: e.target.value });
-    // console.log(this.state.body);
   };
 
   render() {

@@ -3,6 +3,7 @@ import { Form, Input, Icon, Button, Modal, Card, DatePicker } from 'antd';
 
 import CardViewTaskUnitPC from './CardViewTaskUnitPC';
 import EditableTextareaPC from '../utils/EditableTextareaPC';
+import LabelSearchBar from '../utils/LabelSearchBar';
 
 import '../../../node_modules/antd/dist/antd.css';
 
@@ -11,9 +12,14 @@ var moment = require('moment');
 class ProjectCardUnitPC extends Component {
   static defaultProps = {
     project: {},
-    tasks: {},
-    handleAddProject: () => {},
+    tasks: [],
     date: [],
+    labelTaskAssignees: [],
+    labels: [],
+    teamId: 1,
+    handleAddProject: () => {},
+    handleCombineLabelTask: () => {},
+    handleEditProject: () => {},
   };
 
   state = {
@@ -49,7 +55,10 @@ class ProjectCardUnitPC extends Component {
   };
 
   handleOk = e => {
-    console.log('click task ok');
+    //find task+  assign+ number
+    const arr = this.props.taskState.tasks.slice();
+    const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
+    //made task content
     const obj = {
       title: this.state.title,
       body: this.state.body,
@@ -58,7 +67,9 @@ class ProjectCardUnitPC extends Component {
       projectId: this.props.project.id,
       complete: false,
     };
-    this.props.handleAddTask(obj);
+    //Add labelAssign and task
+    this.props.taskFunc.Create(obj);
+    this.props.labelFunc.assigneeCreate(num);
     this.setState({
       visible: false,
       title: '',
@@ -80,10 +91,10 @@ class ProjectCardUnitPC extends Component {
             body={this.props.project.title}
             keyType={'title'}
             datatype={'project'}
-            editfunc={this.props.handleEditProject}
+            editfunc={this.props.projectFunc.Update}
             {...this.props}
           />
-          {this.props.tasks.map(task => {
+          {this.props.taskState.tasks.map(task => {
             return this.props.project.id === task.projectId ? (
               <CardViewTaskUnitPC key={task.id} task={task} {...this.props} />
             ) : (
@@ -100,17 +111,22 @@ class ProjectCardUnitPC extends Component {
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
-            <Input onChange={this.handleChangeTitle} placeholder="Title" />
+            <Input
+              onChange={this.handleChangeTitle}
+              placeholder="Title"
+              value={this.state.title}
+            />
             <Input.TextArea
               onChange={this.handleChangeBody}
               placeholder="Body"
+              value={this.state.body}
               row={4}
             />
             <DatePicker.RangePicker
               onChange={this.handleDateChange}
               value={[moment(), moment()]}
             />
-            <div>Member search input</div>
+            <LabelSearchBar {...this.props} />
           </Modal>
         </Card>
       </React.Fragment>

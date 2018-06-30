@@ -53,7 +53,7 @@ class TaskProvider extends Component {
     ],
   };
 
-  handleComplete = id => {
+  Complete = id => {
     this.setState(() => {
       const arr = this.state.tasks.map(
         task => (task.id === id ? { ...task, complete: true } : task)
@@ -62,14 +62,14 @@ class TaskProvider extends Component {
     });
   };
 
-  handleDeleteTask = id => {
+  Delete = id => {
     this.setState(() => {
       const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
       return { tasks: arr };
     });
   };
 
-  handleAddTask = o => {
+  Create = o => {
     const arr = this.state.tasks.slice();
     const brr = this.state.tasks.slice();
     const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
@@ -78,7 +78,7 @@ class TaskProvider extends Component {
     this.setState({ tasks: brr });
   };
 
-  handleEditTask = (id, keyType, body) => {
+  Update = (id, keyType, body) => {
     this.setState(() => {
       let arr = this.state.tasks.slice();
       const brr = arr.map(
@@ -93,11 +93,19 @@ class TaskProvider extends Component {
 
   render() {
     const value = {
-      tasks: this.state.tasks,
-      handleComplete: this.handleComplete,
-      handleDeleteTask: this.handleDeleteTask,
-      handleAddTask: this.handleAddTask,
-      handleEditTask: this.handleEditTask,
+      taskState: this.state,
+      taskFunc: {
+        Complete: this.Complete,
+        Delete: this.Delete,
+        Create: this.Create,
+        Update: this.Update,
+      },
+
+      // tasks: this.state.tasks,
+      // handleComplete: this.handleComplete,
+      // handleDeleteTask: this.handleDeleteTask,
+      // handleAddTask: this.handleAddTask,
+      // handleEditTask: this.handleEditTask,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

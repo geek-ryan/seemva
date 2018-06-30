@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import { ProfileProvider } from '../contexts/ProfileCTX';
+import { ProfileProvider } from './contexts/ProfileCTX';
 import { AuthProvider } from './contexts/AuthCTX';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';

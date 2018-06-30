@@ -17,68 +17,34 @@ class CardViewCC extends Component {
               <TaskProvider>
                 <ActivityProvider>
                   <UserConsumer>
-                    {({ users, user_tasks }) => {
+                    {({ userState, userFunc }) => {
                       return (
                         <LabelConsumer>
-                          {({ labels, label_tasks }) => {
+                          {({ labelState, labelFunc }) => {
                             return (
                               <ProjectConsumer>
-                                {({
-                                  projects,
-                                  handleAddProject,
-                                  handleEditProject,
-                                }) => {
+                                {({ projectState, projectFunc }) => {
                                   return (
                                     <TaskConsumer>
-                                      {({
-                                        tasks,
-                                        handleComplete,
-                                        handleDeleteTask,
-                                        handleAddTask,
-                                        handleEditTask,
-                                      }) => {
+                                      {({ taskState, taskFunc }) => {
                                         return (
                                           <ActivityConsumer>
                                             {({
-                                              activities,
-                                              handleAddActivity,
-                                              handleDeleteActivity,
-                                              handleEditActivity,
+                                              activityState,
+                                              activityFunc,
                                             }) => {
                                               return (
                                                 <CardViewPC
-                                                  users={users}
-                                                  user_tasks={user_tasks}
-                                                  labels={labels}
-                                                  label_tasks={label_tasks}
-                                                  projects={projects}
-                                                  handleAddProject={
-                                                    handleAddProject
-                                                  }
-                                                  handleEditProject={
-                                                    handleEditProject
-                                                  }
-                                                  tasks={tasks}
-                                                  handleComplete={
-                                                    handleComplete
-                                                  }
-                                                  handleDeleteTask={
-                                                    handleDeleteTask
-                                                  }
-                                                  handleAddTask={handleAddTask}
-                                                  handleEditTask={
-                                                    handleEditTask
-                                                  }
-                                                  activities={activities}
-                                                  handleAddActivity={
-                                                    handleAddActivity
-                                                  }
-                                                  handleDeleteActivity={
-                                                    handleDeleteActivity
-                                                  }
-                                                  handleEditActivity={
-                                                    handleEditActivity
-                                                  }
+                                                  userState={userState}
+                                                  userFunc={userFunc}
+                                                  labelState={labelState}
+                                                  labelFunc={labelFunc}
+                                                  projectState={projectState}
+                                                  projectFunc={projectFunc}
+                                                  taskState={taskState}
+                                                  taskFunc={taskFunc}
+                                                  activityState={activityState}
+                                                  activityFunc={activityFunc}
                                                 />
                                               );
                                             }}
