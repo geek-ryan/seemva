@@ -51,7 +51,7 @@ class TeamProvider extends Component {
   };
 
   createTeam = async teamname => {
-    const prevState = this.state.teams.concat();
+    const prevState = this.state.teams;
     try {
       this.setState({ loading: true });
       const res = await serverAPI.post('/teams', { teamname });
@@ -78,7 +78,7 @@ class TeamProvider extends Component {
   };
 
   deleteTeam = async (teamID, admin) => {
-    const prevState = this.state.teams.concat();
+    const prevState = this.state.teams;
     try {
       await serverAPI.delete(`/teams/${teamID}`);
       this.setState(prevState => ({
@@ -101,8 +101,7 @@ class TeamProvider extends Component {
   };
 
   editTeam = async (teamID, teamname) => {
-    console.log(teamID, teamname);
-    const prevState = this.state.teams.concat();
+    const prevState = this.state.teams;
     try {
       this.setState({ loading: true });
       this.setState(prevState => ({
