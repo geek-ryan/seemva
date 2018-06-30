@@ -22,7 +22,7 @@ class ProjectProvider extends Component {
     ],
   };
 
-  handleAddProject = o => {
+  Create = o => {
     const arr = this.state.projects.slice();
     const brr = this.state.projects.slice();
     const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
@@ -31,7 +31,7 @@ class ProjectProvider extends Component {
     this.setState({ projects: brr });
   };
 
-  handleEditProject = (id, keyType, body) => {
+  Update = (id, keyType, body) => {
     this.setState(() => {
       let arr = this.state.projects.slice();
       const brr = arr.map(
@@ -46,10 +46,16 @@ class ProjectProvider extends Component {
 
   render() {
     const value = {
-      value: this.state,
-      projects: this.state.projects,
-      handleAddProject: this.handleAddProject,
-      handleEditProject: this.handleEditProject,
+      projectState: this.state,
+      projectFunc: {
+        Create: this.Create,
+        Update: this.Update,
+      },
+
+      // value: this.state,
+      // projects: this.state.projects,
+      // handleAddProject: this.handleAddProject,
+      // handleEditProject: this.handleEditProject,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

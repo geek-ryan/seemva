@@ -3,6 +3,8 @@ import { Button, Modal, DatePicker } from 'antd';
 
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import ActivityPC from '../cardview/ActivityPC';
+import LabelSearchBar from '../utils/LabelSearchBar';
+import UserSearchBar from '../utils/UserSearchBar';
 
 var moment = require('moment');
 
@@ -14,11 +16,11 @@ class CardViewTaskModalPC extends Component {
   };
 
   handleUnitDelete = () => {
-    this.props.handleDeleteTask(this.props.task.id);
+    this.props.taskFunc.Delete(this.props.task.id);
   };
 
   handleUnitComplete = () => {
-    this.props.handleComplete(this.props.task.id);
+    this.props.taskFunc.Complete(this.props.task.id);
   };
 
   showConfirm = () => {
@@ -56,7 +58,7 @@ class CardViewTaskModalPC extends Component {
     if (startMoment > dueMoment) {
       alert('Please check date again');
     } else {
-      this.props.handleEditTask(this.props.task.id, 'startDate', dateString);
+      this.props.taskFunc.Update(this.props.task.id, 'startDate', dateString);
     }
   };
 
@@ -66,7 +68,7 @@ class CardViewTaskModalPC extends Component {
     if (startMoment > dueMoment) {
       alert('Please check date again');
     } else {
-      this.props.handleEditTask(this.props.task.id, 'dueDate', dateString);
+      this.props.taskFunc.Update(this.props.task.id, 'dueDate', dateString);
     }
   };
 
@@ -77,14 +79,14 @@ class CardViewTaskModalPC extends Component {
           body={this.props.task.title}
           keyType={'title'}
           datatype={'task'}
-          editfunc={this.props.handleEditTask}
+          editfunc={this.props.taskFunc.Update}
           {...this.props}
         />
         <EditableTextareaPC
           body={this.props.task.body}
           keyType={'body'}
           datatype={'task'}
-          editfunc={this.props.handleEditTask}
+          editfunc={this.props.taskFunc.Update}
           {...this.props}
         />
         <div>
@@ -93,6 +95,11 @@ class CardViewTaskModalPC extends Component {
             Delete
           </Button>
         </div>
+
+        <UserSearchBar taskId={this.props.task.id} {...this.props} />
+
+        <LabelSearchBar taskId={this.props.task.id} {...this.props} />
+
         <div>
           start date:
           <DatePicker

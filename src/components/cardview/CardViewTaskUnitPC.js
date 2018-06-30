@@ -6,12 +6,12 @@ import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
 class CardViewTaskUnitPC extends Component {
   static defaultProps = {
     project: {},
-    tasks: {},
+    tasks: [],
     task: {},
-    users: {},
-    activities: {},
-    labels: {},
-    label_tasks: {},
+    users: [],
+    activities: [],
+    labels: [],
+    labelTaskAssignees: [],
     handleDeleteTask: () => {},
     handleComplete: () => {},
     handleDelete: () => {},
@@ -24,12 +24,18 @@ class CardViewTaskUnitPC extends Component {
   };
 
   showModal = () => {
+    this.props.labelFunc.teamFilter(this.props.teamId);
+    this.props.labelFunc.taskFilter(this.props.task.id);
+    this.props.userFunc.teamFilter();
+    this.props.userFunc.taskFilter(this.props.task.id);
     this.setState({
       visible: true,
     });
   };
 
   handleOk = e => {
+    this.props.labelFunc.assigneeCreate(this.props.task.id);
+    this.props.userFunc.assigneeCreate(this.props.task.id);
     this.setState({
       visible: false,
     });
@@ -42,7 +48,7 @@ class CardViewTaskUnitPC extends Component {
   };
 
   handleUnitDelete = () => {
-    this.props.handleDeleteTask(this.props.task.id);
+    this.props.taskFunc.Delete(this.props.task.id);
   };
 
   showDeleteConfirm = () => {
@@ -56,11 +62,8 @@ class CardViewTaskUnitPC extends Component {
       cancelText: 'No',
       onOk() {
         Delete();
-        console.log('OK');
       },
-      onCancel() {
-        console.log('Cancel');
-      },
+      onCancel() {},
     });
   };
 
@@ -79,8 +82,8 @@ class CardViewTaskUnitPC extends Component {
           <span>-</span>
           <span>{this.props.task.dueDate}</span>
           <div>
-            {this.props.users.map(user => {
-              return this.props.user_tasks.map(user_task => {
+            {this.props.userState.users.map(user => {
+              return this.props.userState.userTaskAssignees.map(user_task => {
                 return user.id === user_task.userId &&
                   this.props.task.id === user_task.taskId ? (
                   <span key={user_task.id}> {user.username} </span>
@@ -94,26 +97,30 @@ class CardViewTaskUnitPC extends Component {
             <Icon type="message" />
             <span>
               {
-                this.props.activities.filter(
+                this.props.activityState.activities.filter(
                   activity => activity.taskId === this.props.task.id
                 ).length
               }
             </span>
           </div>
+
           <div>
-            {this.props.labels.map(label => {
-              return this.props.label_tasks.map(label_task => {
-                return label.id === label_task.labelId &&
-                  this.props.task.id === label_task.taskId ? (
-                  <span key={label_task.id} className={label.color}>
-                    {label.body}
-                  </span>
-                ) : (
-                  ''
-                );
-              });
+            {this.props.labelState.labels.map(label => {
+              return this.props.labelState.labelTaskAssignees.map(
+                label_task => {
+                  return label.id === label_task.labelId &&
+                    this.props.task.id === label_task.taskId ? (
+                    <span key={label_task.id} className={label.color}>
+                      {label.body}
+                    </span>
+                  ) : (
+                    ''
+                  );
+                }
+              );
             })}
           </div>
+
           <Modal
             visible={this.state.visible}
             onOk={this.handleOk}

@@ -24,7 +24,7 @@ class LabelProvider extends Component {
         body: 'label_03',
       },
     ],
-    label_tasks: [
+    labelTaskAssignees: [
       {
         id: 1,
         labelId: 1,
@@ -61,13 +61,161 @@ class LabelProvider extends Component {
         taskId: 2,
       },
     ],
+    labelFilter: [],
+    labelMatch: [],
+    labelChosen: [],
+    labelSearchText: '',
+    labelNew: false,
+  };
+  teamFilter = teamid => {
+    const arr = this.state.labels.map(
+      label => (label.teamId === teamid ? label : '')
+    );
+    this.setState({ labelFilter: arr });
+  }; // on team-filtered data to labelChosen
+
+  taskFilter = taskid => {
+    const arr = this.state.labelTaskAssignees
+      .slice()
+      .filter(element => element.taskId === taskid)
+      .map(element => element.labelId);
+    const brr = this.state.labels.slice().filter(element => {
+      let k = 0;
+      for (let i = 0; i < arr.length; i++) {
+        element.id === arr[i] ? k++ : '';
+      }
+      return k > 0;
+    });
+    this.setState({ labelChosen: brr });
+  }; // on team-task-filtered data to labelChosen
+
+  searchText = (text, teamId = 1) => {
+    const arr = this.state.labelFilter.slice();
+    const brr = arr.filter(element => element.body.match(text));
+    if (brr.length < 1) {
+      const array = this.state.labels.slice();
+      const numLabel = array.sort((a, b) => b.id - a.id)[0].id + 1;
+      const obj = {
+        id: numLabel,
+        teamId: parseInt(teamId),
+        color: 'blue',
+        body: text,
+      };
+      this.setState({
+        labelMatch: [obj],
+        labelSearchText: text,
+        labelNew: true,
+      });
+    } else {
+      this.setState({
+        labelMatch: brr,
+        labelSearchText: text,
+        labelNew: false,
+      });
+    }
+  }; // on matched label data by seerch text to labelMatch
+
+  pushChoise = e => {
+    if (
+      this.state.labelChosen.filter(
+        element => element.id === parseInt(e.target.value)
+      ).length
+    ) {
+      ('');
+    } else {
+      const chosenOne = this.state.labelFilter.filter(
+        element => element.id === parseInt(e.target.value)
+      )[0];
+      const arr = this.state.labelChosen.slice();
+      arr.push(chosenOne);
+      this.setState({ labelChosen: arr });
+    }
+  }; // on clicked label to labelChosen
+
+  pullChoise = e => {
+    const arr = this.state.labelChosen.slice();
+    const brr = arr.filter(element => element.id !== parseInt(e.target.value));
+    this.setState({ labelChosen: brr });
+  }; // off clicked label from labelChosen
+
+  Create = () => {
+    if (this.state.labelNew) {
+      const arr = this.state.labels.slice();
+      const brr = this.state.labelFilter.slice();
+      const crr = this.state.labelChosen.slice();
+      arr.push(this.state.labelMatch[0]);
+      brr.push(this.state.labelMatch[0]);
+      crr.push(this.state.labelMatch[0]);
+      this.setState({
+        labels: arr,
+        labelFilter: brr,
+        labelChosen: crr,
+        labelMatch: [],
+        labelSearchText: '',
+        labelNew: false,
+      });
+    }
+  }; // on created label to labels
+
+  assigneeCreate = taskid => {
+    const assignees = this.state.labelTaskAssignees.slice();
+    const chosen = this.state.labelChosen.slice();
+    const assignLastNum = assignees.sort((a, b) => b.id - a.id)[0].id + 1;
+    let filtered = [];
+
+    for (let j = 0; j < assignees.length; j++) {
+      if (taskid !== assignees[j].taskId) {
+        filtered.push(assignees[j]);
+      }
+    }
+
+    if (chosen.length !== 0) {
+      for (let i = 0; i < chosen.length; i++) {
+        const assignee = {
+          id: assignLastNum + i,
+          taskId: taskid,
+          labelId: chosen[i].id,
+        };
+        filtered.push(assignee);
+      }
+    }
+
+    this.setState({
+      labelTaskAssignees: filtered,
+      labelMatch: [],
+      labelChosen: [],
+      labelSearchText: '',
+    });
   };
 
   render() {
     const value = {
-      value: this.state,
-      labels: this.state.labels,
-      label_tasks: this.state.label_tasks,
+      labelState: this.state,
+      labelFunc: {
+        assigneeCreate: this.assigneeCreate,
+        teamFilter: this.teamFilter,
+        pullChoise: this.pullChoise,
+        pushChoise: this.pushChoise,
+        searchText: this.searchText,
+        taskFilter: this.taskFilter,
+        Create: this.Create,
+      },
+
+      // value: this.state,
+      // labels: this.state.labels,
+      // labelTaskAssignees: this.state.labelTaskAssignees,
+      // labelFilter: this.state.labelFilter,
+      // labelMatch: this.state.labelMatch,
+      // labelChosen: this.state.labelChosen,
+      // labelNew: this.state.labelNew,
+      // labelSearchText: this.state.labelSearchText,
+      // handleCombineLabelTask: this.handleCombineLabelTask,
+      // handleLabelFilter: this.handleLabelFilter,
+      // handlePullLabel: this.handlePullLabel,
+      // handlePushLabel: this.handlePushLabel,
+      // handleSearchChange: this.handleSearchChange,
+      // handleLabelTaskSetting: this.handleLabelTaskSetting,
+      // handleNewLabel: this.handleNewLabel,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
