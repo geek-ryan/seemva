@@ -308,6 +308,45 @@ body {
   width: 100%;
 }
 
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5em 0.8em;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.header__team-name {
+  padding-right: 1em;
+  font-size: 1.3em;
+}
+
+.member-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 1em;
+}
+
+.member-group .ant-avatar {
+  margin-left: -3px;
+}
+
 .team-page {
   display: -webkit-box;
   display: -ms-flexbox;

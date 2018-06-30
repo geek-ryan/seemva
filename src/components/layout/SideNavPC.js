@@ -39,7 +39,11 @@ class SideNavPC extends Component {
         <div className="sidebar__menu">
           {!open ? (
             <div className="user-avatar" onClick={onChangeProfile}>
-              {profile ? <Avatar src={profile} /> : <Avatar>{username}</Avatar>}
+              {profile ? (
+                <Avatar src={profile} />
+              ) : (
+                <Avatar>{username.substring(0, 4)}</Avatar>
+              )}
             </div>
           ) : (
             ''
@@ -74,7 +78,7 @@ class SideNavPC extends Component {
               {profile ? (
                 <img src={profile} alt={`${username} avatar`} />
               ) : (
-                <span>{username}</span>
+                <span>{username.substring(0, 4)}</span>
               )}
               <Icon className="user-avatar__setting-button" type="setting" />
             </div>

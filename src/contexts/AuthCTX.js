@@ -12,7 +12,7 @@ class AuthProvider extends Component {
     users: [],
     loading: false,
     id: null,
-    username: null,
+    username: '',
     profile: '',
   };
 

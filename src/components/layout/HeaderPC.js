@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 
 import MemberAvatarPC from '../utils/MemberAvatarPC';
-// import UserIconPC from '../utils/UserIconPC';
 // import SearchBarPC from './SearchBarPC';
 
 class HeaderPC extends Component {
@@ -26,54 +25,54 @@ class HeaderPC extends Component {
       { id: 5, username: 'geekerrrrrrrrr', profile: '' },
     ],
   };
-  // state = {
-  //   visible: false,
-  // };
+  state = {
+    visible: false,
+  };
 
-  // showModal = () => {
-  //   this.setState({
-  //     visible: true,
-  //   });
-  // };
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
 
-  // handleOk = e => {
-  //   this.setState({
-  //     visible: false,
-  //   });
-  // };
-  // handleCancel = e => {
-  //   this.setState({
-  //     visible: false,
-  //   });
-  // };
+  handleOk = e => {
+    this.setState({
+      visible: false,
+    });
+  };
+  handleCancel = e => {
+    this.setState({
+      visible: false,
+    });
+  };
 
   render() {
     const { teamname, members } = this.props;
     return (
-      <div className="header">
+      <header className="header">
         <h2 className="header__team-name">
           {teamname ? teamname : 'welcome team'}
         </h2>
-        <div>
+        <div className="member-group">
           {members.map(member => (
             <MemberAvatarPC key={member.id} {...member} />
           ))}
-          <Button icon="plus" shape="circle" />
         </div>
+        <Button icon="user-add" shape="circle" onClick={this.showModal} />
         {/* <span>
           <Icon type="plus-circle-o" onClick={this.showModal} />
           <SearchBarPC />
         </span> */}
 
-        {/* <Modal
+        <Modal
           title={'New Member'}
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
           <p>This will be search form for member</p>
-        </Modal> */}
-      </div>
+        </Modal>
+      </header>
     );
   }
 }
