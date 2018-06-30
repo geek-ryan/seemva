@@ -17,8 +17,12 @@ class TeamCreateButtonPC extends Component {
     this.setState({ visible: false });
   };
 
-  handleEdit = values => {
-    console.log(values);
+  handleEdit = ({ name }) => {
+    const form = this.formRef.props.form;
+    this.props.onEditTeam(name);
+    form.setFieldsValue({
+      name: name,
+    });
     this.setState({ visible: false });
   };
 
@@ -46,6 +50,10 @@ class TeamCreateButtonPC extends Component {
     });
   };
 
+  saveFormRef = formRef => {
+    this.formRef = formRef;
+  };
+
   render() {
     const { name } = this.props;
     const { visible } = this.state;
@@ -61,6 +69,7 @@ class TeamCreateButtonPC extends Component {
           />
         </Tooltip>
         <TeamModalPC
+          wrappedComponentRef={this.saveFormRef}
           name={name}
           visible={visible}
           title="Edit Team"

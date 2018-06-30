@@ -13,8 +13,9 @@ class TeamMenuPC extends Component {
     loading: false,
     current: 0,
     onChangeCurrent: () => {},
-    onDeleteTeam: teamID => {},
     onCreateTeams: name => {},
+    onEditTeam: (teamID, teamname) => {},
+    onDeleteTeam: teamID => {},
   };
 
   render() {
@@ -22,9 +23,10 @@ class TeamMenuPC extends Component {
       teams,
       loading,
       current,
-      onDeleteTeam,
       onChangeCurrent,
       onCreateTeam,
+      onEditTeam,
+      onDeleteTeam,
     } = this.props;
     return (
       <div className="team-menu">
@@ -58,7 +60,9 @@ class TeamMenuPC extends Component {
               </Link>
               {admin ? (
                 <TeamEditButtonPC
+                  id={id}
                   name={name}
+                  onEditTeam={name => onEditTeam(id, name)}
                   onDelete={() => onDeleteTeam(id, admin)}
                 />
               ) : (

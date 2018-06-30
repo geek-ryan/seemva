@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 const FormItem = Form.Item;
 class TeamModalPC extends Component {
-  static defaultProps = {};
+  static defaultProps = {
+    visible: false,
+    title: '',
+    onCancel: () => {},
+    form: {},
+  };
   componentDidMount() {
     this.props.form.setFieldsValue({
       name: this.props.name,
@@ -22,8 +27,6 @@ class TeamModalPC extends Component {
         return;
       }
       this.props.onSave(values);
-      form.resetFields();
-      this.setState({ visible: false });
     });
   };
 

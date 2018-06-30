@@ -100,7 +100,33 @@ class TeamProvider extends Component {
     }
   };
 
-  editTeam = async teamID => {};
+  editTeam = async (teamID, teamname) => {
+    console.log(teamID, teamname);
+    const prevState = this.state.teams.concat();
+    try {
+      this.setState({ loading: true });
+      this.setState(prevState => ({
+        teams: prevState.teams.map(
+          team =>
+            team.id === teamID
+              ? {
+                  id: teamID,
+                  userID: this.state.userID,
+                  admin: true,
+                  name: teamname,
+                }
+              : team
+        ),
+        loading: false,
+      }));
+      await serverAPI.patch(`/teams/${teamID}`, { teamname });
+    } catch (e) {
+      this.setState({
+        teams: prevState,
+        loading: false,
+      });
+    }
+  };
 
   changeCurrent = id => {
     this.setState({
@@ -112,6 +138,7 @@ class TeamProvider extends Component {
     const value = {
       ...this.state,
       createTeam: this.createTeam,
+      editTeam: this.editTeam,
       deleteTeam: this.deleteTeam,
       changeCurrent: this.changeCurrent,
     };

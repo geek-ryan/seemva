@@ -15,9 +15,16 @@ class TeamCreateButtonPC extends Component {
   };
 
   handleCreate = ({ name }) => {
+    const form = this.formRef.props.form;
     this.props.onCreateTeam(name);
     this.setState({ visible: false });
+    form.resetFields();
   };
+
+  saveFormRef = formRef => {
+    this.formRef = formRef;
+  };
+
   render() {
     const { visible } = this.state;
     return (
@@ -30,6 +37,7 @@ class TeamCreateButtonPC extends Component {
           add team
         </Button>
         <TeamModalPC
+          wrappedComponentRef={this.saveFormRef}
           visible={visible}
           title="Create a New Team"
           onCancel={this.handleCancel}
