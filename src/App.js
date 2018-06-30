@@ -12,8 +12,6 @@ import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import TeamPage from './pages/TeamPage';
 
-import Card from './pages/CardViewPage'; //for test. not nessasary
-
 class App extends Component {
   render() {
     return (
@@ -22,8 +20,6 @@ class App extends Component {
           <AuthProvider>
             <div className="App">
               <Switch>
-                {/* <Route path="/card" component={Card} /> */}
-                {/*for test. not nessasary */}
                 <Route path="/sign_up" component={SignUpPage} />
                 <Route path="/login" component={LoginPage} />
                 <Route exact path="/card" component={TeamPage} />

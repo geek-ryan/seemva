@@ -86,7 +86,7 @@ class TeamProvider extends Component {
       }));
       const res = admin
         ? await serverAPI.get(`/team-assignees?teamId=${teamID}`)
-        : await serverAPI.delete(
+        : await serverAPI.get(
             `/team-assignees?userId=${this.state.userID}&teamId=${teamID}`
           );
       for (const { id } of res.data) {
