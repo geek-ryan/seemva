@@ -53,8 +53,8 @@ class CardViewTaskModalPC extends Component {
   };
 
   handleStartDateChange = (date, dateString) => {
-    const startMoment = moment(dateString, 'YYYY-MM-DD');
-    const dueMoment = moment(this.props.task.dueDate, 'YYYY-MM-DD');
+    const startMoment = moment(dateString, 'YYYY.MM.DD');
+    const dueMoment = moment(this.props.task.dueDate, 'YYYY.MM.DD');
     if (startMoment > dueMoment) {
       alert('Please check date again');
     } else {
@@ -63,8 +63,8 @@ class CardViewTaskModalPC extends Component {
   };
 
   handleDueDateChange = (date, dateString) => {
-    const startMoment = moment(this.props.task.startDate, 'YYYY-MM-DD');
-    const dueMoment = moment(dateString, 'YYYY-MM-DD');
+    const startMoment = moment(this.props.task.startDate, 'YYYY.MM.DD');
+    const dueMoment = moment(dateString, 'YYYY.MM.DD');
     if (startMoment > dueMoment) {
       alert('Please check date again');
     } else {
@@ -104,12 +104,12 @@ class CardViewTaskModalPC extends Component {
           start date:
           <DatePicker
             onChange={this.handleStartDateChange}
-            value={moment(this.props.task.startDate, 'YYYY-MM-DD')}
+            value={moment(this.props.task.startDate, 'YYYY.MM.DD')}
           />
           due date:
           <DatePicker
             onChange={this.handleDueDateChange}
-            value={moment(this.props.task.dueDate, 'YYYY-MM-DD')}
+            value={moment(this.props.task.dueDate, 'YYYY.MM.DD')}
           />
         </div>
         <ActivityPC {...this.props} />

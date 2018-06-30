@@ -26,8 +26,8 @@ class ProjectCardUnitPC extends Component {
     visible: false,
     title: '',
     body: '',
-    startDate: moment().format('YYYY-MM-DD'),
-    dueDate: moment().format('YYYY-MM-DD'),
+    startDate: moment().format('YYYY.MM.DD'),
+    dueDate: moment().format('YYYY.MM.DD'),
   };
 
   handleChangeTitle = e => {
@@ -38,8 +38,8 @@ class ProjectCardUnitPC extends Component {
   };
 
   handleDateChange = (date, dateString) => {
-    const startMoment = moment(dateString[0], 'YYYY-MM-DD');
-    const dueMoment = moment(dateString[1], 'YYYY-MM-DD');
+    const startMoment = moment(dateString[0], 'YYYY.MM.DD');
+    const dueMoment = moment(dateString[1], 'YYYY.MM.DD');
     if (startMoment > dueMoment) {
       alert('Please check date again');
     } else {

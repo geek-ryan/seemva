@@ -3,6 +3,8 @@ import { Form, Input, Icon, Button } from 'antd';
 
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 
+var moment = require('moment');
+
 class ActivityPC extends Component {
   static defaultProps = {
     handleComplete: () => {},
@@ -22,8 +24,8 @@ class ActivityPC extends Component {
     const obj = {
       body: this.state.body,
       taskId: this.props.task.id,
-      userId: 1,
-      logDate: '2018-06-10',
+      userId: this.props.userId,
+      logDate: moment().format('YYYY.MM.DD h:mm:ss'),
     };
     this.props.activityFunc.Create(obj);
   };
@@ -63,7 +65,7 @@ class ActivityPC extends Component {
                   body={activity.body}
                   keyType={'body'}
                   datatype={'activity'}
-                  editfunc={this.props.activityFunc.Edit}
+                  editfunc={this.props.activityFunc.Update}
                   {...this.props}
                 />
                 <Button value={activity.id} onClick={this.handleDeleteActivity}>
