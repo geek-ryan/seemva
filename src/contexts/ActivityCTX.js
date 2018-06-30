@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext();
 
@@ -42,6 +43,8 @@ class ActivityProvider extends Component {
       },
     ],
   };
+
+  componentDidMount = () => {};
 
   Create = o => {
     const arr = this.state.activities.slice();
