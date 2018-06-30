@@ -6,8 +6,11 @@ import LoginCC from '../containers/LoginCC';
 function LoginPage() {
   return (
     <div className="login-page">
+      <h1 className="login-page__logo">SEEMVA</h1>
       <LoginCC />
-      <Link to="/sign_up">Sign up</Link>
+      <Link className="sign-anchor" to="/sign_up">
+        Sign up
+      </Link>
     </div>
   );
 }

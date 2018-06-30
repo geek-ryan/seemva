@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Alert } from 'antd';
+import { Card, Form, Input, Icon, Button, Alert } from 'antd';
 
 import PasswordTogglePC from './PasswordTogglePC';
 
@@ -43,7 +43,7 @@ class LoginFormPC extends Component {
       isFieldTouched('password') && getFieldError('password');
     console.log(getFieldsError());
     return (
-      <div>
+      <Card title="Log in to SEEMVA" bordered={false} style={{ width: 300 }}>
         {errorCode === 400 ? (
           <Alert
             message="Please check your username and password, and try again"
@@ -59,7 +59,6 @@ class LoginFormPC extends Component {
         ) : (
           ''
         )}
-        <h1>SEEMVA</h1>
         <Form onSubmit={this.handleSubmit}>
           <FormItem
             validateStatus={usernameError ? 'error' : ''}
@@ -72,25 +71,30 @@ class LoginFormPC extends Component {
                   message: 'Please input your Username',
                 },
               ],
-            })(<Input prefix={<Icon type="user" />} placeholder="username" />)}
+            })(
+              <Input
+                size="large"
+                prefix={<Icon type="user" />}
+                placeholder="username"
+              />
+            )}
           </FormItem>
           <PasswordTogglePC
             passwordError={passwordError}
             getFieldDecorator={getFieldDecorator}
           />
-          <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form__button"
-              style={{ width: '100%' }}
-              disabled={hasErrors(getFieldsError())}
-            >
-              Log in
-            </Button>
-          </FormItem>
+          <Button
+            size="large"
+            type="primary"
+            htmlType="submit"
+            className="login-form__button"
+            style={{ width: '100%' }}
+            disabled={hasErrors(getFieldsError())}
+          >
+            Log in
+          </Button>
         </Form>
-      </div>
+      </Card>
     );
   }
 }

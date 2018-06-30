@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Alert } from 'antd';
+import { Card, Form, Input, Icon, Button, Alert } from 'antd';
 
 import PasswordTogglePC from './PasswordTogglePC';
 
@@ -58,7 +58,7 @@ class SingUpPC extends Component {
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
     return (
-      <div>
+      <Card title="Creat New Account" bordered={false} style={{ width: 300 }}>
         {errorCode === 400 ? (
           <Alert
             message="The name is already used..."
@@ -74,7 +74,6 @@ class SingUpPC extends Component {
         ) : (
           ''
         )}
-        <h2>Creat New Account</h2>
         <Form onSubmit={this.handleSubmit}>
           <FormItem
             validateStatus={emailError ? 'error' : ''}
@@ -88,7 +87,13 @@ class SingUpPC extends Component {
                   message: 'The input is not valid E-mail',
                 },
               ],
-            })(<Input prefix={<Icon type="mail" />} placeholder="email" />)}
+            })(
+              <Input
+                size="large"
+                prefix={<Icon type="mail" />}
+                placeholder="email"
+              />
+            )}
           </FormItem>
           <FormItem
             validateStatus={usernameError ? 'error' : ''}
@@ -101,25 +106,30 @@ class SingUpPC extends Component {
                   message: 'Please input your Username',
                 },
               ],
-            })(<Input prefix={<Icon type="user" />} placeholder="username" />)}
+            })(
+              <Input
+                size="large"
+                prefix={<Icon type="user" />}
+                placeholder="username"
+              />
+            )}
           </FormItem>
           <PasswordTogglePC
             passwordError={passwordError}
             getFieldDecorator={getFieldDecorator}
           />
-          <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form__button"
-              style={{ width: '100%' }}
-              disabled={hasErrors(getFieldsError())}
-            >
-              Sign up
-            </Button>
-          </FormItem>
+          <Button
+            size="large"
+            type="primary"
+            htmlType="submit"
+            className="login-form__button"
+            style={{ width: '100%' }}
+            disabled={hasErrors(getFieldsError())}
+          >
+            Sign up
+          </Button>
         </Form>
-      </div>
+      </Card>
     );
   }
 }

@@ -23,7 +23,7 @@ class PasswordToggle extends Component {
     const { passwordError, getFieldDecorator } = this.props;
     return (
       <React.Fragment>
-        <label>
+        <label className="password-view">
           show password <Checkbox onChange={this.handleChangeCheck} />
         </label>
         <FormItem
@@ -39,6 +39,7 @@ class PasswordToggle extends Component {
             ],
           })(
             <Input
+              size="large"
               type={checked ? 'text' : 'password'}
               prefix={<Icon type="lock" />}
               placeholder="password"

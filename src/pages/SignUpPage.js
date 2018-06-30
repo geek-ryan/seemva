@@ -7,7 +7,9 @@ function SignUpPage() {
   return (
     <div className="sign-up-page">
       <SignUpCC />
-      <Link to="/login">Log in</Link>
+      <Link className="sign-anchor" to="/login">
+        Log in
+      </Link>
     </div>
   );
 }
