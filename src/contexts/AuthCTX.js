@@ -16,11 +16,11 @@ class AuthProvider extends Component {
     profile: '',
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (localStorage.getItem('token')) {
-      this.fetchMe();
+      await this.fetchMe();
     } else {
-      this.fetchUser();
+      await this.fetchUser();
     }
   }
 
@@ -45,7 +45,7 @@ class AuthProvider extends Component {
     });
   }
 
-  register = async (username, password, email, profile) => {
+  register = async ({ username, password, email, profile }) => {
     this.setState({ loading: true });
     try {
       const res = await serverAPI.post('/users/register', {
@@ -85,10 +85,7 @@ class AuthProvider extends Component {
 
   render() {
     const value = {
-      id: this.state.id,
-      username: this.state.username,
-      profile: this.state.profile,
-      users: this.state.users,
+      ...this.state,
       register: this.register,
       login: this.login,
       logout: this.logout,

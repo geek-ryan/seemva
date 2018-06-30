@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import { ProfileProvider } from '../contexts/ProfileCTX';
+import { ProfileProvider } from './contexts/ProfileCTX';
 import { AuthProvider } from './contexts/AuthCTX';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
@@ -22,17 +22,18 @@ class App extends Component {
           <AuthProvider>
             <div className="App">
               <Switch>
-                <Route path="/card" component={Card} />
+                {/* <Route path="/card" component={Card} /> */}
                 {/*for test. not nessasary */}
                 <Route path="/sign_up" component={SignUpPage} />
                 <Route path="/login" component={LoginPage} />
-                <Route path="/team/:id" component={TeamPage} />
+                <Route exact path="/card" component={TeamPage} />
+                <Route path="/card/:id" component={TeamPage} />
                 <Route
                   exact
                   path="/"
                   render={() =>
                     localStorage.getItem('token') ? (
-                      <Redirect to="/team/1" />
+                      <Redirect to="/card" />
                     ) : (
                       <Redirect to="/login" />
                     )

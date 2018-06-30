@@ -31,9 +31,12 @@ class SignUpCC extends Component {
                 />
                 <SignUpFormPC
                   onSubmitRegister={async values => {
-                    const { username, email, password } = values;
+                    const payload = {
+                      ...values,
+                      profile,
+                    };
                     try {
-                      await register(username, email, password, profile);
+                      await register(payload);
                       this.setState({ success: true });
                     } catch (e) {
                       if (e.response && e.response.status === 400) {

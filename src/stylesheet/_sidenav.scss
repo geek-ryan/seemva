@@ -1,10 +1,3 @@
-.team-page {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background-color: #e8e8e8;
-}
-
 .sidebar {
   position: relative;
   display: flex;
@@ -29,6 +22,8 @@
   }
 
   &__toggle-menu {
+    display: flex;
+    flex-direction: column;
     position: relative;
     z-index: 1;
     width: 200px;
@@ -43,6 +38,7 @@
 }
 
 .sidebar-logo {
+  flex: none;
   font-family: $font-stack;
   font-size: 1.8em;
   color: #fff;
@@ -83,11 +79,12 @@
 }
 
 .sidebar-user {
+  flex: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 4em 0 0.5em;
+  padding: 0.5em 0;
   &__name {
     padding: 0.5em 0;
     color: #fff;
@@ -160,33 +157,45 @@ $avatar-big: 120px;
 }
 
 .team-menu {
+  flex: 1 0 auto;
   &-item {
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 0.8em 1em;
     margin: 0.5em 0;
-    border-radius: 3px;
-    color: $color-1;
-    background-color: rgba(#fff, 0.2);
-    &--current {
-      color: $color-8;
-      background-color: rgba(#fff, 0.9);
-    }
-    &:focus {
-      text-decoration: none;
-    }
-    i {
+    a {
+      flex: 1;
       display: flex;
-      justify-content: center;
       align-items: center;
-      width: 20px;
-      height: 20px;
-      margin-left: -0.5em;
-      margin-right: 0.5em;
-      border-radius: 100%;
-      color: #fff;
-      font-size: 0.9em;
-      background-color: #a0d911;
+      padding: 0.8em 1em;
+      border-radius: 3px;
+      color: $color-1;
+      background-color: rgba(#fff, 0.2);
+      i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        margin-left: -0.5em;
+        margin-right: 0.5em;
+        border-radius: 100%;
+        color: #fff;
+        font-size: 0.9em;
+        background-color: #a0d911;
+      }
+      &:focus {
+        text-decoration: none;
+      }
+    }
+    button {
+      margin-left: 5px;
+    }
+    &--current {
+      a {
+        color: $color-8;
+        background-color: rgba(#fff, 0.9);
+      }
     }
   }
 }

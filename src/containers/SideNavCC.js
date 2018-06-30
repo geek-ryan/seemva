@@ -14,10 +14,10 @@ class SideNavCC extends Component {
     if (loggedOut) return <Redirect to="/login" />;
     return (
       <AuthConsumer>
-        {({ logout, username, profile }) => (
+        {({ username, profile, logout }) => (
           <SideNavPC
-            profile={profile}
             username={username}
+            profile={profile}
             onLogout={() => {
               logout();
               this.setState({ loggedOut: true });
