@@ -11,6 +11,9 @@ import { AuthProvider } from './contexts/AuthCTX';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import TeamPage from './pages/TeamPage';
+import withProgressBar from './hocs/withProgressBar';
+
+const withTeam = withProgressBar(TeamPage);
 
 class App extends Component {
   render() {
@@ -22,7 +25,7 @@ class App extends Component {
               <Switch>
                 <Route path="/sign_up" component={SignUpPage} />
                 <Route path="/login" component={LoginPage} />
-                <Route exact path="/card" component={TeamPage} />
+                <Route exact path="/card" component={withTeam} />
                 <Route path="/card/:id" component={TeamPage} />
                 <Route
                   exact
