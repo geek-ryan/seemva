@@ -4,6 +4,7 @@ import { Input, Icon, Modal, Card, DatePicker } from 'antd';
 import CardViewTaskUnitPC from './CardViewTaskUnitPC';
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import LabelSearchBar from '../utils/LabelSearchBar';
+import UserSearchBar from '../utils/UserSearchBar';
 
 import '../../../node_modules/antd/dist/antd.css';
 
@@ -126,6 +127,7 @@ class ProjectCardUnitPC extends Component {
               onChange={this.handleDateChange}
               value={[moment(), moment()]}
             />
+            <UserSearchBar {...this.props} />
             <LabelSearchBar {...this.props} />
           </Modal>
         </Card>
