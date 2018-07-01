@@ -4,7 +4,7 @@ import HeaderPC from '../components/layout/HeaderPC';
 
 class HeaderCC extends Component {
   render() {
-    return <HeaderPC />;
+    return <HeaderPC {...this.props} />;
   }
 }
 
