@@ -4,6 +4,10 @@ import CardViewPC from '../components/cardview/CardViewPC';
 import withProjectCTX from '../hocs/withProjectCTX';
 
 class CardViewCC extends Component {
+  static defaultProps = {
+    teamId: 1,
+  };
+
   state = {
     visible: false,
     body: '',

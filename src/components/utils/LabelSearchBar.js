@@ -36,19 +36,17 @@ class LabelSearchBar extends Component {
       </div>
     );
 
-    const newLabel = (
-      <div>
-        {this.props.labelState.labelMatch.map(element => (
-          <Button
-            onClick={this.props.labelFunc.Create}
-            key={this.props.labelState.labelMatch[0].id}
-            value={this.props.labelState.labelMatch[0].id}
-          >
-            {this.props.labelState.labelMatch[0].body}
-            <Icon type="plus" />
-          </Button>
-        ))}
-      </div>
+    const newLabel = this.props.labelState.labelMatch[0] ? (
+      <Button
+        onClick={this.props.labelFunc.Create}
+        key={this.props.labelState.labelMatch[0].id}
+        value={this.props.labelState.labelMatch[0].id}
+      >
+        {this.props.labelState.labelMatch[0].body}
+        <Icon type="plus" />
+      </Button>
+    ) : (
+      ''
     );
 
     const chosenLabels = (

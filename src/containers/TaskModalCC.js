@@ -27,12 +27,14 @@ class TaskModal extends Component {
   taskModalDeleteConfirm = () => {
     const Delete = this.handleUnitDelete;
     Modal.confirm({
-      title: 'Are you sure delete this task?',
+      title: 'Are you sure sure sure sure sure sure sure delete this task?',
       content: 'Some descriptions',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
       onOk() {
+        // console.log('delete shit');
+        // this.props.taskCancle();
         Delete();
       },
       onCancel() {},
@@ -64,7 +66,7 @@ class TaskModal extends Component {
       <CardViewTaskModalPC
         taskModal={this.state}
         taskModalCompleteConfirm={this.taskModalCompleteConfirm}
-        taskModalDeleteConfirm={this.taskModalCompleteConfirm}
+        taskModalDeleteConfirm={this.taskModalDeleteConfirm}
         taskModalStartDateChange={this.taskModalStartDateChange}
         taskModalDueDateChange={this.taskModalDueDateChange}
         {...this.props}
