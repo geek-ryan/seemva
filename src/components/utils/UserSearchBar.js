@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import { Input, Button } from 'antd';
 
 class UserSearchBar extends Component {
-  static defaultProps = {
-    handlePushLabel: () => {},
-    handlePullLabel: () => {},
-    handleSearchChange: () => {},
-  };
-
   state = {
     searching: false,
   };

@@ -81,6 +81,7 @@ class UserProvider extends Component {
       this.setState({
         users: res.data,
         userTaskAssignees: rees.data,
+        userChosen: [],
         loading: false,
       });
     } catch (e) {

@@ -1,88 +1,16 @@
 import React, { Component } from 'react';
 import { Input, Icon, Modal, Card, DatePicker } from 'antd';
 
-import CardViewTaskUnitPC from './CardViewTaskUnitPC';
+import CardViewTaskUnitCC from '../../containers/CardViewTaskUnitCC';
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import LabelSearchBar from '../utils/LabelSearchBar';
+import UserSearchBar from '../utils/UserSearchBar';
 
 import '../../../node_modules/antd/dist/antd.css';
 
 var moment = require('moment');
 
 class ProjectCardUnitPC extends Component {
-  static defaultProps = {
-    project: {},
-    tasks: [],
-    date: [],
-    labelTaskAssignees: [],
-    labels: [],
-    teamId: 1,
-    handleAddProject: () => {},
-    handleCombineLabelTask: () => {},
-    handleEditProject: () => {},
-  };
-
-  state = {
-    visible: false,
-    title: '',
-    body: '',
-    startDate: moment().format('YYYY.MM.DD'),
-    dueDate: moment().format('YYYY.MM.DD'),
-  };
-
-  handleChangeTitle = e => {
-    this.setState({ title: e.target.value });
-  };
-  handleChangeBody = e => {
-    this.setState({ body: e.target.value });
-  };
-
-  handleDateChange = (date, dateString) => {
-    const startMoment = moment(dateString[0], 'YYYY.MM.DD');
-    const dueMoment = moment(dateString[1], 'YYYY.MM.DD');
-    if (startMoment > dueMoment) {
-      alert('Please check date again');
-    } else {
-      this.setState({ startDate: dateString[0], dueDate: dateString[1] });
-    }
-  };
-
-  // modal ----------------------
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = e => {
-    //find task+  assign+ number
-    const arr = this.props.taskState.tasks.slice();
-    const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
-    //made task content
-    const obj = {
-      title: this.state.title,
-      body: this.state.body,
-      startDate: this.state.startDate,
-      dueDate: this.state.dueDate,
-      projectId: this.props.project.id,
-      complete: false,
-    };
-    //Add labelAssign and task
-    this.props.taskFunc.Create(obj);
-    this.props.labelFunc.assigneeCreate(num);
-    this.setState({
-      visible: false,
-      title: '',
-      body: '',
-    });
-  };
-
-  handleCancel = e => {
-    this.setState({
-      visible: false,
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
@@ -94,38 +22,40 @@ class ProjectCardUnitPC extends Component {
             editfunc={this.props.projectFunc.Update}
             {...this.props}
           />
+
           {this.props.taskState.tasks.map(task => {
             return this.props.project.id === task.projectId ? (
-              <CardViewTaskUnitPC key={task.id} task={task} {...this.props} />
+              <CardViewTaskUnitCC key={task.id} task={task} {...this.props} />
             ) : (
               ''
             );
           })}
 
-          <div onClick={this.showModal}>
+          <div onClick={this.props.newTaskShowModal}>
             <Icon type="plus" /> Add New Task
           </div>
 
           <Modal
-            visible={this.state.visible}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
+            visible={this.props.taskNew.visible}
+            onOk={this.props.newTaskOk}
+            onCancel={this.props.newTaskCancel}
           >
             <Input
-              onChange={this.handleChangeTitle}
+              onChange={this.props.newTaskTitleChange}
               placeholder="Title"
-              value={this.state.title}
+              value={this.props.taskNew.title}
             />
             <Input.TextArea
-              onChange={this.handleChangeBody}
+              onChange={this.props.newTaskbodyChange}
               placeholder="Body"
-              value={this.state.body}
+              value={this.props.taskNew.body}
               row={4}
             />
             <DatePicker.RangePicker
-              onChange={this.handleDateChange}
+              onChange={this.props.newTaskDateChange}
               value={[moment(), moment()]}
             />
+            <UserSearchBar {...this.props} />
             <LabelSearchBar {...this.props} />
           </Modal>
         </Card>

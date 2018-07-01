@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Dropdown, Menu } from 'antd';
+import { Input, Icon, Button } from 'antd';
 
 class LabelSearchBar extends Component {
-  static defaultProps = {
-    handlePushLabel: () => {},
-    handlePullLabel: () => {},
-    handleSearchChange: () => {},
-  };
-
   state = {
     searching: false,
   };
@@ -42,19 +36,17 @@ class LabelSearchBar extends Component {
       </div>
     );
 
-    const newLabel = (
-      <div>
-        {this.props.labelState.labelMatch.map(element => (
-          <Button
-            onClick={this.props.labelFunc.Create}
-            key={this.props.labelState.labelMatch[0].id}
-            value={this.props.labelState.labelMatch[0].id}
-          >
-            {this.props.labelState.labelMatch[0].body}
-            <Icon type="plus" />
-          </Button>
-        ))}
-      </div>
+    const newLabel = this.props.labelState.labelMatch[0] ? (
+      <Button
+        onClick={this.props.labelFunc.Create}
+        key={this.props.labelState.labelMatch[0].id}
+        value={this.props.labelState.labelMatch[0].id}
+      >
+        {this.props.labelState.labelMatch[0].body}
+        <Icon type="plus" />
+      </Button>
+    ) : (
+      ''
     );
 
     const chosenLabels = (
