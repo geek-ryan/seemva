@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal, Input, Icon } from 'antd';
+import { Button, Modal, Icon } from 'antd';
 
-import MemberAvatarPC from '../utils/MemberAvatarPC';
-// import UserSearchBarPC from '../utils/UserSearchBarPC';
+import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
+import SearchMemberPC from '../layout/SearchMemberPC';
 
 class HeaderPC extends Component {
   static defaultProps = {
@@ -48,9 +48,9 @@ class HeaderPC extends Component {
 
   render() {
     const { teamname, members, username } = this.props;
-    const suffix = username ? (
-      <Icon type="close-circle" onClick={this.emitEmpty} />
-    ) : null;
+    // const suffix = username ? (
+    //   <Icon type="close-circle" onClick={this.emitEmpty} />
+    // ) : null;
     return (
       <header className="header">
         <h2 className="header__team-name">
@@ -58,7 +58,7 @@ class HeaderPC extends Component {
         </h2>
         <div className="member-group">
           {members.map(member => (
-            <MemberAvatarPC key={member.id} {...member} />
+            <MemberTooltipAvatarPC key={member.id} {...member} />
           ))}
         </div>
         <Button
@@ -68,15 +68,8 @@ class HeaderPC extends Component {
           onClick={this.showModal}
         />
 
-        <Modal title={'New Member'} visible={this.state.visible}>
-          <Input
-            placeholder="Enter your username"
-            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            suffix={suffix}
-            value={username}
-            onChange={this.onChangeUserName}
-            ref={node => (this.userNameInput = node)}
-          />
+        <Modal title={'New Member'} visible={false}>
+          {/* <SearchMemberPC /> */}
         </Modal>
       </header>
     );
