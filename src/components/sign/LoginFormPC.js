@@ -43,7 +43,7 @@ class LoginFormPC extends Component {
       isFieldTouched('password') && getFieldError('password');
     console.log(getFieldsError());
     return (
-      <Card title="Log in to SEEMVA" bordered={false} style={{ width: 300 }}>
+      <React.Fragment>
         {errorCode === 400 ? (
           <Alert
             message="Please check your username and password, and try again"
@@ -59,42 +59,44 @@ class LoginFormPC extends Component {
         ) : (
           ''
         )}
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem
-            validateStatus={usernameError ? 'error' : ''}
-            help={usernameError || ''}
-          >
-            {getFieldDecorator('username', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your Username',
-                },
-              ],
-            })(
-              <Input
-                size="large"
-                prefix={<Icon type="user" />}
-                placeholder="username"
-              />
-            )}
-          </FormItem>
-          <PasswordTogglePC
-            passwordError={passwordError}
-            getFieldDecorator={getFieldDecorator}
-          />
-          <Button
-            size="large"
-            type="primary"
-            htmlType="submit"
-            className="login-form__button"
-            style={{ width: '100%' }}
-            disabled={hasErrors(getFieldsError())}
-          >
-            Log in
-          </Button>
-        </Form>
-      </Card>
+        <Card title="Log in to SEEMVA" bordered={false} style={{ width: 300 }}>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem
+              validateStatus={usernameError ? 'error' : ''}
+              help={usernameError || ''}
+            >
+              {getFieldDecorator('username', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input your Username',
+                  },
+                ],
+              })(
+                <Input
+                  size="large"
+                  prefix={<Icon type="user" />}
+                  placeholder="username"
+                />
+              )}
+            </FormItem>
+            <PasswordTogglePC
+              passwordError={passwordError}
+              getFieldDecorator={getFieldDecorator}
+            />
+            <Button
+              size="large"
+              type="primary"
+              htmlType="submit"
+              className="login-form__button"
+              style={{ width: '100%' }}
+              disabled={hasErrors(getFieldsError())}
+            >
+              Log in
+            </Button>
+          </Form>
+        </Card>
+      </React.Fragment>
     );
   }
 }

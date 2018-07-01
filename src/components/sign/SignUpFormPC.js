@@ -58,7 +58,7 @@ class SingUpPC extends Component {
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
     return (
-      <Card title="Creat New Account" bordered={false} style={{ width: 300 }}>
+      <React.Fragment>
         {errorCode === 400 ? (
           <Alert
             message="The name is already used..."
@@ -74,62 +74,64 @@ class SingUpPC extends Component {
         ) : (
           ''
         )}
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem
-            validateStatus={emailError ? 'error' : ''}
-            help={emailError || ''}
-          >
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  required: true,
-                  type: 'email',
-                  message: 'The input is not valid E-mail',
-                },
-              ],
-            })(
-              <Input
-                size="large"
-                prefix={<Icon type="mail" />}
-                placeholder="email"
-              />
-            )}
-          </FormItem>
-          <FormItem
-            validateStatus={usernameError ? 'error' : ''}
-            help={usernameError || ''}
-          >
-            {getFieldDecorator('username', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your Username',
-                },
-              ],
-            })(
-              <Input
-                size="large"
-                prefix={<Icon type="user" />}
-                placeholder="username"
-              />
-            )}
-          </FormItem>
-          <PasswordTogglePC
-            passwordError={passwordError}
-            getFieldDecorator={getFieldDecorator}
-          />
-          <Button
-            size="large"
-            type="primary"
-            htmlType="submit"
-            className="login-form__button"
-            style={{ width: '100%' }}
-            disabled={hasErrors(getFieldsError())}
-          >
-            Sign up
-          </Button>
-        </Form>
-      </Card>
+        <Card title="Creat New Account" bordered={false} style={{ width: 300 }}>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem
+              validateStatus={emailError ? 'error' : ''}
+              help={emailError || ''}
+            >
+              {getFieldDecorator('email', {
+                rules: [
+                  {
+                    required: true,
+                    type: 'email',
+                    message: 'The input is not valid E-mail',
+                  },
+                ],
+              })(
+                <Input
+                  size="large"
+                  prefix={<Icon type="mail" />}
+                  placeholder="email"
+                />
+              )}
+            </FormItem>
+            <FormItem
+              validateStatus={usernameError ? 'error' : ''}
+              help={usernameError || ''}
+            >
+              {getFieldDecorator('username', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input your Username',
+                  },
+                ],
+              })(
+                <Input
+                  size="large"
+                  prefix={<Icon type="user" />}
+                  placeholder="username"
+                />
+              )}
+            </FormItem>
+            <PasswordTogglePC
+              passwordError={passwordError}
+              getFieldDecorator={getFieldDecorator}
+            />
+            <Button
+              size="large"
+              type="primary"
+              htmlType="submit"
+              className="login-form__button"
+              style={{ width: '100%' }}
+              disabled={hasErrors(getFieldsError())}
+            >
+              Sign up
+            </Button>
+          </Form>
+        </Card>
+      </React.Fragment>
     );
   }
 }
