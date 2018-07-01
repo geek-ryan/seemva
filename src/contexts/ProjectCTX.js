@@ -5,6 +5,7 @@ const { Provider, Consumer } = React.createContext();
 
 class ProjectProvider extends Component {
   state = {
+    target: '',
     loading: false,
     projects: [
       {
@@ -38,39 +39,42 @@ class ProjectProvider extends Component {
 
   Create = async o => {
     try {
-      const pre = this.state.projects.slice();
       const res = await serverAPI.post('/projects', o);
-      pre.push(res.data);
-      this.setState({ projects: pre, loading: false });
-    } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
+      const get = await serverAPI.get('/projects');
+      this.setState({
+        projects: get.data,
         loading: false,
-      }));
+        target: res.data.id,
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
+        loading: false,
+        target: '',
+      });
     }
   };
 
   Update = async (id, keyType, body) => {
     this.setState({ loading: true });
     try {
-      this.setState(() => {
-        let arr = this.state.tasks.slice();
-        const brr = arr.map(
-          element =>
-            element.id === parseInt(id)
-              ? { ...element, [keyType]: body }
-              : element
-        );
-        return { projects: brr };
-      });
       const res = await serverAPI.patch(`/projects/${id}`, {
         [keyType]: body,
       });
-    } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
+      const get = await serverAPI.get('/projects');
+      this.setState({
+        projects: get.data,
         loading: false,
-      }));
+        target: '',
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
+        loading: false,
+        target: '',
+      });
     }
   };
 
@@ -81,11 +85,6 @@ class ProjectProvider extends Component {
         Create: this.Create,
         Update: this.Update,
       },
-
-      // value: this.state,
-      // projects: this.state.projects,
-      // handleAddProject: this.handleAddProject,
-      // handleEditProject: this.handleEditProject,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

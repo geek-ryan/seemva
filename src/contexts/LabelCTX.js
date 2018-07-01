@@ -5,6 +5,7 @@ const { Provider, Consumer } = React.createContext();
 
 class LabelProvider extends Component {
   state = {
+    target: '',
     loading: false,
     labels: [
       {
@@ -87,26 +88,46 @@ class LabelProvider extends Component {
     }
   };
 
-  teamFilter = teamid => {
-    const arr = this.state.labels.map(
-      label => (label.teamId === teamid ? label : '')
-    );
-    this.setState({ labelFilter: arr });
+  teamFilter = async teamid => {
+    try {
+      const res = await serverAPI.get('/labels');
+      const arr = res.data.map(label => (label.teamId === teamid ? label : ''));
+      this.setState({ labelFilter: arr });
+    } catch (e) {
+      const res = await serverAPI.get('/labels');
+      const rees = await serverAPI.get('/task-label-assignees');
+      this.setState({
+        labels: res.data,
+        labelTaskAssignees: rees.data,
+        loading: false,
+      });
+    }
   }; // on team-filtered data to labelChosen
 
-  taskFilter = taskid => {
-    const arr = this.state.labelTaskAssignees
-      .slice()
-      .filter(element => element.taskId === taskid)
-      .map(element => element.labelId);
-    const brr = this.state.labels.slice().filter(element => {
-      let k = 0;
-      for (let i = 0; i < arr.length; i++) {
-        element.id === arr[i] ? k++ : '';
-      }
-      return k > 0;
-    });
-    this.setState({ labelChosen: brr });
+  taskFilter = async taskid => {
+    try {
+      const rees = await serverAPI.get('/task-label-assignees');
+      const arr = rees
+        .slice()
+        .filter(element => element.taskId === taskid)
+        .map(element => element.labelId);
+      const brr = this.state.labels.slice().filter(element => {
+        let k = 0;
+        for (let i = 0; i < arr.length; i++) {
+          element.id === arr[i] ? k++ : '';
+        }
+        return k > 0;
+      });
+      this.setState({ labelChosen: brr });
+    } catch (e) {
+      const res = await serverAPI.get('/labels');
+      const rees = await serverAPI.get('/task-label-assignees');
+      this.setState({
+        labels: res.data,
+        labelTaskAssignees: rees.data,
+        loading: false,
+      });
+    }
   }; // on team-task-filtered data to labelChosen
 
   searchText = (text, teamId = 1) => {
@@ -159,10 +180,9 @@ class LabelProvider extends Component {
     try {
       if (this.state.labelNew) {
         const res = await serverAPI.post('/labels', this.state.labelMatch[0]);
-        const arr = this.state.labels.slice();
+        const arr = await serverAPI.get('/labels');
         const brr = this.state.labelFilter.slice();
         const crr = this.state.labelChosen.slice();
-        arr.push(res.data);
         brr.push(res.data);
         crr.push(res.data);
         this.setState({
@@ -172,13 +192,17 @@ class LabelProvider extends Component {
           labelMatch: [],
           labelSearchText: '',
           labelNew: false,
+          target: res.data.id,
         });
       }
     } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
+      const res = await serverAPI.get('/labels');
+      const rees = await serverAPI.get('/task-label-assignees');
+      this.setState({
+        labels: res.data,
+        labelTaskAssignees: rees.data,
         loading: false,
-      }));
+      });
     }
   }; // on created label to labels
 
@@ -223,10 +247,13 @@ class LabelProvider extends Component {
         labelSearchText: '',
       });
     } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
+      const res = await serverAPI.get('/labels');
+      const rees = await serverAPI.get('/task-label-assignees');
+      this.setState({
+        labels: res.data,
+        labelTaskAssignees: rees.data,
         loading: false,
-      }));
+      });
     }
   };
 

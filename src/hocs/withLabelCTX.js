@@ -1,0 +1,22 @@
+import React, { Component } from 'react';
+import { LabelProvider, LabelConsumer } from '../contexts/LabelCTX';
+
+export default function withLabelCTX(WrappedComponent) {
+  return class extends Component {
+    render() {
+      return (
+        <LabelProvider>
+          <LabelConsumer>
+            {({ labelState, labelFunc }) => (
+              <WrappedComponent
+                labelState={labelState}
+                labelFunc={labelFunc}
+                {...this.props}
+              />
+            )}
+          </LabelConsumer>
+        </LabelProvider>
+      );
+    }
+  };
+}

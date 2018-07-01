@@ -1,72 +1,9 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Card } from 'antd';
 
-import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
+import TaskModalCC from '../../containers/TaskModalCC';
 
 class CardViewTaskUnitPC extends Component {
-  static defaultProps = {
-    project: {},
-    tasks: [],
-    task: {},
-    users: [],
-    activities: [],
-    labels: [],
-    labelTaskAssignees: [],
-    handleDeleteTask: () => {},
-    handleComplete: () => {},
-    handleDelete: () => {},
-    handleAddTask: () => {},
-    handleEditTask: () => {},
-  };
-
-  state = {
-    visible: false,
-  };
-
-  showModal = () => {
-    this.props.labelFunc.teamFilter(this.props.teamId);
-    this.props.labelFunc.taskFilter(this.props.task.id);
-    this.props.userFunc.teamFilter();
-    this.props.userFunc.taskFilter(this.props.task.id);
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = e => {
-    this.props.labelFunc.assigneeCreate(this.props.task.id);
-    this.props.userFunc.assigneeCreate(this.props.task.id);
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleCancel = e => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleUnitDelete = () => {
-    this.props.taskFunc.Delete(this.props.task.id);
-  };
-
-  showDeleteConfirm = () => {
-    const Delete = this.handleUnitDelete;
-
-    Modal.confirm({
-      title: 'Are you sure delete this task?',
-      content: 'Some descriptions',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        Delete();
-      },
-      onCancel() {},
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
@@ -75,9 +12,9 @@ class CardViewTaskUnitPC extends Component {
             type={this.props.task.complete ? 'check-circle' : 'check-circle-o'}
           />
 
-          <Icon onClick={this.showDeleteConfirm} type="delete" />
+          <Icon onClick={this.props.taskDeleteConfirm} type="delete" />
 
-          <h2 onClick={this.showModal}>{this.props.task.title}</h2>
+          <h2 onClick={this.props.taskShowModal}>{this.props.task.title}</h2>
           <span>{this.props.task.startDate}</span>
           <span>-</span>
           <span>{this.props.task.dueDate}</span>
@@ -122,11 +59,11 @@ class CardViewTaskUnitPC extends Component {
           </div>
 
           <Modal
-            visible={this.state.visible}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
+            visible={this.props.taskModal.visible}
+            onOk={this.props.taskOk}
+            onCancel={this.props.taskCancle}
           >
-            <CardViewTaskModalPC {...this.props} />
+            <TaskModalCC {...this.props} />
           </Modal>
         </Card>
       </React.Fragment>
