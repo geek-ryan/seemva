@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Card } from 'antd';
 
-import CardViewTaskModalPC from '../taskmodal/CardViewTaskModalPC';
+import TaskModalCC from '../../containers/TaskModalCC';
 
 class CardViewTaskUnitPC extends Component {
   render() {
@@ -12,9 +12,9 @@ class CardViewTaskUnitPC extends Component {
             type={this.props.task.complete ? 'check-circle' : 'check-circle-o'}
           />
 
-          <Icon onClick={this.props.showDeleteConfirm} type="delete" />
+          <Icon onClick={this.props.taskDeleteConfirm} type="delete" />
 
-          <h2 onClick={this.props.showModal}>{this.props.task.title}</h2>
+          <h2 onClick={this.props.taskShowModal}>{this.props.task.title}</h2>
           <span>{this.props.task.startDate}</span>
           <span>-</span>
           <span>{this.props.task.dueDate}</span>
@@ -59,11 +59,11 @@ class CardViewTaskUnitPC extends Component {
           </div>
 
           <Modal
-            visible={this.props.visible}
-            onOk={this.props.handleOk}
-            onCancel={this.props.handleCancel}
+            visible={this.props.taskModal.visible}
+            onOk={this.props.taskOk}
+            onCancel={this.props.taskCancle}
           >
-            <CardViewTaskModalPC {...this.props} />
+            <TaskModalCC {...this.props} />
           </Modal>
         </Card>
       </React.Fragment>

@@ -7,10 +7,10 @@ export default function withTaskCTX(WrappedComponent) {
       return (
         <TaskProvider>
           <TaskConsumer>
-            {({ TaskState, TaskFunc }) => (
+            {({ taskState, taskFunc }) => (
               <WrappedComponent
-                TaskState={TaskState}
-                TaskFunc={TaskFunc}
+                taskState={taskState}
+                taskFunc={taskFunc}
                 {...this.props}
               />
             )}

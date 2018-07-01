@@ -7,10 +7,10 @@ export default function withActivityCTX(WrappedComponent) {
       return (
         <ActivityProvider>
           <ActivityConsumer>
-            {({ ActivityState, ActivityFunc }) => (
+            {({ activityState, activityFunc }) => (
               <WrappedComponent
-                ActivityState={ActivityState}
-                ActivityFunc={ActivityFunc}
+                activityState={activityState}
+                activityFunc={activityFunc}
                 {...this.props}
               />
             )}

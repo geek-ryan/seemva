@@ -1,86 +1,37 @@
 import React, { Component } from 'react';
 import { Icon, Modal } from 'antd';
 
-import ProjectCardUnitPC from './ProjectCardUnitPC';
-import ProgressBarPC from '../utils/ProgressBarPC';
+import ProjectCardUnitCC from '../../containers/ProjectCardUnitCC';
 
 class CardViewPC extends Component {
-  static defaultProps = {
-    teamId: 1,
-    userId: 1,
-  };
-
-  state = {
-    visible: false,
-    body: '',
-  };
-
-  handleChange = e => {
-    this.setState({ body: e.target.value });
-  };
-
-  handleAddProject = body => {
-    const obj = {
-      title: body,
-      userId: this.props.userId,
-      teamId: this.props.teamId,
-      subtitle: 'test',
-    };
-    this.props.projectFunc.Create(obj);
-    this.setState({ body: '' });
-  };
-
-  // modal project -------------------------------
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = e => {
-    this.handleAddProject(this.state.body);
-    this.setState({
-      visible: false,
-    });
-  };
-  handleCancel = e => {
-    this.setState({
-      visible: false,
-    });
-  };
-
   render() {
-    if (false) {
-      return <ProgressBarPC {...this.props} />;
-    } else {
-      return (
-        <React.Fragment>
-          {this.props.projectState.projects.map(project => (
-            <ProjectCardUnitPC
-              key={project.id}
-              {...this.props}
-              project={project}
-            />
-          ))}
+    console.log(this.props.projectState);
+    return (
+      <React.Fragment>
+        {this.props.projectState.projects.map(project => (
+          <ProjectCardUnitCC
+            key={project.id}
+            {...this.props}
+            project={project}
+          />
+        ))}
 
-          <div onClick={this.showModal}>
-            <Icon type="plus" /> Add New Project
-          </div>
-          <Modal
-            visible={this.state.visible}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
-          >
-            <input
-              value={this.state.body}
-              onChange={this.handleChange}
-              placeholder="project title"
-            />
-          </Modal>
-        </React.Fragment>
-      );
-    }
+        <div onClick={this.props.newProjectShowModal}>
+          <Icon type="plus" /> Add New Project
+        </div>
+        <Modal
+          visible={this.props.newProjectModal.visible}
+          onOk={this.props.newProjectOk}
+          onCancel={this.props.newProjectCancle}
+        >
+          <input
+            value={this.props.newProjectModal.body}
+            onChange={this.props.newProjectTitleChange}
+            placeholder="project title"
+          />
+        </Modal>
+      </React.Fragment>
+    );
   }
 }
 

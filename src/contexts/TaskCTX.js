@@ -56,26 +56,6 @@ class TaskProvider extends Component {
     ],
   };
 
-  Complete = async id => {
-    this.setState({ loading: true });
-    try {
-      this.setState(() => {
-        const arr = this.state.tasks.map(
-          task => (task.id === id ? { ...task, complete: true } : task)
-        );
-        return { tasks: arr, loding: false };
-      });
-      const res = await serverAPI.patch(`/tasks/${id}`, {
-        complete: true,
-      });
-    } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
-        loading: false,
-      }));
-    }
-  };
-
   componentDidMount = async () => {
     this.setState({ loading: true });
     try {
@@ -88,19 +68,23 @@ class TaskProvider extends Component {
     }
   };
 
-  Delete = async id => {
+  Complete = async id => {
     this.setState({ loading: true });
     try {
-      this.setState(() => {
-        const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
-        return { tasks: arr, loding: false };
+      const res = await serverAPI.patch(`/tasks/${id}`, {
+        complete: true,
       });
-      const res = await serverAPI.delete(`/tasks/${id}`);
-    } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
+      const get = await serverAPI.get('/tasks');
+      this.setState({
+        tasks: get.data,
         loading: false,
-      }));
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/tasks');
+      this.setState({
+        tasks: get.data,
+        loading: false,
+      });
     }
   };
 
@@ -110,34 +94,54 @@ class TaskProvider extends Component {
       const get = await serverAPI.get('/tasks');
       this.setState({ tasks: get.data, loading: false, target: get.data.id });
     } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
+      const get = await serverAPI.get('/tasks');
+      this.setState({
+        tasks: get.data,
         loading: false,
-      }));
+        target: '',
+      });
+    }
+  };
+
+  Delete = async id => {
+    this.setState({ loading: true });
+    try {
+      const res = await serverAPI.delete(`/tasks/${id}`);
+      const get = await serverAPI.get('/tasks');
+      this.setState({
+        tasks: get.data,
+        loading: false,
+        target: '',
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/tasks');
+      this.setState({
+        tasks: get.data,
+        loading: false,
+        target: '',
+      });
     }
   };
 
   Update = async (id, keyType, body) => {
     this.setState({ loading: true });
     try {
-      this.setState(() => {
-        let arr = this.state.tasks.slice();
-        const brr = arr.map(
-          element =>
-            element.id === parseInt(id)
-              ? { ...element, [keyType]: body }
-              : element
-        );
-        return { tasks: brr };
-      });
       const res = await serverAPI.patch(`/tasks/${id}`, {
         [keyType]: body,
       });
-    } catch (e) {
-      this.setState(prevState => ({
-        tasks: prevState.tasks,
+      const get = await serverAPI.get('/tasks');
+      this.setState({
+        tasks: get.data,
         loading: false,
-      }));
+        target: '',
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
+        loading: false,
+        target: '',
+      });
     }
   };
 
@@ -150,12 +154,6 @@ class TaskProvider extends Component {
         Create: this.Create,
         Update: this.Update,
       },
-
-      // tasks: this.state.tasks,
-      // handleComplete: this.handleComplete,
-      // handleDeleteTask: this.handleDeleteTask,
-      // handleAddTask: this.handleAddTask,
-      // handleEditTask: this.handleEditTask,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Dropdown, Menu } from 'antd';
+import { Input, Icon, Button } from 'antd';
 
 class LabelSearchBar extends Component {
-  static defaultProps = {
-    handlePushLabel: () => {},
-    handlePullLabel: () => {},
-    handleSearchChange: () => {},
-  };
-
   state = {
     searching: false,
   };

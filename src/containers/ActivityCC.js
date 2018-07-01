@@ -42,4 +42,4 @@ class ActivityCC extends Component {
   }
 }
 
-export default withActivityCTX(ActivityCC);
+export default ActivityCC;
