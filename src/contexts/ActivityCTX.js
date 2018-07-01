@@ -6,6 +6,7 @@ const { Provider, Consumer } = React.createContext();
 class ActivityProvider extends Component {
   state = {
     loading: false,
+    target: '',
     activities: [
       {
         id: 1,
@@ -58,59 +59,64 @@ class ActivityProvider extends Component {
   };
 
   Create = async o => {
-    const pre = this.state.activities.slice();
     this.setState({ loading: true });
     try {
       const res = await serverAPI.post('/activities', o);
-      pre.push(res.data);
-      this.setState({ activities: pre, loading: false });
-    } catch (e) {
-      this.setState(prevState => ({
-        activities: prevState.activities,
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
         loading: false,
-      }));
+        target: res.data.id,
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
+        loading: false,
+        target: '',
+      });
     }
   };
 
   Delete = async id => {
     this.setState({ loading: true });
     try {
-      this.setState(() => {
-        const arr = this.state.activities.map(
-          activity => (activity.id === id ? '' : activity)
-        );
-        return { activities: arr, loading: false };
-      });
       const res = await serverAPI.delete(`/activities/${id}`);
-    } catch (e) {
-      this.setState(prevState => ({
-        activities: prevState.activities,
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
         loading: false,
-      }));
+        target: '',
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
+        loading: false,
+        target: '',
+      });
     }
   };
 
   Update = async (id, keyType, body) => {
     this.setState({ loading: true });
     try {
-      this.setState(() => {
-        let arr = this.state.activities.slice();
-        const brr = arr.map(
-          element =>
-            element.id === parseInt(id)
-              ? { ...element, [keyType]: body }
-              : element
-        );
-        return { activities: brr, loading: false };
-      });
       const res = await serverAPI.patch(`/activities/${id}`, {
         [keyType]: body,
       });
-    } catch (e) {
-      this.setState(prevState => ({
-        activities: prevState.activities,
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
         loading: false,
-      }));
+        target: '',
+      });
+    } catch (e) {
+      const get = await serverAPI.get('/activities');
+      this.setState({
+        activities: get.data,
+        loading: false,
+        target: '',
+      });
     }
   };
 

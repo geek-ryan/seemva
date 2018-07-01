@@ -6,6 +6,7 @@ const { Provider, Consumer } = React.createContext();
 class TaskProvider extends Component {
   state = {
     loading: false,
+    target: '',
     tasks: [
       {
         id: 1,
@@ -105,10 +106,9 @@ class TaskProvider extends Component {
 
   Create = async o => {
     try {
-      const pre = this.state.tasks.slice();
       const res = await serverAPI.post('/tasks', o);
-      pre.push(res.data);
-      this.setState({ tasks: pre, loading: false });
+      const get = await serverAPI.get('/tasks');
+      this.setState({ tasks: get.data, loading: false, target: get.data.id });
     } catch (e) {
       this.setState(prevState => ({
         tasks: prevState.tasks,

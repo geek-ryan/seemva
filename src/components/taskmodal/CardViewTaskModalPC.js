@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal, DatePicker } from 'antd';
 
 import EditableTextareaPC from '../utils/EditableTextareaPC';
-import ActivityPC from '../cardview/ActivityPC';
+import ActivityCC from '../../containers/ActivityCC';
 import LabelSearchBar from '../utils/LabelSearchBar';
 import UserSearchBar from '../utils/UserSearchBar';
 
@@ -112,7 +112,7 @@ class CardViewTaskModalPC extends Component {
             value={moment(this.props.task.dueDate, 'YYYY.MM.DD')}
           />
         </div>
-        <ActivityPC {...this.props} />
+        <ActivityCC {...this.props} />
       </React.Fragment>
     );
   }

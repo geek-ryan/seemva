@@ -4,39 +4,7 @@ import { Form, Input, Icon, Button } from 'antd';
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import LoadingIconPC from '../utils/LoadingIconPC';
 
-var moment = require('moment');
-
 class ActivityPC extends Component {
-  static defaultProps = {
-    handleComplete: () => {},
-    task: {},
-    handleDeleteTask: () => {},
-  };
-
-  state = {
-    body: '',
-  };
-
-  handleChange = e => {
-    this.setState({ body: e.target.value });
-  };
-
-  handleAddActivity = () => {
-    const obj = {
-      body: this.state.body,
-      taskId: this.props.task.id,
-      userId: this.props.userId,
-      logDate: moment().format('YYYY.MM.DD h:mm:ss'),
-    };
-    this.props.activityFunc.Create(obj);
-  };
-
-  handleDeleteActivity = e => {
-    const id = parseInt(e.target.value);
-    const func = this.props.activityFunc.Delete;
-    func(id);
-  };
-
   render() {
     if (this.props.activityState.loading) {
       return <LoadingIconPC />;
@@ -47,13 +15,16 @@ class ActivityPC extends Component {
 
           <Form>
             <Form.Item>
-              <Input placeholder="activity" onChange={this.handleChange} />
+              <Input
+                placeholder="activity"
+                onChange={this.props.handleChange}
+              />
             </Form.Item>
             <Form.Item>
               <Button
                 type="primary"
                 htmlType="submit"
-                onClick={this.handleAddActivity}
+                onClick={this.props.handleAddActivity}
               >
                 Submit
               </Button>
@@ -74,7 +45,7 @@ class ActivityPC extends Component {
                   />
                   <Button
                     value={activity.id}
-                    onClick={this.handleDeleteActivity}
+                    onClick={this.props.handleDeleteActivity}
                   >
                     <Icon type="close" />
                   </Button>

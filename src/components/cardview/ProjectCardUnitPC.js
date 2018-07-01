@@ -56,9 +56,6 @@ class ProjectCardUnitPC extends Component {
   };
 
   handleOk = e => {
-    //find task+  assign+ number
-    const arr = this.props.taskState.tasks.slice();
-    const num = arr.sort((a, b) => b.id - a.id)[0].id + 1;
     //made task content
     const obj = {
       title: this.state.title,
@@ -70,11 +67,14 @@ class ProjectCardUnitPC extends Component {
     };
     //Add labelAssign and task
     this.props.taskFunc.Create(obj);
-    this.props.labelFunc.assigneeCreate(num);
+    this.props.labelFunc.assigneeCreate(this.props.taskState.target);
+    this.props.userFunc.assigneeCreate(this.props.taskState.target);
     this.setState({
       visible: false,
       title: '',
       body: '',
+      startDate: moment().format('YYYY.MM.DD'),
+      dueDate: moment().format('YYYY.MM.DD'),
     });
   };
 
