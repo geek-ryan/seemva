@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Avatar, Tooltip } from 'antd';
+import { Avatar } from 'antd';
 
-class UserIconPC extends Component {
+class MemberAvatarPC extends Component {
   static defaultProps = {
     username: '',
     profile: '',
@@ -9,15 +9,15 @@ class UserIconPC extends Component {
   render() {
     const { username, profile } = this.props;
     return (
-      <Tooltip placement="bottom" title={username}>
+      <React.Fragment>
         {profile ? (
           <Avatar src={profile} />
         ) : (
           <Avatar>{username.substr(0, 4)}</Avatar>
         )}
-      </Tooltip>
+      </React.Fragment>
     );
   }
 }
 
-export default UserIconPC;
+export default MemberAvatarPC;

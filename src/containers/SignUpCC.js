@@ -29,25 +29,27 @@ class SignUpCC extends Component {
                     await deleteProfile();
                   }}
                 />
-                <SignUpFormPC
-                  onSubmitRegister={async values => {
-                    const payload = {
-                      ...values,
-                      profile,
-                    };
-                    try {
-                      await register(payload);
-                      this.setState({ success: true });
-                    } catch (e) {
-                      if (e.response && e.response.status === 400) {
-                        this.setState({ errorCode: 400 });
-                      } else {
-                        this.setState({ errorCode: 500 });
+                <div className="sign-up-form">
+                  <SignUpFormPC
+                    onSubmitRegister={async values => {
+                      const payload = {
+                        ...values,
+                        profile,
+                      };
+                      try {
+                        await register(payload);
+                        this.setState({ success: true });
+                      } catch (e) {
+                        if (e.response && e.response.status === 400) {
+                          this.setState({ errorCode: 400 });
+                        } else {
+                          this.setState({ errorCode: 500 });
+                        }
                       }
-                    }
-                  }}
-                  errorCode={errorCode}
-                />
+                    }}
+                    errorCode={errorCode}
+                  />
+                </div>
               </React.Fragment>
             )}
           </AuthConsumer>

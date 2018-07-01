@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Alert } from 'antd';
+import { Card, Form, Input, Icon, Button, Alert } from 'antd';
 
 import PasswordTogglePC from './PasswordTogglePC';
 
@@ -43,7 +43,7 @@ class LoginFormPC extends Component {
       isFieldTouched('password') && getFieldError('password');
     console.log(getFieldsError());
     return (
-      <div>
+      <React.Fragment>
         {errorCode === 400 ? (
           <Alert
             message="Please check your username and password, and try again"
@@ -59,27 +59,33 @@ class LoginFormPC extends Component {
         ) : (
           ''
         )}
-        <h1>SEEMVA</h1>
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem
-            validateStatus={usernameError ? 'error' : ''}
-            help={usernameError || ''}
-          >
-            {getFieldDecorator('username', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your Username',
-                },
-              ],
-            })(<Input prefix={<Icon type="user" />} placeholder="username" />)}
-          </FormItem>
-          <PasswordTogglePC
-            passwordError={passwordError}
-            getFieldDecorator={getFieldDecorator}
-          />
-          <FormItem>
+        <Card title="Log in to SEEMVA" bordered={false} style={{ width: 300 }}>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem
+              validateStatus={usernameError ? 'error' : ''}
+              help={usernameError || ''}
+            >
+              {getFieldDecorator('username', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input your Username',
+                  },
+                ],
+              })(
+                <Input
+                  size="large"
+                  prefix={<Icon type="user" />}
+                  placeholder="username"
+                />
+              )}
+            </FormItem>
+            <PasswordTogglePC
+              passwordError={passwordError}
+              getFieldDecorator={getFieldDecorator}
+            />
             <Button
+              size="large"
               type="primary"
               htmlType="submit"
               className="login-form__button"
@@ -88,9 +94,9 @@ class LoginFormPC extends Component {
             >
               Log in
             </Button>
-          </FormItem>
-        </Form>
-      </div>
+          </Form>
+        </Card>
+      </React.Fragment>
     );
   }
 }

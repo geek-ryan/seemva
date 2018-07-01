@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Icon } from 'antd';
 
-import MemberAvatarPC from '../utils/MemberAvatarPC';
-// import SearchBarPC from './SearchBarPC';
+import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
+import SearchMemberPC from '../layout/SearchMemberPC';
 
 class HeaderPC extends Component {
   static defaultProps = {
@@ -47,7 +47,10 @@ class HeaderPC extends Component {
   };
 
   render() {
-    const { teamname, members } = this.props;
+    const { teamname, members, username } = this.props;
+    // const suffix = username ? (
+    //   <Icon type="close-circle" onClick={this.emitEmpty} />
+    // ) : null;
     return (
       <header className="header">
         <h2 className="header__team-name">
@@ -55,26 +58,21 @@ class HeaderPC extends Component {
         </h2>
         <div className="member-group">
           {members.map(member => (
-            <MemberAvatarPC key={member.id} {...member} />
+            <MemberTooltipAvatarPC key={member.id} {...member} />
           ))}
         </div>
-        <Button icon="user-add" shape="circle" onClick={this.showModal} />
-        {/* <span>
-          <Icon type="plus-circle-o" onClick={this.showModal} />
-          <SearchBarPC />
-        </span> */}
+        <Button
+          className="member-group__button"
+          icon="user-add"
+          shape="circle"
+          onClick={this.showModal}
+        />
 
-        <Modal
-          title={'New Member'}
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <p>This will be search form for member</p>
+        <Modal title={'New Member'} visible={false}>
+          {/* <SearchMemberPC /> */}
         </Modal>
       </header>
     );
   }
 }
-
 export default HeaderPC;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Icon } from 'antd';
 
-class SingUpPC extends Component {
+class SignUpProfilePC extends Component {
   static defaultProps = {
     profile: '',
     loading: false,
@@ -23,18 +23,8 @@ class SingUpPC extends Component {
               </Button>
             </React.Fragment>
           ) : (
-            <button
-              style={{
-                width: '200px',
-                height: '200px',
-                borderRadius: '100%',
-                border: '0',
-                backgroundColor: '#eee',
-                cursor: 'pointer',
-              }}
-              onClick={onOpenDialog}
-            >
-              <Icon type={loading ? 'loading' : 'plus'} />
+            <button className="uploader__button" onClick={onOpenDialog}>
+              <Icon type={loading ? 'loading' : 'picture'} />
             </button>
           )}
         </div>
@@ -43,4 +33,4 @@ class SingUpPC extends Component {
   }
 }
 
-export default SingUpPC;
+export default SignUpProfilePC;

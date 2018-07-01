@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { Input, Button } from 'antd';
 
-class UserSearchBar extends Component {
+class UserSearchBarPC extends Component {
   static defaultProps = {
-    handlePushLabel: () => {},
-    handlePullLabel: () => {},
-    handleSearchChange: () => {},
+    ...this.props,
+    userFunc: {
+      teamFilter: () => {},
+      taskFilter: () => {},
+      pushChoise: () => {},
+      pullChoise: () => {},
+      searchText: () => {},
+      assigneeCreate: () => {},
+    },
   };
 
   state = {
@@ -76,4 +82,4 @@ class UserSearchBar extends Component {
   }
 }
 
-export default UserSearchBar;
+export default UserSearchBarPC;

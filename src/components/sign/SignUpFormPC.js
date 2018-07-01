@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Icon, Button, Alert } from 'antd';
+import { Card, Form, Input, Icon, Button, Alert } from 'antd';
 
 import PasswordTogglePC from './PasswordTogglePC';
 
@@ -58,7 +58,7 @@ class SingUpPC extends Component {
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
     return (
-      <div>
+      <React.Fragment>
         {errorCode === 400 ? (
           <Alert
             message="The name is already used..."
@@ -74,41 +74,53 @@ class SingUpPC extends Component {
         ) : (
           ''
         )}
-        <h2>Creat New Account</h2>
-        <Form onSubmit={this.handleSubmit}>
-          <FormItem
-            validateStatus={emailError ? 'error' : ''}
-            help={emailError || ''}
-          >
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  required: true,
-                  type: 'email',
-                  message: 'The input is not valid E-mail',
-                },
-              ],
-            })(<Input prefix={<Icon type="mail" />} placeholder="email" />)}
-          </FormItem>
-          <FormItem
-            validateStatus={usernameError ? 'error' : ''}
-            help={usernameError || ''}
-          >
-            {getFieldDecorator('username', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your Username',
-                },
-              ],
-            })(<Input prefix={<Icon type="user" />} placeholder="username" />)}
-          </FormItem>
-          <PasswordTogglePC
-            passwordError={passwordError}
-            getFieldDecorator={getFieldDecorator}
-          />
-          <FormItem>
+        <Card title="Creat New Account" bordered={false} style={{ width: 300 }}>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem
+              validateStatus={emailError ? 'error' : ''}
+              help={emailError || ''}
+            >
+              {getFieldDecorator('email', {
+                rules: [
+                  {
+                    required: true,
+                    type: 'email',
+                    message: 'The input is not valid E-mail',
+                  },
+                ],
+              })(
+                <Input
+                  size="large"
+                  prefix={<Icon type="mail" />}
+                  placeholder="email"
+                />
+              )}
+            </FormItem>
+            <FormItem
+              validateStatus={usernameError ? 'error' : ''}
+              help={usernameError || ''}
+            >
+              {getFieldDecorator('username', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input your Username',
+                  },
+                ],
+              })(
+                <Input
+                  size="large"
+                  prefix={<Icon type="user" />}
+                  placeholder="username"
+                />
+              )}
+            </FormItem>
+            <PasswordTogglePC
+              passwordError={passwordError}
+              getFieldDecorator={getFieldDecorator}
+            />
             <Button
+              size="large"
               type="primary"
               htmlType="submit"
               className="login-form__button"
@@ -117,9 +129,9 @@ class SingUpPC extends Component {
             >
               Sign up
             </Button>
-          </FormItem>
-        </Form>
-      </div>
+          </Form>
+        </Card>
+      </React.Fragment>
     );
   }
 }
