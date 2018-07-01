@@ -4,7 +4,6 @@ import withTaskCTX from '../hocs/withTaskCTX';
 import withUserCTX from '../hocs/withUserCTX';
 import withLabelCTX from '../hocs/withLabelCTX';
 import withActivityCTX from '../hocs/withActivityCTX';
-import withProjectCTX from '../hocs/withProjectCTX';
 
 import ProjectCardUnitPC from '../components/cardview/ProjectCardUnitPC';
 

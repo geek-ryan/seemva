@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 
-import withTaskCTX from '../hocs/withTaskCTX';
 import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
 
 var moment = require('moment');

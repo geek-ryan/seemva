@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import ActivityPC from '../components/cardview/ActivityPC';
-import withActivityCTX from '../hocs/withActivityCTX';
 
 const moment = require('moment');
 

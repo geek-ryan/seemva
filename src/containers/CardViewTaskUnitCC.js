@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 
-import withUserCTX from '../hocs/withUserCTX';
-import withLabelCTX from '../hocs/withLabelCTX';
-import withActivityCTX from '../hocs/withActivityCTX';
 import CardViewTaskUnitPC from '../components/cardview/CardViewTaskUnitPC';
 
 class CardViewTaskUnitCC extends Component {
