@@ -6,32 +6,29 @@ import LoadingIconPC from '../utils/LoadingIconPC';
 
 class ActivityPC extends Component {
   render() {
-    if (this.props.activityState.loading) {
-      return <LoadingIconPC />;
-    } else {
-      return (
-        <React.Fragment>
-          <div>Activities</div>
+    return (
+      <React.Fragment>
+        <div>Activities</div>
 
-          <Form>
-            <Form.Item>
-              <Input
-                placeholder="activity"
-                onChange={this.props.handleChange}
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                onClick={this.props.handleAddActivity}
-              >
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
+        <Form>
+          <Form.Item>
+            <Input placeholder="activity" onChange={this.props.handleChange} />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={this.props.handleAddActivity}
+            >
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
 
-          {this.props.activityState.activities.map(
+        {this.props.activityState.loading ? (
+          <LoadingIconPC />
+        ) : (
+          this.props.activityState.activities.map(
             activity =>
               activity.taskId === this.props.task.id ? (
                 <div key={activity.id}>
@@ -53,10 +50,10 @@ class ActivityPC extends Component {
               ) : (
                 ''
               )
-          )}
-        </React.Fragment>
-      );
-    }
+          )
+        )}
+      </React.Fragment>
+    );
   }
 }
 

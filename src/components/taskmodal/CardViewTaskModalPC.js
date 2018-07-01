@@ -11,59 +11,48 @@ var moment = require('moment');
 
 class CardViewTaskModalPC extends Component {
   render() {
-    if (
-      this.props.activityState.loading ||
-      this.props.taskState.loading ||
-      this.props.labelState.loading ||
-      this.props.userState.loading
-    ) {
-      return <LoadingIconPC />;
-    } else {
-      return (
-        <React.Fragment>
-          <EditableTextareaPC
-            body={this.props.task.title}
-            keyType={'title'}
-            datatype={'task'}
-            editfunc={this.props.taskFunc.Update}
-            {...this.props}
+    return (
+      <React.Fragment>
+        <EditableTextareaPC
+          body={this.props.task.title}
+          keyType={'title'}
+          datatype={'task'}
+          editfunc={this.props.taskFunc.Update}
+          {...this.props}
+        />
+        <EditableTextareaPC
+          body={this.props.task.body}
+          keyType={'body'}
+          datatype={'task'}
+          editfunc={this.props.taskFunc.Update}
+          {...this.props}
+        />
+        <div>
+          <Button onClick={this.props.taskModalCompleteConfirm}>Confirm</Button>
+          <Button onClick={this.props.taskModalDeleteConfirm} type="dashed">
+            Delete
+          </Button>
+        </div>
+
+        <UserSearchBar taskId={this.props.task.id} {...this.props} />
+
+        <LabelSearchBar taskId={this.props.task.id} {...this.props} />
+
+        <div>
+          start date:
+          <DatePicker
+            onChange={this.props.taskModalStartDateChange}
+            value={moment(this.props.task.startDate, 'YYYY.MM.DD')}
           />
-          <EditableTextareaPC
-            body={this.props.task.body}
-            keyType={'body'}
-            datatype={'task'}
-            editfunc={this.props.taskFunc.Update}
-            {...this.props}
+          due date:
+          <DatePicker
+            onChange={this.props.taskModalDueDateChange}
+            value={moment(this.props.task.dueDate, 'YYYY.MM.DD')}
           />
-          <div>
-            <Button onClick={this.props.taskModalCompleteConfirm}>
-              Confirm
-            </Button>
-            <Button onClick={this.props.taskModalDeleteConfirm} type="dashed">
-              Delete
-            </Button>
-          </div>
-
-          <UserSearchBar taskId={this.props.task.id} {...this.props} />
-
-          <LabelSearchBar taskId={this.props.task.id} {...this.props} />
-
-          <div>
-            start date:
-            <DatePicker
-              onChange={this.props.taskModalStartDateChange}
-              value={moment(this.props.task.startDate, 'YYYY.MM.DD')}
-            />
-            due date:
-            <DatePicker
-              onChange={this.props.taskModalDueDateChange}
-              value={moment(this.props.task.dueDate, 'YYYY.MM.DD')}
-            />
-          </div>
-          <ActivityCC {...this.props} />
-        </React.Fragment>
-      );
-    }
+        </div>
+        <ActivityCC {...this.props} />
+      </React.Fragment>
+    );
   }
 }
 

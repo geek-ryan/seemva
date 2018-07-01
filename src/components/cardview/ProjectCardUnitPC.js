@@ -13,17 +13,12 @@ var moment = require('moment');
 
 class ProjectCardUnitPC extends Component {
   render() {
-    if (
-      this.props.activityState.loading ||
-      this.props.taskState.loading ||
-      this.props.labelState.loading ||
-      this.props.userState.loading
-    ) {
-      return <LoadingIconPC />;
-    } else {
-      return (
-        <React.Fragment>
-          <Card style={{ width: 400 }}>
+    return (
+      <React.Fragment>
+        <Card style={{ width: 400 }}>
+          {this.props.projectState.loading ? (
+            <LoadingIconPC />
+          ) : (
             <EditableTextareaPC
               body={this.props.project.title}
               keyType={'title'}
@@ -31,46 +26,50 @@ class ProjectCardUnitPC extends Component {
               editfunc={this.props.projectFunc.Update}
               {...this.props}
             />
+          )}
 
-            {this.props.taskState.tasks.map(task => {
+          {this.props.taskState.loading ? (
+            <LoadingIconPC />
+          ) : (
+            this.props.taskState.tasks.map(task => {
               return this.props.project.id === task.projectId ? (
                 <CardViewTaskUnitCC key={task.id} task={task} {...this.props} />
               ) : (
                 ''
               );
-            })}
+            })
+          )}
 
-            <div onClick={this.props.newTaskShowModal}>
-              <Icon type="plus" /> Add New Task
-            </div>
+          <div onClick={this.props.newTaskShowModal}>
+            <Icon type="plus" /> Add New Task
+          </div>
 
-            <Modal
-              visible={this.props.taskNew.visible}
-              onOk={this.props.newTaskOk}
-              onCancel={this.props.newTaskCancel}
-            >
-              <Input
-                onChange={this.props.newTaskTitleChange}
-                placeholder="Title"
-                value={this.props.taskNew.title}
-              />
-              <Input.TextArea
-                onChange={this.props.newTaskbodyChange}
-                placeholder="Body"
-                value={this.props.taskNew.body}
-                row={4}
-              />
-              <DatePicker.RangePicker
-                onChange={this.props.newTaskDateChange}
-                value={[moment(), moment()]}
-              />
-              <UserSearchBar {...this.props} />
-              <LabelSearchBar {...this.props} />
-            </Modal>
-          </Card>
-        </React.Fragment>
-      );
-    }
+          <Modal
+            visible={this.props.taskNew.visible}
+            onOk={this.props.newTaskOk}
+            onCancel={this.props.newTaskCancel}
+          >
+            <Input
+              onChange={this.props.newTaskTitleChange}
+              placeholder="Title"
+              value={this.props.taskNew.title}
+            />
+            <Input.TextArea
+              onChange={this.props.newTaskbodyChange}
+              placeholder="Body"
+              value={this.props.taskNew.body}
+              row={4}
+            />
+            <DatePicker.RangePicker
+              onChange={this.props.newTaskDateChange}
+              value={[moment(), moment()]}
+            />
+            <UserSearchBar {...this.props} />
+            <LabelSearchBar {...this.props} />
+          </Modal>
+        </Card>
+      </React.Fragment>
+    );
   }
 }
 
