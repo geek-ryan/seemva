@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Icon, Modal } from 'antd';
 
 import ProjectCardUnitCC from '../../containers/ProjectCardUnitCC';
+import LoadingIconPC from '../utils/LoadingIconPC';
 
 class CardViewPC extends Component {
   render() {
-    console.log(this.props.projectState);
     return (
       <React.Fragment>
         {this.props.projectState.projects.map(project => (

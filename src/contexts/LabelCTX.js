@@ -106,25 +106,22 @@ class LabelProvider extends Component {
 
   taskFilter = async taskid => {
     try {
-      const rees = await serverAPI.get('/task-label-assignees');
-      const arr = rees
-        .slice()
-        .filter(element => element.taskId === taskid)
-        .map(element => element.labelId);
+      const getAssignee = await serverAPI.get('/task-label-assignees');
+      const arr = getAssignee.data.filter(element => element.taskId === taskid);
       const brr = this.state.labels.slice().filter(element => {
         let k = 0;
         for (let i = 0; i < arr.length; i++) {
-          element.id === arr[i] ? k++ : '';
+          element.id === arr[i].labelId ? k++ : '';
         }
         return k > 0;
       });
       this.setState({ labelChosen: brr });
     } catch (e) {
       const res = await serverAPI.get('/labels');
-      const rees = await serverAPI.get('/task-label-assignees');
+      const getAssignee = await serverAPI.get('/task-label-assignees');
       this.setState({
         labels: res.data,
-        labelTaskAssignees: rees.data,
+        labelTaskAssignees: getAssignee.data,
         loading: false,
       });
     }
@@ -206,6 +203,10 @@ class LabelProvider extends Component {
     }
   }; // on created label to labels
 
+  //
+  //
+  //   promise.all
+  // map 엮어쓰기
   assigneeCreate = async taskid => {
     try {
       const assignees = this.state.labelTaskAssignees.slice(); //all of assignees

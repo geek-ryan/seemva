@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
 import '../../../node_modules/antd/dist/antd.css';
+import LoadingIconPC from './LoadingIconPC';
 
 class EditableTextareaPC extends Component {
   state = {
@@ -31,7 +32,9 @@ class EditableTextareaPC extends Component {
   };
 
   render() {
-    return (
+    return this.props[this.props.datatype + 'State'].loading ? (
+      <LoadingIconPC />
+    ) : (
       <React.Fragment>
         <div className="motherDiv" onDoubleClick={this.handleDoubleClick}>
           {this.state.visible ? (

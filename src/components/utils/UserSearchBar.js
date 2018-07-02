@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Input, Button } from 'antd';
 
+import LoadingIconPC from '../utils/LoadingIconPC';
+
 class UserSearchBar extends Component {
   state = {
     searching: false,
@@ -22,51 +24,55 @@ class UserSearchBar extends Component {
   };
 
   render() {
-    const result = (
-      <div>
-        {this.props.userState.userMatch.map(element => (
-          <Button
-            onClick={this.props.userFunc.pushChoise}
-            key={element.id}
-            value={element.id}
-          >
-            {element.username}
-          </Button>
-        ))}
-      </div>
-    );
-
-    const chosenLabels = (
-      <div>
-        {this.props.userState.userChosen.map(element => {
-          return (
+    if (this.props.userState.loading) {
+      return <LoadingIconPC />;
+    } else {
+      const result = (
+        <div>
+          {this.props.userState.userMatch.map(element => (
             <Button
-              onClick={this.props.userFunc.pullChoise}
+              onClick={this.props.userFunc.pushChoise}
               key={element.id}
               value={element.id}
             >
               {element.username}
             </Button>
-          );
-        })}
-      </div>
-    );
-
-    return (
-      <React.Fragment>
-        <div>
-          {this.props.userState.userChosen.length
-            ? chosenLabels
-            : 'Please choose user'}
+          ))}
         </div>
-        <Input
-          onChange={this.handleSearchTextChange}
-          placeholder="input search text"
-          value={this.props.userState.userSearchText}
-        />
-        <div>{this.state.searching ? result : 'Loading users....'}</div>
-      </React.Fragment>
-    );
+      );
+
+      const chosenLabels = (
+        <div>
+          {this.props.userState.userChosen.map(element => {
+            return (
+              <Button
+                onClick={this.props.userFunc.pullChoise}
+                key={element.id}
+                value={element.id}
+              >
+                {element.username}
+              </Button>
+            );
+          })}
+        </div>
+      );
+
+      return (
+        <React.Fragment>
+          <div>
+            {this.props.userState.userChosen.length
+              ? chosenLabels
+              : 'Please choose user'}
+          </div>
+          <Input
+            onChange={this.handleSearchTextChange}
+            placeholder="input search text"
+            value={this.props.userState.userSearchText}
+          />
+          <div>{this.state.searching ? result : 'Loading users....'}</div>
+        </React.Fragment>
+      );
+    }
   }
 }
 
