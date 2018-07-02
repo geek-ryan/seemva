@@ -353,8 +353,13 @@ body {
           flex: none;
 }
 
+.user-search__item {
+  cursor: pointer;
+}
+
 .user-search__item--disabled {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .team-page {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
+import { Modal, Form, Input } from 'antd';
 const FormItem = Form.Item;
 class TeamModalPC extends Component {
   static defaultProps = {

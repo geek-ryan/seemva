@@ -7,7 +7,16 @@ import MemberAvatarPC from '../utils/MemberAvatarPC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
 
 class HeaderPC extends Component {
+  static defaultProps = {
+    onClearMatch: () => {}, // 검색 매치된 사용자 데이터 초기화
+    onAutocompleteSearch: q => {}, // 키워드 받아서 검색하는 함수
+    onAddMember: () => {}, // 멤버 추가하는 함수(assignee에 추가)
+    matchUsers: [], // 키워드에 match된 사용자
+    members: [], // 팀의 멤버
+  };
+
   state = {
+    q: '',
     visible: false,
   };
 
@@ -18,14 +27,27 @@ class HeaderPC extends Component {
   };
 
   handleCloseModal = () => {
+    this.props.onClearMatch();
     this.setState({
+      q: '',
       visible: false,
     });
   };
 
+  handleChangeQuery = e => {
+    this.setState({ q: e.target.value }, () => {
+      this.props.onAutocompleteSearch(this.state.q);
+    });
+  };
+
+  handleAddMember = user => {
+    this.props.onAddMember(user);
+    this.handleCloseModal();
+  };
+
   render() {
-    const { visible } = this.state;
-    const { onChangeQuery, matchUsers, members, q } = this.props;
+    const { visible, q } = this.state;
+    const { matchUsers, members } = this.props;
     return (
       <React.Fragment>
         <div className="member-group">
@@ -49,7 +71,7 @@ class HeaderPC extends Component {
           <React.Fragment>
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              onChange={onChangeQuery}
+              onChange={this.handleChangeQuery}
               placeholder="input search text"
               value={q}
             />
@@ -59,17 +81,19 @@ class HeaderPC extends Component {
               renderItem={item =>
                 members.includes(item) ? (
                   <ListItem
-                    key={item.id}
+                    // key={item.id}
                     member={true}
                     item={item}
-                    onClick={() => {}}
+                    onAddMemberGroup={() => {}}
                   />
                 ) : (
                   <ListItem
-                    key={item.id}
+                    // key={item.id}
                     member={false}
                     item={item}
-                    onClick={() => {}}
+                    onAddMemberGroup={() => {
+                      this.handleAddMember(item);
+                    }}
                   />
                 )
               }
@@ -88,7 +112,7 @@ function ListItem(props) {
     props.member ? 'user-search__item--disabled' : ''
   );
   return (
-    <List.Item className={itemClass}>
+    <List.Item className={itemClass} onClick={props.onAddMemberGroup}>
       <List.Item.Meta
         avatar={
           <MemberAvatarPC

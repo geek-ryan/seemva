@@ -8,6 +8,7 @@ class TeamCreateButtonPC extends Component {
   };
 
   showLeaveConfirm = () => {
+    const onDelete = this.props.onDelete;
     Modal.confirm({
       title: 'Leave Team',
       content: (
@@ -21,7 +22,7 @@ class TeamCreateButtonPC extends Component {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        console.log('Leave success');
+        onDelete();
       },
     });
   };
