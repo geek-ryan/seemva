@@ -288,7 +288,7 @@ body {
   border-radius: 100%;
   color: #fff;
   font-size: 0.9em;
-  background-color: #a0d911;
+  background-color: #52c41a;
 }
 
 .team-menu-item a:focus {
@@ -301,11 +301,17 @@ body {
 
 .team-menu-item--current a {
   color: #0050b3;
+  font-weight: bold;
   background-color: rgba(255, 255, 255, 0.9);
 }
 
 .team-add-button {
   width: 100%;
+}
+
+.team-leave-button {
+  background-color: #595959;
+  border-color: transparent;
 }
 
 .header {
@@ -386,32 +392,6 @@ body {
   overflow: hidden;
 }
 
-.team-card {
-  min-width: 1px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  overflow-x: auto;
-}
-
-.team-card__list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.team-card__list .ant-card {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 100%;
-          flex: 1 0 100%;
-  max-width: 350px;
-  margin: 0.5em;
-  border-radius: 3px;
-}
-
 .loading-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -439,6 +419,40 @@ body {
   height: 30px;
   border-radius: 100%;
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.team-card {
+  min-width: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  overflow-x: auto;
+}
+
+.team-card__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.project-card {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  max-width: 350px;
+  margin: 0.5em;
+  border-radius: 5px;
+}
+
+.project-card-button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  max-width: 350px;
+  margin: 0.5em;
 }
 
 .login-page {

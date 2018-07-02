@@ -1,0 +1,22 @@
+.team-card {
+  min-width: 1px;
+  display: flex;
+  flex: 1 1 auto;
+  overflow-x: auto;
+  &__list {
+    display: flex;
+  }
+}
+
+.project-card {
+  flex: 1 0 100%;
+  max-width: 350px;
+  margin: 0.5em;
+  border-radius: 5px;
+}
+
+.project-card-button {
+  flex: 1 0 100%;
+  max-width: 350px;
+  margin: 0.5em;
+}
