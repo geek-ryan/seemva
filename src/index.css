@@ -353,6 +353,10 @@ body {
           flex: none;
 }
 
+.user-search__item--disabled {
+  opacity: 0.5;
+}
+
 .team-page {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -430,10 +434,6 @@ body {
   height: 30px;
   border-radius: 100%;
   background-color: rgba(255, 255, 255, 0.3);
-}
-
-.uploadcare--page {
-  height: 100%;
 }
 
 .login-page {

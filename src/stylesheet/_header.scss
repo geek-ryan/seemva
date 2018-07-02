@@ -22,3 +22,9 @@
     flex: none;
   }
 }
+
+.user-search__item {
+  &--disabled {
+    opacity: 0.5;
+  }
+}

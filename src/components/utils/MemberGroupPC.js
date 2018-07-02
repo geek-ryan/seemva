@@ -1,32 +1,13 @@
 import React, { Component } from 'react';
-import debounce from 'lodash.debounce';
-import { Button, Modal, Icon, List, Input, Spin } from 'antd';
+import classNames from 'classnames';
+
+import { Button, Modal, Icon, List, Input } from 'antd';
 
 import MemberAvatarPC from '../utils/MemberAvatarPC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
-import serverAPI from '../../serverAPI';
 
 class HeaderPC extends Component {
   state = {
-    loading: false,
-    q: '',
-    members: [
-      {
-        id: 1,
-        username: 'fds',
-        profile:
-          'https://ucarecdn.com/80280868-a954-4114-8dbc-cfcf5c9d23f5/IMG_3128.jpg',
-      },
-      {
-        id: 2,
-        username: 'syami',
-        profile:
-          'https://ucarecdn.com/b8800d01-4651-4b77-8ca8-de58bb78f196/syami.jpg',
-      },
-      // { id: 3, username: 'yooo', profile: '' },
-      // { id: 4, username: 'geek', profile: '' },
-      // { id: 5, username: 'geekerrrrrrrrr', profile: '' },
-    ],
     visible: false,
   };
 
@@ -42,36 +23,9 @@ class HeaderPC extends Component {
     });
   };
 
-  changeQuery = e => {
-    this.setState({ q: e.target.value }, () => {
-      this.autocompleteSearchDebounced(this.state.q);
-    });
-  };
-
-  autocompleteSearchDebounced = q => {
-    return debounce(this.autocompleteSearch, 250)(q);
-  };
-
-  autocompleteSearch = q => {
-    this.fetchSearch(q);
-  };
-
-  fetchMembers = async teamID => {
-    const res = await serverAPI(`/team-assignee?teamId=${teamID}`);
-  };
-
-  fetchSearch = async q => {
-    const res = await serverAPI(`/users?q=${q}`);
-  };
-
-  componentDidMount() {}
-
-  componentWillUnMount() {
-    this.autocompleteSearchDebounced.cancel();
-  }
-
   render() {
-    const { members, q, visible } = this.state;
+    const { visible } = this.state;
+    const { onChangeQuery, matchUsers, members, q } = this.props;
     return (
       <React.Fragment>
         <div className="member-group">
@@ -87,7 +41,7 @@ class HeaderPC extends Component {
         />
         <Modal
           style={{ top: 20 }}
-          title={'New Member'}
+          title={'Add Members'}
           visible={visible}
           onCancel={this.handleCloseModal}
           footer={null}
@@ -95,22 +49,32 @@ class HeaderPC extends Component {
           <React.Fragment>
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              onChange={this.changeQuery}
+              onChange={onChangeQuery}
               placeholder="input search text"
               value={q}
             />
             <List
-              dataSource={this.props.members}
+              className="user-search"
+              dataSource={matchUsers}
               renderItem={item =>
-                this.state.searching ? (
-                  <ListItem item={item} />
+                members.includes(item) ? (
+                  <ListItem
+                    key={item.id}
+                    member={true}
+                    item={item}
+                    onClick={() => {}}
+                  />
                 ) : (
-                  <div className="demo-loading-container">
-                    <Spin />
-                  </div>
+                  <ListItem
+                    key={item.id}
+                    member={false}
+                    item={item}
+                    onClick={() => {}}
+                  />
                 )
               }
             />
+            {/* {spin 나중에} */}
           </React.Fragment>
         </Modal>
       </React.Fragment>
@@ -119,8 +83,12 @@ class HeaderPC extends Component {
 }
 
 function ListItem(props) {
+  const itemClass = classNames(
+    'user-search__item',
+    props.member ? 'user-search__item--disabled' : ''
+  );
   return (
-    <List.Item key={props.item.id} onClick={() => {}}>
+    <List.Item className={itemClass}>
       <List.Item.Meta
         avatar={
           <MemberAvatarPC
@@ -131,6 +99,7 @@ function ListItem(props) {
         title={props.item.username}
         description={props.item.email}
       />
+      <Icon type="arrow-right" />
     </List.Item>
   );
 }
