@@ -16,35 +16,26 @@ class ProjectCardUnitPC extends Component {
     return (
       <React.Fragment>
         <Card style={{ width: 400 }}>
-          {this.props.projectState.loading ? (
-            <LoadingIconPC />
-          ) : (
-            <div>
-              <EditableTextareaPC
-                body={this.props.project.title}
-                keyType={'title'}
-                datatype={'project'}
-                editfunc={this.props.projectFunc.Update}
-                {...this.props}
-              />
-              {this.props.taskState.tasks.map(task => {
-                return this.props.project.id === task.projectId ? (
-                  <CardViewTaskUnitCC
-                    key={task.id}
-                    task={task}
-                    {...this.props}
-                  />
-                ) : (
-                  ''
-                );
-              })}
-            </div>
-          )}
+          <div>
+            <EditableTextareaPC
+              body={this.props.project.title}
+              keyType={'title'}
+              datatype={'project'}
+              editfunc={this.props.projectFunc.Update}
+              {...this.props}
+            />
+            {this.props.taskState.tasks.map(task => {
+              return this.props.project.id === task.projectId ? (
+                <CardViewTaskUnitCC key={task.id} task={task} {...this.props} />
+              ) : (
+                ''
+              );
+            })}
+          </div>
 
           <div onClick={this.props.newTaskShowModal}>
             <Icon type="plus" /> Add New Task
           </div>
-
           <Modal
             visible={this.props.taskNew.visible}
             onOk={this.props.newTaskOk}

@@ -8,17 +8,13 @@ class CardViewPC extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.projectState.loading ? (
-          <LoadingIconPC />
-        ) : (
-          this.props.projectState.projects.map(project => (
-            <ProjectCardUnitCC
-              key={project.id}
-              {...this.props}
-              project={project}
-            />
-          ))
-        )}
+        {this.props.projectState.projects.map(project => (
+          <ProjectCardUnitCC
+            key={project.id}
+            {...this.props}
+            project={project}
+          />
+        ))}
 
         <div onClick={this.props.newProjectShowModal}>
           <Icon type="plus" /> Add New Project
