@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
-import { Icon, Button, Tooltip } from 'antd';
+import { Icon } from 'antd';
 import TeamCreateButtonPC from './TeamCreateButtonPC';
 import TeamEditButtonPC from './TeamEditButtonPC';
 import TeamLeaveButtonPC from './TeamLeaveButtonPC';
