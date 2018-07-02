@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Card } from 'antd';
+import { Route } from 'react-router-dom';
 
 import TaskModalCC from '../../containers/TaskModalCC';
 import LoadingIconPC from '../utils/LoadingIconPC';
 
 class CardViewTaskUnitPC extends Component {
   render() {
+    const modal = (
+      <Modal
+        visible={'sts' === this.props.task.id}
+        onOk={this.props.taskOk}
+        onCancel={this.props.taskCancle}
+      >
+        <TaskModalCC {...this.props} />
+      </Modal>
+    );
+
     return (
       <React.Fragment>
         <Card style={{ width: 300 }}>
@@ -81,13 +92,18 @@ class CardViewTaskUnitPC extends Component {
             )}
           </div>
 
-          <Modal
-            visible={this.props.taskModal.visible}
-            onOk={this.props.taskOk}
-            onCancel={this.props.taskCancle}
-          >
-            <TaskModalCC {...this.props} />
-          </Modal>
+          <Route
+            path={`/card/:id`}
+            render={() => (
+              <Modal
+                visible
+                onOk={this.props.taskOk}
+                onCancel={this.props.taskCancle}
+              >
+                <TaskModalCC {...this.props} />
+              </Modal>
+            )}
+          />
         </Card>
       </React.Fragment>
     );
