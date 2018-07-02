@@ -4,6 +4,9 @@ import { Button } from 'antd';
 import TeamModalPC from './TeamModalPC';
 
 class TeamCreateButtonPC extends Component {
+  static defaultProps = {
+    onCreateTeam: name => {},
+  };
   state = {
     visible: false,
   };

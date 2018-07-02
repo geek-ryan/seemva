@@ -4,8 +4,8 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import TeamCreateButtonPC from './TeamCreateButtonPC';
+import TeamLeaveButtonPC from './TeamLeaveButtonPC';
 
-storiesOf('TeamCreateButtonPC', module).add('default', () => {
-  return <TeamCreateButtonPC />;
+storiesOf('TeamLeaveButtonPC', module).add('default', () => {
+  return <TeamLeaveButtonPC />;
 });

@@ -7,10 +7,10 @@ import TeamMenuCC from '../../containers/TeamMenuCC';
 
 class SideNavPC extends Component {
   static defaultProps = {
-    profile: '',
-    username: '',
-    onChangeProfile: () => {},
-    onLogout: () => {},
+    profile: '', // 유저 프로필 사진 url
+    username: '', // 유저 이름
+    onChangeProfile: () => {}, // 프로필 수정 모달 오픈
+    onLogout: () => {}, // 로그아웃
   };
 
   state = {
