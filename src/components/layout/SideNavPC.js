@@ -85,7 +85,7 @@ class SideNavPC extends Component {
             <p className="sidebar-user__name">{username}</p>
           </div>
           <TeamMenuCC />
-          <Button ghost onClick={onLogout}>
+          <Button icon="poweroff" ghost onClick={onLogout}>
             Log out
           </Button>
         </div>

@@ -35,6 +35,7 @@ class TeamCreateButtonPC extends Component {
           size="small"
           shape="circle"
           icon="logout"
+          className="team-leave-button"
           onClick={this.showLeaveConfirm}
         />
       </Tooltip>
