@@ -15,7 +15,14 @@ class ProgressBarPC extends Component {
 
   render() {
     let k = this.loadCal();
-    return <Progress percent={k} status="active" />;
+    return (
+      <Progress
+        type="circle"
+        percent={k}
+        status="active"
+        format={percent => (percent < 100 ? `${percent}%` : 'Welcome!')}
+      />
+    );
   }
 }
 
