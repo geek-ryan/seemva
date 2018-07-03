@@ -5,7 +5,6 @@ import CardViewTaskUnitCC from '../../containers/CardViewTaskUnitCC';
 import EditableTextareaPC from '../utils/EditableTextareaPC';
 import LabelSearchBar from '../utils/LabelSearchBar';
 import UserSearchBar from '../utils/UserSearchBar';
-import LoadingIconPC from '../utils/LoadingIconPC';
 
 import '../../../node_modules/antd/dist/antd.css';
 
@@ -15,7 +14,7 @@ class ProjectCardUnitPC extends Component {
   render() {
     return (
       <React.Fragment>
-        <Card style={{ width: 400 }}>
+        <Card className="project-card">
           <div>
             <EditableTextareaPC
               body={this.props.project.title}
