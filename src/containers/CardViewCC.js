@@ -13,6 +13,10 @@ class CardViewCC extends Component {
     body: '',
   };
 
+  componentDidMount = () => {
+    this.props.projectFunc.teamFilter(this.props.teamCurrent);
+  };
+
   newProjectTitleChange = e => {
     this.setState({ body: e.target.value });
   };
@@ -27,7 +31,7 @@ class CardViewCC extends Component {
     const obj = {
       title: body,
       userId: this.props.userId,
-      teamId: this.props.teamId,
+      teamId: this.props.teamCurrent,
       subtitle: 'test',
     };
     this.props.projectFunc.Create(obj);

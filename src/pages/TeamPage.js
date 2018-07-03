@@ -19,7 +19,7 @@ function TeamPage({ match }) {
       <MemberProvider teamID={match.params.id}>
         {/* <UserProvider> */}
         <LabelProvider>
-          <ProjectProvider>
+          <ProjectProvider teamCurrent={match.params.id}>
             <TaskProvider>
               <ActivityProvider>
                 <div className="team-page">
@@ -28,7 +28,7 @@ function TeamPage({ match }) {
                     <HeaderCC />
                     <div className="team-card">
                       <div className="team-card__list">
-                        <CardViewPage />
+                        <CardViewPage teamCurrent={match.params.id} />
                       </div>
                     </div>
                   </div>

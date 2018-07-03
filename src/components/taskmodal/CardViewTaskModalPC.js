@@ -13,7 +13,7 @@ var moment = require('moment');
 class CardViewTaskModalPC extends Component {
   render() {
     if (!this.props.taskModal.visible) {
-      return <Redirect to={'/card'} />;
+      return <Redirect to={`/card/${this.props.teamID}`} />;
     } else {
       return (
         <React.Fragment>
