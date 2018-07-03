@@ -7,15 +7,18 @@ import LoadingIconPC from '../utils/LoadingIconPC';
 
 class CardViewTaskUnitPC extends Component {
   render() {
-    const modal = (
-      <Modal
-        visible={'sts' === this.props.task.id}
-        onOk={this.props.taskOk}
-        onCancel={this.props.taskCancle}
-      >
-        <TaskModalCC {...this.props} />
-      </Modal>
-    );
+    const modal = ({ match }) =>
+      this.match.prams.id === this.props.task.id ? (
+        <Modal
+          visible
+          onOk={this.props.taskOk}
+          onCancel={this.props.taskCancle}
+        >
+          <TaskModalCC {...this.props} />
+        </Modal>
+      ) : (
+        ''
+      );
 
     return (
       <React.Fragment>
@@ -92,18 +95,7 @@ class CardViewTaskUnitPC extends Component {
             )}
           </div>
 
-          <Route
-            path={`/card/:id`}
-            render={() => (
-              <Modal
-                visible
-                onOk={this.props.taskOk}
-                onCancel={this.props.taskCancle}
-              >
-                <TaskModalCC {...this.props} />
-              </Modal>
-            )}
-          />
+          <Route path={`/card/:id`} component={modal} />
         </Card>
       </React.Fragment>
     );
