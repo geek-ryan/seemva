@@ -8,7 +8,7 @@ import LoadingIconPC from '../utils/LoadingIconPC';
 class CardViewTaskUnitPC extends Component {
   render() {
     const modal = ({ match }) =>
-      this.match.prams.id === this.props.task.id ? (
+      match.params.id === this.props.task.id ? (
         <Modal
           visible
           onOk={this.props.taskOk}
