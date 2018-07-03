@@ -60,12 +60,24 @@ class SideNavPC extends Component {
               </Link>
             </div>
             <div className="board-type-menu__item">
-              <Link to="/timeline/1">
+              <Link
+                to="/timeline/1"
+                onClick={e => {
+                  e.preventDefault();
+                  alert('서비스 개발 중입니다.^^');
+                }}
+              >
                 <Icon type="clock-circle-o" />
               </Link>
             </div>
             <div className="board-type-menu__item">
-              <Link to="/calendar/1">
+              <Link
+                to="/calendar/1"
+                onClick={e => {
+                  e.preventDefault();
+                  alert('서비스 개발 중입니다.^^');
+                }}
+              >
                 <Icon type="calendar" />
               </Link>
             </div>
