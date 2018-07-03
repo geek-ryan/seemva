@@ -128,9 +128,11 @@ class TeamProvider extends Component {
   };
 
   changeCurrent = id => {
+    console.log('id', id, 'change');
     this.setState({
-      current: id,
+      current: parseInt(id),
     });
+    console.log(this.state.current);
   };
 
   render() {

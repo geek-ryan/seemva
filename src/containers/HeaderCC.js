@@ -20,6 +20,7 @@ class HeaderCC extends Component {
                         : 'welcome team'
                     }
                     {...value}
+                    teamCurrent={current}
                     onAutocompleteSearch={value.autocompleteSearch}
                     onAddMember={value.addMember}
                     onClearMatch={value.clearMatch}

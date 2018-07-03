@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Card, List } from 'antd';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 import TaskModalCC from '../../containers/TaskModalCC';
 import LoadingIconPC from '../utils/LoadingIconPC';
@@ -10,7 +10,7 @@ class CardViewTaskUnitPC extends Component {
   render() {
     return (
       <React.Fragment>
-        <Card classNames="task-card">
+        <Card className="task-card">
           {this.props.taskState.loading ? (
             <LoadingIconPC />
           ) : (
@@ -24,7 +24,9 @@ class CardViewTaskUnitPC extends Component {
               <Icon onClick={this.props.taskDeleteConfirm} type="delete" />
 
               <h2 onClick={this.props.taskShowModal}>
-                <Link to={`/card/${this.props.task.id}`}>
+                <Link
+                  to={`/card/${this.props.teamId}/task/${this.props.task.id}`}
+                >
                   {this.props.task.title}
                 </Link>
               </h2>
@@ -92,7 +94,7 @@ class CardViewTaskUnitPC extends Component {
           </div>
         </Card>
         <Route
-          path={`/card/:id`}
+          path={`/card/${this.props.teamId}/task/:id`}
           render={({ match }) => {
             return parseInt(match.params.id) === this.props.task.id ? (
               <Modal
