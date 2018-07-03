@@ -17,27 +17,27 @@ function TeamPage({ match }) {
   return (
     <TeamProvider id={match.params.id}>
       <MemberProvider teamID={match.params.id}>
-        <UserProvider>
-          <LabelProvider>
-            <ProjectProvider>
-              <TaskProvider>
-                <ActivityProvider>
-                  <div className="team-page">
-                    <SideNavCC />
-                    <div className="team-content">
-                      <HeaderCC />
-                      <div className="team-card">
-                        <div className="team-card__list">
-                          <CardViewPage />
-                        </div>
+        {/* <UserProvider> */}
+        <LabelProvider>
+          <ProjectProvider>
+            <TaskProvider>
+              <ActivityProvider>
+                <div className="team-page">
+                  <SideNavCC />
+                  <div className="team-content">
+                    <HeaderCC />
+                    <div className="team-card">
+                      <div className="team-card__list">
+                        <CardViewPage />
                       </div>
                     </div>
                   </div>
-                </ActivityProvider>
-              </TaskProvider>
-            </ProjectProvider>
-          </LabelProvider>
-        </UserProvider>
+                </div>
+              </ActivityProvider>
+            </TaskProvider>
+          </ProjectProvider>
+        </LabelProvider>
+        {/* </UserProvider> */}
       </MemberProvider>
     </TeamProvider>
   );
