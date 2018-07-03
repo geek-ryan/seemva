@@ -28,13 +28,28 @@ class ProjectProvider extends Component {
   componentDidMount = async () => {
     this.setState({ loading: true });
     try {
-      const res = await serverAPI.get('/projects');
-      this.setState({ projects: res.data, loading: false });
+      const res = await serverAPI.get(`/projects`);
+      this.setState({
+        projects: res.data,
+        loading: false,
+        teamid: this.props.teamCurrent,
+      });
+      this.teamFilter(this.props.teamCurrent);
     } catch (e) {
       this.setState({
         loading: false,
       });
     }
+  };
+
+  shouldComponentUpdate = () => {
+    return true;
+  };
+
+  teamFilter = async id => {
+    const res = await serverAPI.get(`/projects`);
+    let brr = res.data.filter(element => element.teamId === parseInt(id));
+    this.setState({ projects: brr });
   };
 
   Create = async o => {
@@ -84,6 +99,7 @@ class ProjectProvider extends Component {
       projectFunc: {
         Create: this.Create,
         Update: this.Update,
+        teamFilter: this.teamFilter,
       },
     };
     return <Provider value={value}>{this.props.children}</Provider>;
