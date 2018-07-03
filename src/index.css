@@ -455,6 +455,50 @@ body {
   margin: 0.5em;
 }
 
+.label-unit__box {
+  vertical-align: middle;
+}
+
+.label-search {
+  display: inline-block;
+  position: relative;
+  width: auto;
+}
+
+.label-search__hidden {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.label-search__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 30px;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.label-search__input.ant-select-auto-complete.ant-select .ant-input {
+  padding: 0;
+  width: 100%;
+  border-width: 0;
+  font-size: 100%;
+  height: 100%;
+  background: transparent;
+  outline: 0;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.label-search__input.ant-select-auto-complete.ant-select-focused .ant-input,
+.label-search__input.ant-select-auto-complete .ant-input:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-color: transparent;
+}
+
 .login-page {
   display: -webkit-box;
   display: -ms-flexbox;
