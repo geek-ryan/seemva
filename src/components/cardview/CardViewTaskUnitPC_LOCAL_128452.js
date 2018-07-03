@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Icon, Modal, Card, List } from 'antd';
+import { Icon, Modal, Card } from 'antd';
 import { Route } from 'react-router-dom';
 
 import TaskModalCC from '../../containers/TaskModalCC';
 import LoadingIconPC from '../utils/LoadingIconPC';
-import MemberAvatarPC from '../utils/MemberAvatarPC';
 
 class CardViewTaskUnitPC extends Component {
   render() {
     return (
       <React.Fragment>
-        <Card classNames="task-card">
+        <Card style={{ width: 300 }}>
           {this.props.taskState.loading ? (
             <LoadingIconPC />
           ) : (
@@ -24,15 +23,14 @@ class CardViewTaskUnitPC extends Component {
               <Icon onClick={this.props.taskDeleteConfirm} type="delete" />
 
               <h2 onClick={this.props.taskShowModal}>
-                <Link to={`/card/${this.props.task.id}`}>
-                  {this.props.task.title}
-                </Link>
+                {this.props.task.title}
               </h2>
               <span>{this.props.task.startDate}</span>
               <span>-</span>
               <span>{this.props.task.dueDate}</span>
             </div>
           )}
+
           <div>
             {this.props.userState.loading ? (
               <LoadingIconPC />
@@ -41,16 +39,7 @@ class CardViewTaskUnitPC extends Component {
                 return this.props.userState.userTaskAssignees.map(user_task => {
                   return user.id === user_task.userId &&
                     this.props.task.id === user_task.taskId ? (
-                    <List.Item key={user_task.id}>
-                      <List.Item.Meta
-                        avatar={
-                          <MemberAvatarPC
-                            profile={user.profile}
-                            username={user.username}
-                          />
-                        }
-                      />
-                    </List.Item>
+                    <span key={user_task.id}> {user.username} </span>
                   ) : (
                     ''
                   );
@@ -58,6 +47,7 @@ class CardViewTaskUnitPC extends Component {
               })
             )}
           </div>
+
           <div>
             <Icon type="message" />
             <span>
@@ -70,6 +60,7 @@ class CardViewTaskUnitPC extends Component {
               )}
             </span>
           </div>
+
           <div>
             {this.props.labelState.loading ? (
               <LoadingIconPC />
@@ -90,23 +81,15 @@ class CardViewTaskUnitPC extends Component {
               })
             )}
           </div>
+
+          <Modal
+            visible={this.props.taskModal.visible}
+            onOk={this.props.taskOk}
+            onCancel={this.props.taskCancle}
+          >
+            <TaskModalCC {...this.props} />
+          </Modal>
         </Card>
-        <Route
-          path={`/card/:id`}
-          render={({ match }) => {
-            return parseInt(match.params.id) === this.props.task.id ? (
-              <Modal
-                visible
-                onOk={this.props.taskOk}
-                onCancel={this.props.taskCancle}
-              >
-                <TaskModalCC {...this.props} />
-              </Modal>
-            ) : (
-              ''
-            );
-          }}
-        />
       </React.Fragment>
     );
   }

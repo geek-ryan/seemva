@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Icon, Modal, Card, List } from 'antd';
-import { Route } from 'react-router-dom';
+import { Icon, Modal, Card } from 'antd';
+import { Route, Link } from 'react-router-dom';
 
 import TaskModalCC from '../../containers/TaskModalCC';
 import LoadingIconPC from '../utils/LoadingIconPC';
-import MemberAvatarPC from '../utils/MemberAvatarPC';
 
 class CardViewTaskUnitPC extends Component {
   render() {
     return (
       <React.Fragment>
-        <Card classNames="task-card">
+        <Card style={{ width: 300 }}>
           {this.props.taskState.loading ? (
             <LoadingIconPC />
           ) : (
@@ -33,6 +32,7 @@ class CardViewTaskUnitPC extends Component {
               <span>{this.props.task.dueDate}</span>
             </div>
           )}
+
           <div>
             {this.props.userState.loading ? (
               <LoadingIconPC />
@@ -41,16 +41,7 @@ class CardViewTaskUnitPC extends Component {
                 return this.props.userState.userTaskAssignees.map(user_task => {
                   return user.id === user_task.userId &&
                     this.props.task.id === user_task.taskId ? (
-                    <List.Item key={user_task.id}>
-                      <List.Item.Meta
-                        avatar={
-                          <MemberAvatarPC
-                            profile={user.profile}
-                            username={user.username}
-                          />
-                        }
-                      />
-                    </List.Item>
+                    <span key={user_task.id}> {user.username} </span>
                   ) : (
                     ''
                   );
@@ -58,6 +49,7 @@ class CardViewTaskUnitPC extends Component {
               })
             )}
           </div>
+
           <div>
             <Icon type="message" />
             <span>
@@ -70,6 +62,7 @@ class CardViewTaskUnitPC extends Component {
               )}
             </span>
           </div>
+
           <div>
             {this.props.labelState.loading ? (
               <LoadingIconPC />
