@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, List, Icon } from 'antd';
+
+import classNames from 'classnames';
 
 import LoadingIconPC from '../utils/LoadingIconPC';
+import MemberAvatarPC from '../utils/MemberAvatarPC';
 
 class UserSearchBar extends Component {
   state = {
@@ -24,20 +27,54 @@ class UserSearchBar extends Component {
   };
 
   render() {
+    // const itemClass = classNames(
+    //   'user-search__item',
+    //   props.member ? 'user-search__item--disabled' : ''
+    // );
+
     if (this.props.userState.loading) {
       return <LoadingIconPC />;
     } else {
       const result = (
         <div>
-          {this.props.userState.userMatch.map(element => (
-            <Button
-              onClick={this.props.userFunc.pushChoise}
-              key={element.id}
-              value={element.id}
-            >
-              {element.username}
-            </Button>
-          ))}
+          {this.props.userState.userMatch.map(element => {
+            return (
+              <List.Item
+                key={element.id}
+                className={
+                  ('user-search__item',
+                  this.props.userState.userChosen.filter(
+                    el => el.id === element.id
+                  ).length > 0
+                    ? 'user-search__item--disabled'
+                    : '')
+                }
+                onClick={() => {
+                  this.props.userFunc.pushChoise(element.id);
+                }}
+              >
+                <List.Item.Meta
+                  avatar={
+                    <MemberAvatarPC
+                      profile={element.profile}
+                      username={element.username}
+                    />
+                  }
+                  title={element.username}
+                  description={element.email}
+                />
+                <Icon type="plus" />
+              </List.Item>
+            );
+          })}
+
+          {/* <Button
+            onClick={this.props.userFunc.pushChoise}
+            key={element.id}
+            value={element.id}
+          >
+            {element.username}
+          </Button> */}
         </div>
       );
 
@@ -45,13 +82,32 @@ class UserSearchBar extends Component {
         <div>
           {this.props.userState.userChosen.map(element => {
             return (
-              <Button
-                onClick={this.props.userFunc.pullChoise}
+              <List.Item
                 key={element.id}
-                value={element.id}
+                onClick={() => {
+                  this.props.userFunc.pullChoise(element.id);
+                }}
               >
-                {element.username}
-              </Button>
+                <List.Item.Meta
+                  avatar={
+                    <MemberAvatarPC
+                      profile={element.profile}
+                      username={element.username}
+                    />
+                  }
+                  title={element.username}
+                  description={element.email}
+                />
+                <Icon type="minus" />
+              </List.Item>
+
+              // <Button
+              //   onClick={this.props.userFunc.pullChoise}
+              //   key={element.id}
+              //   value={element.id}
+              // >
+              //   {element.username}
+              // </Button>
             );
           })}
         </div>

@@ -109,34 +109,42 @@ class UserProvider extends Component {
       return k > 0;
     });
     this.setState({ userChosen: brr });
+    // this.searchText(this.state.userSearchText);
   };
 
-  pushChoise = e => {
+  pushChoise = idNum => {
     if (
-      this.state.userChosen.filter(
-        element => element.id === parseInt(e.target.value)
-      ).length
+      this.state.userChosen.filter(element => element.id === parseInt(idNum))
+        .length
     ) {
       ('');
     } else {
       const chosenOne = this.state.userFilter.filter(
-        element => element.id === parseInt(e.target.value)
+        element => element.id === parseInt(idNum)
       )[0];
       const arr = this.state.userChosen.slice();
       arr.push(chosenOne);
       this.setState({ userChosen: arr });
+      // this.searchText(this.state.userSearchText);
     }
   };
 
-  pullChoise = e => {
+  pullChoise = idNum => {
     const arr = this.state.userChosen.slice();
-    const brr = arr.filter(element => element.id !== parseInt(e.target.value));
+    const brr = arr.filter(element => element.id !== parseInt(idNum));
     this.setState({ userChosen: brr });
   };
 
-  searchText = (text, teamId = 1) => {
+  searchText = text => {
     const arr = this.state.userFilter.slice();
     const brr = arr.filter(element => element.username.match(text));
+    // const crr = brr.filter(element => {
+    //   let k = 0;
+    //   for (let i = 0; i < this.state.userChosen.length; i++) {
+    //     this.state.userChosen[i].id === element.id ? k++ : '';
+    //   }
+    //   return k === 0;
+    // });
     this.setState({
       userMatch: brr,
       userSearchText: text,
