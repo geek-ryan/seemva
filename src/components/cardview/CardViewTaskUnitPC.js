@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Card } from 'antd';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 import TaskModalCC from '../../containers/TaskModalCC';
 import LoadingIconPC from '../utils/LoadingIconPC';
 
 class CardViewTaskUnitPC extends Component {
   render() {
-    const modal = ({ match }) =>
-      match.params.id === this.props.task.id ? (
-        <Modal
-          visible
-          onOk={this.props.taskOk}
-          onCancel={this.props.taskCancle}
-        >
-          <TaskModalCC {...this.props} />
-        </Modal>
-      ) : (
-        ''
-      );
-
     return (
       <React.Fragment>
         <Card style={{ width: 300 }}>
@@ -36,7 +23,9 @@ class CardViewTaskUnitPC extends Component {
               <Icon onClick={this.props.taskDeleteConfirm} type="delete" />
 
               <h2 onClick={this.props.taskShowModal}>
-                {this.props.task.title}
+                <Link to={`/card/${this.props.task.id}`}>
+                  {this.props.task.title}
+                </Link>
               </h2>
               <span>{this.props.task.startDate}</span>
               <span>-</span>
@@ -94,9 +83,23 @@ class CardViewTaskUnitPC extends Component {
               })
             )}
           </div>
-
-          <Route path={`/card/:id`} component={modal} />
         </Card>
+        <Route
+          path={`/card/:id`}
+          render={({ match }) => {
+            return parseInt(match.params.id) === this.props.task.id ? (
+              <Modal
+                visible
+                onOk={this.props.taskOk}
+                onCancel={this.props.taskCancle}
+              >
+                <TaskModalCC {...this.props} />
+              </Modal>
+            ) : (
+              ''
+            );
+          }}
+        />
       </React.Fragment>
     );
   }
