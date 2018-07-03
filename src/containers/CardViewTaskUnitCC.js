@@ -22,6 +22,7 @@ class CardViewTaskUnitCC extends Component {
   taskOk = e => {
     this.props.labelFunc.assigneeCreate(this.props.task.id);
     this.props.userFunc.assigneeCreate(this.props.task.id);
+
     this.setState({
       visible: false,
     });
