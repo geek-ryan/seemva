@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-import { Button, Modal, Icon, List, Input } from 'antd';
+import { Avatar, Button, Modal, Icon, List, Input } from 'antd';
 
 import MemberAvatarPC from '../utils/MemberAvatarPC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
@@ -11,6 +11,7 @@ class HeaderPC extends Component {
     onClearMatch: () => {}, // 검색 매치된 사용자 데이터 초기화
     onAutocompleteSearch: q => {}, // 키워드 받아서 검색하는 함수
     onAddMember: () => {}, // 멤버 추가하는 함수(assignee에 추가)
+    loading: false, // fetchData 될 경우 로딩 상태 여부
     matchUsers: [], // 키워드에 match된 사용자
     members: [], // 팀의 멤버
   };
@@ -47,13 +48,17 @@ class HeaderPC extends Component {
 
   render() {
     const { visible, q } = this.state;
-    const { matchUsers, members } = this.props;
+    const { loading, matchUsers, members } = this.props;
     return (
       <React.Fragment>
         <div className="member-group">
-          {members.map(member => (
-            <MemberTooltipAvatarPC key={member.id} {...member} />
-          ))}
+          {loading ? (
+            <Avatar icon="loading" />
+          ) : (
+            members.map(member => (
+              <MemberTooltipAvatarPC key={member.id} {...member} />
+            ))
+          )}
         </div>
         <Button
           className="member-group__button"

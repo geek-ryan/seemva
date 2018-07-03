@@ -7,10 +7,10 @@ import TeamMenuCC from '../../containers/TeamMenuCC';
 
 class SideNavPC extends Component {
   static defaultProps = {
-    profile: '',
-    username: '',
-    onChangeProfile: () => {},
-    onLogout: () => {},
+    profile: '', // 유저 프로필 사진 url
+    username: '', // 유저 이름
+    onChangeProfile: () => {}, // 프로필 수정 모달 오픈
+    onLogout: () => {}, // 로그아웃
   };
 
   state = {
@@ -60,12 +60,24 @@ class SideNavPC extends Component {
               </Link>
             </div>
             <div className="board-type-menu__item">
-              <Link to="/timeline/1">
+              <Link
+                to="/timeline/1"
+                onClick={e => {
+                  e.preventDefault();
+                  alert('서비스 개발 중입니다.^^');
+                }}
+              >
                 <Icon type="clock-circle-o" />
               </Link>
             </div>
             <div className="board-type-menu__item">
-              <Link to="/calendar/1">
+              <Link
+                to="/calendar/1"
+                onClick={e => {
+                  e.preventDefault();
+                  alert('서비스 개발 중입니다.^^');
+                }}
+              >
                 <Icon type="calendar" />
               </Link>
             </div>
@@ -85,7 +97,7 @@ class SideNavPC extends Component {
             <p className="sidebar-user__name">{username}</p>
           </div>
           <TeamMenuCC />
-          <Button ghost onClick={onLogout}>
+          <Button icon="poweroff" ghost onClick={onLogout}>
             Log out
           </Button>
         </div>

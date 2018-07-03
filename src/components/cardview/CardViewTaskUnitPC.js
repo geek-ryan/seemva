@@ -19,7 +19,7 @@ class CardViewTaskUnitPC extends Component {
 
     return (
       <React.Fragment>
-        <Card style={{ width: 300 }}>
+        <Card classNames="task-card">
           {this.props.taskState.loading ? (
             <LoadingIconPC />
           ) : (
@@ -40,7 +40,6 @@ class CardViewTaskUnitPC extends Component {
               <span>{this.props.task.dueDate}</span>
             </div>
           )}
-
           <div>
             {this.props.userState.loading ? (
               <LoadingIconPC />
@@ -57,7 +56,6 @@ class CardViewTaskUnitPC extends Component {
               })
             )}
           </div>
-
           <div>
             <Icon type="message" />
             <span>
@@ -70,7 +68,6 @@ class CardViewTaskUnitPC extends Component {
               )}
             </span>
           </div>
-
           <div>
             {this.props.labelState.loading ? (
               <LoadingIconPC />

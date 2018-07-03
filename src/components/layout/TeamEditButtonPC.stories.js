@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import ViewTypeButtonsPC from './ViewTypeButtonsPC';
+import TeamEditButtonPC from './TeamEditButtonPC';
 
-storiesOf('ViewTypeButtonsPC', module).add('default', () => (
-  <ViewTypeButtonsPC />
-));
+storiesOf('TeamEditButtonPC', module).add('default', () => {
+  return <TeamEditButtonPC />;
+});

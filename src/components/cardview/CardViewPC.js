@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Icon, Modal } from 'antd';
+import { Button, Modal, Input } from 'antd';
 
 import ProjectCardUnitCC from '../../containers/ProjectCardUnitCC';
-import LoadingIconPC from '../utils/LoadingIconPC';
 
 class CardViewPC extends Component {
   render() {
@@ -16,15 +15,20 @@ class CardViewPC extends Component {
           />
         ))}
 
-        <div onClick={this.props.newProjectShowModal}>
-          <Icon type="plus" /> Add New Project
-        </div>
+        <Button
+          className="project-card-button"
+          icon="plus"
+          onClick={this.props.newProjectShowModal}
+        >
+          Add New Project
+        </Button>
         <Modal
+          title="New Project Name"
           visible={this.props.newProjectModal.visible}
           onOk={this.props.newProjectOk}
           onCancel={this.props.newProjectCancle}
         >
-          <input
+          <Input
             value={this.props.newProjectModal.body}
             onChange={this.props.newProjectTitleChange}
             placeholder="project title"

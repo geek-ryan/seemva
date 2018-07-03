@@ -182,7 +182,7 @@ $avatar-big: 120px;
         border-radius: 100%;
         color: #fff;
         font-size: 0.9em;
-        background-color: #a0d911;
+        background-color: #52c41a;
       }
       &:focus {
         text-decoration: none;
@@ -194,6 +194,7 @@ $avatar-big: 120px;
     &--current {
       a {
         color: $color-8;
+        font-weight: bold;
         background-color: rgba(#fff, 0.9);
       }
     }
@@ -201,4 +202,8 @@ $avatar-big: 120px;
 }
 .team-add-button {
   width: 100%;
+}
+.team-leave-button {
+  background-color: #595959;
+  border-color: transparent;
 }

@@ -288,7 +288,7 @@ body {
   border-radius: 100%;
   color: #fff;
   font-size: 0.9em;
-  background-color: #a0d911;
+  background-color: #52c41a;
 }
 
 .team-menu-item a:focus {
@@ -301,11 +301,17 @@ body {
 
 .team-menu-item--current a {
   color: #0050b3;
+  font-weight: bold;
   background-color: rgba(255, 255, 255, 0.9);
 }
 
 .team-add-button {
   width: 100%;
+}
+
+.team-leave-button {
+  background-color: #595959;
+  border-color: transparent;
 }
 
 .header {
@@ -386,32 +392,6 @@ body {
   overflow: hidden;
 }
 
-.team-card {
-  min-width: 1px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  overflow-x: auto;
-}
-
-.team-card__list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.team-card__list .ant-card {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 100%;
-          flex: 1 0 100%;
-  max-width: 350px;
-  margin: 0.5em;
-  border-radius: 3px;
-}
-
 .loading-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -439,6 +419,84 @@ body {
   height: 30px;
   border-radius: 100%;
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.team-card {
+  min-width: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  overflow-x: auto;
+}
+
+.team-card__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.project-card {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  max-width: 350px;
+  margin: 0.5em;
+  border-radius: 5px;
+}
+
+.project-card-button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  max-width: 350px;
+  margin: 0.5em;
+}
+
+.label-unit__box {
+  vertical-align: middle;
+}
+
+.label-search {
+  display: inline-block;
+  position: relative;
+  width: auto;
+}
+
+.label-search__hidden {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.label-search__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 30px;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.label-search__input.ant-select-auto-complete.ant-select .ant-input {
+  padding: 0;
+  width: 100%;
+  border-width: 0;
+  font-size: 100%;
+  height: 100%;
+  background: transparent;
+  outline: 0;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.label-search__input.ant-select-auto-complete.ant-select-focused .ant-input,
+.label-search__input.ant-select-auto-complete .ant-input:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-color: transparent;
 }
 
 .login-page {

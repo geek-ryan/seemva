@@ -25,15 +25,26 @@ class MemberProvider extends Component {
       : this.setState({ matchUsers: [] });
   };
 
-  fetchData = async teamID => {
+  fetchUserData = async () => {
+    this.setState({
+      loading: true,
+    });
     const resUser = await serverAPI.get(`/users`);
     this.setState({
       users: resUser.data,
+      loading: false,
+    });
+  };
+
+  fetchMatchData = async teamID => {
+    this.setState({
+      loading: true,
     });
     const resAssignees = await serverAPI.get(`/teams/${teamID}/team-assignees`);
     const idArr = resAssignees.data.map(item => item.userId);
     this.setState({
-      members: resUser.data.filter(user => idArr.includes(user.id)),
+      members: this.state.users.filter(user => idArr.includes(user.id)),
+      loading: false,
     });
   };
 
@@ -61,12 +72,13 @@ class MemberProvider extends Component {
   };
 
   async componentDidMount() {
-    await this.fetchData(this.props.teamID);
+    await this.fetchUserData();
+    await this.fetchMatchData(this.props.teamID);
   }
 
   async componentDidUpdate(prevProps) {
     if (this.props.teamID !== prevProps.teamID) {
-      await this.fetchData(this.props.teamID);
+      await this.fetchMatchData(this.props.teamID);
     }
   }
   render() {
