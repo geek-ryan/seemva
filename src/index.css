@@ -421,6 +421,96 @@ body {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+.label-unit {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 1px 7px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.label-unit--focused {
+  border-color: #40a9ff;
+  border-right-width: 1px !important;
+  -webkit-box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+          box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.label-unit .ant-tag {
+  margin: 3px;
+}
+
+.label-search {
+  display: inline-block;
+  position: relative;
+  width: auto;
+}
+
+.label-search-button {
+  margin: 3px;
+  vertical-align: top;
+}
+
+.label-search__hidden {
+  display: inline-block;
+  min-width: 30px;
+  white-space: nowrap;
+}
+
+.label-search__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.label-search__input.ant-select-auto-complete.ant-select .ant-input {
+  padding: 0;
+  width: 100%;
+  border-width: 0;
+  font-size: 100%;
+  height: 100%;
+  background: transparent;
+  outline: 0;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.label-search__input.ant-select-auto-complete.ant-select-focused .ant-input,
+.label-search__input.ant-select-auto-complete .ant-input:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-color: transparent;
+}
+
+.label-color-picker {
+  width: 120px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.label-color-picker .ant-tag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 calc(30% - 3px);
+          flex: 1 1 calc(30% - 3px);
+  margin: 3px;
+  vertical-align: top;
+}
+
 .team-card {
   min-width: 1px;
   display: -webkit-box;
@@ -453,50 +543,6 @@ body {
           flex: 1 0 100%;
   max-width: 350px;
   margin: 0.5em;
-}
-
-.label-unit__box {
-  vertical-align: middle;
-}
-
-.label-search {
-  display: inline-block;
-  position: relative;
-  width: auto;
-}
-
-.label-search__hidden {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.label-search__input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 30px;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.label-search__input.ant-select-auto-complete.ant-select .ant-input {
-  padding: 0;
-  width: 100%;
-  border-width: 0;
-  font-size: 100%;
-  height: 100%;
-  background: transparent;
-  outline: 0;
-  border-radius: 4px;
-  line-height: 1;
-}
-
-.label-search__input.ant-select-auto-complete.ant-select-focused .ant-input,
-.label-search__input.ant-select-auto-complete .ant-input:hover {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  border-color: transparent;
 }
 
 .login-page {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import { Icon, Tag, AutoComplete, Button, Popover } from 'antd';
 
 const Option = AutoComplete.Option;
@@ -18,7 +19,7 @@ const labelElem = ({ assigneeID, id, color, body }) => (
   </Tag>
 );
 
-const labelColorPicker = (clickFunc, closeFunc) => label => colors => (
+const labelColorPicker = label => colors => clickFunc => closeFunc => (
   <Popover
     defaultVisible={true}
     placement="bottomRight"
@@ -40,14 +41,14 @@ class LabelPC extends Component {
   state = {
     colors: {
       default: '#bfbfbf',
-      red: '#f5222d',
-      orange: '#fa8c16',
       yellow: '#fadb14',
       green: '#52c41a',
-      cyan: '#13c2c2',
-      blue: '#1890ff',
       magenta: '#eb2f96',
+      orange: '#fa8c16',
+      cyan: '#13c2c2',
       purple: '#722ed1',
+      red: '#f5222d',
+      blue: '#1890ff',
     },
     loading: false,
     labels: [
@@ -97,7 +98,7 @@ class LabelPC extends Component {
         body: 'magenta label',
       },
     ],
-    addedLabel: { id: 8, assigneeID: 5, color: 'default', body: 'green label' },
+    addedLabel: null,
     matchLabels: [],
     inputVisible: false,
     inputValue: '',
@@ -207,47 +208,50 @@ class LabelPC extends Component {
     ));
 
     return (
-      <div className="label-unit">
-        <Icon type="tags-o" />
-        <div className="label-unit__box">
-          {taskLabels.map(label =>
-            labelElem(label)(colors, true, this.removeLabel)
+      <div
+        className={classNames(
+          'label-unit',
+          inputVisible && 'label-unit--focused'
+        )}
+      >
+        {taskLabels.map(label =>
+          labelElem(label)(colors, true, this.removeLabel)
+        )}
+        {addedLabel &&
+          labelColorPicker(addedLabel)(colors)(this.selectColor)(
+            this.closeColorPicker
           )}
-          {addedLabel &&
-            labelColorPicker(this.selectColor, this.closeColorPicker)(
-              addedLabel
-            )(colors)}
-          {inputVisible && (
-            <div className="label-search">
-              <div className="label-search__hidden">&nbsp;{inputValue}</div>
-              <AutoComplete
-                className="label-search__input"
-                autoFocus={true}
-                onSelect={this.handleSelect}
-                onSearch={this.handleSearch}
-                onChange={this.handleChange}
-                onBlur={this.hideAutocompleteSearch}
-                style={{ width: '100%' }}
-                dropdownMatchSelectWidth={false}
-                dropdownStyle={{ width: 300 }}
-                size="small"
-              >
-                {children}
-                <Option key={0} className="label-search__item--new">
-                  <Icon type="plus" /> New Label
-                </Option>
-              </AutoComplete>
-            </div>
-          )}
-          {!inputVisible && (
-            <Button
+        {inputVisible && (
+          <div className="label-search">
+            <div className="label-search__hidden">&nbsp;{inputValue}</div>
+            <AutoComplete
+              className="label-search__input"
+              autoFocus={true}
+              onSelect={this.handleSelect}
+              onSearch={this.handleSearch}
+              onChange={this.handleChange}
+              onBlur={this.hideAutocompleteSearch}
+              style={{ width: '100%' }}
+              dropdownMatchSelectWidth={false}
+              dropdownStyle={{ width: 300 }}
               size="small"
-              type="circle"
-              icon="plus"
-              onClick={this.showAutocompleteSearch}
-            />
-          )}
-        </div>
+            >
+              {children}
+              <Option key={0} className="label-search__item--new">
+                <Icon type="plus" /> New Label
+              </Option>
+            </AutoComplete>
+          </div>
+        )}
+        {!inputVisible && (
+          <Button
+            className="label-search-button"
+            size="small"
+            type="circle"
+            icon="plus"
+            onClick={this.showAutocompleteSearch}
+          />
+        )}
       </div>
     );
   }
