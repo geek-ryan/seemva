@@ -65,10 +65,16 @@
   }
   &__members-groups {
     display: flex;
+    .member-group .ant-avatar {
+      margin: 2px;
+    }
+    .member-group__button {
+      margin: 2px;
+    }
   }
   &__labels {
     .label-unit {
-      margin: 0 -7px;
+      margin: 0 -10px;
     }
   }
 }

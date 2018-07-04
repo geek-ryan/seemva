@@ -119,7 +119,7 @@ class TaskModalPC extends Component {
         <div className="task-modal__members">
           <h2 className="modal-label">Members</h2>
           <div className="task-modal__members-groups">
-            <MemberGroupPC members={taskMembers} />
+            <MemberGroupPC members={taskMembers} useRemove={true} />
           </div>
         </div>
         <div className="task-modal__labels">

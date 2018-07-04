@@ -8,12 +8,14 @@ import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
 
 class HeaderPC extends Component {
   static defaultProps = {
+    onRemove: () => {}, // 멤버 삭제
     onClearMatch: () => {}, // 검색 매치된 사용자 데이터 초기화
     onAutocompleteSearch: q => {}, // 키워드 받아서 검색하는 함수
     onAddMember: () => {}, // 멤버 추가하는 함수(assignee에 추가)
     loading: false, // fetchData 될 경우 로딩 상태 여부
     matchUsers: [], // 키워드에 match된 사용자
     members: [], // 팀의 멤버
+    useRemove: false, // 멤버 삭제 기능 사용할 지 여부
   };
 
   state = {
@@ -46,9 +48,13 @@ class HeaderPC extends Component {
     this.handleCloseModal();
   };
 
+  handleRemove = id => {
+    this.props.onRemove();
+  };
+
   render() {
     const { visible, q } = this.state;
-    const { loading, matchUsers, members } = this.props;
+    const { loading, matchUsers, members, useRemove } = this.props;
     return (
       <React.Fragment>
         <div className="member-group">
@@ -56,7 +62,12 @@ class HeaderPC extends Component {
             <Avatar icon="loading" />
           ) : (
             members.map(member => (
-              <MemberTooltipAvatarPC key={member.id} {...member} />
+              <MemberTooltipAvatarPC
+                key={member.id}
+                {...member}
+                useRemove={useRemove}
+                onRemove={() => this.handleRemove(member.id)}
+              />
             ))
           )}
         </div>
