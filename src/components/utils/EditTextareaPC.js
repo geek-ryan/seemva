@@ -3,7 +3,9 @@ import { Input } from 'antd';
 
 import LoadingIconPC from './LoadingIconPC';
 
-class EditableTextareaPC extends Component {
+class EditTextareaPC extends Component {
+  static defaultProps = {};
+
   state = {
     content: this.props.content,
     body: this.props.body,
@@ -32,26 +34,21 @@ class EditableTextareaPC extends Component {
   };
 
   render() {
-    return this.props[this.props.datatype + 'State'].loading ? (
-      <LoadingIconPC />
-    ) : (
-      <React.Fragment>
-        <div className="motherDiv" onDoubleClick={this.handleDoubleClick}>
-          {this.state.visible ? (
-            <Input.TextArea
-              rows={1}
-              onBlur={this.handleOnblur}
-              autoFocus={this.state.visible}
-              defaultValue={this.props.body}
-              onChange={this.handleChange}
-            />
-          ) : (
-            <div className="readable">{this.props.body}</div>
-          )}
-        </div>
-      </React.Fragment>
+    return (
+      <div className="edit-textarea" onDoubleClick={this.handleDoubleClick}>
+        <div className="readable">{this.props.body}&nbsp;</div>
+        {this.state.visible && (
+          <Input.TextArea
+            onBlur={this.handleOnblur}
+            autoFocus={this.state.visible}
+            defaultValue={this.props.body}
+            onChange={this.handleChange}
+            autosize={false}
+          />
+        )}
+      </div>
     );
   }
 }
 
-export default EditableTextareaPC;
+export default EditTextareaPC;

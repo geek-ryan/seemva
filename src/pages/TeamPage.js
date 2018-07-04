@@ -3,7 +3,6 @@ import React from 'react';
 import withAuth from '../hocs/withAuth';
 import { TeamProvider } from '../contexts/TeamCTX';
 import { MemberProvider } from '../contexts/MemberCTX';
-import { UserProvider } from '../contexts/UserCTX';
 import { LabelProvider } from '../contexts/LabelCTX';
 import { TaskProvider } from '../contexts/TaskCTX';
 import { ActivityProvider } from '../contexts/ActivityCTX';
@@ -17,7 +16,6 @@ function TeamPage({ match }) {
   return (
     <TeamProvider id={match.params.id}>
       <MemberProvider teamID={match.params.id}>
-        {/* <UserProvider> */}
         <LabelProvider>
           <ProjectProvider teamCurrent={match.params.id}>
             <TaskProvider>
@@ -37,7 +35,6 @@ function TeamPage({ match }) {
             </TaskProvider>
           </ProjectProvider>
         </LabelProvider>
-        {/* </UserProvider> */}
       </MemberProvider>
     </TeamProvider>
   );

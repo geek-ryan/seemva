@@ -5,34 +5,35 @@ const { Provider, Consumer } = React.createContext();
 
 class ProjectProvider extends Component {
   state = {
+    teamID: 0,
     target: '',
     loading: false,
     projects: [
-      {
-        id: 1,
-        userId: 1,
-        teamId: 1,
-        title: 'project 1',
-        subtitle: 'project subtitle 1',
-      },
-      {
-        id: 2,
-        userId: 1,
-        teamId: 1,
-        title: 'project 2',
-        subtitle: 'project subtitle 2',
-      },
+      // {
+      //   id: 1,
+      //   userId: 1,
+      //   teamId: 1,
+      //   title: 'project 1',
+      //   subtitle: 'project subtitle 1',
+      // },
+      // {
+      //   id: 2,
+      //   userId: 1,
+      //   teamId: 1,
+      //   title: 'project 2',
+      //   subtitle: 'project subtitle 2',
+      // },
     ],
   };
 
-  componentDidMount = async () => {
+  async componentDidMount() {
     this.setState({ loading: true });
     try {
       const res = await serverAPI.get(`/projects`);
       this.setState({
         projects: res.data,
         loading: false,
-        teamid: this.props.teamCurrent,
+        teamID: this.props.teamCurrent,
       });
       this.teamFilter(this.props.teamCurrent);
     } catch (e) {
@@ -40,11 +41,19 @@ class ProjectProvider extends Component {
         loading: false,
       });
     }
-  };
+  }
 
-  shouldComponentUpdate = () => {
-    return true;
-  };
+  async componentDidUpdate(prevProps) {
+    if (this.props.teamCurrent !== prevProps.teamCurrent) {
+      this.setState({
+        teamID: this.props.teamCurrent,
+      });
+    }
+  }
+
+  // shouldComponentUpdate = () => {
+  //   return true;
+  // };
 
   teamFilter = async id => {
     const res = await serverAPI.get(`/projects`);

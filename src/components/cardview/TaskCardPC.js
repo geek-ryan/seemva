@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import { Card, Button, Switch, Icon } from 'antd';
+import { Card, Button, Switch, Icon, Modal } from 'antd';
 import { Route, Link } from 'react-router-dom';
 
-import TaskModalCC from '../../containers/TaskModalCC';
+import TaskModalPC from './TaskModalPC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
 import LabelTooltipPC from '../utils/LabelTooltipPC';
 
@@ -25,14 +25,17 @@ class TaskCardPC extends Component {
       },
     ], // 태스크의 멤버
     task: {
-      id: 1,
+      id: 0,
       title:
         '오늘의 할 일 여기는 타이틀 구간으로 텍스트 간격을 테스트 해봅니다.',
-      complete: false,
+      body:
+        '오늘의 할 일 여기는 타이틀 구간으로 텍스트 간격을 테스트 해봅니다. 오늘의 할 일 여기는 타이틀 구간으로 텍스트 간격을 테스트 해봅니다.',
+      complete: true,
       startDate: '2018.07.04',
       dueDate: '2018.07.05',
     },
     taskDeleteConfirm: () => {},
+    taskModalCompleteConfirm: () => {},
     taskShowModal: () => {},
     activitesLength: 0,
     labels: [
@@ -69,6 +72,7 @@ class TaskCardPC extends Component {
       taskMembers,
       task,
       taskDeleteConfirm,
+      taskModalCompleteConfirm,
       taskShowModal,
       activitesLength,
       labels,
@@ -77,13 +81,20 @@ class TaskCardPC extends Component {
     return (
       <Card className="task-card">
         <div className="task-card-title">
-          <Switch size="small" defaultChecked={task.complete} />
+          <Switch
+            checkedChildren={<Icon type="check" />}
+            unCheckedChildren={<Icon type="ellipsis" />}
+            size="small"
+            defaultChecked={task.complete}
+            onClick={taskModalCompleteConfirm}
+          />
           <Button
             onClick={taskDeleteConfirm}
             size="small"
             shape="circle"
             type="danger"
             icon="delete"
+            title="delete this task"
           />
         </div>
         <div className="task-card-body" onClick={taskShowModal}>
@@ -110,8 +121,9 @@ class TaskCardPC extends Component {
               {activitesLength}
             </div>
             <div className="task-card-body__labels">
-              {labels.map(({ color, body }) => (
+              {labels.map(({ id, color, body }) => (
                 <LabelTooltipPC
+                  key={id}
                   color={
                     Object.entries(colors).find(item => item[0] === color)[1]
                   }
@@ -121,6 +133,7 @@ class TaskCardPC extends Component {
             </div>
           </Link>
         </div>
+        <TaskModalPC {...this.props} />
       </Card>
     );
   }
