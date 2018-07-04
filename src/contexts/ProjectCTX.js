@@ -4,6 +4,10 @@ import serverAPI from '../serverAPI';
 const { Provider, Consumer } = React.createContext();
 
 class ProjectProvider extends Component {
+  static defaultProps = {
+    teamCurrent: 2,
+  };
+
   state = {
     target: '',
     loading: false,

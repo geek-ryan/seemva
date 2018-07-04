@@ -13,6 +13,8 @@ import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import TeamPage from './pages/TeamPage';
 import UnitTestPage from './pages/UnitTestPage';
+import Timeline from './components/timeline/Timeline';
+import TimelinePage from './pages/TimelinePage';
 
 class App extends Component {
   render() {
@@ -28,6 +30,7 @@ class App extends Component {
                   <Route exact path="/card" component={TeamPage} />
                   <Route path="/card/:id" component={TeamPage} />
                   <Route path="/test" component={UnitTestPage} />
+                  <Route path="/tl" component={TimelinePage} />
                   <Route
                     exact
                     path="/"
