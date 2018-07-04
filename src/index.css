@@ -370,6 +370,28 @@ body {
   margin: 0 -10px;
 }
 
+.activity-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.activity-list .log-date {
+  color: #8c8c8c;
+}
+
+.activity-list .edit-textarea {
+  margin: -2px -4px;
+}
+
+.activity-list .edit-textarea .readable,
+.activity-list .edit-textarea .ant-input {
+  padding: 2px 4px;
+}
+
+.activity-delete-button {
+  margin-left: 0.5em;
+}
+
 .sidebar {
   position: relative;
   display: -webkit-box;

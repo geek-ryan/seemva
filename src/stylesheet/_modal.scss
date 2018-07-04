@@ -78,3 +78,21 @@
     }
   }
 }
+
+.activity-list {
+  max-height: 300px;
+  overflow-y: auto;
+  .log-date {
+    color: #8c8c8c;
+  }
+  .edit-textarea {
+    margin: -2px -4px;
+    .readable,
+    .ant-input {
+      padding: 2px 4px;
+    }
+  }
+}
+.activity-delete-button {
+  margin-left: 0.5em;
+}

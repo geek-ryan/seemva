@@ -6,6 +6,7 @@ import moment from 'moment';
 import EditTextareaPC from '../utils/EditTextareaPC';
 import MemberGroupPC from '../utils/MemberGroupPC';
 import LabelPC from './LabelPC';
+import ActivityPC from './ActivityPC';
 // import ActivityCC from '../../containers/ActivityCC';
 // import LabelSearchBar from '../utils/LabelSearchBar';
 // import UserSearchBar from '../utils/UserSearchBar';
@@ -101,8 +102,6 @@ class TaskModalPC extends Component {
             {...this.props}
           />
         </div>
-        {/* <UserSearchBar taskId={task.id} {...this.props} /> */}
-        {/* <LabelSearchBar taskId={task.id} {...this.props} /> */}
         <div className="task-modal__date">
           <h2 className="modal-label">Due Date</h2>
           <DatePicker.RangePicker
@@ -126,6 +125,13 @@ class TaskModalPC extends Component {
           <h2 className="modal-label">Labels</h2>
           <LabelPC />
         </div>
+        <div clasName="task-modal__activities">
+          <h2 className="modal-label">Activity</h2>
+          {/* <ActivityPC {...this.props} /> */}
+          <ActivityPC />
+        </div>
+        {/* <UserSearchBar taskId={task.id} {...this.props} /> */}
+        {/* <LabelSearchBar taskId={task.id} {...this.props} /> */}
         {/* <div>
           start date:
           <DatePicker
@@ -140,8 +146,6 @@ class TaskModalPC extends Component {
             value={moment(task.dueDate, 'YYYY.MM.DD')}
           />
         </div> */}
-
-        {/* <ActivityCC {...this.props} /> */}
       </Modal>
     );
   }
