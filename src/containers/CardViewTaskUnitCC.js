@@ -8,9 +8,13 @@ class CardViewTaskUnitCC extends Component {
     visible: false,
   };
 
+  componentDidMount = () => {
+    console.log('card view task unit cc mounted ');
+  };
+
   taskShowModal = () => {
     // console.log('show');
-    this.props.labelFunc.teamFilter(this.props.teamId);
+    this.props.labelFunc.teamFilter(this.props.project.teamId);
     this.props.labelFunc.taskFilter(this.props.task.id);
     this.props.userFunc.teamFilter();
     this.props.userFunc.taskFilter(this.props.task.id);

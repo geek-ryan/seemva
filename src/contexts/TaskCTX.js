@@ -7,65 +7,30 @@ class TaskProvider extends Component {
   state = {
     loading: false,
     target: '',
-    tasks: [
-      {
-        id: 1,
-        projectId: 1,
-        title: 'title 1',
-        body: '11',
-        startDate: '2018-01-01',
-        dueDate: '2018-01-01',
-        complete: true,
-      },
-      {
-        id: 2,
-        projectId: 1,
-        title: 'title 2',
-        body: '22',
-        startDate: '2018-01-01',
-        dueDate: '2018-01-01',
-        complete: false,
-      },
-      {
-        id: 3,
-        projectId: 1,
-        title: 'title 3',
-        body: '33',
-        startDate: '2018-01-01',
-        dueDate: '2018-01-01',
-        complete: false,
-      },
-      {
-        id: 4,
-        projectId: 2,
-        title: 'title 4',
-        body: '44',
-        startDate: '2018-01-01',
-        dueDate: '2018-01-01',
-        complete: false,
-      },
-      {
-        id: 5,
-        projectId: 2,
-        title: 'title 5',
-        body: '55',
-        startDate: '2018-01-01',
-        dueDate: '2018-01-01',
-        complete: false,
-      },
-    ],
+    tasks: [],
   };
 
   componentDidMount = async () => {
     this.setState({ loading: true });
     try {
-      const res = await serverAPI.get('/tasks');
-      this.setState({ tasks: res.data, loading: false });
+      // this.projectFilter(this.props.teamCurrent);
+      const res = await serverAPI.get(`/tasks`);
+      this.setState({
+        tasks: res.data,
+        loading: false,
+      });
     } catch (e) {
       this.setState({
         loading: false,
       });
     }
+  };
+
+  projectFilter = async id => {
+    const res = await serverAPI.get(`/tasks`);
+    let brr = res.data.filter(element => element.projectId === parseInt(id));
+    this.setState({ tasks: brr });
+    console.log('project filter', id, brr);
   };
 
   Complete = async id => {
@@ -152,6 +117,7 @@ class TaskProvider extends Component {
         Complete: this.Complete,
         Delete: this.Delete,
         Create: this.Create,
+        projectFilter: this.projectFilter,
         Update: this.Update,
       },
     };

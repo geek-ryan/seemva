@@ -18,6 +18,10 @@ class ProjectCardUnitCC extends Component {
     dueDate: moment().format('YYYY.MM.DD'),
   };
 
+  // componentDidMount = () => {
+  //   this.props.taskFunc.projectFilter(this.props.project.id);
+  // };
+
   newTaskTitleChange = e => {
     this.setState({ title: e.target.value });
   };

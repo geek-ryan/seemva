@@ -7,63 +7,8 @@ class LabelProvider extends Component {
   state = {
     target: '',
     loading: false,
-    labels: [
-      {
-        id: 1,
-        teamId: 1,
-        color: 'red',
-        body: 'label_01',
-      },
-      {
-        id: 2,
-        teamId: 1,
-        color: 'blue',
-        body: 'label_02',
-      },
-      {
-        id: 3,
-        teamId: 1,
-        color: 'grean',
-        body: 'label_03',
-      },
-    ],
-    labelTaskAssignees: [
-      {
-        id: 1,
-        labelId: 1,
-        taskId: 1,
-      },
-      {
-        id: 2,
-        labelId: 2,
-        taskId: 2,
-      },
-      {
-        id: 3,
-        labelId: 3,
-        taskId: 3,
-      },
-      {
-        id: 4,
-        labelId: 1,
-        taskId: 4,
-      },
-      {
-        id: 5,
-        labelId: 2,
-        taskId: 5,
-      },
-      {
-        id: 6,
-        labelId: 3,
-        taskId: 1,
-      },
-      {
-        id: 7,
-        labelId: 1,
-        taskId: 2,
-      },
-    ],
+    labels: [],
+    labelTaskAssignees: [],
     labelFilter: [],
     labelMatch: [],
     labelChosen: [],
@@ -108,7 +53,7 @@ class LabelProvider extends Component {
     try {
       const getAssignee = await serverAPI.get('/task-label-assignees');
       const arr = getAssignee.data.filter(element => element.taskId === taskid);
-      const brr = this.state.labels.slice().filter(element => {
+      const brr = this.state.labelFilter.slice().filter(element => {
         let k = 0;
         for (let i = 0; i < arr.length; i++) {
           element.id === arr[i].labelId ? k++ : '';
@@ -183,7 +128,7 @@ class LabelProvider extends Component {
         brr.push(res.data);
         crr.push(res.data);
         this.setState({
-          labels: arr,
+          labels: arr.data,
           labelFilter: brr,
           labelChosen: crr,
           labelMatch: [],

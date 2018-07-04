@@ -25,7 +25,9 @@ class CardViewTaskUnitPC extends Component {
 
               <h2 onClick={this.props.taskShowModal}>
                 <Link
-                  to={`/card/${this.props.teamId}/task/${this.props.task.id}`}
+                  to={`/card/${this.props.project.teamId}/task/${
+                    this.props.task.id
+                  }`}
                 >
                   {this.props.task.title}
                 </Link>
@@ -94,7 +96,7 @@ class CardViewTaskUnitPC extends Component {
           </div>
         </Card>
         <Route
-          path={`/card/${this.props.teamId}/task/:id`}
+          path={`/card/${this.props.project.teamId}/task/:id`}
           render={({ match }) => {
             return parseInt(match.params.id) === this.props.task.id ? (
               <Modal

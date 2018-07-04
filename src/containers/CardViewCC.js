@@ -4,17 +4,13 @@ import CardViewPC from '../components/cardview/CardViewPC';
 import withProjectCTX from '../hocs/withProjectCTX';
 
 class CardViewCC extends Component {
-  static defaultProps = {
-    teamId: 1,
-  };
-
   state = {
     visible: false,
     body: '',
   };
 
   componentDidMount = () => {
-    this.props.projectFunc.teamFilter(this.props.teamCurrent);
+    this.props.projectFunc.teamFilter(this.props.projectState.teamCurrent);
   };
 
   newProjectTitleChange = e => {
@@ -31,7 +27,7 @@ class CardViewCC extends Component {
     const obj = {
       title: body,
       userId: this.props.userId,
-      teamId: this.props.teamCurrent,
+      teamId: parseInt(this.props.projectState.teamCurrent),
       subtitle: 'test',
     };
     this.props.projectFunc.Create(obj);

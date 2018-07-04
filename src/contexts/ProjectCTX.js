@@ -7,34 +7,18 @@ class ProjectProvider extends Component {
   state = {
     target: '',
     loading: false,
-    projects: [
-      {
-        id: 1,
-        userId: 1,
-        teamId: 1,
-        title: 'project 1',
-        subtitle: 'project subtitle 1',
-      },
-      {
-        id: 2,
-        userId: 1,
-        teamId: 1,
-        title: 'project 2',
-        subtitle: 'project subtitle 2',
-      },
-    ],
+    projects: [],
   };
 
   componentDidMount = async () => {
     this.setState({ loading: true });
     try {
-      const res = await serverAPI.get(`/projects`);
-      this.setState({
-        projects: res.data,
-        loading: false,
-        teamid: this.props.teamCurrent,
-      });
       this.teamFilter(this.props.teamCurrent);
+      // const res = await serverAPI.get(`/projects`);
+      this.setState({
+        // projects: res.data,
+        loading: false,
+      });
     } catch (e) {
       this.setState({
         loading: false,
@@ -47,8 +31,11 @@ class ProjectProvider extends Component {
   };
 
   teamFilter = async id => {
+    console.log('project team filter', id);
     const res = await serverAPI.get(`/projects`);
-    let brr = res.data.filter(element => element.teamId === parseInt(id));
+    let brr = res.data.filter(
+      element => parseInt(element.teamId) === parseInt(id)
+    );
     this.setState({ projects: brr });
   };
 
@@ -95,7 +82,10 @@ class ProjectProvider extends Component {
 
   render() {
     const value = {
-      projectState: this.state,
+      projectState: {
+        ...this.state,
+        teamCurrent: this.props.teamCurrent,
+      },
       projectFunc: {
         Create: this.Create,
         Update: this.Update,

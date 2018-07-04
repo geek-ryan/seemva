@@ -6,14 +6,7 @@ const { Provider, Consumer } = React.createContext();
 class TeamProvider extends Component {
   state = {
     userID: 0,
-    teams: [
-      // {
-      //   id: 1,
-      //   userID: 1,
-      //   admin: true,
-      //   name: 'team1',
-      // },
-    ],
+    teams: [],
     loading: false,
     current: 0,
   };
@@ -128,11 +121,9 @@ class TeamProvider extends Component {
   };
 
   changeCurrent = id => {
-    console.log('id', id, 'change');
     this.setState({
       current: parseInt(id),
     });
-    console.log(this.state.current);
   };
 
   render() {

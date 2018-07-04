@@ -6,67 +6,8 @@ const { Provider, Consumer } = React.createContext();
 class UserProvider extends Component {
   state = {
     loading: false,
-    users: [
-      {
-        id: 1,
-        username: 'fds',
-      },
-      {
-        username: 'loki',
-        id: 2,
-      },
-      {
-        username: 'jojo',
-        id: 3,
-      },
-    ],
-    userTaskAssignees: [
-      {
-        id: 1,
-        userId: 1,
-        taskId: 1,
-      },
-      {
-        id: 2,
-        userId: 1,
-        taskId: 2,
-      },
-      {
-        id: 3,
-        userId: 1,
-        taskId: 3,
-      },
-      {
-        id: 4,
-        userId: 2,
-        taskId: 1,
-      },
-      {
-        id: 5,
-        userId: 2,
-        taskId: 2,
-      },
-      {
-        id: 6,
-        userId: 3,
-        taskId: 4,
-      },
-      {
-        id: 7,
-        userId: 3,
-        taskId: 5,
-      },
-      {
-        id: 8,
-        userId: 2,
-        taskId: 4,
-      },
-      {
-        id: 9,
-        userId: 1,
-        taskId: 5,
-      },
-    ],
+    users: [],
+    userTaskAssignees: [],
     userFilter: [],
     userMatch: [],
     userChosen: [],
