@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
+import { Redirect, Link } from 'react-router-dom';
 
 import CardViewTaskUnitPC from '../components/cardview/CardViewTaskUnitPC';
 
@@ -9,7 +10,7 @@ class CardViewTaskUnitCC extends Component {
   };
 
   componentDidMount = () => {
-    console.log('card view task unit cc mounted ');
+    console.log(this.state.match);
   };
 
   taskShowModal = () => {
@@ -26,7 +27,6 @@ class CardViewTaskUnitCC extends Component {
   taskOk = e => {
     this.props.labelFunc.assigneeCreate(this.props.task.id);
     this.props.userFunc.assigneeCreate(this.props.task.id);
-
     this.setState({
       visible: false,
     });
@@ -58,14 +58,16 @@ class CardViewTaskUnitCC extends Component {
 
   render() {
     return (
-      <CardViewTaskUnitPC
-        taskModal={this.state}
-        taskShowModal={this.taskShowModal}
-        taskOk={this.taskOk}
-        taskCancle={this.taskCancle}
-        taskDeleteConfirm={this.taskDeleteConfirm}
-        {...this.props}
-      />
+      <React.Fragment>
+        <CardViewTaskUnitPC
+          taskModal={this.state}
+          taskShowModal={this.taskShowModal}
+          taskOk={this.taskOk}
+          taskCancle={this.taskCancle}
+          taskDeleteConfirm={this.taskDeleteConfirm}
+          {...this.props}
+        />
+      </React.Fragment>
     );
   }
 }

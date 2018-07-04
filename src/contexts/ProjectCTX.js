@@ -31,7 +31,6 @@ class ProjectProvider extends Component {
   };
 
   teamFilter = async id => {
-    console.log('project team filter', id);
     const res = await serverAPI.get(`/projects`);
     let brr = res.data.filter(
       element => parseInt(element.teamId) === parseInt(id)
