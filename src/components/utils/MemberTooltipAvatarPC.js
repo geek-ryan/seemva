@@ -8,11 +8,11 @@ class MemberTooltipAvatarPC extends Component {
     profile: '',
   };
   render() {
-    const { username } = this.props;
+    const { username, size } = this.props;
     return (
       <Tooltip placement="bottom" title={username}>
         {''}
-        <MemberAvatarPC {...this.props} />
+        <MemberAvatarPC {...this.props} size={size} />
       </Tooltip>
     );
   }
