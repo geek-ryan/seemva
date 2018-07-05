@@ -90,18 +90,19 @@ class Timeline extends Component {
 
   render() {
     return (
-      <div>
-        <DatePicker
-          defaultValue={moment(this.props.date.start, 'YYYY.MM.DD')}
-          onChange={this.props.onStart}
-        />
+      <div className={'theContainer'}>
+        <div className={'datePicker'}>
+          <DatePicker
+            defaultValue={moment(this.props.date.start, 'YYYY.MM.DD')}
+            onChange={this.props.onStart}
+          />
 
-        <span> ~ </span>
-        <DatePicker
-          defaultValue={moment(this.props.date.end, 'YYYY.MM.DD')}
-          onChange={this.props.onEnd}
-        />
-
+          <span className={'wave'}>{'  ~  '}</span>
+          <DatePicker
+            defaultValue={moment(this.props.date.end, 'YYYY.MM.DD')}
+            onChange={this.props.onEnd}
+          />
+        </div>
         {this.props.projectState.projects.map(project => {
           return (
             <ProjectUnitCC

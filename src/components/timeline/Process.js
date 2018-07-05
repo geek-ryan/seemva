@@ -12,11 +12,16 @@ class Process extends Component {
       </div>
     );
     return (
-      <Popover content={content} title={this.props.title}>
+      <Popover
+        className={'lineContainer'}
+        content={content}
+        title={this.props.title}
+      >
         <div>
+          <h5 className={'taskTitle'}>{this.props.title}</h5>
           <Slider
             dots={true}
-            style={{ width: '800px', height: '40px' }}
+            className={'slideline'}
             min={0}
             max={this.props.max}
             range

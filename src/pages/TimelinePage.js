@@ -27,8 +27,8 @@ function TeamPage({ match }) {
                   <SideNavCC />
                   <div className="team-content">
                     <HeaderCC />
-                    <div className="team-card">
-                      <div className="team-card__list">
+                    <div className="team-timeline">
+                      <div className="team-timeline__list">
                         <TimelineCC />
                       </div>
                     </div>
