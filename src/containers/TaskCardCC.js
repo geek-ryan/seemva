@@ -4,34 +4,33 @@ import { Modal } from 'antd';
 import TaskCardPC from '../components/cardview/TaskCardPC';
 
 class TaskCardCC extends Component {
-  state = {
-    visible: false,
-  };
+  // state = {
+  //   visible: false,
+  // };
 
   taskShowModal = () => {
     // console.log('show');
-    this.props.labelFunc.teamFilter(this.props.teamId);
+    this.props.labelFunc.teamFilter(this.props.teamCurrent);
     this.props.labelFunc.taskFilter(this.props.task.id);
-    this.props.userFunc.teamFilter();
+    this.props.userFunc.teamFilter(this.props.teamCurrent);
     this.props.userFunc.taskFilter(this.props.task.id);
-    this.setState({
-      visible: true,
-    });
+    // this.setState({
+    //   visible: true,
+    // });
   };
 
   taskOk = e => {
     this.props.labelFunc.assigneeCreate(this.props.task.id);
     this.props.userFunc.assigneeCreate(this.props.task.id);
-
-    this.setState({
-      visible: false,
-    });
+    // this.setState({
+    //   visible: false,
+    // });
   };
 
   taskCancle = e => {
-    this.setState({
-      visible: false,
-    });
+    // this.setState({
+    //   visible: false,
+    // });
   };
 
   taskDeleteConfirm = () => {

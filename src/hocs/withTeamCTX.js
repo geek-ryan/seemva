@@ -6,7 +6,7 @@ export default function withTeamCTX(WrappedComponent) {
     render() {
       return (
         <TeamConsumer>
-          {({ current }) => <WrappedComponent teamCurrent={current} />}
+          {({ teamCurrent }) => <WrappedComponent teamCurrent={teamCurrent} />}
         </TeamConsumer>
       );
     }

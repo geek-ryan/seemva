@@ -8,6 +8,7 @@ class UserProvider extends Component {
     loading: false,
     users: [],
     userTaskAssignees: [],
+    userTeamAssignees: [],
     userFilter: [],
     userMatch: [],
     userChosen: [],
@@ -19,9 +20,11 @@ class UserProvider extends Component {
     try {
       const res = await serverAPI.get('/users');
       const rees = await serverAPI.get('/task-user-assignees');
+      const reees = await serverAPI.get('/team-assignees');
       this.setState({
         users: res.data,
         userTaskAssignees: rees.data,
+        userTeamAssignees: reees.data,
         userChosen: [],
         loading: false,
       });
@@ -32,9 +35,17 @@ class UserProvider extends Component {
     }
   };
 
-  teamFilter = (teamid = 1) => {
+  teamFilter = teamId => {
     const arr = this.state.users.slice();
-    this.setState({ userFilter: arr });
+    const brr = this.state.userTeamAssignees.slice();
+    const crr = arr.map(user =>
+      brr.map(assign => {
+        let k = 0;
+        user.id === assign.userId && k++;
+        return k > 0;
+      })
+    );
+    this.setState({ userFilter: crr });
   };
 
   taskFilter = taskid => {

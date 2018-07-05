@@ -6,12 +6,13 @@ import { Route, Link, Redirect } from 'react-router-dom';
 // import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
 import TaskModalPC from '../components/cardview/TaskModalPC';
 
-class TaskModal extends Component {
+class TaskModalCC extends Component {
   state = {
     cancelled: false,
   };
 
   handleCancle = () => {
+    console.log('cancle');
     this.setState({
       cancelled: true,
     });
@@ -70,25 +71,24 @@ class TaskModal extends Component {
       this.handleCancle();
     };
 
-    console.log('hahah', parseInt(paramId), taskId);
+    // console.log('hahah', parseInt(paramId), taskId);
 
     return cancelled ? (
       <Redirect to={`${this.props.url}`} />
     ) : (
       parseInt(paramId) === taskId && (
-        <Modal visible onOk={taskOk2} onCancel={this.handleCancle}>
-          <CardViewTaskModalPC
-            taskModal={this.state}
-            taskModalCompleteConfirm={this.taskModalCompleteConfirm}
-            taskModalDeleteConfirm={this.taskModalDeleteConfirm}
-            taskModalStartDateChange={this.taskModalStartDateChange}
-            taskModalDueDateChange={this.taskModalDueDateChange}
-            {...this.props}
-          />
-        </Modal>
+        <TaskModalPC
+          modalCancle={this.handleCancle}
+          taskModal={this.state}
+          taskModalCompleteConfirm={this.taskModalCompleteConfirm}
+          taskModalDeleteConfirm={this.taskModalDeleteConfirm}
+          taskModalStartDateChange={this.taskModalStartDateChange}
+          taskModalDueDateChange={this.taskModalDueDateChange}
+          {...this.props}
+        />
       )
     );
   }
 }
 
-export default TaskModal;
+export default TaskModalCC;

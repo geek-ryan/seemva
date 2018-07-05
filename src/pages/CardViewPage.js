@@ -3,7 +3,11 @@ import CardViewCC from '../containers/CardViewCC';
 import { ProjectConsumer } from '../contexts/ProjectCTX';
 
 function CardViewPage() {
-  return <CardViewCC />;
+  return (
+    <CardViewCC
+    //  {...this.props}
+    />
+  );
 }
 
 export default CardViewPage;

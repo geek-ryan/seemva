@@ -68,6 +68,7 @@ class TaskCardPC extends Component {
       // blue: '#1890ff',
     },
   };
+
   render() {
     const {
       project,
@@ -99,8 +100,9 @@ class TaskCardPC extends Component {
             title="delete this task"
           />
         </div>
+
         <div className="task-card-body" onClick={taskShowModal}>
-          <Link to={`/card/${project.teamId}/task/${task.id}`}>
+          <Link to={`/card/${this.props.teamCurrent}/task/${task.id}`}>
             <h2 className="task-card-body__title">{task.title}</h2>
             {task.startDate && (
               <div className="task-card-body__date">
@@ -110,7 +112,7 @@ class TaskCardPC extends Component {
               </div>
             )}
             <div className="task-card-body__members">
-              {taskMembers.map(member => (
+              {this.props.userState.userChosen.map(member => (
                 <MemberTooltipAvatarPC
                   key={member.id}
                   {...member}
@@ -120,7 +122,12 @@ class TaskCardPC extends Component {
             </div>
             <div className="task-card-body__activities">
               <Icon type="message" />
-              {activitesLength}
+              {this.props.activityState.activites
+                ? this.props.activityState.activites.filter(
+                    activity => activity.taskId === this.props.task.id
+                  ).length
+                : '0'}
+              {/*activitesLength*/}
             </div>
             <div className="task-card-body__labels">
               {labels.map(({ id, color, body }) => (
@@ -135,15 +142,16 @@ class TaskCardPC extends Component {
             </div>
           </Link>
         </div>
+
         <Route
-          path={`/card/${project.teamId}/task/:id`}
+          path={`/card/${this.props.teamCurrent}/task/:id`}
           render={({ match }) => (
             <TaskModalCC
-              teamId={this.props.project.teamId}
-              id={match.params.id}
+              teamId={this.props.teamCurrent}
+              paramId={match.params.id}
               taskId={this.props.task.id}
               taskOk={this.props.taskOk}
-              url={`/card/${this.props.project.teamId}`}
+              url={`/card/${this.props.teamCurrent}`}
               {...this.props}
             />
           )}

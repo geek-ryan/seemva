@@ -10,7 +10,7 @@ class ProjectCardUnitPC extends Component {
     loading: false,
   };
 
-  handleEdit = async (...args) => {
+  handleEditProjectTitle = async (...args) => {
     this.setState({
       loading: true,
     });
@@ -19,6 +19,7 @@ class ProjectCardUnitPC extends Component {
       loading: false,
     });
   };
+
   render() {
     return (
       <React.Fragment>
@@ -33,7 +34,7 @@ class ProjectCardUnitPC extends Component {
                     body={this.props.project.title}
                     keyType={'title'}
                     datatype={'project'}
-                    editfunc={this.handleEdit}
+                    editfunc={this.handleEditProjectTitle}
                     {...this.props}
                   />
                   {this.props.usableDelete && (
@@ -49,21 +50,23 @@ class ProjectCardUnitPC extends Component {
                 </React.Fragment>
               )}
             </div>
+
             {this.props.taskState.tasks.map(task => {
-              return this.props.project.id === task.projectId ? (
-                <TaskCardCC key={task.id} task={task} {...this.props} />
-              ) : (
-                ''
+              return (
+                this.props.project.id === task.projectId && (
+                  <TaskCardCC key={task.id} task={task} {...this.props} />
+                )
               );
             })}
           </div>
+
           {this.props.taskNew.visible ? (
             <div className="new-task-editor">
               <Input.TextArea
                 onChange={this.props.newTaskTitleChange}
                 placeholder="Title"
                 value={this.props.taskNew.title}
-                row={4}
+                row={1}
               />
               <Button onClick={this.props.newTaskCancel}>Cancel</Button>
               <Button type="primary" onClick={this.props.newTaskOk}>
