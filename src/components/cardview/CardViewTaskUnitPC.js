@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Modal, Card, List } from 'antd';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 import TaskModalCC from '../../containers/TaskModalCC';
 import LoadingIconPC from '../utils/LoadingIconPC';
@@ -97,20 +97,17 @@ class CardViewTaskUnitPC extends Component {
         </Card>
         <Route
           path={`/card/${this.props.project.teamId}/task/:id`}
-          render={({ match }) => {
-            return parseInt(match.params.id) === this.props.task.id ? (
-              <Modal
-                visible
-                onOk={this.props.taskOk}
-                onCancel={this.props.taskCancle}
-              >
-                <TaskModalCC {...this.props} />
-              </Modal>
-            ) : (
-              ''
-            );
-          }}
+          render={({ match }) => (
+            <TaskModalCC
+              teamId={this.props.project.teamId}
+              id={match.params.id}
+              taskId={this.props.task.id}
+              taskOk={this.props.taskOk}
+              {...this.props}
+            />
+          )}
         />
+        )}
       </React.Fragment>
     );
   }

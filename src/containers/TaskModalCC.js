@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
 
 var moment = require('moment');
 
 class TaskModal extends Component {
+  state = {
+    cancelled: false,
+  };
+
+  handleCancle = () => {
+    this.setState({
+      cancelled: true,
+    });
+  };
+
   handleUnitComplete = () => {
     this.props.taskFunc.Complete(this.props.task.id);
   };
@@ -62,15 +73,28 @@ class TaskModal extends Component {
   };
 
   render() {
-    return (
-      <CardViewTaskModalPC
-        taskModal={this.state}
-        taskModalCompleteConfirm={this.taskModalCompleteConfirm}
-        taskModalDeleteConfirm={this.taskModalDeleteConfirm}
-        taskModalStartDateChange={this.taskModalStartDateChange}
-        taskModalDueDateChange={this.taskModalDueDateChange}
-        {...this.props}
-      />
+    const { id, teamId, taskId, taskOk } = this.props;
+    const { cancelled } = this.state;
+    const taskOk2 = () => {
+      taskOk();
+      this.handleCancle();
+    };
+
+    return cancelled ? (
+      <Redirect to={`/card/${teamId}`} />
+    ) : (
+      parseInt(id) === taskId && (
+        <Modal visible onOk={taskOk2} onCancel={this.handleCancle}>
+          <CardViewTaskModalPC
+            taskModal={this.state}
+            taskModalCompleteConfirm={this.taskModalCompleteConfirm}
+            taskModalDeleteConfirm={this.taskModalDeleteConfirm}
+            taskModalStartDateChange={this.taskModalStartDateChange}
+            taskModalDueDateChange={this.taskModalDueDateChange}
+            {...this.props}
+          />
+        </Modal>
+      )
     );
   }
 }
