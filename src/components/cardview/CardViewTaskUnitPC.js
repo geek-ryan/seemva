@@ -100,7 +100,7 @@ class CardViewTaskUnitPC extends Component {
           render={({ match }) => (
             <TaskModalCC
               teamId={this.props.project.teamId}
-              id={match.params.id}
+              paramId={match.params.id}
               taskId={this.props.task.id}
               taskOk={this.props.taskOk}
               {...this.props}

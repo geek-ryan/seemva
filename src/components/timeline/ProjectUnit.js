@@ -45,16 +45,19 @@ class ProjectUnit extends Component {
 
                   <Route
                     path={`/tl/${this.props.project.teamId}/task/:id`}
-                    render={({ match }) => (
-                      <TaskModalCC
-                        teamId={this.props.project.teamId}
-                        id={match.params.id}
-                        taskId={task.id}
-                        task={{ ...task }}
-                        url={`/tl/${this.props.project.teamId}`}
-                        {...this.props}
-                      />
-                    )}
+                    render={({ match }) => {
+                      console.log(match);
+                      return (
+                        <TaskModalCC
+                          teamId={this.props.project.teamId}
+                          paramId={match.params.id}
+                          taskId={task.id}
+                          task={{ ...task }}
+                          url={`/tl/${this.props.project.teamId}`}
+                          {...this.props}
+                        />
+                      );
+                    }}
                   />
                 </div>
               );
