@@ -26,6 +26,7 @@ class SideNavPC extends Component {
   render() {
     const { open } = this.state;
     const { profile, username, onChangeProfile, onLogout } = this.props;
+
     return (
       <div className={classNames('sidebar', open ? '' : 'sidebar--closed')}>
         <Button
@@ -60,13 +61,7 @@ class SideNavPC extends Component {
               </Link>
             </div>
             <div className="board-type-menu__item">
-              <Link
-                to="/timeline/1"
-                onClick={e => {
-                  e.preventDefault();
-                  alert('서비스 개발 중입니다.^^');
-                }}
-              >
+              <Link to="/tl">
                 <Icon type="clock-circle-o" />
               </Link>
             </div>
@@ -96,7 +91,7 @@ class SideNavPC extends Component {
             </div>
             <p className="sidebar-user__name">{username}</p>
           </div>
-          <TeamMenuCC />
+          <TeamMenuCC {...this.props} />
           <Button icon="poweroff" ghost onClick={onLogout}>
             Log out
           </Button>
