@@ -12,11 +12,18 @@ class TeamProvider extends Component {
   };
 
   async componentDidMount() {
-    const id = parseInt(this.props.id, 10);
-    this.changeCurrent(id);
     const res = await serverAPI.get('/me');
     this.setState({ userID: res.data.id });
     await this.fetchData(this.state.userID);
+    const id = parseInt(this.props.teamID, 10);
+    this.changeCurrent(id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.teamID !== prevProps.teamID) {
+      const id = parseInt(this.props.teamID, 10);
+      this.changeCurrent(id);
+    }
   }
 
   fetchData = async userID => {
@@ -122,7 +129,7 @@ class TeamProvider extends Component {
 
   changeCurrent = id => {
     this.setState({
-      current: parseInt(id),
+      current: parseInt(id, 10),
     });
   };
 

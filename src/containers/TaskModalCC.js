@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { Modal } from 'antd';
 import { Route, Link, Redirect } from 'react-router-dom';
 
-import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
-
-var moment = require('moment');
+// import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
+import TaskModalPC from '../components/cardview/TaskModalPC';
 
 class TaskModal extends Component {
   state = {
@@ -20,21 +20,11 @@ class TaskModal extends Component {
   handleUnitComplete = () => {
     this.props.taskFunc.Complete(this.props.task.id);
   };
-  taskModalCompleteConfirm = () => {
-    const Complete = this.handleUnitComplete;
-    Modal.confirm({
-      title: 'Do you Want to delete these items?',
-      content: 'Some descriptions',
-      onOk() {
-        Complete();
-      },
-      onCancel() {},
-    });
-  };
 
   handleUnitDelete = () => {
     this.props.taskFunc.Delete(this.props.task.id);
   };
+
   taskModalDeleteConfirm = () => {
     const Delete = this.handleUnitDelete;
     Modal.confirm({

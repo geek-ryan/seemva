@@ -55,7 +55,7 @@ class SideNavPC extends Component {
                 'board-type-menu__item--current'
               )}
             >
-              <Link to="/card/1">
+              <Link to="/card">
                 <Icon type="appstore-o" />
               </Link>
             </div>

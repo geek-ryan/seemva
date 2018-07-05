@@ -1,0 +1,41 @@
+.member-group {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-right: 1em;
+  .member-remove-usable {
+    position: relative;
+    .ant-btn {
+      opacity: 0;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      bottom: -5px;
+      right: -5px;
+      font-size: 10px;
+      background-color: rgba(#595959, 0.7);
+      border-color: transparent;
+      color: #fff;
+    }
+    &:focus,
+    &:hover {
+      .ant-btn {
+        opacity: 1;
+      }
+    }
+  }
+  .ant-avatar {
+    margin-left: -3px;
+  }
+  &__button {
+    flex: none;
+  }
+}
+
+.user-search__item {
+  cursor: pointer;
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

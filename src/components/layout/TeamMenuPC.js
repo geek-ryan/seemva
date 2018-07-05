@@ -56,10 +56,7 @@ class TeamMenuPC extends Component {
             >
               <Link
                 to={`/card/${id}`}
-                onClick={() => {
-                  this.props.projectFunc.teamFilter(id);
-                  this.props.onChangeCurrent(id);
-                }}
+                onClick={() => this.props.onChangeCurrent(id)}
               >
                 {current === id ? <Icon type="rocket" /> : ''}
                 {name}

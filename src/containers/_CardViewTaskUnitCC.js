@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from 'antd';
 import { Redirect, Link } from 'react-router-dom';
 
-import CardViewTaskUnitPC from '../components/cardview/CardViewTaskUnitPC';
+import CardViewTaskUnitPC from '../components/cardview/_CardViewTaskUnitPC';
 
 class CardViewTaskUnitCC extends Component {
   taskShowModal = () => {
@@ -21,6 +21,7 @@ class CardViewTaskUnitCC extends Component {
   handleUnitDelete = () => {
     this.props.taskFunc.Delete(this.props.task.id);
   };
+
   taskDeleteConfirm = () => {
     const Delete = this.handleUnitDelete;
     Modal.confirm({

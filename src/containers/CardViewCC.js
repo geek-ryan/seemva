@@ -4,13 +4,11 @@ import CardViewPC from '../components/cardview/CardViewPC';
 import withProjectCTX from '../hocs/withProjectCTX';
 
 class CardViewCC extends Component {
+  static defaultProps = {};
+
   state = {
     visible: false,
     body: '',
-  };
-
-  componentDidMount = () => {
-    this.props.projectFunc.teamFilter(this.props.projectState.teamCurrent);
   };
 
   newProjectTitleChange = e => {
@@ -24,23 +22,18 @@ class CardViewCC extends Component {
   };
 
   handleAddProject = body => {
-    const obj = {
-      title: body,
-      userId: this.props.userId,
-      teamId: parseInt(this.props.projectState.teamCurrent),
-      subtitle: 'test',
-    };
-    this.props.projectFunc.Create(obj);
+    this.props.projectFunc.Create({ title: body });
     this.setState({ body: '' });
   };
-  newProjectOk = e => {
+
+  newProjectOk = () => {
     this.handleAddProject(this.state.body);
     this.setState({
       visible: false,
     });
   };
 
-  newProjectCancle = e => {
+  newProjectCancle = () => {
     this.setState({
       visible: false,
     });
@@ -49,12 +42,12 @@ class CardViewCC extends Component {
   render() {
     return (
       <CardViewPC
+        {...this.props}
         newProjectModal={this.state}
         newProjectShowModal={this.newProjectShowModal}
         newProjectCancle={this.newProjectCancle}
         newProjectOk={this.newProjectOk}
         newProjectTitleChange={this.newProjectTitleChange}
-        {...this.props}
       />
     );
   }

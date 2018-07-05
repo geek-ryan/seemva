@@ -11,6 +11,7 @@ import { ProjectProvider } from '../contexts/ProjectCTX';
 
 // test unit
 import LabelPC from '../components/cardview/LabelPC';
+import TaskCardPC from '../components/cardview/TaskCardPC';
 
 function UniTestPage({ match }) {
   return (
@@ -21,7 +22,10 @@ function UniTestPage({ match }) {
             <ProjectProvider>
               <TaskProvider>
                 <ActivityProvider>
-                  <LabelPC />
+                  <div style={{}}>
+                    <LabelPC />
+                    <TaskCardPC />
+                  </div>
                 </ActivityProvider>
               </TaskProvider>
             </ProjectProvider>
