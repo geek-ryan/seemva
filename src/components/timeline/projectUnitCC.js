@@ -11,4 +11,4 @@ class ProjectUnitCC extends Component {
   }
 }
 
-export default ProjectUnitCC;
+export default withTaskCTX(ProjectUnitCC);

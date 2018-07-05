@@ -81,20 +81,19 @@ class TaskModal extends Component {
     };
 
     return cancelled ? (
-      <Redirect to={`/card/${teamId}`} />
+      <Redirect to={`${this.props.url}`} />
     ) : (
-      parseInt(id) === taskId && (
-        <Modal visible onOk={taskOk2} onCancel={this.handleCancle}>
-          <CardViewTaskModalPC
-            taskModal={this.state}
-            taskModalCompleteConfirm={this.taskModalCompleteConfirm}
-            taskModalDeleteConfirm={this.taskModalDeleteConfirm}
-            taskModalStartDateChange={this.taskModalStartDateChange}
-            taskModalDueDateChange={this.taskModalDueDateChange}
-            {...this.props}
-          />
-        </Modal>
-      )
+      // parseInt(id) === taskId &&
+      <Modal visible onOk={taskOk2} onCancel={this.handleCancle}>
+        <CardViewTaskModalPC
+          taskModal={this.state}
+          taskModalCompleteConfirm={this.taskModalCompleteConfirm}
+          taskModalDeleteConfirm={this.taskModalDeleteConfirm}
+          taskModalStartDateChange={this.taskModalStartDateChange}
+          taskModalDueDateChange={this.taskModalDueDateChange}
+          {...this.props}
+        />
+      </Modal>
     );
   }
 }

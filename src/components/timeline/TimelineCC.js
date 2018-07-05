@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Timeline from './Timeline';
 
 import withProjectCTX from '../../hocs/withProjectCTX';
+import withTeamCTX from '../../hocs/withTeamCTX';
+import withUserCTX from '../../hocs/withUserCTX';
+import withLabelCTX from '../../hocs/withLabelCTX';
+import withActivityCTX from '../../hocs/withActivityCTX';
 
 var moment = require('moment');
 
@@ -9,10 +13,17 @@ class TimelineCC extends Component {
   //   componentDidMount = () => {
   //     this.props.projectFunc.teamFilter(this.props.projectState.teamCurrent);
   //   };
+
+  static defaultProps = {
+    id: 2,
+  };
+
   state = {
     date: {
-      start: '2018.07.01',
-      end: '2018.07.15',
+      start: moment()
+        .subtract(7, 'days')
+        .format('YYYY.MM.DD'),
+      end: moment().format('YYYY.MM.DD'),
     },
   };
 
@@ -55,4 +66,6 @@ class TimelineCC extends Component {
   }
 }
 
-export default TimelineCC;
+export default withTeamCTX(
+  withUserCTX(withLabelCTX(withProjectCTX(withActivityCTX(TimelineCC))))
+);

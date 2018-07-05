@@ -12,6 +12,7 @@ class ProjectUnit extends Component {
     const start = moment(this.props.date.start, 'YYYY.MM.DD').format('X');
     const end = moment(this.props.date.end, 'YYYY.MM.DD').format('X');
     const range = (end - start) / (60 * 60 * 24);
+    // console.log(this.props.taskState);
 
     return (
       <div>
@@ -33,35 +34,26 @@ class ProjectUnit extends Component {
                 ? (moment(task.dueDate, 'YYYY.MM.DD').format('X') - start) /
                   (60 * 60 * 24)
                 : range;
-            console.log(st, en, range);
+            // console.log(st, en, range);
 
             return (
-              <div>
-                <Link to={`/tl/${this.props.project.teamId}/task/:id`}>
-                  <ProcessCC
-                    key={task.id}
-                    max={range}
-                    st={st}
-                    en={en}
-                    {...task}
-                  />
+              <div key={task.id}>
+                <Link to={`/tl/${this.props.project.teamId}/task/${task.id}`}>
+                  <ProcessCC max={range} st={st} en={en} {...task} />
                 </Link>
 
                 <Route
                   path={`/tl/${this.props.project.teamId}/task/:id`}
-                  render={({ match }) => {
-                    return parseInt(match.params.id) === this.props.task.id ? (
-                      <Modal
-                        visible
-                        // onOk={this.props.taskOk}
-                        // onCancel={this.props.taskCancle}
-                      >
-                        <TaskModalCC {...this.props} />
-                      </Modal>
-                    ) : (
-                      ''
-                    );
-                  }}
+                  render={({ match }) => (
+                    <TaskModalCC
+                      teamId={this.props.project.teamId}
+                      id={match.params.id}
+                      taskId={task.id}
+                      task={{ ...task }}
+                      url={`/tl/${this.props.project.teamId}`}
+                      {...this.props}
+                    />
+                  )}
                 />
               </div>
             );

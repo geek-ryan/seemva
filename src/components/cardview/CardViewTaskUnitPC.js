@@ -104,6 +104,7 @@ class CardViewTaskUnitPC extends Component {
               taskId={this.props.task.id}
               taskOk={this.props.taskOk}
               {...this.props}
+              url={`/card/${this.props.project.teamId}`}
             />
           )}
         />
