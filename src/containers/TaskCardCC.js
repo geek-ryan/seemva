@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 
-import CardViewTaskUnitPC from '../components/cardview/CardViewTaskUnitPC';
+import TaskCardPC from '../components/cardview/TaskCardPC';
 
-class CardViewTaskUnitCC extends Component {
+class TaskCardCC extends Component {
   state = {
     visible: false,
   };
@@ -34,11 +34,8 @@ class CardViewTaskUnitCC extends Component {
     });
   };
 
-  handleUnitDelete = () => {
-    this.props.taskFunc.Delete(this.props.task.id);
-  };
   taskDeleteConfirm = () => {
-    const Delete = this.handleUnitDelete;
+    const Delete = () => this.props.taskFunc.Delete(this.props.task.id);
     Modal.confirm({
       title: 'Are you sure delete this task?',
       content: 'Some descriptions',
@@ -52,18 +49,23 @@ class CardViewTaskUnitCC extends Component {
     });
   };
 
+  taskCompleteToggle = () => {
+    this.props.taskFunc.Complete(this.props.task.id, this.props.task.complete);
+  };
+
   render() {
     return (
-      <CardViewTaskUnitPC
+      <TaskCardPC
         taskModal={this.state}
         taskShowModal={this.taskShowModal}
         taskOk={this.taskOk}
         taskCancle={this.taskCancle}
         taskDeleteConfirm={this.taskDeleteConfirm}
+        taskCompleteToggle={this.taskCompleteToggle}
         {...this.props}
       />
     );
   }
 }
 
-export default CardViewTaskUnitCC;
+export default TaskCardCC;

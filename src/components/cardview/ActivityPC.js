@@ -77,7 +77,7 @@ class ActivityPC extends Component {
       handleDeleteActivity,
     } = this.props;
     return (
-      <div classNames="activity-content">
+      <div className="activity-content">
         <Form>
           <Form.Item>
             <Input placeholder="write comment..." onChange={handleChange} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import withAuth from '../hocs/withAuth';
 import { TeamProvider } from '../contexts/TeamCTX';
@@ -11,24 +12,24 @@ import { ProjectProvider } from '../contexts/ProjectCTX';
 import SideNavCC from '../containers/SideNavCC';
 import HeaderCC from '../containers/HeaderCC';
 import CardViewPage from '../pages/CardViewPage';
+import UnitTestPage from '../pages/UnitTestPage';
 
 function TeamPage({ match }) {
   return (
-    <TeamProvider id={match.params.id}>
+    <TeamProvider teamID={match.params.id}>
       <MemberProvider teamID={match.params.id}>
         <LabelProvider>
-          <ProjectProvider teamCurrent={match.params.id}>
+          <ProjectProvider teamID={match.params.id}>
             <TaskProvider>
               <ActivityProvider>
                 <div className="team-page">
                   <SideNavCC />
                   <div className="team-content">
                     <HeaderCC />
-                    <div className="team-card">
-                      <div className="team-card__list">
-                        <CardViewPage teamCurrent={match.params.id} />
-                      </div>
-                    </div>
+                    <Switch>
+                      <Route path="/card/:id" component={CardView} />
+                      <Route path="/test/:id" component={UnitTestPage} />
+                    </Switch>
                   </div>
                 </div>
               </ActivityProvider>
@@ -37,6 +38,16 @@ function TeamPage({ match }) {
         </LabelProvider>
       </MemberProvider>
     </TeamProvider>
+  );
+}
+
+function CardView({ match }) {
+  return (
+    <div className="team-card">
+      <div className="team-card__list">
+        <CardViewPage teamCurrent={match.params.id} />
+      </div>
+    </div>
   );
 }
 

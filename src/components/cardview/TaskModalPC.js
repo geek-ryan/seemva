@@ -37,21 +37,22 @@ class TaskModalPC extends Component {
       taskMembers,
       task,
       taskFunc,
-      taskModalCompleteConfirm,
+      taskCompleteToggle,
       taskModalDeleteConfirm,
       // taskModalStartDateChange,
       // taskModalDueDateChange,
       taskOk,
       taskCancel,
     } = this.props;
+
     const modalTitle = (
       <div className="task-modal-top">
         <div className="task-modal__complete">
           <Switch
             checkedChildren={<Icon type="check" />}
             unCheckedChildren={<Icon type="ellipsis" />}
-            defaultChecked={task.complete}
-            onClick={taskModalCompleteConfirm}
+            checked={task.complete}
+            onClick={taskCompleteToggle}
           />
           <span
             className={classNames(
@@ -73,9 +74,10 @@ class TaskModalPC extends Component {
       </div>
     );
     const dateFormat = 'YYYY.MM.DD';
+
     return (
       <Modal
-        visible={true}
+        visible={this.props.taskModal.visible}
         okText="Save"
         onOk={taskOk}
         onCancel={taskCancel}
@@ -125,7 +127,7 @@ class TaskModalPC extends Component {
           <h2 className="modal-label">Labels</h2>
           <LabelPC />
         </div>
-        <div clasName="task-modal__activities">
+        <div className="task-modal__activities">
           <h2 className="modal-label">Activity</h2>
           {/* <ActivityPC {...this.props} /> */}
           <ActivityPC />
