@@ -83,6 +83,7 @@ class TaskCardPC extends Component {
     return (
       <Card className="task-card">
         <div className="task-card-title">
+          {console.log(task.complete)}
           <Switch
             checkedChildren={<Icon type="check" />}
             unCheckedChildren={<Icon type="ellipsis" />}
@@ -90,6 +91,7 @@ class TaskCardPC extends Component {
             checked={task.complete}
             onClick={taskCompleteToggle}
           />
+          {console.log(task.complete)}
           <Button
             onClick={taskDeleteConfirm}
             size="small"
@@ -139,12 +141,12 @@ class TaskCardPC extends Component {
           path={`/card/${project.teamId}/task/:id`}
           render={({ match }) => (
             <TaskModalCC
+              {...this.props}
               teamId={this.props.project.teamId}
               id={match.params.id}
               taskId={this.props.task.id}
               taskOk={this.props.taskOk}
               url={`/card/${this.props.project.teamId}`}
-              {...this.props}
             />
           )}
         />

@@ -30,11 +30,11 @@ class ProjectCardUnitPC extends Component {
               ) : (
                 <React.Fragment>
                   <EditTextareaPC
+                    {...this.props}
                     body={this.props.project.title}
                     keyType={'title'}
                     datatype={'project'}
                     editfunc={this.handleEdit}
-                    {...this.props}
                   />
                   {this.props.usableDelete && (
                     <Button
@@ -50,8 +50,9 @@ class ProjectCardUnitPC extends Component {
               )}
             </div>
             {this.props.taskState.tasks.map(task => {
+              console.log(task);
               return this.props.project.id === task.projectId ? (
-                <TaskCardCC key={task.id} task={task} {...this.props} />
+                <TaskCardCC {...this.props} key={task.id} task={task} />
               ) : (
                 ''
               );

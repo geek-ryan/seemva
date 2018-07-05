@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tooltip, Icon, Button } from 'antd';
+import { Tooltip, Button } from 'antd';
 import MemberAvatarPC from './MemberAvatarPC';
 
 class MemberTooltipAvatarPC extends Component {

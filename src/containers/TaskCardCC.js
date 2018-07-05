@@ -10,19 +10,18 @@ class TaskCardCC extends Component {
 
   taskShowModal = () => {
     // console.log('show');
-    this.props.labelFunc.teamFilter(this.props.teamId);
-    this.props.labelFunc.taskFilter(this.props.task.id);
-    this.props.userFunc.teamFilter();
-    this.props.userFunc.taskFilter(this.props.task.id);
+    // this.props.labelFunc.teamFilter(this.props.teamId);
+    // this.props.labelFunc.taskFilter(this.props.task.id);
+    // this.props.userFunc.teamFilter();
+    // this.props.userFunc.taskFilter(this.props.task.id);
     this.setState({
       visible: true,
     });
   };
 
   taskOk = e => {
-    this.props.labelFunc.assigneeCreate(this.props.task.id);
-    this.props.userFunc.assigneeCreate(this.props.task.id);
-
+    // this.props.labelFunc.assigneeCreate(this.props.task.id);
+    // this.props.userFunc.assigneeCreate(this.props.task.id);
     this.setState({
       visible: false,
     });
@@ -56,13 +55,13 @@ class TaskCardCC extends Component {
   render() {
     return (
       <TaskCardPC
+        {...this.props}
         taskModal={this.state}
         taskShowModal={this.taskShowModal}
         taskOk={this.taskOk}
         taskCancle={this.taskCancle}
         taskDeleteConfirm={this.taskDeleteConfirm}
         taskCompleteToggle={this.taskCompleteToggle}
-        {...this.props}
       />
     );
   }

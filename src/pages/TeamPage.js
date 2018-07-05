@@ -12,15 +12,15 @@ import { ProjectProvider } from '../contexts/ProjectCTX';
 import SideNavCC from '../containers/SideNavCC';
 import HeaderCC from '../containers/HeaderCC';
 import CardViewPage from '../pages/CardViewPage';
-import UnitTestPage from '../pages/UnitTestPage';
+// import UnitTestPage from '../pages/UnitTestPage';
 
 function TeamPage({ match }) {
   return (
     <TeamProvider teamID={match.params.id}>
       <MemberProvider teamID={match.params.id}>
-        <LabelProvider>
+        <LabelProvider teamID={match.params.id}>
           <ProjectProvider teamID={match.params.id}>
-            <TaskProvider>
+            <TaskProvider teamID={match.params.id}>
               <ActivityProvider>
                 <div className="team-page">
                   <SideNavCC />
@@ -28,7 +28,7 @@ function TeamPage({ match }) {
                     <HeaderCC />
                     <Switch>
                       <Route path="/card/:id" component={CardView} />
-                      <Route path="/test/:id" component={UnitTestPage} />
+                      {/* <Route path="/test/:id" component={UnitTestPage} /> */}
                     </Switch>
                   </div>
                 </div>

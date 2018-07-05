@@ -337,7 +337,6 @@ body {
 
 .task-modal__title .readable,
 .task-modal__title .ant-input {
-  letter-spacing: -0.05em;
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -348,7 +347,6 @@ body {
 
 .task-modal__body .readable,
 .task-modal__body .ant-input {
-  letter-spacing: -0.05em;
   font-size: 1.167em;
 }
 

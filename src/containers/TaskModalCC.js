@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Modal } from 'antd';
 
-// import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
 import TaskModalPC from '../components/cardview/TaskModalPC';
 
 class TaskModal extends Component {
