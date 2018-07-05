@@ -50,7 +50,6 @@ class ProjectCardUnitPC extends Component {
               )}
             </div>
             {this.props.taskState.tasks.map(task => {
-              console.log(task);
               return this.props.project.id === task.projectId ? (
                 <TaskCardCC {...this.props} key={task.id} task={task} />
               ) : (

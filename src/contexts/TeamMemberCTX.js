@@ -5,35 +5,24 @@ const { Provider, Consumer } = React.createContext();
 
 class MemberProvider extends Component {
   static defaultProps = {
-    teamID: 0,
+    teamMembers: [],
+    taskID: 0,
   };
 
   state = {
     loading: false,
-    users: [], // 가입한 모든 유저
-    members: [], // 팀의 멤버
+    members: [], // 태스크의 멤버
     matchUsers: [], // 검색어에 일치하는 유저
   };
 
   autocompleteSearch = Q => {
     const q = Q.toLowerCase();
-    const match = this.state.users.filter(user =>
-      user.username.toLowerCase().includes(q)
+    const match = this.props.teamMembers.filter(member =>
+      member.username.toLowerCase().includes(q)
     );
     q
       ? this.setState({ matchUsers: match })
       : this.setState({ matchUsers: [] });
-  };
-
-  fetchUserData = async () => {
-    this.setState({
-      loading: true,
-    });
-    const resUser = await serverAPI.get(`/users`);
-    this.setState({
-      users: resUser.data,
-      loading: false,
-    });
   };
 
   fetchMatchData = async teamID => {
@@ -71,16 +60,6 @@ class MemberProvider extends Component {
     });
   };
 
-  async componentDidMount() {
-    await this.fetchUserData();
-    await this.fetchMatchData(this.props.teamID);
-  }
-
-  async componentDidUpdate(prevProps) {
-    if (this.props.teamID !== prevProps.teamID) {
-      await this.fetchMatchData(this.props.teamID);
-    }
-  }
   render() {
     const value = {
       ...this.state,

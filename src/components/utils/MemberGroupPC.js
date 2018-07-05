@@ -6,7 +6,7 @@ import { Avatar, Button, Modal, Icon, List, Input } from 'antd';
 import MemberAvatarPC from '../utils/MemberAvatarPC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
 
-class HeaderPC extends Component {
+class MemberGroupPC extends Component {
   static defaultProps = {
     onRemove: () => {}, // 멤버 삭제
     onClearMatch: () => {}, // 검색 매치된 사용자 데이터 초기화
@@ -30,7 +30,7 @@ class HeaderPC extends Component {
   };
 
   handleCloseModal = () => {
-    this.props.onClearMatch();
+    this.props.clearMatch();
     this.setState({
       q: '',
       visible: false,
@@ -39,7 +39,7 @@ class HeaderPC extends Component {
 
   handleChangeQuery = e => {
     this.setState({ q: e.target.value }, () => {
-      this.props.onAutocompleteSearch(this.state.q);
+      this.props.autocompleteSearch(this.state.q);
     });
   };
 
@@ -49,7 +49,7 @@ class HeaderPC extends Component {
   };
 
   handleRemove = id => {
-    this.props.onRemove();
+    this.props.onRemoveMember(id);
   };
 
   render() {
@@ -144,4 +144,4 @@ function ListItem(props) {
   );
 }
 
-export default HeaderPC;
+export default MemberGroupPC;

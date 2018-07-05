@@ -1,35 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Modal } from 'antd';
 
 import TaskModalPC from '../components/cardview/TaskModalPC';
 
 class TaskModal extends Component {
-  handleUnitComplete = () => {
-    this.props.taskFunc.Complete(this.props.task.id);
-  };
-
-  handleUnitDelete = () => {
-    this.props.taskFunc.Delete(this.props.task.id);
-  };
-
-  taskModalDeleteConfirm = () => {
-    const Delete = this.handleUnitDelete;
-    Modal.confirm({
-      title: 'Are you sure sure sure sure sure sure sure delete this task?',
-      content: 'Some descriptions',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
-      onOk() {
-        // console.log('delete shit');
-        // this.props.taskCancle();
-        Delete();
-      },
-      onCancel() {},
-    });
-  };
-
   taskModalStartDateChange = (date, dateString) => {
     const startMoment = moment(dateString, 'YYYY.MM.DD');
     const dueMoment = moment(this.props.task.dueDate, 'YYYY.MM.DD');
@@ -53,11 +27,10 @@ class TaskModal extends Component {
   render() {
     return (
       <TaskModalPC
-        taskModal={this.state}
-        taskModalDeleteConfirm={this.taskModalDeleteConfirm}
+        {...this.props}
+        // taskModal={this.state}
         taskModalStartDateChange={this.taskModalStartDateChange}
         taskModalDueDateChange={this.taskModalDueDateChange}
-        {...this.props}
       />
     );
   }

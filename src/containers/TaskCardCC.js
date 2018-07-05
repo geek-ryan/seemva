@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from 'antd';
 
 import TaskCardPC from '../components/cardview/TaskCardPC';
+import withTeamMember from '../hocs/withTeamMember';
 
 class TaskCardCC extends Component {
   state = {
@@ -27,7 +28,7 @@ class TaskCardCC extends Component {
     });
   };
 
-  taskCancle = e => {
+  taskCancel = e => {
     this.setState({
       visible: false,
     });
@@ -52,6 +53,10 @@ class TaskCardCC extends Component {
     this.props.taskFunc.Complete(this.props.task.id, this.props.task.complete);
   };
 
+  async componentDidMount() {
+    await this.props.fetchMatchData(this.props.task.id);
+  }
+
   render() {
     return (
       <TaskCardPC
@@ -59,7 +64,7 @@ class TaskCardCC extends Component {
         taskModal={this.state}
         taskShowModal={this.taskShowModal}
         taskOk={this.taskOk}
-        taskCancle={this.taskCancle}
+        taskCancel={this.taskCancel}
         taskDeleteConfirm={this.taskDeleteConfirm}
         taskCompleteToggle={this.taskCompleteToggle}
       />
@@ -67,4 +72,4 @@ class TaskCardCC extends Component {
   }
 }
 
-export default TaskCardCC;
+export default withTeamMember(TaskCardCC);

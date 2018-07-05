@@ -18,12 +18,6 @@ class TaskCardPC extends Component {
       //     'https://ucarecdn.com/b8800d01-4651-4b77-8ca8-de58bb78f196/syami.jpg',
       //   id: 2,
       // },
-      // {
-      //   username: 'geekkkkkkkkkkkk',
-      //   email: 'geek@seemva.com',
-      //   profile: '',
-      //   id: 3,
-      // },
     ], // 태스크의 멤버
     task: {
       // id: 0,
@@ -45,16 +39,6 @@ class TaskCardPC extends Component {
       //   color: 'red',
       //   body: 'red label',
       // },
-      // {
-      //   id: 2,
-      //   color: 'orange',
-      //   body: 'oragne label',
-      // },
-      // {
-      //   id: 3,
-      //   color: 'green',
-      //   body: 'green label',
-      // },
     ],
     colors: {
       // default: '#bfbfbf',
@@ -68,6 +52,7 @@ class TaskCardPC extends Component {
       // blue: '#1890ff',
     },
   };
+
   render() {
     const {
       project,
@@ -83,7 +68,6 @@ class TaskCardPC extends Component {
     return (
       <Card className="task-card">
         <div className="task-card-title">
-          {console.log(task.complete)}
           <Switch
             checkedChildren={<Icon type="check" />}
             unCheckedChildren={<Icon type="ellipsis" />}
@@ -91,7 +75,6 @@ class TaskCardPC extends Component {
             checked={task.complete}
             onClick={taskCompleteToggle}
           />
-          {console.log(task.complete)}
           <Button
             onClick={taskDeleteConfirm}
             size="small"
@@ -143,9 +126,8 @@ class TaskCardPC extends Component {
             <TaskModalCC
               {...this.props}
               teamId={this.props.project.teamId}
-              id={match.params.id}
               taskId={this.props.task.id}
-              taskOk={this.props.taskOk}
+              id={match.params.id}
               url={`/card/${this.props.project.teamId}`}
             />
           )}
