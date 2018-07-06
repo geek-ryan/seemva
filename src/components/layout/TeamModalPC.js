@@ -53,7 +53,7 @@ class TeamModalPC extends Component {
                 },
               ],
               onChange: e => this.handleChange(e),
-            })(<Input />)}
+            })(<Input autocomplete="off" />)}
           </FormItem>
           {this.props.children}
         </Form>

@@ -47,7 +47,7 @@ class ProjectCardUnitCC extends Component {
       };
       this.props.taskFunc.Create(contents);
     }
-    // this.newTaskCancel();
+    this.newTaskCancel();
   };
 
   newTaskCancel = () => {
