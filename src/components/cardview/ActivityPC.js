@@ -41,6 +41,7 @@ class ActivityPC extends Component {
   };
   render() {
     const {
+      activeFormBody,
       activityState,
       activityFunc,
       task,
@@ -52,7 +53,11 @@ class ActivityPC extends Component {
       <div className="activity-content">
         <Form>
           <Form.Item>
-            <Input placeholder="write comment..." onChange={handleChange} />
+            <Input
+              placeholder="write comment..."
+              value={activeFormBody}
+              onChange={handleChange}
+            />
             <Button
               type="primary"
               htmlType="submit"
