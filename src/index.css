@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Ceviche+One|Paytone+One");
+@import url("https://fonts.googleapis.com/css?family=Julius+Sans+One");
 html {
   width: 100%;
   height: 100%;
@@ -535,7 +535,7 @@ body {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
-  font-family: "Ceviche One", cursive;
+  font-family: "Julius Sans One", sans-serif;
   font-size: 1.8em;
   color: #fff;
 }
@@ -736,7 +736,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0.5em 0.8em;
+  padding: 0.5em 1.2em;
   background-color: #fff;
   -webkit-box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.2);
           box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.2);
@@ -804,6 +804,92 @@ body {
   height: 100%;
 }
 
+.intro-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  padding: 1em;
+}
+
+.intro-page__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fff;
+}
+
+.intro-page__title {
+  text-align: center;
+  line-height: 1;
+  color: #8c8c8c;
+}
+
+.intro-page__title span {
+  display: block;
+  font-size: 10em;
+  font-family: "Julius Sans One", sans-serif;
+  letter-spacing: -0.05em;
+  color: #40a9ff;
+  background: linear-gradient(110deg, #40a9ff 30%, transparent 30%), linear-gradient(110deg, #e6f7ff 32%, #bae7ff 32%, #bae7ff 33%, #40a9ff 33%);
+  background-size: 400%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-animation-name: Light;
+          animation-name: Light;
+  -webkit-animation-duration: 5s;
+          animation-duration: 5s;
+  -webkit-animation-timing-function: ease;
+          animation-timing-function: ease;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: normal;
+          animation-direction: normal;
+}
+
+.intro-page__carousel {
+  width: 700px;
+}
+
+.intro-page__carousel .ant-carousel .slick-slide {
+  text-align: center;
+  height: 300px;
+  overflow: hidden;
+}
+
+.intro-page__carousel .ant-carousel .slick-slide h3 {
+  color: #595959;
+}
+
+@-webkit-keyframes Light {
+  0% {
+    background-position: 70% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Light {
+  0% {
+    background-position: 70% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .login-page {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -825,7 +911,7 @@ body {
 
 .login-page__logo {
   margin: 0;
-  font-family: "Ceviche One", cursive;
+  font-family: "Julius Sans One", sans-serif;
   font-size: 5em;
   font-weight: normal;
   color: #fff;

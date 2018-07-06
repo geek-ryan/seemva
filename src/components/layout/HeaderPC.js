@@ -13,7 +13,7 @@ class HeaderPC extends Component {
     return (
       <header className="header">
         <h2 className="header__team-name">{teamname}</h2>
-        <MemberGroupPC {...this.props} />
+        {this.props.teamCurrent > 0 && <MemberGroupPC {...this.props} />}
       </header>
     );
   }

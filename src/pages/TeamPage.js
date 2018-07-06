@@ -12,6 +12,7 @@ import { ProjectProvider } from '../contexts/ProjectCTX';
 import SideNavCC from '../containers/SideNavCC';
 import HeaderCC from '../containers/HeaderCC';
 import CardViewPage from '../pages/CardViewPage';
+import IntroPage from '../pages/IntroPage';
 import TimelinePage from '../pages/TimelinePage';
 
 function TeamPage({ match }) {
@@ -27,6 +28,7 @@ function TeamPage({ match }) {
                   <div className="team-content">
                     <HeaderCC />
                     <Switch>
+                      <Route exact path="/card" component={IntroPage} />
                       <Route path="/card/:id" component={CardView} />
                       <Route path="/tl/:id" component={Timeline} />
                     </Switch>

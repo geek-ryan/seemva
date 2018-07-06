@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Ceviche+One|Paytone+One');
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One');
 
 // Global : mixin, variables, function
 @import 'stylesheet/variables/color';
-// font-family: 'Paytone One', sans-serif;
-// font-family: 'Ceviche One', cursive;
-$font-stack: 'Ceviche One', cursive;
+
+$font-stack: 'Julius Sans One', sans-serif;
 
 // reset
 html {
