@@ -14,26 +14,18 @@ import HeaderCC from '../containers/HeaderCC';
 import CardViewPage from '../pages/CardViewPage';
 import TimelineCC from '../components/timeline/TimelineCC';
 
-function TeamPage({ match }) {
+function TimelinePage(props) {
+  // console.log('time line page mathc', match);
+  console.log('time line page teamCurrent', props.teamCurrent);
   return (
-    <TeamProvider id={match.params.id}>
-      <MemberProvider teamID={match.params.id}>
+    <TeamProvider>
+      <MemberProvider>
         {/* <UserProvider> */}
         <LabelProvider>
-          <ProjectProvider teamCurrent={match.params.id}>
+          <ProjectProvider>
             <TaskProvider>
               <ActivityProvider>
-                <div className="team-page">
-                  <SideNavCC />
-                  <div className="team-content">
-                    <HeaderCC />
-                    <div className="team-timeline">
-                      <div className="team-timeline__list">
-                        <TimelineCC />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <TimelineCC teamCurrent={props.teamCurrent} />
               </ActivityProvider>
             </TaskProvider>
           </ProjectProvider>
@@ -44,4 +36,4 @@ function TeamPage({ match }) {
   );
 }
 
-export default withAuth(TeamPage);
+export default withAuth(TimelinePage);

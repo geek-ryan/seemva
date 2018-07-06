@@ -27,6 +27,12 @@ class TimelineCC extends Component {
     },
   };
 
+  componentDidMount = () => {
+    const id = this.props.teamCurrent;
+    console.log('TimelineCC', id);
+    this.props.projectFunc.teamFilter(id);
+  };
+
   handleStart = (date, dateString) => {
     const newDate = moment(dateString).format('YYYY.MM.DD');
     const end = this.state.date.end;
