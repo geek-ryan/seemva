@@ -19,7 +19,7 @@ class Process extends Component {
         <div>
           <h5 className={'taskTitle'}>{this.props.title}</h5>
           <Slider
-            dots={true}
+            dots={this.props.max < 8}
             className={'slideline'}
             min={0}
             max={this.props.max}

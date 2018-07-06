@@ -36,6 +36,9 @@ class EditTextareaPC extends Component {
   render() {
     return (
       <div className="edit-textarea" onDoubleClick={this.handleDoubleClick}>
+        <span className="edit-textarea--blank">
+          {this.props.body ? '' : 'blank'}
+        </span>
         <div className="readable">{this.props.body}&nbsp;</div>
         {this.state.visible && (
           <Input.TextArea

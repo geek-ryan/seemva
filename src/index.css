@@ -294,6 +294,13 @@ body {
   overflow-y: auto;
 }
 
+.edit-textarea--blank {
+  line-height: 0.6rem;
+  padding-left: 2rem;
+  font-size: 1.1rem;
+  color: #bdbdbd7c;
+}
+
 .task-modal .ant-modal-close-x {
   width: 40px;
 }
@@ -913,6 +920,7 @@ body {
 .projectTitle {
   -ms-flex-preferred-size: 20%;
       flex-basis: 20%;
+  word-break: break-all;
 }
 
 .timelineContainer {
@@ -964,6 +972,7 @@ body {
 }
 
 .ant-slider {
+  color: #1890ff !important;
   cursor: pointer !important;
 }
 
@@ -993,6 +1002,16 @@ body {
 
 .ant-slider-handle-2 {
   cursor: pointer !important;
+}
+
+.ant-slider-track {
+  background-color: transparent !important;
+  color: #1890ff !important;
+}
+
+.ant-slider-track-1 {
+  background-color: transparent !important;
+  color: #1890ff !important;
 }
 
 .ant-slider-disabled .ant-slider-dot {

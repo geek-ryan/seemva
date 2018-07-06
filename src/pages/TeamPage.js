@@ -24,7 +24,7 @@ function TeamPage({ match }) {
             <TaskProvider>
               <ActivityProvider>
                 <div className="team-page">
-                  <SideNavCC />
+                  <SideNavCC teamID={match.url} />
                   <div className="team-content">
                     <HeaderCC />
                     <Switch>

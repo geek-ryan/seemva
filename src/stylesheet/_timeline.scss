@@ -9,6 +9,7 @@
 
 .projectTitle {
   flex-basis: 20%;
+  word-break: break-all;
 }
 
 .timelineContainer {
@@ -51,6 +52,7 @@
 }
 
 .ant-slider {
+  color: #1890ff !important;
   cursor: pointer !important;
   &-mark {
     cursor: pointer !important;
@@ -72,6 +74,14 @@
     &-2 {
       cursor: pointer !important;
     }
+  }
+  &-track {
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: #1890ff !important;
+  }
+  &-track-1 {
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: #1890ff !important;
   }
 }
 
