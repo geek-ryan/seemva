@@ -7,6 +7,19 @@ import SideNavPC from '../components/layout/SideNavPC';
 class SideNavCC extends Component {
   state = {
     loggedOut: false,
+    viewtype: '',
+  };
+
+  handleViewCard = () => {
+    console.log('card');
+    this.setState({ viewtype: 'card' });
+    console.log(this.state.viewtype);
+  };
+
+  handleViewTl = () => {
+    console.log('tl');
+    this.setState({ viewtype: 'tl' });
+    console.log(this.state.viewtype);
   };
 
   render() {
@@ -16,6 +29,9 @@ class SideNavCC extends Component {
       <AuthConsumer>
         {({ username, profile, logout }) => (
           <SideNavPC
+            onViewCard={this.handleViewCard}
+            onViewTl={this.handleViewTl}
+            viewtype={this.state.viewtype}
             username={username}
             profile={profile}
             onLogout={() => {

@@ -1,29 +1,31 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { Modal } from 'antd';
+import { Route, Link, Redirect } from 'react-router-dom';
 
-import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
+// import CardViewTaskModalPC from '../components/taskmodal/CardViewTaskModalPC';
+import TaskModalPC from '../components/cardview/TaskModalPC';
 
-var moment = require('moment');
+class TaskModalCC extends Component {
+  state = {
+    cancelled: false,
+  };
 
-class TaskModal extends Component {
+  handleCancle = () => {
+    console.log('cancle');
+    this.setState({
+      cancelled: true,
+    });
+  };
+
   handleUnitComplete = () => {
     this.props.taskFunc.Complete(this.props.task.id);
-  };
-  taskModalCompleteConfirm = () => {
-    const Complete = this.handleUnitComplete;
-    Modal.confirm({
-      title: 'Do you Want to delete these items?',
-      content: 'Some descriptions',
-      onOk() {
-        Complete();
-      },
-      onCancel() {},
-    });
   };
 
   handleUnitDelete = () => {
     this.props.taskFunc.Delete(this.props.task.id);
   };
+
   taskModalDeleteConfirm = () => {
     const Delete = this.handleUnitDelete;
     Modal.confirm({
@@ -62,17 +64,31 @@ class TaskModal extends Component {
   };
 
   render() {
-    return (
-      <CardViewTaskModalPC
-        taskModal={this.state}
-        taskModalCompleteConfirm={this.taskModalCompleteConfirm}
-        taskModalDeleteConfirm={this.taskModalDeleteConfirm}
-        taskModalStartDateChange={this.taskModalStartDateChange}
-        taskModalDueDateChange={this.taskModalDueDateChange}
-        {...this.props}
-      />
+    const { paramId, teamId, taskId, taskOk } = this.props;
+    const { cancelled } = this.state;
+    const taskOk2 = () => {
+      taskOk();
+      this.handleCancle();
+    };
+
+    // console.log('hahah', parseInt(paramId), taskId);
+
+    return cancelled ? (
+      <Redirect to={`${this.props.url}`} />
+    ) : (
+      parseInt(paramId) === taskId && (
+        <TaskModalPC
+          modalCancle={this.handleCancle}
+          taskModal={this.state}
+          taskModalCompleteConfirm={this.taskModalCompleteConfirm}
+          taskModalDeleteConfirm={this.taskModalDeleteConfirm}
+          taskModalStartDateChange={this.taskModalStartDateChange}
+          taskModalDueDateChange={this.taskModalDueDateChange}
+          {...this.props}
+        />
+      )
     );
   }
 }
 
-export default TaskModal;
+export default TaskModalCC;

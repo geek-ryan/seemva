@@ -9,10 +9,14 @@ class LabelSearchBar extends Component {
   };
 
   componentDidMount = () => {
-    this.props.labelFunc.teamFilter(this.props.teamId);
-    if (this.props.taskId) {
+    this.props.labelFunc.teamFilter(this.props.project.teamId);
+    if (this.props.taskId > 0) {
       this.props.labelFunc.taskFilter(this.props.taskId);
     }
+  };
+
+  shouldComponentUpdate = () => {
+    return true;
   };
 
   handleSearchTextChange = e => {

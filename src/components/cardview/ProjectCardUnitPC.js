@@ -1,63 +1,83 @@
 import React, { Component } from 'react';
-import { Input, Icon, Modal, Card, DatePicker } from 'antd';
+import { Input, Card, Button } from 'antd';
 
-import CardViewTaskUnitCC from '../../containers/CardViewTaskUnitCC';
-import EditableTextareaPC from '../utils/EditableTextareaPC';
-import LabelSearchBar from '../utils/LabelSearchBar';
-import UserSearchBar from '../utils/UserSearchBar';
-
-import '../../../node_modules/antd/dist/antd.css';
-
-var moment = require('moment');
+import TaskCardCC from '../../containers/TaskCardCC';
+import EditTextareaPC from '../utils/EditTextareaPC';
+import LoadingIconPC from '../utils/LoadingIconPC';
 
 class ProjectCardUnitPC extends Component {
+  state = {
+    loading: false,
+  };
+
+  handleEditProjectTitle = async (...args) => {
+    this.setState({
+      loading: true,
+    });
+    await this.props.projectFunc.Update(...args);
+    this.setState({
+      loading: false,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
         <Card className="project-card">
           <div>
-            <EditableTextareaPC
-              body={this.props.project.title}
-              keyType={'title'}
-              datatype={'project'}
-              editfunc={this.props.projectFunc.Update}
-              {...this.props}
-            />
-            {this.props.taskState.tasks.map(task => {
-              return this.props.project.id === task.projectId ? (
-                <CardViewTaskUnitCC key={task.id} task={task} {...this.props} />
+            <div>
+              {this.state.loading ? (
+                <LoadingIconPC />
               ) : (
-                ''
+                <React.Fragment>
+                  <EditTextareaPC
+                    body={this.props.project.title}
+                    keyType={'title'}
+                    datatype={'project'}
+                    editfunc={this.handleEditProjectTitle}
+                    {...this.props}
+                  />
+                  {this.props.usableDelete && (
+                    <Button
+                      type="danger"
+                      icon="delete"
+                      // 컨펌 모달 기능 넣어야 함
+                      onClick={() =>
+                        this.props.projectFunc.Delete(this.props.project.id)
+                      }
+                    />
+                  )}
+                </React.Fragment>
+              )}
+            </div>
+
+            {this.props.taskState.tasks.map(task => {
+              return (
+                this.props.project.id === task.projectId && (
+                  <TaskCardCC key={task.id} task={task} {...this.props} />
+                )
               );
             })}
           </div>
 
-          <div onClick={this.props.newTaskShowModal}>
-            <Icon type="plus" /> Add New Task
-          </div>
-          <Modal
-            visible={this.props.taskNew.visible}
-            onOk={this.props.newTaskOk}
-            onCancel={this.props.newTaskCancel}
-          >
-            <Input
-              onChange={this.props.newTaskTitleChange}
-              placeholder="Title"
-              value={this.props.taskNew.title}
-            />
-            <Input.TextArea
-              onChange={this.props.newTaskbodyChange}
-              placeholder="Body"
-              value={this.props.taskNew.body}
-              row={4}
-            />
-            <DatePicker.RangePicker
-              onChange={this.props.newTaskDateChange}
-              value={[moment(), moment()]}
-            />
-            <UserSearchBar {...this.props} />
-            <LabelSearchBar {...this.props} />
-          </Modal>
+          {this.props.taskNew.visible ? (
+            <div className="new-task-editor">
+              <Input.TextArea
+                onChange={this.props.newTaskTitleChange}
+                placeholder="Title"
+                value={this.props.taskNew.title}
+                row={1}
+              />
+              <Button onClick={this.props.newTaskCancel}>Cancel</Button>
+              <Button type="primary" onClick={this.props.newTaskOk}>
+                Save
+              </Button>
+            </div>
+          ) : (
+            <Button icon="plus" onClick={this.props.newTaskShowEditor}>
+              Add New Task
+            </Button>
+          )}
         </Card>
       </React.Fragment>
     );

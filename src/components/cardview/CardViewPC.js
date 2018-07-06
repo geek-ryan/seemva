@@ -9,8 +9,9 @@ class CardViewPC extends Component {
       <React.Fragment>
         {this.props.projectState.projects.map(project => (
           <ProjectCardUnitCC
-            key={project.id}
             {...this.props}
+            usableDelete={this.props.projectState.userID === project.userId}
+            key={project.id}
             project={project}
           />
         ))}
@@ -22,6 +23,7 @@ class CardViewPC extends Component {
         >
           Add New Project
         </Button>
+
         <Modal
           title="New Project Name"
           visible={this.props.newProjectModal.visible}

@@ -3,18 +3,19 @@ import CardViewPC from '../components/cardview/CardViewPC';
 
 import withProjectCTX from '../hocs/withProjectCTX';
 
+import withTeamCTX from '../hocs/withTeamCTX';
+
 class CardViewCC extends Component {
-  static defaultProps = {
-    teamId: 1,
-  };
+  static defaultProps = {};
 
   state = {
     visible: false,
     body: '',
   };
 
-  componentDidMount = () => {
-    this.props.projectFunc.teamFilter(this.props.teamCurrent);
+  handleAddProject = contents => {
+    this.props.projectFunc.Create({ title: contents });
+    this.setState({ body: '' });
   };
 
   newProjectTitleChange = e => {
@@ -27,24 +28,14 @@ class CardViewCC extends Component {
     });
   };
 
-  handleAddProject = body => {
-    const obj = {
-      title: body,
-      userId: this.props.userId,
-      teamId: this.props.teamCurrent,
-      subtitle: 'test',
-    };
-    this.props.projectFunc.Create(obj);
-    this.setState({ body: '' });
-  };
-  newProjectOk = e => {
+  newProjectOk = () => {
     this.handleAddProject(this.state.body);
     this.setState({
       visible: false,
     });
   };
 
-  newProjectCancle = e => {
+  newProjectCancle = () => {
     this.setState({
       visible: false,
     });
@@ -53,15 +44,15 @@ class CardViewCC extends Component {
   render() {
     return (
       <CardViewPC
+        {...this.props}
         newProjectModal={this.state}
         newProjectShowModal={this.newProjectShowModal}
         newProjectCancle={this.newProjectCancle}
         newProjectOk={this.newProjectOk}
         newProjectTitleChange={this.newProjectTitleChange}
-        {...this.props}
       />
     );
   }
 }
 
-export default withProjectCTX(CardViewCC);
+export default withTeamCTX(withProjectCTX(CardViewCC));

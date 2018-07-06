@@ -6,24 +6,24 @@ const { Provider, Consumer } = React.createContext();
 class TeamProvider extends Component {
   state = {
     userID: 0,
-    teams: [
-      // {
-      //   id: 1,
-      //   userID: 1,
-      //   admin: true,
-      //   name: 'team1',
-      // },
-    ],
+    teams: [],
     loading: false,
     current: 0,
   };
 
   async componentDidMount() {
-    const id = parseInt(this.props.id, 10);
-    this.changeCurrent(id);
     const res = await serverAPI.get('/me');
     this.setState({ userID: res.data.id });
     await this.fetchData(this.state.userID);
+    const id = parseInt(this.props.teamID, 10);
+    this.changeCurrent(id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.teamID !== prevProps.teamID) {
+      const id = parseInt(this.props.teamID, 10);
+      this.changeCurrent(id);
+    }
   }
 
   fetchData = async userID => {
@@ -128,11 +128,9 @@ class TeamProvider extends Component {
   };
 
   changeCurrent = id => {
-    console.log('id', id, 'change');
     this.setState({
-      current: parseInt(id),
+      current: parseInt(id, 10),
     });
-    console.log(this.state.current);
   };
 
   render() {
@@ -142,6 +140,7 @@ class TeamProvider extends Component {
       editTeam: this.editTeam,
       deleteTeam: this.deleteTeam,
       changeCurrent: this.changeCurrent,
+      teamCurrentID: this.state.current,
     };
 
     return <Provider value={value}>{this.props.children}</Provider>;
