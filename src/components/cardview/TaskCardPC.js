@@ -33,7 +33,7 @@ class TaskCardPC extends Component {
     taskModalCompleteConfirm: () => {},
     taskShowModal: () => {},
     activitesLength: 0,
-    labels: [
+    taskLabels: [
       // {
       //   id: 1,
       //   color: 'red',
@@ -53,6 +53,10 @@ class TaskCardPC extends Component {
     },
   };
 
+  componentDidMount() {
+    this.props.onLabelInit();
+  }
+
   render() {
     const {
       project,
@@ -62,7 +66,7 @@ class TaskCardPC extends Component {
       taskCompleteToggle,
       taskShowModal,
       activitesLength,
-      labels,
+      taskLabels,
       colors,
     } = this.props;
     return (
@@ -108,7 +112,7 @@ class TaskCardPC extends Component {
               {activitesLength}
             </div>
             <div className="task-card-body__labels">
-              {labels.map(({ id, color, body }) => (
+              {taskLabels.map(({ id, color, body }) => (
                 <LabelTooltipPC
                   key={id}
                   color={

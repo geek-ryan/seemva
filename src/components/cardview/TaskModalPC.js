@@ -24,7 +24,6 @@ class TaskModalPC extends Component {
     taskFunc: {
       Update: () => {},
     },
-    taskModalStartDateChange: () => {},
     taskModalDueDateChange: () => {},
     taskDeleteConfirm: () => {},
     taskCompleteToggle: () => {},
@@ -38,6 +37,7 @@ class TaskModalPC extends Component {
       taskFunc,
       taskCompleteToggle,
       taskDeleteConfirm,
+      taskModalDueDateChange,
       taskOk,
       taskCancel,
     } = this.props;
@@ -112,6 +112,7 @@ class TaskModalPC extends Component {
               ]
             }
             format={dateFormat}
+            onChange={taskModalDueDateChange}
           />
         </div>
         <div className="task-modal__members">
@@ -132,7 +133,7 @@ class TaskModalPC extends Component {
         </div>
         <div className="task-modal__labels">
           <h2 className="modal-label">Labels</h2>
-          <LabelPC />
+          <LabelPC {...this.props} />
         </div>
         <div className="task-modal__activities">
           <h2 className="modal-label">Activity</h2>

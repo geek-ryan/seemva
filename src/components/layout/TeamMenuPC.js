@@ -38,7 +38,7 @@ class TeamMenuPC extends Component {
         >
           <Link to="/card" onClick={() => onChangeCurrent(0)}>
             {current ? '' : <Icon type="rocket" />}
-            Welcome team
+            Welcome SEEMVA
           </Link>
         </div>
         {loading ? (

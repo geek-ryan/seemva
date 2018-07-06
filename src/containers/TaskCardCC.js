@@ -3,6 +3,7 @@ import { Modal } from 'antd';
 
 import TaskCardPC from '../components/cardview/TaskCardPC';
 import withTeamMember from '../hocs/withTeamMember';
+import withLabel from '../hocs/withLabel';
 
 class TaskCardCC extends Component {
   state = {
@@ -10,19 +11,12 @@ class TaskCardCC extends Component {
   };
 
   taskShowModal = () => {
-    // console.log('show');
-    // this.props.labelFunc.teamFilter(this.props.teamId);
-    // this.props.labelFunc.taskFilter(this.props.task.id);
-    // this.props.userFunc.teamFilter();
-    // this.props.userFunc.taskFilter(this.props.task.id);
     this.setState({
       visible: true,
     });
   };
 
   taskOk = e => {
-    // this.props.labelFunc.assigneeCreate(this.props.task.id);
-    // this.props.userFunc.assigneeCreate(this.props.task.id);
     this.setState({
       visible: false,
     });
@@ -72,4 +66,4 @@ class TaskCardCC extends Component {
   }
 }
 
-export default withTeamMember(TaskCardCC);
+export default withLabel(withTeamMember(TaskCardCC));

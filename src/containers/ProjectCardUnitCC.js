@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import withTaskCTX from '../hocs/withTaskCTX';
-import withLabelCTX from '../hocs/withLabelCTX';
 import withActivityCTX from '../hocs/withActivityCTX';
 
 import ProjectCardUnitPC from '../components/cardview/ProjectCardUnitPC';
@@ -70,4 +69,4 @@ class ProjectCardUnitCC extends Component {
   }
 }
 
-export default withTaskCTX(withLabelCTX(withActivityCTX(ProjectCardUnitCC)));
+export default withTaskCTX(withActivityCTX(ProjectCardUnitCC));
