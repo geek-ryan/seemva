@@ -92,7 +92,7 @@ class SideNavPC extends Component {
               ) : (
                 <span>{username.substring(0, 4)}</span>
               )}
-              <Icon className="user-avatar__setting-button" type="setting" />
+              {/* <Icon className="user-avatar__setting-button" type="setting" /> */}
             </div>
             <p className="sidebar-user__name">{username}</p>
           </div>

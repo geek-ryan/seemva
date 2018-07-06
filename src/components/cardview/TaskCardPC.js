@@ -32,7 +32,6 @@ class TaskCardPC extends Component {
     taskDeleteConfirm: () => {},
     taskModalCompleteConfirm: () => {},
     taskShowModal: () => {},
-    activitesLength: 0,
     taskLabels: [
       // {
       //   id: 1,
@@ -59,6 +58,7 @@ class TaskCardPC extends Component {
 
   render() {
     const {
+      activityState,
       project,
       taskMembers,
       task,
@@ -109,7 +109,11 @@ class TaskCardPC extends Component {
             </div>
             <div className="task-card-body__activities">
               <Icon type="message" />
-              {activitesLength}
+              {
+                activityState.activities.filter(
+                  activity => activity.taskId === this.props.task.id
+                ).length
+              }
             </div>
             <div className="task-card-body__labels">
               {taskLabels.map(({ id, color, body }) => (
