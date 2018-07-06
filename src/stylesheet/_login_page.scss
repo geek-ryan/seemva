@@ -72,9 +72,20 @@
   }
 }
 
+.uploader {
+  width: 220px;
+  text-align: center;
+  img {
+    width: 220px;
+    height: 220px;
+    border-radius: 100%;
+    margin-bottom: 2em;
+  }
+}
+
 .uploader__button {
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   border-radius: 100%;
   border: 0;
   background-color: #eee;

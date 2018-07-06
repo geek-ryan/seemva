@@ -17,7 +17,7 @@ class SignUpProfilePC extends Component {
         <div className="uploader">
           {profile ? (
             <React.Fragment>
-              <img src={profile} alt="profile" style={{ width: '100%' }} />
+              <img src={profile} alt="profile" />
               <Button type="dashed" icon="delete" onClick={onDeletProfile}>
                 Delete
               </Button>

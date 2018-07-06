@@ -10,7 +10,7 @@ class ProjectCardUnitPC extends Component {
     loading: false,
   };
 
-  handleEditProjectTitle = async (...args) => {
+  handleEdit = async (...args) => {
     this.setState({
       loading: true,
     });
