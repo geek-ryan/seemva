@@ -1,0 +1,73 @@
+.label-unit {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 1px 7px;
+  transition: all 0.3s;
+  &--focused {
+    border-color: #40a9ff;
+    border-right-width: 1px !important;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+  .ant-tag {
+    margin: 3px;
+  }
+}
+.label-search {
+  display: inline-block;
+  position: relative;
+  width: auto;
+  &-button {
+    margin: 3px;
+    vertical-align: top;
+  }
+  &__hidden {
+    display: inline-block;
+    min-width: 30px;
+    white-space: nowrap;
+  }
+  &__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    &.ant-select-auto-complete.ant-select .ant-input {
+      padding: 0;
+      width: 100%;
+      border-width: 0;
+      font-size: 100%;
+      height: 100%;
+      background: transparent;
+      outline: 0;
+      border-radius: 4px;
+      line-height: 1;
+    }
+    &.ant-select-auto-complete.ant-select-focused .ant-input,
+    &.ant-select-auto-complete .ant-input:hover {
+      box-shadow: none;
+      border-color: transparent;
+    }
+  }
+}
+
+.label-color-picker {
+  width: 120px;
+  display: flex;
+  flex-wrap: wrap;
+  .ant-tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 calc(30% - 3px);
+    margin: 3px;
+    vertical-align: top;
+  }
+}
+
+.label-small-tag {
+  display: inline-block;
+  width: 38px;
+  height: 7px;
+  border-radius: 8px;
+}

@@ -5,7 +5,10 @@
   "users": [
     {
       "id": 1,
-      "username": "fds"
+      "username": "fds",
+      "email": "fds@mail.com",
+      "profile":
+        "https://ucarecdn.com/80280868-a954-4114-8dbc-cfcf5c9d23f5/IMG_3128.jpg"
     }
   ],
   "teams": [
@@ -14,41 +17,41 @@
       "teamname": "team1"
     }
   ],
-  "team_assignees": [
+  "team-assignees": [
     {
       "id": 1,
       "userId": 1,
-      "teamId": 1
+      "teamId": 1,
+      "admin": true
     }
   ],
   "projects": [
     {
-      "id": 5,
+      "id": 1,
       "userId": 1,
       "teamId": 1,
-      "title": "프로젝트 1",
-      "subtitle": "프로젝트 서브타이틀"
+      "title": "프로젝트 1"
     }
   ],
   "tasks": [
     {
       "id": 1,
       "projectId": 1,
-      "title": "1. Firefox Flexbox not working",
-      "body": "I just tested my site in Firefox",
+      "title": "오늘 할 일",
+      "body": "오늘 할 일 - 프로젝트 관리 서비스 만들기",
       "startDate": "2018.01.01",
       "dueDate": "2018.01.01",
       "complete": false
     }
   ],
-  "task-user_assignees": [
+  "task-user-assignees": [
     {
       "id": 1,
       "userId": 1,
       "taskId": 1
     }
   ],
-  "task-label_assignees": [
+  "task-label-assignees": [
     {
       "id": 1,
       "taskId": 1,

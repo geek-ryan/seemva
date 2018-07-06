@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import SignUpCC from '../containers/SignUpCC';
 
-class SignUpPage extends Component {
-  render() {
-    return <SignUpCC />;
-  }
+function SignUpPage() {
+  return (
+    <div className="sign-up-page">
+      <SignUpCC />
+      <Link className="sign-anchor" to="/login">
+        Log in
+      </Link>
+    </div>
+  );
 }
 
 export default SignUpPage;

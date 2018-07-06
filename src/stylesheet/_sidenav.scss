@@ -1,0 +1,209 @@
+.sidebar {
+  position: relative;
+  display: flex;
+  height: 100%;
+
+  &__button {
+    position: absolute;
+    top: 1em;
+    right: 0.7em;
+    color: $color-9;
+    z-index: 3;
+  }
+  &__menu {
+    position: relative;
+    z-index: 2;
+    background-color: $color-9;
+    .user-avatar {
+      position: absolute;
+      top: 6em;
+      left: 0.5em;
+    }
+  }
+
+  &__toggle-menu {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    width: 200px;
+    padding: 1em;
+    background-color: $color-8;
+    margin-left: 0;
+    transition: margin-left 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    .sidebar--closed & {
+      margin-left: -200px;
+    }
+  }
+}
+
+.sidebar-logo {
+  flex: none;
+  font-family: $font-stack;
+  font-size: 1.8em;
+  color: #fff;
+}
+
+.board-type-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
+  font-size: 2em;
+  &__item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2em;
+      height: 2em;
+      color: rgba(#fff, 0.4);
+      border-radius: 3px;
+      &:focus {
+        text-decoration: none;
+      }
+      &:active {
+        background-color: rgba(#000, 0.2);
+      }
+    }
+    &--current {
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.sidebar-user {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0.5em 0;
+  &__name {
+    padding: 0.5em 0;
+    color: #fff;
+    font-size: 1.3em;
+  }
+}
+$avatar-big: 120px;
+%avatar-big-style {
+  display: block;
+  width: $avatar-big;
+  height: $avatar-big;
+  border-radius: 100%;
+}
+.user-avatar {
+  // cursor: pointer;
+  &--big {
+    position: relative;
+    width: $avatar-big;
+    height: $avatar-big;
+    cursor: pointer;
+    img {
+      @extend %avatar-big-style;
+    }
+    span {
+      @extend %avatar-big-style;
+      background-color: $color-empty;
+      color: color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      color: #fff;
+    }
+    // &:after {
+    //   opacity: 0;
+    //   content: '';
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 100%;
+    //   border-radius: 100%;
+    //   background-color: rgba(0, 0, 0, 0.5);
+    //   z-index: 10;
+    //   transition: opacity 0.3s;
+    // }
+    // &:hover {
+    //   &:after {
+    //     opacity: 1;
+    //   }
+    // }
+  }
+  // &__setting-button {
+  //   position: absolute;
+  //   right: 0;
+  //   bottom: 0;
+  //   padding: 0.2em;
+  //   border-radius: 100%;
+  //   font-size: 2em;
+  //   color: #f5f5f5;
+  //   background-color: rgba(0, 0, 0, 0.8);
+  //   opacity: 0;
+  //   transform: translateX(-50%);
+  //   transition: all 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  //   .user-avatar--big:hover & {
+  //     opacity: 1;
+  //     transform: translateX(0);
+  //   }
+  // }
+}
+
+.team-menu {
+  flex: 1 0 auto;
+  &-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5em 0;
+    a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0.8em 1em;
+      border-radius: 3px;
+      color: $color-1;
+      background-color: rgba(#fff, 0.2);
+      i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        margin-left: -0.5em;
+        margin-right: 0.5em;
+        border-radius: 100%;
+        color: #fff;
+        font-size: 0.9em;
+        background-color: #52c41a;
+      }
+      &:focus {
+        text-decoration: none;
+      }
+    }
+    button {
+      margin-left: 5px;
+    }
+    &--current {
+      a {
+        color: $color-8;
+        font-weight: bold;
+        background-color: rgba(#fff, 0.9);
+      }
+    }
+  }
+}
+.team-add-button {
+  width: 100%;
+}
+.team-leave-button {
+  background-color: #595959;
+  border-color: transparent;
+}

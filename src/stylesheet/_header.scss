@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding: 0.5em 0.8em;
+  background-color: #fff;
+  box-shadow: 0 1px 10px 1px rgba(#000, 0.2);
+  &__team-name {
+    padding-right: 1em;
+    font-size: 1.3em;
+  }
+}

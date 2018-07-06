@@ -1,79 +1,75 @@
 import React, { Component } from 'react';
+import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext();
 
 class TaskProvider extends Component {
   state = {
     tasks: [
-      {
-        id: 1,
-        projectId: 1,
-        title: 'title 1',
-        body: '11',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
-        complete: true,
-      },
-      {
-        id: 2,
-        projectId: 1,
-        title: 'title 2',
-        body: '22',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
-        complete: false,
-      },
-      {
-        id: 3,
-        projectId: 1,
-        title: 'title 3',
-        body: '33',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
-        complete: false,
-      },
-      {
-        id: 4,
-        projectId: 2,
-        title: 'title 4',
-        body: '44',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
-        complete: false,
-      },
-      {
-        id: 5,
-        projectId: 2,
-        title: 'title 5',
-        body: '55',
-        startDate: '2018.01.01',
-        dueDate: '2018.01.01',
-        complete: false,
-      },
+      // {
+      //   id: 1,
+      //   teamId: 1,
+      //   projectId: 1,
+      //   title: 'title 1',
+      //   body: '11',
+      //   startDate: '2018-01-01',
+      //   dueDate: '2018-01-01',
+      //   complete: true,
+      // },
     ],
   };
 
-  handleComplete = id => {
-    this.setState(() => {
-      const arr = this.state.tasks.map(
-        task => (task.id === id ? { ...task, complete: true } : task)
-      );
-      return { tasks: arr };
+  fetchData = async teamID => {
+    const res = await serverAPI.get(`/teams/${teamID}/tasks`);
+    this.setState({
+      tasks: res.data,
     });
   };
 
-  handleDelete = id => {
-    this.setState(() => {
-      const arr = this.state.tasks.map(task => (task.id === id ? '' : task));
-      return { tasks: arr };
+  async componentDidMount() {
+    await this.fetchData(this.props.teamID);
+  }
+
+  async componentDidUpdate(prevProps) {
+    if (this.props.teamID !== prevProps.teamID) {
+      await this.fetchData(this.props.teamID);
+    }
+  }
+
+  Complete = async (id, complete) => {
+    await serverAPI.patch(`/tasks/${id}`, {
+      complete: !complete,
     });
+    await this.fetchData(this.props.teamID);
+  };
+
+  Create = async o => {
+    await serverAPI.post('/tasks', o);
+    await this.fetchData(this.props.teamID);
+  };
+
+  Delete = async id => {
+    await serverAPI.delete(`/tasks/${id}`);
+    await this.fetchData(this.props.teamID);
+  };
+
+  Update = async (id, keyType, body) => {
+    await serverAPI.patch(`/tasks/${id}`, {
+      [keyType]: body,
+    });
+    await this.fetchData(this.props.teamID);
   };
 
   render() {
     const value = {
-      tasks: this.state.tasks,
-      handleComplete: this.handleComplete,
-      handleDelete: this.handleDelete,
+      taskState: this.state,
+      taskFunc: {
+        Complete: this.Complete,
+        Delete: this.Delete,
+        Create: this.Create,
+        projectFilter: this.projectFilter,
+        Update: this.Update,
+      },
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
