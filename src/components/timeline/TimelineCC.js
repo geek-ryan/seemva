@@ -26,7 +26,7 @@ class TimelineCC extends Component {
 
   componentDidMount = () => {
     const ididid = this.props.teamCurrent;
-    console.log('TimelineCC', parseInt(ididid, 10));
+    // console.log('TimelineCC', parseInt(ididid, 10));
     this.props.projectFunc.teamFilter(ididid);
   };
 

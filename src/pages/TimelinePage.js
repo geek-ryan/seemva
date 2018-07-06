@@ -12,7 +12,7 @@ import TimelineCC from '../components/timeline/TimelineCC';
 class TimelinePage extends React.Component {
   // console.log('time line page mathc', match);
   render() {
-    console.log('time line page teamCurrent', this.props.teamCurrent);
+    // console.log('time line page teamCurrent', this.props.teamCurrent);
     return (
       <TeamProvider>
         <MemberProvider>

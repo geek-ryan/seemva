@@ -10,7 +10,7 @@ class TaskModalCC extends Component {
   };
 
   handleCancle = () => {
-    console.log('cancle');
+    // console.log('cancle');
     this.setState({
       cancelled: true,
     });

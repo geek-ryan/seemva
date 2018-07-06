@@ -45,7 +45,7 @@ class ProjectUnit extends Component {
                   <Route
                     path={`/tl/${this.props.project.teamId}/task/:id`}
                     render={({ match }) => {
-                      console.log(match);
+                      // console.log(match);
                       return (
                         <TaskModalCC
                           teamId={this.props.project.teamId}

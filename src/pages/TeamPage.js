@@ -54,7 +54,7 @@ function CardView({ match }) {
 }
 
 function Timeline({ match }) {
-  console.log('team page', match);
+  // console.log('team page', match);
   return (
     <div className="team-card">
       <div className="team-card__list">
