@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import TaskModalPC from '../components/cardview/TaskModalPC';
 
@@ -10,7 +10,7 @@ class TaskModalCC extends Component {
   };
 
   handleCancle = () => {
-    console.log('cancle');
+    // console.log('cancle');
     this.setState({
       cancelled: true,
     });

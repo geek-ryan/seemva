@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, DatePicker } from 'antd';
+import { DatePicker } from 'antd';
 import ProjectUnitCC from './projectUnitCC';
 
 var moment = require('moment');
@@ -103,16 +103,20 @@ class Timeline extends Component {
             onChange={this.props.onEnd}
           />
         </div>
-        {this.props.projectState.projects.map(project => {
-          return (
-            <ProjectUnitCC
-              key={project.id}
-              project={{ ...project }}
-              {...this.state}
-              {...this.props}
-            />
-          );
-        })}
+        {this.props.projectState.projects.length > 0 ? (
+          this.props.projectState.projects.map(project => {
+            return (
+              <ProjectUnitCC
+                key={project.id}
+                project={{ ...project }}
+                {...this.state}
+                {...this.props}
+              />
+            );
+          })
+        ) : (
+          <div className={'emptyProject'}>Empty Project</div>
+        )}
       </div>
     );
   }

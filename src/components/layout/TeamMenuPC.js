@@ -36,7 +36,10 @@ class TeamMenuPC extends Component {
             current ? '' : 'team-menu-item--current'
           )}
         >
-          <Link to="/card" onClick={() => onChangeCurrent(0)}>
+          <Link
+            to={`${this.props.match.url}`}
+            onClick={() => onChangeCurrent(0)}
+          >
             {current ? '' : <Icon type="rocket" />}
             Welcome SEEMVA
           </Link>
@@ -46,36 +49,38 @@ class TeamMenuPC extends Component {
             <Icon type="loading" />
           </div>
         ) : (
-          teams.map(({ id, admin, name }) => (
-            <div
-              className={classNames(
-                'team-menu-item',
-                current === id ? 'team-menu-item--current' : ''
-              )}
-              key={id}
-            >
-              <Link
-                to={`${this.props.match.url}/${id}`}
-                onClick={() => this.props.onChangeCurrent(id)}
+          teams.map(({ id, admin, name }) => {
+            return (
+              <div
+                className={classNames(
+                  'team-menu-item',
+                  current === id ? 'team-menu-item--current' : ''
+                )}
+                key={id}
               >
-                {current === id ? <Icon type="rocket" /> : ''}
-                {name}
-              </Link>
-              {admin ? (
-                <TeamEditButtonPC
-                  id={id}
-                  name={name}
-                  onEditTeam={name => onEditTeam(id, name)}
-                  onDelete={() => onDeleteTeam(id, admin)}
-                />
-              ) : (
-                <TeamLeaveButtonPC
-                  name={name}
-                  onDelete={() => onDeleteTeam(id, admin)}
-                />
-              )}
-            </div>
-          ))
+                <Link
+                  to={`${this.props.match.url}/${id}`}
+                  onClick={() => this.props.onChangeCurrent(id)}
+                >
+                  {current === id ? <Icon type="rocket" /> : ''}
+                  {name}
+                </Link>
+                {admin ? (
+                  <TeamEditButtonPC
+                    id={id}
+                    name={name}
+                    onEditTeam={name => onEditTeam(id, name)}
+                    onDelete={() => onDeleteTeam(id, admin)}
+                  />
+                ) : (
+                  <TeamLeaveButtonPC
+                    name={name}
+                    onDelete={() => onDeleteTeam(id, admin)}
+                  />
+                )}
+              </div>
+            );
+          })
         )}
         <TeamCreateButtonPC onCreateTeam={onCreateTeam} />
       </div>

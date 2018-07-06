@@ -12,6 +12,7 @@ import { ProjectProvider } from '../contexts/ProjectCTX';
 import SideNavCC from '../containers/SideNavCC';
 import HeaderCC from '../containers/HeaderCC';
 import CardViewPage from '../pages/CardViewPage';
+import IntroPage from '../pages/IntroPage';
 import TimelinePage from '../pages/TimelinePage';
 
 function TeamPage({ match }) {
@@ -23,10 +24,12 @@ function TeamPage({ match }) {
             <TaskProvider teamID={match.params.id}>
               <ActivityProvider>
                 <div className="team-page">
-                  <SideNavCC />
+                  <SideNavCC teamID={match.url} />
                   <div className="team-content">
                     <HeaderCC />
                     <Switch>
+                      <Route exact path="/card" component={IntroPage} />
+                      <Route exact path="/tl" component={IntroPage} />
                       <Route path="/card/:id" component={CardView} />
                       <Route path="/tl/:id" component={Timeline} />
                     </Switch>
@@ -52,7 +55,7 @@ function CardView({ match }) {
 }
 
 function Timeline({ match }) {
-  console.log('team page', match);
+  // console.log('team page', match);
   return (
     <div className="team-card">
       <div className="team-card__list">

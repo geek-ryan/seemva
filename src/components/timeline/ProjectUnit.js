@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { Route, Link } from 'react-router-dom';
-import { Modal } from 'antd';
 
 import ProcessCC from './ProcessCC';
 import TaskModalCC from '../../containers/TaskModalCC';
-
-var moment = require('moment');
 
 class ProjectUnit extends Component {
   render() {
@@ -46,7 +44,7 @@ class ProjectUnit extends Component {
                   <Route
                     path={`/tl/${this.props.project.teamId}/task/:id`}
                     render={({ match }) => {
-                      console.log(match);
+                      // console.log(match);
                       return (
                         <TaskModalCC
                           teamId={this.props.project.teamId}

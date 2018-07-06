@@ -80,6 +80,7 @@ class TaskModalPC extends Component {
         onCancel={modalCancle}
         title={modalTitle}
         className="task-modal"
+        footer={null}
       >
         <div className="task-modal__title">
           <h2 className="modal-label">Title</h2>

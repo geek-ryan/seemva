@@ -23,9 +23,9 @@ class App extends Component {
                 <Route path="/sign_up" component={SignUpPage} />
                 <Route path="/login" component={LoginPage} />
                 <Route exact path="/card" component={TeamPage} />
-                {/* <Route exact path="/tl" component={TeamPage} /> */}
+                <Route exact path="/tl" component={TeamPage} />
                 <Route path="/card/:id" component={TeamPage} />
-                {/* <Route path="/tl/:id" component={TeamPage} /> */}
+                <Route path="/tl/:id" component={TeamPage} />
                 <Route
                   exact
                   path="/"

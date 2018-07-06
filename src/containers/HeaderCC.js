@@ -17,7 +17,7 @@ class HeaderCC extends Component {
                     teamname={
                       teams.length && current
                         ? teams.find(team => team.id === current).name
-                        : 'welcome team'
+                        : 'Welcome SEEMVA'
                     }
                     {...value}
                     teamCurrent={current}

@@ -53,18 +53,27 @@ class SideNavPC extends Component {
             <div
               className={classNames(
                 'board-type-menu__item',
-                'board-type-menu__item--current'
+                this.props.teamID.match('/card') &&
+                  'board-type-menu__item--current'
               )}
             >
               <Link to="/card">
                 <Icon type="appstore-o" />
               </Link>
             </div>
-            <div className="board-type-menu__item">
+
+            <div
+              className={classNames(
+                'board-type-menu__item',
+                this.props.teamID.match('/tl') &&
+                  'board-type-menu__item--current'
+              )}
+            >
               <Link to="/tl">
                 <Icon type="clock-circle-o" />
               </Link>
             </div>
+
             <div className="board-type-menu__item">
               <Link
                 to="/calendar/1"

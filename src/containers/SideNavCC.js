@@ -29,6 +29,7 @@ class SideNavCC extends Component {
       <AuthConsumer>
         {({ username, profile, logout }) => (
           <SideNavPC
+            {...this.props}
             onViewCard={this.handleViewCard}
             onViewTl={this.handleViewTl}
             viewtype={this.state.viewtype}
