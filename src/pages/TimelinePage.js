@@ -20,11 +20,11 @@ class TimelinePage extends React.Component {
         <MemberProvider>
           {/* <UserProvider> */}
           <LabelProvider>
-            <TaskProvider>
-              <ActivityProvider>
-                <TimelineCC {...this.props} />
-              </ActivityProvider>
-            </TaskProvider>
+            {/* <TaskProvider> */}
+            <ActivityProvider>
+              <TimelineCC {...this.props} />
+            </ActivityProvider>
+            {/* </TaskProvider> */}
           </LabelProvider>
           {/* </UserProvider> */}
         </MemberProvider>
