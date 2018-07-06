@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
 .sidebar {
   position: relative;
   display: flex;
@@ -39,7 +41,7 @@
 
 .sidebar-logo {
   flex: none;
-  font-family: $font-stack;
+  font-family: 'Pacifico', cursive;
   font-size: 1.8em;
   color: #fff;
 }
