@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import Timeline from './Timeline';
 
 import withProjectCTX from '../../hocs/withProjectCTX';
 import withLabel from '../../hocs/withLabel';
-import withTeamCTX from '../../hocs/withTeamCTX';
 import withActivityCTX from '../../hocs/withActivityCTX';
-
-var moment = require('moment');
 
 class TimelineCC extends Component {
   //   componentDidMount = () => {
@@ -27,9 +25,9 @@ class TimelineCC extends Component {
   };
 
   componentDidMount = () => {
-    const id = this.props.teamCurrent;
-    console.log('TimelineCC', id);
-    this.props.projectFunc.teamFilter(id);
+    const ididid = this.props.teamCurrent;
+    console.log('TimelineCC', parseInt(ididid, 10));
+    this.props.projectFunc.teamFilter(ididid);
   };
 
   handleStart = (date, dateString) => {
@@ -71,6 +69,4 @@ class TimelineCC extends Component {
   }
 }
 
-export default withTeamCTX(
-  withLabel(withProjectCTX(withActivityCTX(TimelineCC)))
-);
+export default withLabel(withProjectCTX(withActivityCTX(TimelineCC)));

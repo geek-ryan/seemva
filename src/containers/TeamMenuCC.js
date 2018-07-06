@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { TeamConsumer } from '../contexts/TeamCTX';
 import TeamMenuPC from '../components/layout/TeamMenuPC';
 import { ProjectConsumer } from '../contexts/ProjectCTX';
-import { Route, Link, Redirect, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 class TeamMenuCC extends Component {
   render() {

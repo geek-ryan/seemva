@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import { Modal } from 'antd';
 
 import ProcessCC from './ProcessCC';
 import TaskModalCC from '../../containers/TaskModalCC';

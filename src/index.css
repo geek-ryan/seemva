@@ -385,6 +385,13 @@ body {
   overflow-y: auto;
 }
 
+.edit-textarea--blank {
+  line-height: 0.6rem;
+  padding-left: 2rem;
+  font-size: 1.1rem;
+  color: #bdbdbd7c;
+}
+
 .task-modal .ant-modal-close-x {
   width: 40px;
 }
@@ -535,7 +542,11 @@ body {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
+<<<<<<< HEAD
   font-family: "Julius Sans One", sans-serif;
+=======
+  font-family: 'Pacifico', cursive;
+>>>>>>> 5bd741b1085f65275200d861e8263f7802e9ca84
   font-size: 1.8em;
   color: #fff;
 }
@@ -1043,6 +1054,7 @@ body {
 .projectTitle {
   -ms-flex-preferred-size: 20%;
       flex-basis: 20%;
+  word-break: break-all;
 }
 
 .timelineContainer {
@@ -1094,6 +1106,7 @@ body {
 }
 
 .ant-slider {
+  color: #1890ff !important;
   cursor: pointer !important;
 }
 
@@ -1125,7 +1138,36 @@ body {
   cursor: pointer !important;
 }
 
+.ant-slider-track {
+  background-color: transparent !important;
+  color: #1890ff !important;
+}
+
+.ant-slider-track-1 {
+  background-color: transparent !important;
+  color: #1890ff !important;
+}
+
 .ant-slider-disabled .ant-slider-dot {
   cursor: pointer !important;
+}
+
+.timelinePop {
+  width: 15rem;
+  height: 8rem;
+}
+
+.timelinePop--body {
+  min-height: 5rem;
+  overflow-y: hidden;
+  background-color: rgba(226, 226, 226, 0.966);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  word-break: break-all;
+}
+
+.timelinePop--date {
+  font-size: 0.8rem;
+  margin: 0.1rem;
 }
 /*# sourceMappingURL=index.css.map */

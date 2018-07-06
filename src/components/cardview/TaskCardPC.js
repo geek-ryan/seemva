@@ -59,13 +59,11 @@ class TaskCardPC extends Component {
   render() {
     const {
       activityState,
-      project,
       taskMembers,
       task,
       taskDeleteConfirm,
       taskCompleteToggle,
       taskShowModal,
-      activitesLength,
       taskLabels,
       colors,
     } = this.props;

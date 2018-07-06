@@ -6,10 +6,10 @@ function IntroPage(props) {
     <div className="intro-page">
       <div className="intro-page__content">
         <div>
-          <h2 class="intro-page__title">
+          <h2 className="intro-page__title">
             WELCOME <span>SEEMVA</span>
           </h2>
-          <div class="intro-page__carousel">
+          <div className="intro-page__carousel">
             <Carousel autoplay effect="fade">
               <div>
                 <h3>

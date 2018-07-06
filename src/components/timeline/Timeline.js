@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, DatePicker } from 'antd';
+import { DatePicker } from 'antd';
 import ProjectUnitCC from './projectUnitCC';
 
 var moment = require('moment');

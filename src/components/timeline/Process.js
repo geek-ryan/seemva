@@ -4,11 +4,10 @@ import { Popover, Slider } from 'antd';
 class Process extends Component {
   render() {
     const content = (
-      <div>
-        <p>{this.props.body}</p>
-        <p>
-          {this.props.startDate} ~ {this.props.dueDate}
-        </p>
+      <div className={'timelinePop'}>
+        <p className={'timelinePop--body'}>{this.props.body}</p>
+        <p className={'timelinePop--date'}>Begin: {this.props.startDate}</p>
+        <p className={'timelinePop--date'}>Due: {this.props.dueDate}</p>
       </div>
     );
     return (
@@ -20,7 +19,7 @@ class Process extends Component {
         <div>
           <h5 className={'taskTitle'}>{this.props.title}</h5>
           <Slider
-            dots={true}
+            dots={this.props.max < 8}
             className={'slideline'}
             min={0}
             max={this.props.max}
