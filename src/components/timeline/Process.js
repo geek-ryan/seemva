@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Popover, Slider } from 'antd';
+import classNames from 'classnames';
 
 class Process extends Component {
   render() {
@@ -20,7 +21,10 @@ class Process extends Component {
           <h5 className={'taskTitle'}>{this.props.title}</h5>
           <Slider
             dots={this.props.max < 8}
-            className={'slideline'}
+            className={classNames(
+              'slideline',
+              this.props.complete && 'completeTask'
+            )}
             min={0}
             max={this.props.max}
             range

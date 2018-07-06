@@ -36,7 +36,10 @@ class TeamMenuPC extends Component {
             current ? '' : 'team-menu-item--current'
           )}
         >
-          <Link to="/card" onClick={() => onChangeCurrent(0)}>
+          <Link
+            to={`${this.props.match.url}`}
+            onClick={() => onChangeCurrent(0)}
+          >
             {current ? '' : <Icon type="rocket" />}
             Welcome SEEMVA
           </Link>

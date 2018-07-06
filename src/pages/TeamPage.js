@@ -29,6 +29,7 @@ function TeamPage({ match }) {
                     <HeaderCC />
                     <Switch>
                       <Route exact path="/card" component={IntroPage} />
+                      <Route exact path="/tl" component={IntroPage} />
                       <Route path="/card/:id" component={CardView} />
                       <Route path="/tl/:id" component={Timeline} />
                     </Switch>
