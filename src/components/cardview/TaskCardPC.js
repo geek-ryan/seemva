@@ -18,12 +18,6 @@ class TaskCardPC extends Component {
       //     'https://ucarecdn.com/b8800d01-4651-4b77-8ca8-de58bb78f196/syami.jpg',
       //   id: 2,
       // },
-      // {
-      //   username: 'geekkkkkkkkkkkk',
-      //   email: 'geek@seemva.com',
-      //   profile: '',
-      //   id: 3,
-      // },
     ], // 태스크의 멤버
     task: {
       // id: 0,
@@ -38,22 +32,11 @@ class TaskCardPC extends Component {
     taskDeleteConfirm: () => {},
     taskModalCompleteConfirm: () => {},
     taskShowModal: () => {},
-    activitesLength: 0,
-    labels: [
+    taskLabels: [
       // {
       //   id: 1,
       //   color: 'red',
       //   body: 'red label',
-      // },
-      // {
-      //   id: 2,
-      //   color: 'orange',
-      //   body: 'oragne label',
-      // },
-      // {
-      //   id: 3,
-      //   color: 'green',
-      //   body: 'green label',
       // },
     ],
     colors: {
@@ -69,8 +52,13 @@ class TaskCardPC extends Component {
     },
   };
 
+  componentDidMount() {
+    this.props.onLabelInit();
+  }
+
   render() {
     const {
+      activityState,
       project,
       taskMembers,
       task,
@@ -78,7 +66,7 @@ class TaskCardPC extends Component {
       taskCompleteToggle,
       taskShowModal,
       activitesLength,
-      labels,
+      taskLabels,
       colors,
     } = this.props;
     return (
@@ -112,7 +100,7 @@ class TaskCardPC extends Component {
               </div>
             )}
             <div className="task-card-body__members">
-              {this.props.userState.userChosen.map(member => (
+              {taskMembers.map(member => (
                 <MemberTooltipAvatarPC
                   key={member.id}
                   {...member}
@@ -122,15 +110,14 @@ class TaskCardPC extends Component {
             </div>
             <div className="task-card-body__activities">
               <Icon type="message" />
-              {this.props.activityState.activites
-                ? this.props.activityState.activites.filter(
-                    activity => activity.taskId === this.props.task.id
-                  ).length
-                : '0'}
-              {/*activitesLength*/}
+              {
+                activityState.activities.filter(
+                  activity => activity.taskId === this.props.task.id
+                ).length
+              }
             </div>
             <div className="task-card-body__labels">
-              {labels.map(({ id, color, body }) => (
+              {taskLabels.map(({ id, color, body }) => (
                 <LabelTooltipPC
                   key={id}
                   color={
@@ -147,12 +134,12 @@ class TaskCardPC extends Component {
           path={`/card/${this.props.teamCurrent}/task/:id`}
           render={({ match }) => (
             <TaskModalCC
-              teamId={this.props.teamCurrent}
-              paramId={match.params.id}
-              taskId={this.props.task.id}
-              taskOk={this.props.taskOk}
-              url={`/card/${this.props.teamCurrent}`}
               {...this.props}
+              paramId={match.params.id}
+              teamId={this.props.project.teamId}
+              taskId={this.props.task.id}
+              id={match.params.id}
+              url={`/card/${this.props.project.teamId}`}
             />
           )}
         />

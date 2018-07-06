@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Modal } from 'antd';
 
 import TaskCardPC from '../components/cardview/TaskCardPC';
+import withTeamMember from '../hocs/withTeamMember';
+import withLabel from '../hocs/withLabel';
 
 class TaskCardCC extends Component {
   // state = {
@@ -9,28 +11,21 @@ class TaskCardCC extends Component {
   // };
 
   taskShowModal = () => {
-    // console.log('show');
-    this.props.labelFunc.teamFilter(this.props.teamCurrent);
-    this.props.labelFunc.taskFilter(this.props.task.id);
-    this.props.userFunc.teamFilter(this.props.teamCurrent);
-    this.props.userFunc.taskFilter(this.props.task.id);
-    // this.setState({
-    //   visible: true,
-    // });
+    this.setState({
+      visible: true,
+    });
   };
 
   taskOk = e => {
-    this.props.labelFunc.assigneeCreate(this.props.task.id);
-    this.props.userFunc.assigneeCreate(this.props.task.id);
-    // this.setState({
-    //   visible: false,
-    // });
+    this.setState({
+      visible: false,
+    });
   };
 
-  taskCancle = e => {
-    // this.setState({
-    //   visible: false,
-    // });
+  taskCancel = e => {
+    this.setState({
+      visible: false,
+    });
   };
 
   taskDeleteConfirm = () => {
@@ -52,19 +47,23 @@ class TaskCardCC extends Component {
     this.props.taskFunc.Complete(this.props.task.id, this.props.task.complete);
   };
 
+  async componentDidMount() {
+    await this.props.fetchMatchData(this.props.task.id);
+  }
+
   render() {
     return (
       <TaskCardPC
+        {...this.props}
         taskModal={this.state}
         taskShowModal={this.taskShowModal}
         taskOk={this.taskOk}
-        taskCancle={this.taskCancle}
+        taskCancel={this.taskCancel}
         taskDeleteConfirm={this.taskDeleteConfirm}
         taskCompleteToggle={this.taskCompleteToggle}
-        {...this.props}
       />
     );
   }
 }
 
-export default TaskCardCC;
+export default withLabel(withTeamMember(TaskCardCC));

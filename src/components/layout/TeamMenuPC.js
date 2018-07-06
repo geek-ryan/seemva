@@ -38,7 +38,7 @@ class TeamMenuPC extends Component {
         >
           <Link to="/card" onClick={() => onChangeCurrent(0)}>
             {current ? '' : <Icon type="rocket" />}
-            Welcome team
+            Welcome SEEMVA
           </Link>
         </div>
         {loading ? (
@@ -50,7 +50,7 @@ class TeamMenuPC extends Component {
             <div
               className={classNames(
                 'team-menu-item',
-                this.props.teamCurrent === id ? 'team-menu-item--current' : ''
+                current === id ? 'team-menu-item--current' : ''
               )}
               key={id}
             >

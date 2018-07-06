@@ -6,10 +6,9 @@ import moment from 'moment';
 import EditTextareaPC from '../utils/EditTextareaPC';
 import MemberGroupPC from '../utils/MemberGroupPC';
 import LabelPC from './LabelPC';
-import ActivityPC from './ActivityPC';
-// import ActivityCC from '../../containers/ActivityCC';
-// import LabelSearchBar from '../utils/LabelSearchBar';
-// import UserSearchBar from '../utils/UserSearchBar';
+// import ActivityPC from './ActivityPC';
+import ActivityCC from '../../containers/ActivityCC';
+// import LabelSearchBar from '../utils/LabelSearchBar'
 
 class TaskModalPC extends Component {
   static defaultProps = {
@@ -25,12 +24,11 @@ class TaskModalPC extends Component {
     taskFunc: {
       Update: () => {},
     },
-    taskModalStartDateChange: () => {},
     taskModalDueDateChange: () => {},
-    taskModalCompleteConfirm: () => {},
-    taskModalDeleteConfirm: () => {},
+    taskDeleteConfirm: () => {},
+    taskCompleteToggle: () => {},
     taskOk: () => {},
-    taskCancle: () => {},
+    taskCancel: () => {},
   };
   render() {
     const {
@@ -38,9 +36,8 @@ class TaskModalPC extends Component {
       task,
       taskFunc,
       taskCompleteToggle,
-      taskModalDeleteConfirm,
-      // taskModalStartDateChange,
-      // taskModalDueDateChange,
+      taskDeleteConfirm,
+      taskModalDueDateChange,
       taskOk,
       modalCancle,
     } = this.props;
@@ -65,7 +62,7 @@ class TaskModalPC extends Component {
         </div>
         <Button
           className="task-modal__delete-button"
-          onClick={taskModalDeleteConfirm}
+          onClick={taskDeleteConfirm}
           shape="circle"
           type="danger"
           icon="delete"
@@ -115,12 +112,23 @@ class TaskModalPC extends Component {
               ]
             }
             format={dateFormat}
+            onChange={taskModalDueDateChange}
           />
         </div>
         <div className="task-modal__members">
           <h2 className="modal-label">Members</h2>
           <div className="task-modal__members-groups">
-            <MemberGroupPC members={taskMembers} useRemove={true} />
+            <MemberGroupPC
+              {...this.props}
+              members={taskMembers}
+              useRemove={true}
+              onAddMember={user =>
+                this.props.addMember(user, this.props.task.id)
+              }
+              onRemoveMember={id =>
+                this.props.removeMember(id, this.props.task.id)
+              }
+            />
           </div>
         </div>
         <div className="task-modal__labels">
@@ -129,25 +137,8 @@ class TaskModalPC extends Component {
         </div>
         <div className="task-modal__activities">
           <h2 className="modal-label">Activity</h2>
-          {/* <ActivityPC {...this.props} /> */}
-          <ActivityPC {...this.props} />
+          <ActivityCC {...this.props} />
         </div>
-        {/* <UserSearchBar taskId={task.id} {...this.props} /> */}
-        {/* <LabelSearchBar taskId={task.id} {...this.props} /> */}
-        {/* <div>
-          start date:
-          <DatePicker
-            onChange={taskModalStartDateChange}
-            value={moment(task.startDate, 'YYYY.MM.DD')}
-          />
-        </div>
-        <div>
-          due date:
-          <DatePicker
-            onChange={taskModalDueDateChange}
-            value={moment(task.dueDate, 'YYYY.MM.DD')}
-          />
-        </div> */}
       </Modal>
     );
   }

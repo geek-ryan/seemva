@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import withTaskCTX from '../hocs/withTaskCTX';
-import withUserCTX from '../hocs/withUserCTX';
-import withLabelCTX from '../hocs/withLabelCTX';
 import withActivityCTX from '../hocs/withActivityCTX';
 
 import ProjectCardUnitPC from '../components/cardview/ProjectCardUnitPC';
@@ -42,7 +40,8 @@ class ProjectCardUnitCC extends Component {
     if (this.state.title) {
       const contents = {
         title: this.state.title,
-        // body: this.state.body,
+        body: this.state.body,
+        teamId: this.props.project.teamId,
         projectId: this.props.project.id,
         complete: false,
       };
@@ -74,6 +73,4 @@ class ProjectCardUnitCC extends Component {
   }
 }
 
-export default withUserCTX(
-  withTaskCTX(withLabelCTX(withActivityCTX(ProjectCardUnitCC)))
-);
+export default withTaskCTX(withActivityCTX(ProjectCardUnitCC));

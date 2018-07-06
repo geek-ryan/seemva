@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
 
-import LoadingIconPC from './LoadingIconPC';
-
 class EditTextareaPC extends Component {
   static defaultProps = {};
 

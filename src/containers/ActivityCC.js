@@ -24,7 +24,7 @@ class ActivityCC extends Component {
   };
 
   handleDeleteActivity = e => {
-    const id = parseInt(e.target.value);
+    const id = parseInt(e.target.value, 10);
     const func = this.props.activityFunc.Delete;
     func(id);
   };

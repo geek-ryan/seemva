@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import Timeline from './Timeline';
 
 import withProjectCTX from '../../hocs/withProjectCTX';
+import withLabel from '../../hocs/withLabel';
 import withTeamCTX from '../../hocs/withTeamCTX';
-import withUserCTX from '../../hocs/withUserCTX';
-import withLabelCTX from '../../hocs/withLabelCTX';
 import withActivityCTX from '../../hocs/withActivityCTX';
 
 var moment = require('moment');
@@ -72,6 +71,4 @@ class TimelineCC extends Component {
   }
 }
 
-export default withUserCTX(
-  withLabelCTX(withProjectCTX(withActivityCTX(TimelineCC)))
-);
+export default withLabel(withProjectCTX(withActivityCTX(TimelineCC)));
