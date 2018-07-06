@@ -88,7 +88,7 @@ class SideNavPC extends Component {
           </div>
         </div>
         <div className="sidebar__toggle-menu">
-          <h1 className="sidebar-logo">SeemVA</h1>
+          <h1 className="sidebar-logo">SEEMVA</h1>
           <div className="sidebar-user">
             <div className="user-avatar--big" onClick={onChangeProfile}>
               {profile ? (

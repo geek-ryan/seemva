@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { Route, Link } from 'react-router-dom';
 
 import ProcessCC from './ProcessCC';
 import TaskModalCC from '../../containers/TaskModalCC';
-
-var moment = require('moment');
 
 class ProjectUnit extends Component {
   render() {
