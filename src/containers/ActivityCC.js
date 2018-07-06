@@ -21,6 +21,7 @@ class ActivityCC extends Component {
       logDate: moment().format('YYYY.MM.DD h:mm:ss'),
     };
     this.props.activityFunc.Create(obj);
+    this.setState({ body: '' });
   };
 
   handleDeleteActivity = e => {
@@ -32,6 +33,7 @@ class ActivityCC extends Component {
   render() {
     return (
       <ActivityPC
+        activeFormBody={this.state.body}
         handleChange={this.handleChange}
         handleAddActivity={this.handleAddActivity}
         handleDeleteActivity={this.handleDeleteActivity}

@@ -466,6 +466,7 @@ body {
 
 .task-modal__labels .label-unit {
   margin: 0 -10px;
+  min-height: 28px;
 }
 
 .activity-list {
