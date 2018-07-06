@@ -3,12 +3,19 @@ import CardViewPC from '../components/cardview/CardViewPC';
 
 import withProjectCTX from '../hocs/withProjectCTX';
 
+import withTeamCTX from '../hocs/withTeamCTX';
+
 class CardViewCC extends Component {
   static defaultProps = {};
 
   state = {
     visible: false,
     body: '',
+  };
+
+  handleAddProject = contents => {
+    this.props.projectFunc.Create({ title: contents });
+    this.setState({ body: '' });
   };
 
   newProjectTitleChange = e => {
@@ -19,11 +26,6 @@ class CardViewCC extends Component {
     this.setState({
       visible: true,
     });
-  };
-
-  handleAddProject = body => {
-    this.props.projectFunc.Create({ title: body });
-    this.setState({ body: '' });
   };
 
   newProjectOk = () => {
@@ -53,4 +55,4 @@ class CardViewCC extends Component {
   }
 }
 
-export default withProjectCTX(CardViewCC);
+export default withTeamCTX(withProjectCTX(CardViewCC));

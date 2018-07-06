@@ -6,14 +6,7 @@ const { Provider, Consumer } = React.createContext();
 class TeamProvider extends Component {
   state = {
     userID: 0,
-    teams: [
-      // {
-      //   id: 1,
-      //   userID: 1,
-      //   admin: true,
-      //   name: 'team1',
-      // },
-    ],
+    teams: [],
     loading: false,
     current: 0,
   };
@@ -147,6 +140,7 @@ class TeamProvider extends Component {
       editTeam: this.editTeam,
       deleteTeam: this.deleteTeam,
       changeCurrent: this.changeCurrent,
+      teamCurrentID: this.state.current,
     };
 
     return <Provider value={value}>{this.props.children}</Provider>;

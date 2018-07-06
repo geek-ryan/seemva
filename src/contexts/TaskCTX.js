@@ -67,6 +67,7 @@ class TaskProvider extends Component {
         Complete: this.Complete,
         Delete: this.Delete,
         Create: this.Create,
+        projectFilter: this.projectFilter,
         Update: this.Update,
       },
     };

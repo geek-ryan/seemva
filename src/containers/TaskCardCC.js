@@ -6,9 +6,9 @@ import withTeamMember from '../hocs/withTeamMember';
 import withLabel from '../hocs/withLabel';
 
 class TaskCardCC extends Component {
-  state = {
-    visible: false,
-  };
+  // state = {
+  //   visible: false,
+  // };
 
   taskShowModal = () => {
     this.setState({

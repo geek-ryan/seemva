@@ -12,7 +12,7 @@ import { ProjectProvider } from '../contexts/ProjectCTX';
 import SideNavCC from '../containers/SideNavCC';
 import HeaderCC from '../containers/HeaderCC';
 import CardViewPage from '../pages/CardViewPage';
-// import UnitTestPage from '../pages/UnitTestPage';
+import TimelinePage from '../pages/TimelinePage';
 
 function TeamPage({ match }) {
   return (
@@ -28,7 +28,7 @@ function TeamPage({ match }) {
                     <HeaderCC />
                     <Switch>
                       <Route path="/card/:id" component={CardView} />
-                      {/* <Route path="/test/:id" component={UnitTestPage} /> */}
+                      <Route path="/tl/:id" component={Timeline} />
                     </Switch>
                   </div>
                 </div>
@@ -46,6 +46,17 @@ function CardView({ match }) {
     <div className="team-card">
       <div className="team-card__list">
         <CardViewPage teamCurrent={match.params.id} />
+      </div>
+    </div>
+  );
+}
+
+function Timeline({ match }) {
+  console.log('team page', match);
+  return (
+    <div className="team-card">
+      <div className="team-card__list">
+        <TimelinePage teamCurrent={match.params.id} />
       </div>
     </div>
   );

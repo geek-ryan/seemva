@@ -75,8 +75,6 @@ class ActivityPC extends Component {
             )}
             renderItem={activity => (
               <List.Item>
-                {console.log(activity.userId)}
-                {console.log(this.props.teamMembers)}
                 <List.Item.Meta
                   avatar={
                     <MemberTooltipAvatarPC

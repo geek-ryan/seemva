@@ -10,7 +10,7 @@ class ProjectCardUnitPC extends Component {
     loading: false,
   };
 
-  handleEdit = async (...args) => {
+  handleEditProjectTitle = async (...args) => {
     this.setState({
       loading: true,
     });
@@ -19,6 +19,7 @@ class ProjectCardUnitPC extends Component {
       loading: false,
     });
   };
+
   render() {
     return (
       <React.Fragment>
@@ -62,13 +63,14 @@ class ProjectCardUnitPC extends Component {
               })}
             </div>
           </div>
+
           {this.props.taskNew.visible ? (
             <div className="new-task-editor">
               <Input.TextArea
                 onChange={this.props.newTaskTitleChange}
                 placeholder="Title"
                 value={this.props.taskNew.title}
-                row={4}
+                row={1}
               />
               <div className="new-task-editor__button">
                 <Button type="default" onClick={this.props.newTaskCancel}>

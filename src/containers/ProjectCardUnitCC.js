@@ -20,6 +20,10 @@ class ProjectCardUnitCC extends Component {
     title: '',
   };
 
+  // componentDidMount = () => {
+  //   this.props.taskFunc.projectFilter(this.props.project.id);
+  // };
+
   newTaskTitleChange = e => {
     this.setState({ title: e.target.value });
   };
@@ -34,23 +38,23 @@ class ProjectCardUnitCC extends Component {
   newTaskOk = () => {
     // title이 있어야 전송한다.
     if (this.state.title) {
-      const obj = {
+      const contents = {
         title: this.state.title,
         body: this.state.body,
         teamId: this.props.project.teamId,
         projectId: this.props.project.id,
         complete: false,
       };
-      this.props.taskFunc.Create(obj);
+      this.props.taskFunc.Create(contents);
     }
-    this.newTaskCancel();
+    // this.newTaskCancel();
   };
 
   newTaskCancel = () => {
     this.setState({
       visible: false,
       title: '',
-      body: '',
+      // body: '',
     });
   };
 

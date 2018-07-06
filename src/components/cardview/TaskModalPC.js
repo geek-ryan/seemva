@@ -39,7 +39,7 @@ class TaskModalPC extends Component {
       taskDeleteConfirm,
       taskModalDueDateChange,
       taskOk,
-      taskCancel,
+      modalCancle,
     } = this.props;
 
     const modalTitle = (
@@ -74,10 +74,10 @@ class TaskModalPC extends Component {
 
     return (
       <Modal
-        visible={this.props.taskModal.visible}
+        visible
         okText="Save"
         onOk={taskOk}
-        onCancel={taskCancel}
+        onCancel={modalCancle}
         title={modalTitle}
         className="task-modal"
       >

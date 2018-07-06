@@ -6,67 +6,9 @@ const { Provider, Consumer } = React.createContext();
 class UserProvider extends Component {
   state = {
     loading: false,
-    users: [
-      {
-        id: 1,
-        username: 'fds',
-      },
-      {
-        username: 'loki',
-        id: 2,
-      },
-      {
-        username: 'jojo',
-        id: 3,
-      },
-    ],
-    userTaskAssignees: [
-      {
-        id: 1,
-        userId: 1,
-        taskId: 1,
-      },
-      {
-        id: 2,
-        userId: 1,
-        taskId: 2,
-      },
-      {
-        id: 3,
-        userId: 1,
-        taskId: 3,
-      },
-      {
-        id: 4,
-        userId: 2,
-        taskId: 1,
-      },
-      {
-        id: 5,
-        userId: 2,
-        taskId: 2,
-      },
-      {
-        id: 6,
-        userId: 3,
-        taskId: 4,
-      },
-      {
-        id: 7,
-        userId: 3,
-        taskId: 5,
-      },
-      {
-        id: 8,
-        userId: 2,
-        taskId: 4,
-      },
-      {
-        id: 9,
-        userId: 1,
-        taskId: 5,
-      },
-    ],
+    users: [],
+    userTaskAssignees: [],
+    userTeamAssignees: [],
     userFilter: [],
     userMatch: [],
     userChosen: [],
@@ -78,9 +20,11 @@ class UserProvider extends Component {
     try {
       const res = await serverAPI.get('/users');
       const rees = await serverAPI.get('/task-user-assignees');
+      const reees = await serverAPI.get('/team-assignees');
       this.setState({
         users: res.data,
         userTaskAssignees: rees.data,
+        userTeamAssignees: reees.data,
         userChosen: [],
         loading: false,
       });
@@ -91,9 +35,17 @@ class UserProvider extends Component {
     }
   };
 
-  teamFilter = (teamid = 1) => {
+  teamFilter = teamId => {
     const arr = this.state.users.slice();
-    this.setState({ userFilter: arr });
+    const brr = this.state.userTeamAssignees.slice();
+    const crr = arr.map(user =>
+      brr.map(assign => {
+        let k = 0;
+        user.id === assign.userId && k++;
+        return k > 0;
+      })
+    );
+    this.setState({ userFilter: crr });
   };
 
   taskFilter = taskid => {

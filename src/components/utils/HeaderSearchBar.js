@@ -12,7 +12,7 @@ class HearderSearchBar extends Component {
     searching: false,
   };
 
-  componentDidMount = () => {
+  componentDidMount  () => {
     this.props.userFunc.teamFilter();
     if (this.props.taskId) {
       this.props.userFunc.taskFilter(this.props.taskId);

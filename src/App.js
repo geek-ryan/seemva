@@ -11,7 +11,6 @@ import { AuthProvider } from './contexts/AuthCTX';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import TeamPage from './pages/TeamPage';
-// import UnitTestPage from './pages/UnitTestPage';
 
 class App extends Component {
   render() {
@@ -24,9 +23,9 @@ class App extends Component {
                 <Route path="/sign_up" component={SignUpPage} />
                 <Route path="/login" component={LoginPage} />
                 <Route exact path="/card" component={TeamPage} />
+                {/* <Route exact path="/tl" component={TeamPage} /> */}
                 <Route path="/card/:id" component={TeamPage} />
-                {/* <Route exact path="/test" component={UnitTestPage} /> */}
-                {/* <Route path="/test/:id" component={UnitTestPage} /> */}
+                {/* <Route path="/tl/:id" component={TeamPage} /> */}
                 <Route
                   exact
                   path="/"

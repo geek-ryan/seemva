@@ -88,8 +88,9 @@ class TaskCardPC extends Component {
             title="delete this task"
           />
         </div>
+
         <div className="task-card-body" onClick={taskShowModal}>
-          <Link to={`/card/${project.teamId}/task/${task.id}`}>
+          <Link to={`/card/${this.props.teamCurrent}/task/${task.id}`}>
             <h2 className="task-card-body__title">{task.title}</h2>
             {task.startDate && (
               <div className="task-card-body__date">
@@ -128,11 +129,13 @@ class TaskCardPC extends Component {
             </div>
           </Link>
         </div>
+
         <Route
-          path={`/card/${project.teamId}/task/:id`}
+          path={`/card/${this.props.teamCurrent}/task/:id`}
           render={({ match }) => (
             <TaskModalCC
               {...this.props}
+              paramId={match.params.id}
               teamId={this.props.project.teamId}
               taskId={this.props.task.id}
               id={match.params.id}
