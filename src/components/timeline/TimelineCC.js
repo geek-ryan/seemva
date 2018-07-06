@@ -28,9 +28,9 @@ class TimelineCC extends Component {
   };
 
   componentDidMount = () => {
-    const id = this.props.teamCurrent;
-    console.log('TimelineCC', id);
-    this.props.projectFunc.teamFilter(id);
+    const ididid = this.props.teamCurrent;
+    console.log('TimelineCC', parseInt(ididid));
+    this.props.projectFunc.teamFilter(ididid);
   };
 
   handleStart = (date, dateString) => {
@@ -72,6 +72,6 @@ class TimelineCC extends Component {
   }
 }
 
-export default withTeamCTX(
-  withUserCTX(withLabelCTX(withProjectCTX(withActivityCTX(TimelineCC))))
+export default withUserCTX(
+  withLabelCTX(withProjectCTX(withActivityCTX(TimelineCC)))
 );

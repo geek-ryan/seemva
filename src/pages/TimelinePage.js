@@ -14,26 +14,27 @@ import HeaderCC from '../containers/HeaderCC';
 import CardViewPage from '../pages/CardViewPage';
 import TimelineCC from '../components/timeline/TimelineCC';
 
-function TimelinePage(props) {
+// function TimelinePage(props) {
+class TimelinePage extends React.Component {
   // console.log('time line page mathc', match);
-  console.log('time line page teamCurrent', props.teamCurrent);
-  return (
-    <TeamProvider>
-      <MemberProvider>
-        {/* <UserProvider> */}
-        <LabelProvider>
-          <ProjectProvider>
+  render() {
+    console.log('time line page teamCurrent', this.props.teamCurrent);
+    return (
+      <TeamProvider>
+        <MemberProvider>
+          {/* <UserProvider> */}
+          <LabelProvider>
             <TaskProvider>
               <ActivityProvider>
-                <TimelineCC teamCurrent={props.teamCurrent} />
+                <TimelineCC {...this.props} />
               </ActivityProvider>
             </TaskProvider>
-          </ProjectProvider>
-        </LabelProvider>
-        {/* </UserProvider> */}
-      </MemberProvider>
-    </TeamProvider>
-  );
+          </LabelProvider>
+          {/* </UserProvider> */}
+        </MemberProvider>
+      </TeamProvider>
+    );
+  }
 }
 
 export default withAuth(TimelinePage);
