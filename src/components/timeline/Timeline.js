@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input, DatePicker } from 'antd';
-import ProjectUnitCC from './ProjectUnitCC';
+import ProjectUnitCC from './projectUnitCC';
 
 var moment = require('moment');
 

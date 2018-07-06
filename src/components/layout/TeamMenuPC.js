@@ -55,7 +55,7 @@ class TeamMenuPC extends Component {
               key={id}
             >
               <Link
-                to={`/${this.props.match.url}/${id}`}
+                to={`${this.props.match.url}/${id}`}
                 onClick={() => this.props.onChangeCurrent(id)}
               >
                 {current === id ? <Icon type="rocket" /> : ''}
