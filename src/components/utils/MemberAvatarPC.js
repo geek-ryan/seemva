@@ -7,13 +7,13 @@ class MemberAvatarPC extends Component {
     profile: '',
   };
   render() {
-    const { username, profile } = this.props;
+    const { username, profile, size } = this.props;
     return (
       <React.Fragment>
         {profile ? (
-          <Avatar src={profile} />
+          <Avatar src={profile} size={size} />
         ) : (
-          <Avatar>{username.substr(0, 4)}</Avatar>
+          <Avatar size={size}>{username.substr(0, 4)}</Avatar>
         )}
       </React.Fragment>
     );

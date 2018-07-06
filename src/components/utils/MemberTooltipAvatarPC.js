@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tooltip } from 'antd';
+import { Tooltip, Button } from 'antd';
 import MemberAvatarPC from './MemberAvatarPC';
 
 class MemberTooltipAvatarPC extends Component {
@@ -8,11 +8,18 @@ class MemberTooltipAvatarPC extends Component {
     profile: '',
   };
   render() {
-    const { username } = this.props;
+    const { username, size, onRemove, useRemove } = this.props;
     return (
       <Tooltip placement="bottom" title={username}>
         {''}
-        <MemberAvatarPC {...this.props} />
+        {useRemove ? (
+          <div className="member-remove-usable">
+            <MemberAvatarPC {...this.props} size={size} />
+            <Button shape="circle" icon="close" onClick={onRemove} />
+          </div>
+        ) : (
+          <MemberAvatarPC {...this.props} size={size} />
+        )}
       </Tooltip>
     );
   }

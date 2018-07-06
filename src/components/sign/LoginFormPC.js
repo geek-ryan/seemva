@@ -41,7 +41,6 @@ class LoginFormPC extends Component {
       isFieldTouched('username') && getFieldError('username');
     const passwordError =
       isFieldTouched('password') && getFieldError('password');
-    console.log(getFieldsError());
     return (
       <React.Fragment>
         {errorCode === 400 ? (

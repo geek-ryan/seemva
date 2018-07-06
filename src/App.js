@@ -8,11 +8,10 @@ import {
 
 import { ProfileProvider } from './contexts/ProfileCTX';
 import { AuthProvider } from './contexts/AuthCTX';
-import { UserProvider } from './contexts/UserCTX';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import TeamPage from './pages/TeamPage';
-import UnitTestPage from './pages/UnitTestPage';
+// import UnitTestPage from './pages/UnitTestPage';
 
 class App extends Component {
   render() {
@@ -20,28 +19,27 @@ class App extends Component {
       <Router>
         <ProfileProvider>
           <AuthProvider>
-            <UserProvider>
-              <div className="App">
-                <Switch>
-                  <Route path="/sign_up" component={SignUpPage} />
-                  <Route path="/login" component={LoginPage} />
-                  <Route exact path="/card" component={TeamPage} />
-                  <Route path="/card/:id" component={TeamPage} />
-                  <Route path="/test" component={UnitTestPage} />
-                  <Route
-                    exact
-                    path="/"
-                    render={() =>
-                      localStorage.getItem('token') ? (
-                        <Redirect to="/card" />
-                      ) : (
-                        <Redirect to="/login" />
-                      )
-                    }
-                  />
-                </Switch>
-              </div>
-            </UserProvider>
+            <div className="App">
+              <Switch>
+                <Route path="/sign_up" component={SignUpPage} />
+                <Route path="/login" component={LoginPage} />
+                <Route exact path="/card" component={TeamPage} />
+                <Route path="/card/:id" component={TeamPage} />
+                {/* <Route exact path="/test" component={UnitTestPage} /> */}
+                {/* <Route path="/test/:id" component={UnitTestPage} /> */}
+                <Route
+                  exact
+                  path="/"
+                  render={() =>
+                    localStorage.getItem('token') ? (
+                      <Redirect to="/card" />
+                    ) : (
+                      <Redirect to="/login" />
+                    )
+                  }
+                />
+              </Switch>
+            </div>
           </AuthProvider>
         </ProfileProvider>
       </Router>

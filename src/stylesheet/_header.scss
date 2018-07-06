@@ -10,23 +10,3 @@
     font-size: 1.3em;
   }
 }
-.member-group {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  margin-right: 1em;
-  .ant-avatar {
-    margin-left: -3px;
-  }
-  &__button {
-    flex: none;
-  }
-}
-
-.user-search__item {
-  cursor: pointer;
-  &--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}

@@ -8,49 +8,27 @@ class ActivityProvider extends Component {
     loading: false,
     target: '',
     activities: [
-      {
-        id: 1,
-        taskId: 1,
-        userId: 1,
-        body: '완료된 작업 별 정렬 구현중',
-        logDate: '2018.06.01 2:41:48',
-      },
-      {
-        id: 2,
-        taskId: 2,
-        userId: 2,
-        body: '완료된 작',
-        logDate: '2018.06.01 2:41:48',
-      },
-      {
-        id: 3,
-        taskId: 3,
-        userId: 3,
-        body: '완료 구현중',
-        logDate: '2018.06.01 2:41:48',
-      },
-      {
-        id: 4,
-        taskId: 4,
-        userId: 1,
-        body: '완료된 작 구현중',
-        logDate: '2018.06.01 2:41:48',
-      },
-      {
-        id: 5,
-        taskId: 5,
-        userId: 2,
-        body: '완료된 작업 별 ',
-        logDate: '2018.06.01 2:41:48',
-      },
+      // {
+      //   id: 1,
+      //   taskId: 1,
+      //   userId: 1,
+      //   body: '완료된 작업 별 정렬 구현중',
+      //   logDate: '2018.06.01 2:41:48',
+      // },
     ],
+    me: 0,
   };
 
   componentDidMount = async () => {
     this.setState({ loading: true });
     try {
+      const me = await serverAPI.get('/me');
       const res = await serverAPI.get('/activities');
-      this.setState({ activities: res.data, loading: false });
+      this.setState({
+        me: me.data.id,
+        activities: res.data,
+        loading: false,
+      });
     } catch (e) {
       this.setState({
         loading: false,
@@ -81,7 +59,7 @@ class ActivityProvider extends Component {
   Delete = async id => {
     this.setState({ loading: true });
     try {
-      const res = await serverAPI.delete(`/activities/${id}`);
+      await serverAPI.delete(`/activities/${id}`);
       const get = await serverAPI.get('/activities');
       this.setState({
         activities: get.data,
@@ -101,7 +79,7 @@ class ActivityProvider extends Component {
   Update = async (id, keyType, body) => {
     this.setState({ loading: true });
     try {
-      const res = await serverAPI.patch(`/activities/${id}`, {
+      await serverAPI.patch(`/activities/${id}`, {
         [keyType]: body,
       });
       const get = await serverAPI.get('/activities');

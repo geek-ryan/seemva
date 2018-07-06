@@ -10,9 +10,9 @@ class MemberProvider extends Component {
 
   state = {
     loading: false,
-    users: [],
-    members: [],
-    matchUsers: [],
+    users: [], // 가입한 모든 유저
+    members: [], // 팀의 멤버
+    matchUsers: [], // 검색어에 일치하는 유저
   };
 
   autocompleteSearch = Q => {

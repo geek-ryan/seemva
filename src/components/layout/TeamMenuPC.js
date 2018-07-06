@@ -38,7 +38,7 @@ class TeamMenuPC extends Component {
         >
           <Link to="/card" onClick={() => onChangeCurrent(0)}>
             {current ? '' : <Icon type="rocket" />}
-            Welcome team
+            Welcome SEEMVA
           </Link>
         </div>
         {loading ? (
@@ -56,10 +56,7 @@ class TeamMenuPC extends Component {
             >
               <Link
                 to={`/card/${id}`}
-                onClick={() => {
-                  this.props.projectFunc.teamFilter(id);
-                  this.props.onChangeCurrent(id);
-                }}
+                onClick={() => this.props.onChangeCurrent(id)}
               >
                 {current === id ? <Icon type="rocket" /> : ''}
                 {name}

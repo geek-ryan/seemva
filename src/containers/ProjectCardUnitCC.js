@@ -1,73 +1,56 @@
 import React, { Component } from 'react';
 
 import withTaskCTX from '../hocs/withTaskCTX';
-import withUserCTX from '../hocs/withUserCTX';
-import withLabelCTX from '../hocs/withLabelCTX';
 import withActivityCTX from '../hocs/withActivityCTX';
 
 import ProjectCardUnitPC from '../components/cardview/ProjectCardUnitPC';
 
-var moment = require('moment');
-
 class ProjectCardUnitCC extends Component {
+  static defaultProps = {
+    project: {
+      id: 0, // 현재 프로젝트의 아이디
+    },
+    taskFunc: {
+      Create: obj => {}, // 정보를 받아서 task를 생성하는 함수
+    },
+  };
+
   state = {
     visible: false,
     title: '',
-    body: '',
-    startDate: moment().format('YYYY.MM.DD'),
-    dueDate: moment().format('YYYY.MM.DD'),
   };
 
   newTaskTitleChange = e => {
     this.setState({ title: e.target.value });
   };
-  newTaskbodyChange = e => {
-    this.setState({ body: e.target.value });
-  };
 
-  newTaskDateChange = (date, dateString) => {
-    const startMoment = moment(dateString[0], 'YYYY.MM.DD');
-    const dueMoment = moment(dateString[1], 'YYYY.MM.DD');
-    if (startMoment > dueMoment) {
-      alert('Please check date again');
-    } else {
-      this.setState({ startDate: dateString[0], dueDate: dateString[1] });
-    }
-  };
-
-  // modal ----------------------
-  newTaskShowModal = () => {
+  newTaskShowEditor = () => {
     this.setState({
       visible: true,
     });
   };
 
-  newTaskOk = e => {
-    //made task content
-    const obj = {
-      title: this.state.title,
-      body: this.state.body,
-      startDate: this.state.startDate,
-      dueDate: this.state.dueDate,
-      projectId: this.props.project.id,
-      complete: false,
-    };
-    //Add labelAssign and task
-    this.props.taskFunc.Create(obj);
-    this.props.labelFunc.assigneeCreate(this.props.taskState.target);
-    this.props.userFunc.assigneeCreate(this.props.taskState.target);
+  // create new task
+  newTaskOk = () => {
+    // title이 있어야 전송한다.
+    if (this.state.title) {
+      const obj = {
+        title: this.state.title,
+        body: this.state.body,
+        teamId: this.props.project.teamId,
+        projectId: this.props.project.id,
+        complete: false,
+      };
+      this.props.taskFunc.Create(obj);
+    }
+    this.newTaskCancel();
+  };
+
+  newTaskCancel = () => {
     this.setState({
       visible: false,
       title: '',
       body: '',
-      startDate: moment().format('YYYY.MM.DD'),
-      dueDate: moment().format('YYYY.MM.DD'),
-    });
-  };
-
-  newTaskCancel = e => {
-    this.setState({
-      visible: false,
     });
   };
 
@@ -77,8 +60,7 @@ class ProjectCardUnitCC extends Component {
         taskNew={this.state}
         newTaskTitleChange={this.newTaskTitleChange}
         newTaskbodyChange={this.newTaskbodyChange}
-        newTaskDateChange={this.newTaskDateChange}
-        newTaskShowModal={this.newTaskShowModal}
+        newTaskShowEditor={this.newTaskShowEditor}
         newTaskOk={this.newTaskOk}
         newTaskCancel={this.newTaskCancel}
         {...this.props}
@@ -87,6 +69,4 @@ class ProjectCardUnitCC extends Component {
   }
 }
 
-export default withUserCTX(
-  withTaskCTX(withLabelCTX(withActivityCTX(ProjectCardUnitCC)))
-);
+export default withTaskCTX(withActivityCTX(ProjectCardUnitCC));
