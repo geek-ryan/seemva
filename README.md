@@ -34,7 +34,7 @@
 - Add New Task 버튼을 클릭하면 프로젝트 이름을 입력해 프로젝트를 생성할 수 있다.
 - 작업 카드에서 완료 표시 / 카드 삭제가 가능하다.
 - 작업 카드 클릭시 모달을 통해 프로젝트 세부내용을 추가하거나 확일할 수 있다.
-- Title / Description / Due Date / Members / Labels 를 수정할 수 있다.
+- Title / Description / Begin Date / Due Date / Members / Labels 를 수정할 수 있다.
 
 #### 4.1. 작업 멤버(Memebers)
 
