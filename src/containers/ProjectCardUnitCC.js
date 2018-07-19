@@ -5,6 +5,8 @@ import withActivityCTX from '../hocs/withActivityCTX';
 
 import ProjectCardUnitPC from '../components/cardview/ProjectCardUnitPC';
 
+import { createTask } from '../actions';
+
 class ProjectCardUnitCC extends Component {
   static defaultProps = {
     project: {
@@ -41,11 +43,11 @@ class ProjectCardUnitCC extends Component {
       const contents = {
         title: this.state.title,
         body: this.state.body,
-        teamId: this.props.project.teamId,
+        teamId: 1,
         projectId: this.props.project.id,
         complete: false,
       };
-      this.props.taskFunc.Create(contents);
+      this.props.dispatch(createTask(contents));
     }
     this.newTaskCancel();
   };
@@ -73,4 +75,4 @@ class ProjectCardUnitCC extends Component {
   }
 }
 
-export default withTaskCTX(withActivityCTX(ProjectCardUnitCC));
+export default withActivityCTX(ProjectCardUnitCC);

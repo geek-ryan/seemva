@@ -5,19 +5,21 @@ import TaskCardCC from '../../containers/TaskCardCC';
 import EditTextareaPC from '../utils/EditTextareaPC';
 import LoadingIconPC from '../utils/LoadingIconPC';
 
+import { updateProject, deleteProject, Tasks } from '../../actions';
+
 class ProjectCardUnitPC extends Component {
   state = {
     loading: false,
   };
 
-  handleEdit = async (...args) => {
-    this.setState({
-      loading: true,
-    });
-    await this.props.projectFunc.Update(...args);
-    this.setState({
-      loading: false,
-    });
+  handleEdit = (...args) => {
+    // this.setState({
+    //   loading: true,
+    // });
+    this.props.dispatch(updateProject(this.props.project.id, { ...args }));
+    // this.setState({
+    //   loading: false,
+    // });
   };
 
   render() {
@@ -44,8 +46,12 @@ class ProjectCardUnitPC extends Component {
                     shape="circle"
                     size="small"
                     // 컨펌 모달 기능 넣어야 함
-                    onClick={() =>
-                      this.props.projectFunc.Delete(this.props.project.id)
+                    onClick={
+                      () =>
+                        this.props.dispatch(
+                          deleteProject(this.props.project.id)
+                        )
+                      // this.props.projectFunc.Delete(this.props.project.id)
                     }
                   />
                 )}
@@ -54,7 +60,7 @@ class ProjectCardUnitPC extends Component {
           </div>
           <div className="project-card__task">
             <div className="project-card__task-list">
-              {this.props.taskState.tasks.map(task => {
+              {this.props.dispatch(Tasks()).map(task => {
                 return this.props.project.id === task.projectId ? (
                   <TaskCardCC {...this.props} key={task.id} task={task} />
                 ) : (

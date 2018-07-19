@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import CardViewPC from '../components/cardview/CardViewPC';
 
 import withProjectCTX from '../hocs/withProjectCTX';
-
 import withTeamCTX from '../hocs/withTeamCTX';
+
+import { createProject } from '../actions';
 
 class CardViewCC extends Component {
   static defaultProps = {};
@@ -14,7 +15,10 @@ class CardViewCC extends Component {
   };
 
   handleAddProject = contents => {
-    this.props.projectFunc.Create({ title: contents });
+    this.props.dispatch(
+      createProject({ userId: 1, teamId: 1, title: this.state.body })
+    );
+
     this.setState({ body: '' });
   };
 
@@ -55,4 +59,4 @@ class CardViewCC extends Component {
   }
 }
 
-export default withTeamCTX(withProjectCTX(CardViewCC));
+export default withTeamCTX(CardViewCC);

@@ -5,10 +5,16 @@ import TaskCardPC from '../components/cardview/TaskCardPC';
 import withTeamMember from '../hocs/withTeamMember';
 import withLabel from '../hocs/withLabel';
 
+import { deleteTask } from '../../actions';
+
 class TaskCardCC extends Component {
   // state = {
   //   visible: false,
   // };
+
+  async componentDidMount() {
+    await this.props.fetchMatchData(this.props.task.id);
+  }
 
   taskShowModal = () => {
     this.setState({
@@ -29,7 +35,9 @@ class TaskCardCC extends Component {
   };
 
   taskDeleteConfirm = () => {
-    const Delete = () => this.props.taskFunc.Delete(this.props.task.id);
+    const Delete = () => this.props.dispatch(deleteTask(this.props.task.id));
+    // this.props.taskFunc.Delete(this.props.task.id)
+
     Modal.confirm({
       title: 'Are you sure delete this task?',
       content: 'Some descriptions',
@@ -44,12 +52,8 @@ class TaskCardCC extends Component {
   };
 
   taskCompleteToggle = () => {
-    this.props.taskFunc.Complete(this.props.task.id, this.props.task.complete);
+    // this.props.taskFunc.Complete(this.props.task.id, this.props.task.complete);
   };
-
-  async componentDidMount() {
-    await this.props.fetchMatchData(this.props.task.id);
-  }
 
   render() {
     return (

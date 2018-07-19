@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { Button, Modal, Input } from 'antd';
 
+import { Projects } from '../actions';
+
 import ProjectCardUnitCC from '../../containers/ProjectCardUnitCC';
 
 class CardViewPC extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.projectState.projects.map(project => (
-          <ProjectCardUnitCC
-            {...this.props}
-            usableDelete={this.props.projectState.userID === project.userId}
-            key={project.id}
-            project={project}
-          />
-        ))}
+        {this.props
+          .dispatch(Projects())
+          .map(project => (
+            <ProjectCardUnitCC
+              {...this.props}
+              usableDelete={this.props.projectState.userID === project.userId}
+              key={project.id}
+              project={project}
+            />
+          ))}
 
         <Button
           className="project-card-button"
