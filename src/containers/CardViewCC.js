@@ -4,7 +4,8 @@ import CardViewPC from '../components/cardview/CardViewPC';
 import withProjectCTX from '../hocs/withProjectCTX';
 import withTeamCTX from '../hocs/withTeamCTX';
 
-import { createProject } from '../actions';
+import { createProject, currentUser, currentTeam } from '../actions';
+import { connect } from 'react-redux';
 
 class CardViewCC extends Component {
   static defaultProps = {};
@@ -14,11 +15,23 @@ class CardViewCC extends Component {
     body: '',
   };
 
+  // componentDidMount = () => {
+  //     'card view cc mounted',
+  //     this.props.userCurrent,
+  //     this.props.teamCurrent
+  //   );
+  //   this.props.dispatch(currentUser(userId));
+  //   this.props.dispatch(currentTeam(teamId));
+  // };
+
   handleAddProject = contents => {
     this.props.dispatch(
-      createProject({ userId: 1, teamId: 1, title: this.state.body })
+      createProject({
+        userId: this.props.userCurrent,
+        teamId: this.props.teamCurrent,
+        title: this.state.body,
+      })
     );
-
     this.setState({ body: '' });
   };
 
@@ -59,4 +72,8 @@ class CardViewCC extends Component {
   }
 }
 
-export default withTeamCTX(CardViewCC);
+const pullingState = state => {
+  return { testState: state };
+};
+
+export default connect(pullingState)(CardViewCC);

@@ -10,6 +10,8 @@ import LabelPC from './LabelPC';
 import ActivityCC from '../../containers/ActivityCC';
 // import LabelSearchBar from '../utils/LabelSearchBar'
 
+import { connect } from 'react-redux';
+
 class TaskModalPC extends Component {
   static defaultProps = {
     taskMembers: [],
@@ -88,7 +90,7 @@ class TaskModalPC extends Component {
             body={task.title}
             keyType={'title'}
             datatype={'task'}
-            editfunc={taskFunc.Update}
+            // editfunc={taskFunc.Update}
             {...this.props}
           />
         </div>
@@ -98,7 +100,7 @@ class TaskModalPC extends Component {
             body={task.body}
             keyType={'body'}
             datatype={'task'}
-            editfunc={taskFunc.Update}
+            // editfunc={taskFunc.Update}
             {...this.props}
           />
         </div>
@@ -123,12 +125,12 @@ class TaskModalPC extends Component {
               {...this.props}
               members={taskMembers}
               useRemove={true}
-              onAddMember={user =>
-                this.props.addMember(user, this.props.task.id)
-              }
-              onRemoveMember={id =>
-                this.props.removeMember(id, this.props.task.id)
-              }
+              // onAddMember={user =>
+              //   this.props.addMember(user, this.props.task.id)
+              // }
+              // onRemoveMember={id =>
+              //   this.props.removeMember(id, this.props.task.id)
+              // }
             />
           </div>
         </div>
@@ -145,4 +147,4 @@ class TaskModalPC extends Component {
   }
 }
 
-export default TaskModalPC;
+export default connect()(TaskModalPC);

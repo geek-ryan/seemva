@@ -69,13 +69,13 @@ class ActivityPC extends Component {
           </Form.Item>
         </Form>
 
-        {activityState.loading ? (
+        {false ? (
           <LoadingIconPC />
         ) : (
           <List
             className="activity-list"
             itemLayout="horizontal"
-            dataSource={activityState.activities.filter(
+            dataSource={this.props.activities.filter(
               activity => activity.taskId === task.id
             )}
             renderItem={activity => (
@@ -90,13 +90,13 @@ class ActivityPC extends Component {
                     />
                   }
                   title={
-                    activityState.me === activity.userId ? (
+                    this.props.userCurrent === activity.userId ? (
                       <EditTextareaPC
                         activity={activity}
                         body={activity.body}
                         keyType={'body'}
                         datatype={'activity'}
-                        editfunc={activityFunc.Update}
+                        // editfunc={activityFunc.Update}
                         {...this.props}
                       />
                     ) : (
@@ -105,7 +105,7 @@ class ActivityPC extends Component {
                   }
                 />
                 <span className="log-date">{activity.logDate}</span>
-                {activityState.me === activity.userId && (
+                {this.props.userCurrent === activity.userId && (
                   <Button
                     className="activity-delete-button"
                     type="danger"

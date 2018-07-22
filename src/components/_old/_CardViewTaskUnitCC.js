@@ -6,7 +6,6 @@ import CardViewTaskUnitPC from '../components/cardview/_CardViewTaskUnitPC';
 
 class CardViewTaskUnitCC extends Component {
   taskShowModal = () => {
-    // console.log('show');
     this.props.labelFunc.teamFilter(this.props.project.teamId);
     this.props.labelFunc.taskFilter(this.props.task.id);
     this.props.userFunc.teamFilter();

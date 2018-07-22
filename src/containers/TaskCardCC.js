@@ -5,16 +5,17 @@ import TaskCardPC from '../components/cardview/TaskCardPC';
 import withTeamMember from '../hocs/withTeamMember';
 import withLabel from '../hocs/withLabel';
 
-import { deleteTask } from '../../actions';
+import { deleteTask } from '../actions';
+import { connect } from 'react-redux';
 
 class TaskCardCC extends Component {
-  // state = {
-  //   visible: false,
-  // };
+  state = {
+    visible: false,
+  };
 
-  async componentDidMount() {
-    await this.props.fetchMatchData(this.props.task.id);
-  }
+  // async componentDidMount() {
+  //   await this.props.fetchMatchData(this.props.task.id);
+  // }
 
   taskShowModal = () => {
     this.setState({
@@ -70,4 +71,4 @@ class TaskCardCC extends Component {
   }
 }
 
-export default withLabel(withTeamMember(TaskCardCC));
+export default connect()(TaskCardCC);

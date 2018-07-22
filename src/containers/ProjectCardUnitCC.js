@@ -6,6 +6,7 @@ import withActivityCTX from '../hocs/withActivityCTX';
 import ProjectCardUnitPC from '../components/cardview/ProjectCardUnitPC';
 
 import { createTask } from '../actions';
+import { connect } from 'react-redux';
 
 class ProjectCardUnitCC extends Component {
   static defaultProps = {
@@ -43,7 +44,7 @@ class ProjectCardUnitCC extends Component {
       const contents = {
         title: this.state.title,
         body: this.state.body,
-        teamId: 1,
+        teamId: this.props.teamCurrent,
         projectId: this.props.project.id,
         complete: false,
       };
@@ -63,16 +64,16 @@ class ProjectCardUnitCC extends Component {
   render() {
     return (
       <ProjectCardUnitPC
+        {...this.props}
         taskNew={this.state}
         newTaskTitleChange={this.newTaskTitleChange}
         newTaskbodyChange={this.newTaskbodyChange}
         newTaskShowEditor={this.newTaskShowEditor}
         newTaskOk={this.newTaskOk}
         newTaskCancel={this.newTaskCancel}
-        {...this.props}
       />
     );
   }
 }
 
-export default withActivityCTX(ProjectCardUnitCC);
+export default connect()(ProjectCardUnitCC);

@@ -7,6 +7,8 @@ import TaskModalCC from '../../containers/TaskModalCC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
 import LabelTooltipPC from '../utils/LabelTooltipPC';
 
+import { connect } from 'react-redux';
+
 class TaskCardPC extends Component {
   static defaultProps = {
     project: {},
@@ -40,21 +42,21 @@ class TaskCardPC extends Component {
       // },
     ],
     colors: {
-      // default: '#bfbfbf',
-      // yellow: '#fadb14',
-      // green: '#52c41a',
-      // magenta: '#eb2f96',
-      // orange: '#fa8c16',
-      // cyan: '#13c2c2',
-      // purple: '#722ed1',
-      // red: '#f5222d',
-      // blue: '#1890ff',
+      default: '#bfbfbf',
+      yellow: '#fadb14',
+      green: '#52c41a',
+      magenta: '#eb2f96',
+      orange: '#fa8c16',
+      cyan: '#13c2c2',
+      purple: '#722ed1',
+      red: '#f5222d',
+      blue: '#1890ff',
     },
   };
 
-  componentDidMount() {
-    this.props.onLabelInit();
-  }
+  // componentDidMount() {
+  //   this.props.onLabelInit();
+  // }
 
   render() {
     const {
@@ -67,6 +69,7 @@ class TaskCardPC extends Component {
       taskLabels,
       colors,
     } = this.props;
+
     return (
       <Card className="task-card">
         <div className="task-card-title">
@@ -109,7 +112,7 @@ class TaskCardPC extends Component {
             <div className="task-card-body__activities">
               <Icon type="message" />
               {
-                activityState.activities.filter(
+                this.props.activities.filter(
                   activity => activity.taskId === this.props.task.id
                 ).length
               }
@@ -146,4 +149,49 @@ class TaskCardPC extends Component {
   }
 }
 
-export default TaskCardPC;
+const pullingTaskMembers = state => {
+  console.log('state user reducer', state.userReducer);
+  const userArr = state.userReducer.slice();
+  const assigneeArr = state.taskUserAssigneeReducer.slice();
+  const filteredAssigneeArr = assigneeArr.filter(
+    el => el.taskId === state.currentReducer.taskId
+  );
+  const result = userArr.filter(el => {
+    return filteredAssigneeArr.filter(ele => {
+      return el.id === ele.userId;
+    });
+  });
+  return { taskMembers: result };
+};
+
+const pullingTaskLabels = state => {
+  console.log('state label reducer', state.labelReducer);
+  const labelArr = state.labelReducer.slice();
+  const assigneeArr = state.labelTaskAssigneeReducer.slice();
+  const filteredAssigneeArr = assigneeArr.filter(
+    el => el.taskId === state.currentReducer.taskId
+  );
+  const result = labelArr.filter(el => {
+    return filteredAssigneeArr.filter(ele => {
+      return el.id === ele.labelId;
+    });
+  });
+  return { taskLabels: result };
+};
+
+const pullingTaskActivity = state => {
+  const activityArr = state.activityReducer.slice();
+  const filteredArr = activityArr.filter(
+    el => el.taskId === state.currentReducer.taskId
+  );
+  return { activities: filteredArr };
+};
+
+const combiner = state => {
+  const aaa = pullingTaskMembers(state);
+  const bbb = pullingTaskLabels(state);
+  const ccc = pullingTaskActivity(state);
+  return { ...aaa, ...bbb, ...ccc };
+};
+
+export default connect(combiner)(TaskCardPC);

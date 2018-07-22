@@ -89,6 +89,7 @@ class AuthProvider extends Component {
       register: this.register,
       login: this.login,
       logout: this.logout,
+      userCurrent: this.state.id,
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

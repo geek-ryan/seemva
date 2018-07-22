@@ -54,6 +54,11 @@ export const deleteTask = id => ({
   id,
 });
 
+export const Tasks = id => ({
+  type: 'Tasks',
+  id,
+});
+
 //----------activity-------------------------
 
 export const createActivity = obj => ({
@@ -99,5 +104,46 @@ export const updateUser = (id, obj) => ({
 
 export const deleteUser = id => ({
   type: 'deleteUser',
+  id,
+});
+
+//----------label-------------------------
+
+export const createLabel = obj => ({
+  type: 'createLabel',
+  id: randomId(),
+  obj,
+});
+
+export const readLabel = id => ({
+  type: 'readLabel',
+  id,
+});
+
+export const updateLabel = (id, obj) => ({
+  type: 'updateLabel',
+  id,
+  obj,
+});
+
+export const deleteLabel = id => ({
+  type: 'deleteLabel',
+  id,
+});
+
+//----------current-------------------------
+
+export const currentUser = id => ({
+  type: 'currentUser',
+  id,
+});
+
+export const currentTeam = id => ({
+  type: 'currentTeam',
+  id,
+});
+
+export const currentTask = id => ({
+  type: 'currentTask',
   id,
 });

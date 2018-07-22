@@ -4,6 +4,8 @@ import { TeamConsumer } from '../contexts/TeamCTX';
 import { MemberConsumer } from '../contexts/MemberCTX';
 import HeaderPC from '../components/layout/HeaderPC';
 
+import { connect } from 'react-redux';
+
 class HeaderCC extends Component {
   render() {
     return (
@@ -24,6 +26,7 @@ class HeaderCC extends Component {
                     onAutocompleteSearch={value.autocompleteSearch}
                     onAddMember={value.addMember}
                     onClearMatch={value.clearMatch}
+                    {...this.props}
                   />
                 );
               }}
@@ -34,4 +37,4 @@ class HeaderCC extends Component {
     );
   }
 }
-export default HeaderCC;
+export default connect()(HeaderCC);

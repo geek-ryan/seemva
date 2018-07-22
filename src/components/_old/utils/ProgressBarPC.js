@@ -9,7 +9,7 @@ class ProgressBarPC extends Component {
     this.props.taskState.loading ? k++ : '';
     this.props.activityState.loading ? k++ : '';
     this.props.labelState.loading ? k++ : '';
-    // console.log(k);
+
     return 100 - k * 20;
   };
 

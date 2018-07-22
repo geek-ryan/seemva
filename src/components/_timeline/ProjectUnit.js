@@ -10,7 +10,6 @@ class ProjectUnit extends Component {
     const start = moment(this.props.date.start, 'YYYY.MM.DD').format('X');
     const end = moment(this.props.date.end, 'YYYY.MM.DD').format('X');
     const range = (end - start) / (60 * 60 * 24);
-    // console.log(this.props.taskState);
 
     return (
       <div className={'projectContainer'}>
@@ -33,7 +32,6 @@ class ProjectUnit extends Component {
                   ? (moment(task.dueDate, 'YYYY.MM.DD').format('X') - start) /
                     (60 * 60 * 24)
                   : range;
-              // console.log(st, en, range);
 
               return (
                 <div key={task.id}>
@@ -44,7 +42,6 @@ class ProjectUnit extends Component {
                   <Route
                     path={`/tl/${this.props.project.teamId}/task/:id`}
                     render={({ match }) => {
-                      // console.log(match);
                       return (
                         <TaskModalCC
                           teamId={this.props.project.teamId}

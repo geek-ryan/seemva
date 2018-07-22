@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import serverAPI from '../serverAPI';
 import { LabelConsumer } from '../contexts/LabelCTX';
 
-export default function withLabel(WrappedComponent) {
+import { connect } from 'react-redux';
+
+function withLabel(WrappedComponent) {
   class LabelProxyComponent extends Component {
     state = {
       taskLabels: [
@@ -160,3 +162,13 @@ export default function withLabel(WrappedComponent) {
     }
   };
 }
+
+const pullingTeamLabels = state => {
+  const labels = state.labelReducer.slice();
+  const filteredLabels = labels.filter(
+    el => el.teamId === state.currentReducer.teamId
+  );
+  return { labels: filteredLabels };
+};
+
+export default connect(pullingTeamLabels)(withLabel);

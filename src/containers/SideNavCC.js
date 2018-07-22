@@ -11,15 +11,12 @@ class SideNavCC extends Component {
   };
 
   handleViewCard = () => {
-    console.log('card');
+    ('card');
     this.setState({ viewtype: 'card' });
-    console.log(this.state.viewtype);
   };
 
   handleViewTl = () => {
-    console.log('tl');
     this.setState({ viewtype: 'tl' });
-    console.log(this.state.viewtype);
   };
 
   render() {

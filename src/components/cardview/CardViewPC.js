@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Input } from 'antd';
 
-import { Projects } from '../actions';
+import { connect } from 'react-redux';
 
 import ProjectCardUnitCC from '../../containers/ProjectCardUnitCC';
 
@@ -9,16 +9,17 @@ class CardViewPC extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props
-          .dispatch(Projects())
-          .map(project => (
-            <ProjectCardUnitCC
-              {...this.props}
-              usableDelete={this.props.projectState.userID === project.userId}
-              key={project.id}
-              project={project}
-            />
-          ))}
+        {this.props.projects.map(project => (
+          <ProjectCardUnitCC
+            {...this.props}
+            usableDelete={
+              true
+              // this.props.projectState.userID === project.userId
+            }
+            key={project.id}
+            project={project}
+          />
+        ))}
 
         <Button
           className="project-card-button"
@@ -45,4 +46,12 @@ class CardViewPC extends Component {
   }
 }
 
-export default CardViewPC;
+const pullingProjects = state => {
+  const projectArr = state.projectReducer.slice();
+  const result = projectArr.filter(el => {
+    return el.teamId === state.currentReducer.teamId;
+  });
+  return { projects: result };
+};
+
+export default connect(pullingProjects)(CardViewPC);

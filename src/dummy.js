@@ -107,12 +107,14 @@ const activities = [
     id: 1,
     taskId: 1,
     userId: 1,
+    teamId: 1,
     body: '완료된 작업 별 정렬 구현중',
     logDate: '2018.06.01 2:41:48',
   },
   {
     body: '앞발',
     taskId: 2,
+    teamId: 1,
     logDate: '2018.07.06 4:36:13',
     userId: 2,
     id: 2,
@@ -120,6 +122,7 @@ const activities = [
   {
     body: '뒷발',
     taskId: 3,
+    teamId: 1,
     logDate: '2018.07.06 4:36:16',
     userId: 2,
     id: 3,
@@ -127,6 +130,7 @@ const activities = [
   {
     body: '삼겹살',
     taskId: 4,
+    teamId: 1,
     logDate: '2018.07.06 4:36:43',
     userId: 2,
     id: 4,
@@ -134,10 +138,151 @@ const activities = [
   {
     body: '안창살',
     taskId: 5,
+    teamId: 1,
     logDate: '2018.07.06 4:36:47',
     userId: 2,
     id: 5,
   },
 ];
 
-export const dummy = { users, projects, activities, tasks };
+const teams = [
+  {
+    id: 1,
+    teamname: 'seemva',
+  },
+  {
+    teamname: 'cat_1',
+    id: 2,
+  },
+];
+
+const labels = [
+  {
+    id: 1,
+    teamId: 1,
+    color: 'red',
+    body: '긴급',
+  },
+  {
+    teamId: 1,
+    body: 'red',
+    color: 'red',
+    id: 2,
+  },
+  {
+    teamId: 2,
+    body: 'green',
+    color: 'green',
+    id: 3,
+  },
+  {
+    teamId: 2,
+    body: 'blue',
+    color: 'blue',
+    id: 4,
+  },
+  {
+    teamId: 2,
+    body: 'blue',
+    color: 'blue',
+    id: 5,
+  },
+];
+
+const teamUserAssignee = [
+  {
+    id: 1,
+    userId: 1,
+    teamId: 1,
+    admin: true,
+  },
+  {
+    userId: 2,
+    admin: true,
+    teamId: 2,
+    id: 2,
+  },
+  {
+    userId: 1,
+    admin: true,
+    teamId: 2,
+    id: 3,
+  },
+];
+
+const taskUserAssignee = [
+  {
+    id: 1,
+    userId: 1,
+    taskId: 1,
+  },
+  {
+    userId: 2,
+    taskId: 2,
+    id: 2,
+  },
+  {
+    userId: 2,
+    taskId: 3,
+    id: 3,
+  },
+  {
+    userId: 2,
+    taskId: 4,
+    id: 4,
+  },
+];
+
+const labelTaskAssignee = [
+  {
+    labelId: 2,
+    taskId: 2,
+    id: 2,
+  },
+  {
+    labelId: 3,
+    taskId: 2,
+    id: 3,
+  },
+  {
+    labelId: 4,
+    taskId: 2,
+    id: 4,
+  },
+  {
+    labelId: 2,
+    taskId: 3,
+    id: 5,
+  },
+  {
+    labelId: 3,
+    taskId: 4,
+    id: 6,
+  },
+  {
+    labelId: 5,
+    taskId: 6,
+    id: 7,
+  },
+];
+
+const current = {
+  teamId: 0,
+  userId: 0,
+  taskId: 0,
+};
+
+const dummy = {
+  users,
+  projects,
+  activities,
+  tasks,
+  teams,
+  labels,
+  teamUserAssignee,
+  taskUserAssignee,
+  labelTaskAssignee,
+  current,
+};
+
+export default dummy;

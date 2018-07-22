@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import ActivityPC from '../components/cardview/ActivityPC';
 
+import { connect } from 'react-redux';
+import { createActivity, deleteActivity } from '../actions';
+
 const moment = require('moment');
 
 class ActivityCC extends Component {
@@ -17,17 +20,19 @@ class ActivityCC extends Component {
     const obj = {
       body: this.state.body,
       taskId: this.props.task.id,
-      userId: this.props.userId,
+      userId: this.props.userCurrent,
       logDate: moment().format('YYYY.MM.DD h:mm:ss'),
     };
-    this.props.activityFunc.Create(obj);
+    // this.props.activityFunc.Create(obj);
+    this.props.dispatch(createActivity(obj));
     this.setState({ body: '' });
   };
 
   handleDeleteActivity = e => {
     const id = parseInt(e.target.value, 10);
-    const func = this.props.activityFunc.Delete;
-    func(id);
+    // const func = this.props.activityFunc.Delete;
+    // func(id);
+    this.props.dispatch(deleteActivity(id));
   };
 
   render() {
@@ -43,4 +48,8 @@ class ActivityCC extends Component {
   }
 }
 
-export default ActivityCC;
+const pullingUserId = state => {
+  return { userCurrent: state.currentReducer.userId };
+};
+
+export default connect(pullingUserId)(ActivityCC);

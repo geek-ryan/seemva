@@ -101,9 +101,150 @@ const userReducer = (arr = dummy.users, action) => {
   }
 };
 
+const teamReducer = (arr = dummy.teams, action) => {
+  switch (action.type) {
+    case 'createTeam':
+      return [
+        ...arr,
+        {
+          ...action.obj,
+          id: action.id,
+        },
+      ];
+    case 'readTeam':
+      return arr.filter(ele => ele.id === action.id && ele)[0];
+    case 'updateTeam':
+      const element = arr.filter(ele => ele.id === action.id && ele)[0];
+      const updated = { ...element, ...action.obj };
+      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+    case 'deleteTeam':
+      return arr.filter(ele => ele.id !== action.id && ele);
+    case 'Teams':
+      return arr;
+    default:
+      return arr;
+  }
+};
+
+const labelReducer = (arr = dummy.labels, action) => {
+  switch (action.type) {
+    case 'createLabel':
+      return [
+        ...arr,
+        {
+          ...action.obj,
+          id: action.id,
+        },
+      ];
+    case 'readLabel':
+      return arr.filter(ele => ele.id === action.id && ele)[0];
+    case 'updateLabel':
+      const element = arr.filter(ele => ele.id === action.id && ele)[0];
+      const updated = { ...element, ...action.obj };
+      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+    case 'deleteLabel':
+      return arr.filter(ele => ele.id !== action.id && ele);
+    case 'Labels':
+      return arr;
+    default:
+      return arr;
+  }
+};
+
+const teamUserAssigneeReducer = (arr = dummy.teamUserAssignee, action) => {
+  switch (action.type) {
+    case 'createTeamUserAssignee':
+      return [
+        ...arr,
+        {
+          ...action.obj,
+          id: action.id,
+        },
+      ];
+    case 'readTeamUserAssignee':
+      return arr.filter(ele => ele.id === action.id && ele)[0];
+    case 'deleteTeamUserAssignee':
+      return arr.filter(ele => ele.id !== action.id && ele);
+    case 'TeamUserAssignees':
+      return arr;
+    default:
+      return arr;
+  }
+};
+
+const taskUserAssigneeReducer = (arr = dummy.taskUserAssignee, action) => {
+  switch (action.type) {
+    case 'createTaskUserAssignee':
+      return [
+        ...arr,
+        {
+          ...action.obj,
+          id: action.id,
+        },
+      ];
+    case 'readTaskUserAssignee':
+      return arr.filter(ele => ele.id === action.id && ele)[0];
+    case 'deleteTaskUserAssignee':
+      return arr.filter(ele => ele.id !== action.id && ele);
+    case 'TaskUserAssignees':
+      return arr;
+    default:
+      return arr;
+  }
+};
+
+const labelTaskAssigneeReducer = (arr = dummy.labelTaskAssignee, action) => {
+  switch (action.type) {
+    case 'createLabelTaskAssignee':
+      return [
+        ...arr,
+        {
+          ...action.obj,
+          id: action.id,
+        },
+      ];
+    case 'readLabelTaskAssignee':
+      return arr.filter(ele => ele.id === action.id && ele)[0];
+    case 'deleteLabelTaskAssignee':
+      return arr.filter(ele => ele.id !== action.id && ele);
+    case 'LabelTaskAssignees':
+      return arr;
+    default:
+      return arr;
+  }
+};
+
+const currentReducer = (current = dummy.current, action) => {
+  switch (action.type) {
+    case 'currentUser':
+      return {
+        ...current,
+        userId: action.id,
+      };
+    case 'currentTeam':
+      return {
+        ...current,
+        teamId: action.id,
+      };
+    case 'currentTask':
+      return {
+        ...current,
+        taskId: action.id,
+      };
+    default:
+      return current;
+  }
+};
+
 export default combineReducers({
   projectReducer,
   taskReducer,
   userReducer,
   activityReducer,
+  teamReducer,
+  labelReducer,
+  teamUserAssigneeReducer,
+  taskUserAssigneeReducer,
+  labelTaskAssigneeReducer,
+  currentReducer,
 });

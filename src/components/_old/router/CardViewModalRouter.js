@@ -7,9 +7,6 @@ class ModalSwitch extends React.Component {
     const comp = () => (
       <CardViewTaskUnitCC routerVisible={true} {...this.props} />
     );
-
-    console.log(this.props);
-
     return (
       <div>
         <Switch>

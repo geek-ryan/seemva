@@ -4,21 +4,33 @@ import { Redirect } from 'react-router-dom';
 
 import TaskModalPC from '../components/cardview/TaskModalPC';
 
+import { updateTask, currentTask } from '../actions';
+import { connect } from 'react-redux';
+
 class TaskModalCC extends Component {
   state = {
     cancelled: false,
   };
 
+  componentDidMount = () => {
+    this.props.dispatch(currentTask(this.props.task.id));
+  };
+
   handleCancle = () => {
-    // console.log('cancle');
     this.setState({
       cancelled: true,
     });
   };
 
   taskModalDueDateChange = (date, dateString) => {
-    this.props.taskFunc.Update(this.props.task.id, 'startDate', dateString[0]);
-    this.props.taskFunc.Update(this.props.task.id, 'dueDate', dateString[1]);
+    this.props.dispatch(
+      updateTask(this.props.task.id, {
+        startDate: dateString[0],
+        dueDate: dateString[1],
+      })
+    );
+    // this.props.taskFunc.Update(this.props.task.id, 'startDate', dateString[0]);
+    // this.props.taskFunc.Update(this.props.task.id, 'dueDate', dateString[1]);
   };
 
   render() {
@@ -28,8 +40,6 @@ class TaskModalCC extends Component {
     //   taskOk();
     //   this.handleCancle();
     // };
-
-    // console.log('hahah', parseInt(paramId), taskId);
 
     return cancelled ? (
       <Redirect to={`${this.props.url}`} />
@@ -46,4 +56,4 @@ class TaskModalCC extends Component {
   }
 }
 
-export default TaskModalCC;
+export default connect()(TaskModalCC);

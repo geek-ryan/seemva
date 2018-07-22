@@ -140,7 +140,7 @@ class TeamProvider extends Component {
       editTeam: this.editTeam,
       deleteTeam: this.deleteTeam,
       changeCurrent: this.changeCurrent,
-      teamCurrentID: this.state.current,
+      teamCurrentID: this.state.currentReducer,
     };
 
     return <Provider value={value}>{this.props.children}</Provider>;

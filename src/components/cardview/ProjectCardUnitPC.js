@@ -6,7 +6,7 @@ import EditTextareaPC from '../utils/EditTextareaPC';
 import LoadingIconPC from '../utils/LoadingIconPC';
 
 import { updateProject, deleteProject, Tasks } from '../../actions';
-
+import { connect } from 'react-redux';
 class ProjectCardUnitPC extends Component {
   state = {
     loading: false,
@@ -60,7 +60,7 @@ class ProjectCardUnitPC extends Component {
           </div>
           <div className="project-card__task">
             <div className="project-card__task-list">
-              {this.props.dispatch(Tasks()).map(task => {
+              {this.props.tasks.map(task => {
                 return this.props.project.id === task.projectId ? (
                   <TaskCardCC {...this.props} key={task.id} task={task} />
                 ) : (
@@ -102,4 +102,18 @@ class ProjectCardUnitPC extends Component {
   }
 }
 
-export default ProjectCardUnitPC;
+const pullingTasks = state => {
+  const taskArr = state.taskReducer.slice();
+  const assigneeArr = state.taskUserAssigneeReducer.slice();
+  const filteredAssigneeArr = assigneeArr.filter(
+    el => el.userId === state.currentReducer.userId
+  );
+  const result = taskArr.filter(el => {
+    return filteredAssigneeArr.filter(ele => {
+      return el.id === ele.taskId;
+    });
+  });
+  return { tasks: result };
+};
+
+export default connect(pullingTasks)(ProjectCardUnitPC);
