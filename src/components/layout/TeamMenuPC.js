@@ -7,6 +7,9 @@ import TeamCreateButtonPC from './TeamCreateButtonPC';
 import TeamEditButtonPC from './TeamEditButtonPC';
 import TeamLeaveButtonPC from './TeamLeaveButtonPC';
 
+import { connect } from 'react-redux';
+import { currentTeam } from '../../actions';
+
 class TeamMenuPC extends Component {
   static defaultProps = {
     teams: [],
@@ -16,6 +19,10 @@ class TeamMenuPC extends Component {
     onCreateTeams: name => {},
     onEditTeam: (teamID, teamname) => {},
     onDeleteTeam: teamID => {},
+  };
+
+  HandleChangeTeamCurrnetByRedux = id => {
+    this.props.dispatch(currentTeam(id));
   };
 
   render() {
@@ -49,7 +56,7 @@ class TeamMenuPC extends Component {
             <Icon type="loading" />
           </div>
         ) : (
-          teams.map(({ id, admin, name }) => {
+          teams.map(({ id, admin, teamname }) => {
             return (
               <div
                 className={classNames(
@@ -60,21 +67,21 @@ class TeamMenuPC extends Component {
               >
                 <Link
                   to={`${this.props.match.url}/${id}`}
-                  onClick={() => this.props.onChangeCurrent(id)}
+                  onClick={() => this.HandleChangeTeamCurrnetByRedux(id)}
                 >
                   {current === id ? <Icon type="rocket" /> : ''}
-                  {name}
+                  {teamname}
                 </Link>
                 {admin ? (
                   <TeamEditButtonPC
                     id={id}
-                    name={name}
-                    onEditTeam={name => onEditTeam(id, name)}
+                    name={teamname}
+                    onEditTeam={teamname => onEditTeam(id, teamname)}
                     onDelete={() => onDeleteTeam(id, admin)}
                   />
                 ) : (
                   <TeamLeaveButtonPC
-                    name={name}
+                    name={teamname}
                     onDelete={() => onDeleteTeam(id, admin)}
                   />
                 )}
@@ -88,4 +95,8 @@ class TeamMenuPC extends Component {
   }
 }
 
-export default TeamMenuPC;
+const pullingTeams = state => {
+  return { teams: state.teamReducer };
+};
+
+export default connect(pullingTeams)(TeamMenuPC);

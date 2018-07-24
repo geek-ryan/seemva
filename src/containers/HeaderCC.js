@@ -17,12 +17,14 @@ class HeaderCC extends Component {
                 return (
                   <HeaderPC
                     teamname={
-                      teams.length && current
-                        ? teams.find(team => team.id === current).name
+                      this.props.teams.length && this.props.teamCurrent
+                        ? this.props.teams.find(
+                            team => team.id === this.props.teamCurrent
+                          ).name
                         : 'Welcome SEEMVA'
                     }
                     {...value}
-                    teamCurrent={current}
+                    teamCurrent={this.props.teamCurrent}
                     onAutocompleteSearch={value.autocompleteSearch}
                     onAddMember={value.addMember}
                     onClearMatch={value.clearMatch}
@@ -37,4 +39,13 @@ class HeaderCC extends Component {
     );
   }
 }
-export default connect()(HeaderCC);
+
+const pullingTeams = state => {
+  console.log('좀더 티를 내줄래', {
+    teams: state.teamReducer,
+    teamCurrent: state.currentReducer.teamId,
+  });
+  return { teams: state.teamReducer, teamCurrent: state.currentReducer.teamId };
+};
+
+export default connect(pullingTeams)(HeaderCC);
