@@ -3,7 +3,8 @@ import { Redirect } from 'react-router-dom';
 
 import { AuthConsumer } from '../contexts/AuthCTX';
 import SideNavPC from '../components/layout/SideNavPC';
-
+import { currentViewType } from '../actions';
+import { connect } from 'react-redux';
 class SideNavCC extends Component {
   state = {
     loggedOut: false,
@@ -11,12 +12,11 @@ class SideNavCC extends Component {
   };
 
   handleViewCard = () => {
-    ('card');
-    this.setState({ viewtype: 'card' });
+    this.props.dispatch(currentViewType('card'));
   };
 
   handleViewTl = () => {
-    this.setState({ viewtype: 'tl' });
+    this.props.dispatch(currentViewType('tl'));
   };
 
   render() {
@@ -29,7 +29,7 @@ class SideNavCC extends Component {
             {...this.props}
             onViewCard={this.handleViewCard}
             onViewTl={this.handleViewTl}
-            viewtype={this.state.viewtype}
+            viewtype={this.props.currentViewType}
             username={username}
             profile={profile}
             onLogout={() => {
@@ -43,4 +43,11 @@ class SideNavCC extends Component {
   }
 }
 
-export default SideNavCC;
+const pullingViewType = state => {
+  return {
+    currentViewType: state.currentReducer.viewType,
+    teamCurrent: state.currentReducer.teamId,
+  };
+};
+
+export default connect(pullingViewType)(SideNavCC);

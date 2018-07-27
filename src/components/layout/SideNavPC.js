@@ -53,7 +53,7 @@ class SideNavPC extends Component {
             <div
               className={classNames(
                 'board-type-menu__item',
-                this.props.teamID.match('/card') &&
+                this.props.currentViewType === 'card' &&
                   'board-type-menu__item--current'
               )}
             >
@@ -65,7 +65,7 @@ class SideNavPC extends Component {
             <div
               className={classNames(
                 'board-type-menu__item',
-                this.props.teamID.match('/tl') &&
+                this.props.currentViewType === 'tl' &&
                   'board-type-menu__item--current'
               )}
             >

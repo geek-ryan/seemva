@@ -21,7 +21,7 @@ class ActivityCC extends Component {
       body: this.state.body,
       taskId: this.props.task.id,
       userId: this.props.userCurrent,
-      logDate: moment().format('YYYY.MM.DD h:mm:ss'),
+      logDate: moment(),
     };
     // this.props.activityFunc.Create(obj);
     this.props.dispatch(createActivity(obj));
@@ -52,4 +52,26 @@ const pullingUserId = state => {
   return { userCurrent: state.currentReducer.userId };
 };
 
-export default connect(pullingUserId)(ActivityCC);
+const pullingUsers = state => {
+  return { users: state.users };
+};
+
+const pullingActivities = state => {
+  const activities = state.activityReducer;
+  const currentTask = state.currentReducer.taskId;
+  const filtered = activities.filter(el => el.taskId === currentTask);
+  return {
+    activities: filtered.sort(
+      (b, a) => moment(a.logDate).format('X') - moment(b.logDate).format('X')
+    ),
+  };
+};
+
+const combine = state => {
+  const aaa = pullingUserId(state);
+  const bbb = pullingActivities(state);
+  const ccc = pullingUsers(state);
+  return { ...aaa, ...bbb, ...ccc };
+};
+
+export default connect(combine)(ActivityCC);

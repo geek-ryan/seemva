@@ -16,7 +16,7 @@ const projectReducer = (arr = dummy.projects, action) => {
     case 'updateProject':
       const element = arr.filter(ele => ele.id === action.id && ele)[0];
       const updated = { ...element, ...action.obj };
-      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+      return arr.filter(ele => ele.id !== action.id && ele).concat(updated);
     case 'deleteProject':
       return arr.filter(ele => ele.id !== action.id && ele);
     case 'Projects':
@@ -41,7 +41,7 @@ const taskReducer = (arr = dummy.tasks, action) => {
     case 'updateTask':
       const element = arr.filter(ele => ele.id === action.id && ele)[0];
       const updated = { ...element, ...action.obj };
-      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+      return arr.filter(ele => ele.id !== action.id && ele).concat(updated);
     case 'deleteTask':
       return arr.filter(ele => ele.id !== action.id && ele);
     case 'Tasks':
@@ -66,7 +66,7 @@ const activityReducer = (arr = dummy.activities, action) => {
     case 'updateActivity':
       const element = arr.filter(ele => ele.id === action.id && ele)[0];
       const updated = { ...element, ...action.obj };
-      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+      return arr.filter(ele => ele.id !== action.id && ele).concat(updated);
     case 'deleteActivity':
       return arr.filter(ele => ele.id !== action.id && ele);
     case 'Activities':
@@ -91,7 +91,7 @@ const userReducer = (arr = dummy.users, action) => {
     case 'updateUser':
       const element = arr.filter(ele => ele.id === action.id && ele)[0];
       const updated = { ...element, ...action.obj };
-      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+      return arr.filter(ele => ele.id !== action.id && ele).concat(updated);
     case 'deleteUser':
       return arr.filter(ele => ele.id !== action.id && ele);
     case 'Users':
@@ -116,7 +116,7 @@ const teamReducer = (arr = dummy.teams, action) => {
     case 'updateTeam':
       const element = arr.filter(ele => ele.id === action.id && ele)[0];
       const updated = { ...element, ...action.obj };
-      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+      return arr.filter(ele => ele.id !== action.id && ele).concat(updated);
     case 'deleteTeam':
       return arr.filter(ele => ele.id !== action.id && ele);
     case 'Teams':
@@ -141,7 +141,7 @@ const labelReducer = (arr = dummy.labels, action) => {
     case 'updateLabel':
       const element = arr.filter(ele => ele.id === action.id && ele)[0];
       const updated = { ...element, ...action.obj };
-      return arr.filter(ele => ele.id !== action.id && ele).push(updated);
+      return arr.filter(ele => ele.id !== action.id && ele).concat(updated);
     case 'deleteLabel':
       return arr.filter(ele => ele.id !== action.id && ele);
     case 'Labels':
@@ -230,6 +230,11 @@ const currentReducer = (current = dummy.current, action) => {
       return {
         ...current,
         taskId: action.id,
+      };
+    case 'currentViewType':
+      return {
+        ...current,
+        viewType: action.typeStr,
       };
     default:
       return current;

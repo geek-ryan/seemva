@@ -5,6 +5,11 @@ import EditTextareaPC from '../utils/EditTextareaPC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
 import LoadingIconPC from '../utils/LoadingIconPC';
 
+import { connect } from 'react-redux';
+import { updateActivity } from '../../actions';
+
+const moment = require('moment');
+
 class ActivityPC extends Component {
   static defaultProps = {
     members: [
@@ -29,21 +34,16 @@ class ActivityPC extends Component {
         // },
       ],
     },
-    activityFunc: {
-      Update: () => {},
-    },
     task: {
       id: 1,
     },
-    handleChanges: () => {},
-    handleAddActivity: () => {},
-    handleDeleteActivity: () => {},
+    handleChanges: () => console.log('default'),
+    handleAddActivity: () => console.log('default'),
+    handleDeleteActivity: () => console.log('default'),
   };
   render() {
     const {
       activeFormBody,
-      activityState,
-      activityFunc,
       task,
       handleChange,
       handleAddActivity,
@@ -75,20 +75,18 @@ class ActivityPC extends Component {
           <List
             className="activity-list"
             itemLayout="horizontal"
-            dataSource={this.props.activities.filter(
-              activity => activity.taskId === task.id
-            )}
+            dataSource={this.props.activities}
             renderItem={activity => (
               <List.Item>
                 <List.Item.Meta
-                  avatar={
-                    <MemberTooltipAvatarPC
-                      {...this.props.teamMembers.find(
-                        ({ id }) => id === activity.userId
-                      )}
-                      size="small"
-                    />
-                  }
+                  // avatar={
+                  //   <MemberTooltipAvatarPC
+                  //     {...this.props.users.find(
+                  //       el => el.id === activity.userId
+                  //     )}
+                  //     size="small"
+                  //   />
+                  // }
                   title={
                     this.props.userCurrent === activity.userId ? (
                       <EditTextareaPC
@@ -96,7 +94,9 @@ class ActivityPC extends Component {
                         body={activity.body}
                         keyType={'body'}
                         datatype={'activity'}
-                        // editfunc={activityFunc.Update}
+                        editfunc={obj =>
+                          this.props.dispatch(updateActivity(activity.id, obj))
+                        }
                         {...this.props}
                       />
                     ) : (
@@ -104,7 +104,9 @@ class ActivityPC extends Component {
                     )
                   }
                 />
-                <span className="log-date">{activity.logDate}</span>
+                <span className="log-date">
+                  {moment(activity.logDate).format('YYYY.MM.DD hh:mm:ss')}
+                </span>
                 {this.props.userCurrent === activity.userId && (
                   <Button
                     className="activity-delete-button"

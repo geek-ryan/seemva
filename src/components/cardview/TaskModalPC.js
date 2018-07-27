@@ -11,6 +11,7 @@ import ActivityCC from '../../containers/ActivityCC';
 // import LabelSearchBar from '../utils/LabelSearchBar'
 
 import { connect } from 'react-redux';
+import { updateTask } from '../../actions';
 
 class TaskModalPC extends Component {
   static defaultProps = {
@@ -23,20 +24,17 @@ class TaskModalPC extends Component {
       startDate: '',
       dueDate: '',
     },
-    taskFunc: {
-      Update: () => {},
-    },
-    taskModalDueDateChange: () => {},
-    taskDeleteConfirm: () => {},
-    taskCompleteToggle: () => {},
-    taskOk: () => {},
-    taskCancel: () => {},
+    taskModalDueDateChange: () => console.log('default'),
+    taskDeleteConfirm: () => console.log('default'),
+    taskCompleteToggle: () => console.log('default'),
+    taskOk: () => console.log('default'),
+    modalCancle: () => console.log('default'),
   };
+
   render() {
     const {
       taskMembers,
       task,
-      taskFunc,
       taskCompleteToggle,
       taskDeleteConfirm,
       taskModalDueDateChange,
@@ -90,7 +88,9 @@ class TaskModalPC extends Component {
             body={task.title}
             keyType={'title'}
             datatype={'task'}
-            // editfunc={taskFunc.Update}
+            editfunc={obj =>
+              this.props.dispatch(updateTask(this.props.task.id, obj))
+            }
             {...this.props}
           />
         </div>
@@ -99,8 +99,10 @@ class TaskModalPC extends Component {
           <EditTextareaPC
             body={task.body}
             keyType={'body'}
-            datatype={'task'}
-            // editfunc={taskFunc.Update}
+            datatype={'Task'}
+            editfunc={obj =>
+              this.props.dispatch(updateTask(this.props.task.id, obj))
+            }
             {...this.props}
           />
         </div>

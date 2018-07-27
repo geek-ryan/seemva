@@ -24,18 +24,21 @@ const projects = [
     userId: 1,
     teamId: 1,
     title: 'seemva project',
+    logDate: '2018.01.01',
   },
   {
     title: 'cat_1_pro_1',
     teamId: 1,
     userId: 2,
     id: 2,
+    logDate: '2018.01.02',
   },
   {
     title: 'cat_1_pro_2',
     teamId: 1,
     userId: 1,
     id: 3,
+    logDate: '2018.01.03',
   },
 ];
 
@@ -48,6 +51,7 @@ const tasks = [
     body: '오늘 할 일 - 프로젝트 관리 서비스 만들기',
     startDate: '2018.01.01',
     dueDate: '2018.01.01',
+    logDate: '2018.01.04',
     complete: false,
   },
   {
@@ -59,6 +63,7 @@ const tasks = [
     body: '관동별곡',
     startDate: '2018.07.04',
     dueDate: '2018.08.02',
+    logDate: '2018.01.05',
   },
   {
     title: '니나노',
@@ -69,6 +74,7 @@ const tasks = [
     body: '더블 클릭',
     dueDate: '2018.08.01',
     startDate: '2018.07.04',
+    logDate: '2018.01.06',
   },
   {
     title: '양꼬치엔 칭따오',
@@ -79,6 +85,7 @@ const tasks = [
     body: '꿔바로우에도 칭따오',
     startDate: '2018.06.29',
     dueDate: '2018.07.02',
+    logDate: '2018.01.07',
   },
   {
     title: '사진찍기',
@@ -89,6 +96,7 @@ const tasks = [
     body: '고양이 찍기',
     startDate: '2018.07.03',
     dueDate: '2018.08.06',
+    logDate: '2018.01.08',
   },
   {
     title: '노래 부르기',
@@ -99,6 +107,7 @@ const tasks = [
     body: '그대 기억이',
     startDate: '2018.07.03',
     dueDate: '2018.07.06',
+    logDate: '2018.01.09',
   },
 ];
 
@@ -149,10 +158,12 @@ const teams = [
   {
     id: 1,
     teamname: 'seemva',
+    logDate: '2018.03.01',
   },
   {
     teamname: 'cat_1',
     id: 2,
+    logDate: '2018.03.02',
   },
 ];
 
@@ -162,30 +173,35 @@ const labels = [
     teamId: 1,
     color: 'red',
     body: '긴급',
+    logDate: '2018.02.01',
   },
   {
     teamId: 1,
     body: 'red',
     color: 'red',
     id: 2,
+    logDate: '2018.02.02',
   },
   {
     teamId: 2,
     body: 'green',
     color: 'green',
     id: 3,
+    logDate: '2018.02.03',
   },
   {
     teamId: 2,
     body: 'blue',
     color: 'blue',
     id: 4,
+    logDate: '2018.02.04',
   },
   {
     teamId: 2,
     body: 'blue',
     color: 'blue',
     id: 5,
+    logDate: '2018.02.05',
   },
 ];
 
@@ -270,6 +286,7 @@ const current = {
   teamId: 0,
   userId: 0,
   taskId: 0,
+  viewType: 'card',
 };
 
 const dummy = {

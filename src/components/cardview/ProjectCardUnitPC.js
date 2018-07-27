@@ -5,9 +5,28 @@ import TaskCardCC from '../../containers/TaskCardCC';
 import EditTextareaPC from '../utils/EditTextareaPC';
 import LoadingIconPC from '../utils/LoadingIconPC';
 
-import { updateProject, deleteProject, Tasks } from '../../actions';
 import { connect } from 'react-redux';
+import { updateProject } from '../../actions';
+
 class ProjectCardUnitPC extends Component {
+  static defaultProps = {
+    dispatch: () => {
+      console.log('dispatch');
+    },
+    project: { id: 0, title: 'default' },
+    onProjectDelete: () => {
+      console.log('default');
+    },
+    tasks: [],
+    taskNew: { visible: 0, title: 'default' },
+    newTaskTitleChange: () => {
+      console.log('default');
+    },
+    newTaskCancle: () => console.log('default'),
+    newTaskOk: () => console.log('default'),
+    newTaskShowEditor: () => console.log('default'),
+  };
+
   state = {
     loading: false,
   };
@@ -36,7 +55,11 @@ class ProjectCardUnitPC extends Component {
                   body={this.props.project.title}
                   keyType={'title'}
                   datatype={'project'}
-                  editfunc={this.handleEdit}
+                  editfunc={obj =>
+                    this.props.dispatch(
+                      updateProject(this.props.project.id, obj)
+                    )
+                  }
                 />
                 {this.props.usableDelete && (
                   <Button
@@ -46,13 +69,7 @@ class ProjectCardUnitPC extends Component {
                     shape="circle"
                     size="small"
                     // 컨펌 모달 기능 넣어야 함
-                    onClick={
-                      () =>
-                        this.props.dispatch(
-                          deleteProject(this.props.project.id)
-                        )
-                      // this.props.projectFunc.Delete(this.props.project.id)
-                    }
+                    onClick={this.props.onProjectDelete(this.props.project.id)}
                   />
                 )}
               </React.Fragment>
@@ -69,7 +86,13 @@ class ProjectCardUnitPC extends Component {
               })}
             </div>
           </div>
-
+          {/**/}
+          {/**/}
+          {/**/}
+          {/**/}
+          {/**/}
+          {/**/}
+          {/* ------------- edit project partition -------------*/}
           {this.props.taskNew.visible ? (
             <div className="new-task-editor">
               <Input.TextArea
@@ -96,24 +119,31 @@ class ProjectCardUnitPC extends Component {
               Add New Task
             </Button>
           )}
+          {/* ----------- edit project partition ------------*/}
+          {/**/}
+          {/**/}
+          {/**/}
+          {/**/}
+          {/**/}
+          {/**/}
         </Card>
       </React.Fragment>
     );
   }
 }
 
-const pullingTasks = state => {
-  const taskArr = state.taskReducer.slice();
-  const assigneeArr = state.taskUserAssigneeReducer.slice();
-  const filteredAssigneeArr = assigneeArr.filter(
-    el => el.userId === state.currentReducer.userId
-  );
-  const result = taskArr.filter(el => {
-    return filteredAssigneeArr.filter(ele => {
-      return el.id === ele.taskId;
-    });
-  });
-  return { tasks: result };
-};
+// const pullingTasks = state => {
+//   const taskArr = state.taskReducer.slice();
+//   const assigneeArr = state.taskUserAssigneeReducer.slice();
+//   const filteredAssigneeArr = assigneeArr.filter(
+//     el => el.userId === state.currentReducer.userId
+//   );
+//   const result = taskArr.filter(el => {
+//     return filteredAssigneeArr.filter(ele => {
+//       return el.id === ele.taskId;
+//     });
+//   });
+//   return { tasks: result };
+// };
 
-export default connect(pullingTasks)(ProjectCardUnitPC);
+export default connect()(ProjectCardUnitPC);

@@ -15,10 +15,10 @@ class TeamMenuPC extends Component {
     teams: [],
     loading: false,
     current: 0,
-    onChangeCurrent: () => {},
-    onCreateTeams: name => {},
-    onEditTeam: (teamID, teamname) => {},
-    onDeleteTeam: teamID => {},
+    onChangeCurrent: () => console.log('default'),
+    onCreateTeams: name => console.log('default'),
+    onEditTeam: (teamID, teamname) => console.log('default'),
+    onDeleteTeam: teamID => console.log('default'),
   };
 
   HandleChangeTeamCurrnetByRedux = id => {
@@ -30,6 +30,7 @@ class TeamMenuPC extends Component {
       teams,
       loading,
       current,
+      teamCurrent,
       onChangeCurrent,
       onCreateTeam,
       onEditTeam,
@@ -40,17 +41,18 @@ class TeamMenuPC extends Component {
         <div
           className={classNames(
             'team-menu-item',
-            current ? '' : 'team-menu-item--current'
+            teamCurrent ? '' : 'team-menu-item--current'
           )}
         >
           <Link
             to={`${this.props.match.url}`}
-            onClick={() => onChangeCurrent(0)}
+            onClick={() => this.HandleChangeTeamCurrnetByRedux(0)}
           >
-            {current ? '' : <Icon type="rocket" />}
+            {teamCurrent === 0 && <Icon type="rocket" />}
             Welcome SEEMVA
           </Link>
         </div>
+
         {loading ? (
           <div className="loading-box">
             <Icon type="loading" />
@@ -61,7 +63,7 @@ class TeamMenuPC extends Component {
               <div
                 className={classNames(
                   'team-menu-item',
-                  current === id ? 'team-menu-item--current' : ''
+                  teamCurrent === id && 'team-menu-item--current'
                 )}
                 key={id}
               >
@@ -69,7 +71,7 @@ class TeamMenuPC extends Component {
                   to={`${this.props.match.url}/${id}`}
                   onClick={() => this.HandleChangeTeamCurrnetByRedux(id)}
                 >
-                  {current === id ? <Icon type="rocket" /> : ''}
+                  {teamCurrent === id && <Icon type="rocket" />}
                   {teamname}
                 </Link>
                 {admin ? (
@@ -89,6 +91,7 @@ class TeamMenuPC extends Component {
             );
           })
         )}
+
         <TeamCreateButtonPC onCreateTeam={onCreateTeam} />
       </div>
     );
@@ -96,7 +99,10 @@ class TeamMenuPC extends Component {
 }
 
 const pullingTeams = state => {
-  return { teams: state.teamReducer };
+  return {
+    teams: state.teamReducer,
+    teamCurrent: state.currentReducer.teamId,
+  };
 };
 
 export default connect(pullingTeams)(TeamMenuPC);

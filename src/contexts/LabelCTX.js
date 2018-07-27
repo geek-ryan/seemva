@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import serverAPI from '../serverAPI';
+// import serverAPI from '../serverAPI';
 
 const { Provider, Consumer } = React.createContext();
 
@@ -27,30 +27,30 @@ class LabelProvider extends Component {
     ],
   };
 
-  fetchData = async teamID => {
-    const res = await serverAPI.get(`/teams/${teamID}/labels`);
-    this.setState({
-      labels: res.data,
-    });
-  };
+  // fetchData = async teamID => {
+  //   const res = await serverAPI.get(`/teams/${teamID}/labels`);
+  //   this.setState({
+  //     labels: res.data,
+  //   });
+  // };
 
-  async componentDidMount() {
-    await this.fetchData(this.props.teamID);
-  }
+  // async componentDidMount() {
+  //   await this.fetchData(this.props.teamID);
+  // }
 
-  async componentDidUpdate(prevProps) {
-    if (this.props.teamID !== prevProps.teamID) {
-      await this.fetchData(this.props.teamID);
-    }
-  }
+  // async componentDidUpdate(prevProps) {
+  //   if (this.props.teamID !== prevProps.teamID) {
+  //     await this.fetchData(this.props.teamID);
+  //   }
+  // }
 
   render() {
     const value = {
-      ...this.state,
-      teamID: this.props.teamID,
-      fetchLabelData: async () => {
-        await this.fetchData(this.props.teamID);
-      },
+      // ...this.state,
+      // teamID: this.props.teamID,
+      // fetchLabelData: async () => {
+      //   await this.fetchData(this.props.teamID);
+      // },
     };
 
     return <Provider value={value}>{this.props.children}</Provider>;

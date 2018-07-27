@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
 import CardViewPC from '../components/cardview/CardViewPC';
 
-import withProjectCTX from '../hocs/withProjectCTX';
-import withTeamCTX from '../hocs/withTeamCTX';
-
-import { createProject, currentUser, currentTeam } from '../actions';
+import { createProject } from '../actions';
 import { connect } from 'react-redux';
 
+var moment = require('moment');
+
 class CardViewCC extends Component {
-  static defaultProps = {};
+  static defaultProps = {
+    userCurrent: 0,
+    teamCurrent: 0,
+  };
 
   state = {
     visible: false,
     body: '',
   };
-
-  // componentDidMount = () => {
-  //     'card view cc mounted',
-  //     this.props.userCurrent,
-  //     this.props.teamCurrent
-  //   );
-  //   this.props.dispatch(currentUser(userId));
-  //   this.props.dispatch(currentTeam(teamId));
-  // };
 
   handleAddProject = contents => {
     this.props.dispatch(
@@ -72,8 +65,14 @@ class CardViewCC extends Component {
   }
 }
 
-const pullingState = state => {
-  return { testState: state };
+const pullingBaseSetting = state => {
+  return {
+    projects: state.projectReducer.sort(
+      (a, b) => moment(a.logDate).format('X') - moment(b.logDate).format('X')
+    ),
+    userCurrent: state.currentReducer.userId,
+    teamCurrent: state.currentReducer.teamId,
+  };
 };
 
-export default connect(pullingState)(CardViewCC);
+export default connect(pullingBaseSetting)(CardViewCC);

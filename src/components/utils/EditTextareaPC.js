@@ -12,13 +12,7 @@ class EditTextareaPC extends Component {
   };
 
   handleOnblur = () => {
-    if (this.props[this.props.datatype].id && this.props.editfunc) {
-      this.props.editfunc(
-        this.props[this.props.datatype].id,
-        this.props.keyType,
-        this.state.body
-      );
-    }
+    this.props.editfunc({ [this.props.keyType]: this.state.body });
     this.setState({ visible: false });
   };
 

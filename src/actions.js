@@ -147,3 +147,8 @@ export const currentTask = id => ({
   type: 'currentTask',
   id,
 });
+
+export const currentViewType = typeStr => ({
+  type: 'currentViewType',
+  typeStr,
+});

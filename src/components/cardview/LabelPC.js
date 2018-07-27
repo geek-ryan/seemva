@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { Icon, Tag, AutoComplete, Button, Popover } from 'antd';
 
+import withLabel from '../../hocs/withLabel';
+
 const Option = AutoComplete.Option;
 
 const labelElem = ({ assigneeID, id, color, body }) => (
@@ -100,12 +102,12 @@ class LabelPC extends Component {
   handleSelect = value => {
     // value is label's id
     if (value > 0) {
-      this.props.onSelectSearchLabel(value);
+      // this.props.onSelectSearchLabel(value);
       this.setState({
         inputVisible: false,
       });
     } else {
-      this.props.onCreateLabel(value, this.state.inputValue);
+      // this.props.onCreateLabel(value, this.state.inputValue);
     }
     this.hideAutocompleteSearch();
   };

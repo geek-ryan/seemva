@@ -3,6 +3,7 @@ import serverAPI from '../serverAPI';
 import { LabelConsumer } from '../contexts/LabelCTX';
 
 import { connect } from 'react-redux';
+import { deleteLabel } from '../actions';
 
 function withLabel(WrappedComponent) {
   class LabelProxyComponent extends Component {
@@ -19,33 +20,33 @@ function withLabel(WrappedComponent) {
       matchLabels: [],
     };
 
-    fetchAssignee = async taskID => {
-      const resAssignees = await serverAPI.get(
-        `/task-label-assignees/?taskId=${taskID}`
-      );
-      let assigneeIds = [];
-      let labelIds = [];
-      for (const { id, labelId } of resAssignees.data) {
-        assigneeIds.push(id);
-        labelIds.push(labelId);
-      }
-      let taskLabels = [];
-      for (const label of this.props.labels) {
-        const index = labelIds.indexOf(label.id);
-        index !== -1 &&
-          taskLabels.push({
-            id: label.id,
-            assigneeID: assigneeIds[index],
-            color: label.color,
-            body: label.body,
-          });
-      }
-      // 등록순으로 정렬하기 위해 필요함
-      taskLabels.sort((a, b) => a.assigneeID - b.assigneeID);
-      this.setState({
-        taskLabels,
-      });
-    };
+    // fetchAssignee = async taskID => {
+    //   const resAssignees = await serverAPI.get(
+    //     `/task-label-assignees/?taskId=${taskID}`
+    //   );
+    //   let assigneeIds = [];
+    //   let labelIds = [];
+    //   for (const { id, labelId } of resAssignees.data) {
+    //     assigneeIds.push(id);
+    //     labelIds.push(labelId);
+    //   }
+    //   let taskLabels = [];
+    //   for (const label of this.props.labels) {
+    //     const index = labelIds.indexOf(label.id);
+    //     index !== -1 &&
+    //       taskLabels.push({
+    //         id: label.id,
+    //         assigneeID: assigneeIds[index],
+    //         color: label.color,
+    //         body: label.body,
+    //       });
+    //   }
+    //   // 등록순으로 정렬하기 위해 필요함
+    //   taskLabels.sort((a, b) => a.assigneeID - b.assigneeID);
+    //   this.setState({
+    //     taskLabels,
+    //   });
+    // };
 
     selectSearchLabel = async (value, taskID) => {
       const label = this.props.labels.find(
@@ -65,7 +66,7 @@ function withLabel(WrappedComponent) {
           body: label.body,
         }),
       }));
-      await this.props.fetchLabelData();
+      // await this.props.fetchLabelData();
       await this.fetchAssignee(this.props.task.id);
     };
 
@@ -107,9 +108,6 @@ function withLabel(WrappedComponent) {
 
     closeColorPicker = async (visible, labelID) => {
       if (!visible) {
-        await serverAPI.patch(`/labels/${labelID}`, {
-          color: this.state.addedLabel.color,
-        });
         // fetch patch로 color 변경
         this.setState(
           prevState => ({
@@ -119,28 +117,33 @@ function withLabel(WrappedComponent) {
             this.setState({ addedLabel: null });
           }
         );
-        await this.props.fetchLabelData();
-        await this.fetchAssignee(this.props.task.id);
+        await serverAPI.patch(`/labels/${labelID}`, {
+          color: this.state.addedLabel.color,
+        });
+        // await this.props.fetchLabelData();
+        // await this.fetchAssignee(this.props.task.id);
       }
     };
 
     removeLabel = async assigneeID => {
+      this.props.dispatch(deleteLabel(assigneeID));
       // fetch delete
       await serverAPI.delete(`/task-label-assignees/${assigneeID}`);
-      await this.props.fetchLabelData();
-      await this.fetchAssignee(this.props.task.id);
+      // await this.props.fetchLabelData();
+      // await this.fetchAssignee(this.props.task.id);
     };
+
     render() {
       return (
         <WrappedComponent
           {...this.state}
           {...this.props}
-          onLabelInit={async () => await this.fetchAssignee(this.props.task.id)}
+          // onLabelInit={async () => await this.fetchAssignee(this.props.task.id)}
           onCreateLabel={(value, inputValue) =>
             this.createLabel(value, inputValue, this.props.task.id)
           }
           onSelectSearchLabel={id =>
-            this.selectSearchLabel(id, this.props.task.id)
+            this.selectSearchhLabel(id, this.props.task.id)
           }
           matchSearch={this.matchSearch}
           selectColor={this.selectColor}
@@ -150,6 +153,7 @@ function withLabel(WrappedComponent) {
       );
     }
   }
+
   return class extends Component {
     render() {
       return (
@@ -171,4 +175,23 @@ const pullingTeamLabels = state => {
   return { labels: filteredLabels };
 };
 
-export default connect(pullingTeamLabels)(withLabel);
+const pullilngCurrentTask = state => {
+  return { currentTask: state.currentReducer.taskId };
+};
+
+const pullingTaskLabels = state => {
+  const assignees = state.taskLabelReducer.slice();
+  const currentTask = state.currentReducer.taskId.slice();
+  const labels = state.labelReducer.slice();
+  const filteredAssignees = assignees.filter(el => el.taskId === currentTask);
+  const taskLabels = labels.filter(el => filteredAssignees.labelId === el.id);
+  return { taskLabels };
+};
+
+const combine = state => {
+  const aaa = pullingTeamLabels(state);
+  const bbb = pullilngCurrentTask(state);
+  const ccc = pullingTaskLabels(state);
+  return { ...aaa, ...bbb, ...ccc };
+};
+export default connect(combine)(withLabel);

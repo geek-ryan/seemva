@@ -7,8 +7,6 @@ import TaskModalCC from '../../containers/TaskModalCC';
 import MemberTooltipAvatarPC from '../utils/MemberTooltipAvatarPC';
 import LabelTooltipPC from '../utils/LabelTooltipPC';
 
-import { connect } from 'react-redux';
-
 class TaskCardPC extends Component {
   static defaultProps = {
     project: {},
@@ -31,9 +29,6 @@ class TaskCardPC extends Component {
       // startDate: '2018.07.04',
       // dueDate: '2018.07.05',
     },
-    taskDeleteConfirm: () => {},
-    taskModalCompleteConfirm: () => {},
-    taskShowModal: () => {},
     taskLabels: [
       // {
       //   id: 1,
@@ -41,6 +36,9 @@ class TaskCardPC extends Component {
       //   body: 'red label',
       // },
     ],
+    taskDeleteConfirm: () => console.log('default'),
+    taskModalCompleteConfirm: () => console.log('default'),
+    taskShowModal: () => console.log('default'),
     colors: {
       default: '#bfbfbf',
       yellow: '#fadb14',
@@ -54,13 +52,8 @@ class TaskCardPC extends Component {
     },
   };
 
-  // componentDidMount() {
-  //   this.props.onLabelInit();
-  // }
-
   render() {
     const {
-      activityState,
       taskMembers,
       task,
       taskDeleteConfirm,
@@ -91,7 +84,10 @@ class TaskCardPC extends Component {
         </div>
 
         <div className="task-card-body" onClick={taskShowModal}>
-          <Link to={`/card/${this.props.teamCurrent}/task/${task.id}`}>
+          <Link
+            to={`/card/${this.props.teamCurrent}/task/${task.id}`}
+            onClick={this.props.onSetCurrentTask}
+          >
             <h2 className="task-card-body__title">{task.title}</h2>
             {task.startDate && (
               <div className="task-card-body__date">
@@ -130,68 +126,76 @@ class TaskCardPC extends Component {
             </div>
           </Link>
         </div>
-
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
         <Route
           path={`/card/${this.props.teamCurrent}/task/:id`}
           render={({ match }) => (
             <TaskModalCC
               {...this.props}
               paramId={match.params.id}
-              teamId={this.props.project.teamId}
               taskId={this.props.task.id}
               id={match.params.id}
-              url={`/card/${this.props.project.teamId}`}
+              url={`/card/${this.props.teamCurrent}`}
             />
           )}
         />
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
       </Card>
     );
   }
 }
 
-const pullingTaskMembers = state => {
-  console.log('state user reducer', state.userReducer);
-  const userArr = state.userReducer.slice();
-  const assigneeArr = state.taskUserAssigneeReducer.slice();
-  const filteredAssigneeArr = assigneeArr.filter(
-    el => el.taskId === state.currentReducer.taskId
-  );
-  const result = userArr.filter(el => {
-    return filteredAssigneeArr.filter(ele => {
-      return el.id === ele.userId;
-    });
-  });
-  return { taskMembers: result };
-};
+// const pullingTaskMembers = state => {
+//   console.log('state user reducer', state.userReducer);
+//   const userArr = state.userReducer.slice();
+//   const assigneeArr = state.taskUserAssigneeReducer.slice();
+//   const filteredAssigneeArr = assigneeArr.filter(
+//     el => el.taskId === state.currentReducer.taskId
+//   );
+//   const result = userArr.filter(el => {
+//     return filteredAssigneeArr.filter(ele => {
+//       return el.id === ele.userId;
+//     });
+//   });
+//   return { taskMembers: result };
+// };
 
-const pullingTaskLabels = state => {
-  console.log('state label reducer', state.labelReducer);
-  const labelArr = state.labelReducer.slice();
-  const assigneeArr = state.labelTaskAssigneeReducer.slice();
-  const filteredAssigneeArr = assigneeArr.filter(
-    el => el.taskId === state.currentReducer.taskId
-  );
-  const result = labelArr.filter(el => {
-    return filteredAssigneeArr.filter(ele => {
-      return el.id === ele.labelId;
-    });
-  });
-  return { taskLabels: result };
-};
+// const pullingTaskLabels = state => {
+//   console.log('state label reducer', state.labelReducer);
+//   const labelArr = state.labelReducer.slice();
+//   const assigneeArr = state.labelTaskAssigneeReducer.slice();
+//   const filteredAssigneeArr = assigneeArr.filter(
+//     el => el.taskId === state.currentReducer.taskId
+//   );
+//   const result = labelArr.filter(el => {
+//     return filteredAssigneeArr.filter(ele => {
+//       return el.id === ele.labelId;
+//     });
+//   });
+//   return { taskLabels: result };
+// };
 
-const pullingTaskActivity = state => {
-  const activityArr = state.activityReducer.slice();
-  const filteredArr = activityArr.filter(
-    el => el.taskId === state.currentReducer.taskId
-  );
-  return { activities: filteredArr };
-};
+// const pullingTaskActivity = state => {
+//   const activityArr = state.activityReducer.slice();
+//   const filteredArr = activityArr.filter(
+//     el => el.taskId === state.currentReducer.taskId
+//   );
+//   return { activities: filteredArr };
+// };
 
-const combiner = state => {
-  const aaa = pullingTaskMembers(state);
-  const bbb = pullingTaskLabels(state);
-  const ccc = pullingTaskActivity(state);
-  return { ...aaa, ...bbb, ...ccc };
-};
+// const combiner = state => {
+//   const aaa = pullingTaskMembers(state);
+//   const bbb = pullingTaskLabels(state);
+//   const ccc = pullingTaskActivity(state);
+//   return { ...aaa, ...bbb, ...ccc };
+// };
 
-export default connect(combiner)(TaskCardPC);
+export default TaskCardPC;

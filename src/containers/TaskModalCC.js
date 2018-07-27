@@ -8,12 +8,14 @@ import { updateTask, currentTask } from '../actions';
 import { connect } from 'react-redux';
 
 class TaskModalCC extends Component {
-  state = {
-    cancelled: false,
+  static defaultProps = {
+    task: {},
+    dispatch: () => console.log('dispatch'),
+    url: 'default',
   };
 
-  componentDidMount = () => {
-    this.props.dispatch(currentTask(this.props.task.id));
+  state = {
+    cancelled: false,
   };
 
   handleCancle = () => {
@@ -29,8 +31,6 @@ class TaskModalCC extends Component {
         dueDate: dateString[1],
       })
     );
-    // this.props.taskFunc.Update(this.props.task.id, 'startDate', dateString[0]);
-    // this.props.taskFunc.Update(this.props.task.id, 'dueDate', dateString[1]);
   };
 
   render() {
