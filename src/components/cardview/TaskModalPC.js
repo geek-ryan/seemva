@@ -7,6 +7,7 @@ import EditTextareaPC from '../utils/EditTextareaPC';
 import MemberGroupPC from '../utils/MemberGroupPC';
 import LabelPC from './LabelPC';
 // import ActivityPC from './ActivityPC';
+import LabelCC from '../../containers/LabelCC';
 import ActivityCC from '../../containers/ActivityCC';
 // import LabelSearchBar from '../utils/LabelSearchBar'
 
@@ -138,7 +139,7 @@ class TaskModalPC extends Component {
         </div>
         <div className="task-modal__labels">
           <h2 className="modal-label">Labels</h2>
-          <LabelPC {...this.props} />
+          <LabelCC {...this.props} />
         </div>
         <div className="task-modal__activities">
           <h2 className="modal-label">Activity</h2>

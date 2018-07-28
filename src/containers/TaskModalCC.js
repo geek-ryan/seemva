@@ -18,6 +18,10 @@ class TaskModalCC extends Component {
     cancelled: false,
   };
 
+  componentDidMount = () => {
+    this.props.dispatch(currentTask(parseInt(this.props.paramId)));
+  };
+
   handleCancle = () => {
     this.setState({
       cancelled: true,

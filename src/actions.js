@@ -152,3 +152,42 @@ export const currentViewType = typeStr => ({
   type: 'currentViewType',
   typeStr,
 });
+
+//----------labelTask-------------------------
+
+export const createLabelTaskAssignee = obj => ({
+  type: 'createLabelTaskAssignee',
+  id: randomId(),
+  obj,
+});
+
+export const deleteLabelTaskAssignee = id => ({
+  type: 'deleteLabelTaskAssignee',
+  id,
+});
+
+//----------taskUser-------------------------
+
+export const createTaskUserAssignee = obj => ({
+  type: 'createTaskUserAssignee',
+  id: randomId(),
+  obj,
+});
+
+export const deleteTaskUserAssignee = id => ({
+  type: 'deleteTaskUserAssignee',
+  id,
+});
+
+//----------teamUser-------------------------
+
+export const createTeamUserAssignee = obj => ({
+  type: 'createTeamUserAssignee',
+  id: randomId(),
+  obj,
+});
+
+export const deleteTeamUserAssignee = id => ({
+  type: 'deleteTeamUserAssignee',
+  id,
+});

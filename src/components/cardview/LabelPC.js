@@ -2,25 +2,27 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { Icon, Tag, AutoComplete, Button, Popover } from 'antd';
 
-import withLabel from '../../hocs/withLabel';
-
 const Option = AutoComplete.Option;
 
+// component of label element
 const labelElem = ({ assigneeID, id, color, body }) => (
   colors,
   closable = false,
   onClose = () => {}
-) => (
-  <Tag
-    key={id}
-    color={Object.entries(colors).find(item => item[0] === color)[1]}
-    closable={closable}
-    onClose={() => onClose(assigneeID)}
-  >
-    {body}
-  </Tag>
-);
+) => {
+  return (
+    <Tag
+      key={id}
+      color={Object.entries(colors).find(item => item[0] === color)[1]}
+      closable={closable}
+      onClose={() => onClose(assigneeID)}
+    >
+      {body}
+    </Tag>
+  );
+};
 
+// component of color picker and label combination
 const labelColorPicker = label => colors => clickFunc => closeFunc => (
   <Popover
     defaultVisible={true}
@@ -39,6 +41,7 @@ const labelColorPicker = label => colors => clickFunc => closeFunc => (
   </Popover>
 );
 
+// component of color picker
 const ColorPicker = props => {
   return (
     <div className="label-color-picker">
@@ -86,6 +89,7 @@ class LabelPC extends Component {
   };
 
   showAutocompleteSearch = () => {
+    console.log('show auto complete search');
     this.setState({
       inputVisible: true,
       inputValue: '',
@@ -93,6 +97,7 @@ class LabelPC extends Component {
   };
 
   hideAutocompleteSearch = () => {
+    console.log('hide auto complete search');
     this.setState({
       inputVisible: false,
       inputValue: '',
@@ -101,13 +106,14 @@ class LabelPC extends Component {
 
   handleSelect = value => {
     // value is label's id
+
     if (value > 0) {
-      // this.props.onSelectSearchLabel(value);
+      this.props.onSelectSearchLabel(value);
       this.setState({
         inputVisible: false,
       });
     } else {
-      // this.props.onCreateLabel(value, this.state.inputValue);
+      this.props.onCreateLabel(value, this.state.inputValue);
     }
     this.hideAutocompleteSearch();
   };
@@ -163,6 +169,7 @@ class LabelPC extends Component {
               {children}
               <Option key={0} className="label-search__item--new">
                 <Icon type="plus" /> New Label
+                {/* if there isnt any match, it will be appeared*/}
               </Option>
             </AutoComplete>
           </div>

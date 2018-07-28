@@ -86,7 +86,7 @@ class TaskCardPC extends Component {
         <div className="task-card-body" onClick={taskShowModal}>
           <Link
             to={`/card/${this.props.teamCurrent}/task/${task.id}`}
-            onClick={this.props.onSetCurrentTask}
+            // onClick={this.props.onSetCurrentTask}
           >
             <h2 className="task-card-body__title">{task.title}</h2>
             {task.startDate && (

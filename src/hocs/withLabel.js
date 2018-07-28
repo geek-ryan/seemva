@@ -194,4 +194,5 @@ const combine = state => {
   const ccc = pullingTaskLabels(state);
   return { ...aaa, ...bbb, ...ccc };
 };
+
 export default connect(combine)(withLabel);
