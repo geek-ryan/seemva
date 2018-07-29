@@ -131,6 +131,30 @@ export const deleteLabel = id => ({
   id,
 });
 
+//----------team-------------------------
+
+export const createTeam = obj => ({
+  type: 'createTeam',
+  id: randomId(),
+  obj,
+});
+
+export const readTeam = id => ({
+  type: 'readTeam',
+  id,
+});
+
+export const updateTeam = (id, obj) => ({
+  type: 'updateTeam',
+  id,
+  obj,
+});
+
+export const deleteTeam = id => ({
+  type: 'deleteTeam',
+  id,
+});
+
 //----------current-------------------------
 
 export const currentUser = id => ({

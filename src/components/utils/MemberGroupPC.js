@@ -62,7 +62,10 @@ class MemberGroupPC extends Component {
           {loading ? (
             <Avatar icon="loading" />
           ) : (
-            members.map(member => (
+            (this.props.header === 'yes'
+              ? this.props.teamMembers
+              : members
+            ).map(member => (
               <MemberTooltipAvatarPC
                 key={member.id}
                 {...member}

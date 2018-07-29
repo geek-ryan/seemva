@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import MemberGroupPC from '../utils/MemberGroupPC';
+import MemberGroupCC from '../../containers/MemberGroupCC';
 
 class HeaderPC extends Component {
   static defaultProps = {
@@ -13,7 +14,9 @@ class HeaderPC extends Component {
     return (
       <header className="header">
         <h2 className="header__team-name">{teamname}</h2>
-        {this.props.teamCurrent > 0 && <MemberGroupPC {...this.props} />}
+        {this.props.teamCurrent > 0 && (
+          <MemberGroupCC {...this.props} header={'yes'} />
+        )}
       </header>
     );
   }

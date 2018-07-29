@@ -85,6 +85,7 @@ class TeamMenuPC extends Component {
                   <TeamLeaveButtonPC
                     name={teamname}
                     onDelete={() => onDeleteTeam(id, admin)}
+                    teamId={id}
                   />
                 )}
               </div>
@@ -99,8 +100,20 @@ class TeamMenuPC extends Component {
 }
 
 const pullingTeams = state => {
+  const teamArr = state.teamReducer;
+  const assignees = state.teamUserAssigneeReducer;
+  const userCurrent = state.currentReducer.userId;
+  let teams = [];
+  teamArr.forEach(team =>
+    assignees.forEach(
+      assignee =>
+        assignee.userId === userCurrent &&
+        assignee.teamId === team.id &&
+        teams.push(team)
+    )
+  );
   return {
-    teams: state.teamReducer,
+    teams: teams,
     teamCurrent: state.currentReducer.teamId,
   };
 };

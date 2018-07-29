@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import { Button } from 'antd';
 import TeamModalPC from './TeamModalPC';
+import { createTeam, createTeamUserAssignee } from '../../actions';
+import { connect } from 'react-redux';
+
+var moment = require('moment');
 
 class TeamCreateButtonPC extends Component {
   static defaultProps = {
@@ -19,7 +23,16 @@ class TeamCreateButtonPC extends Component {
 
   handleCreate = ({ name }) => {
     const form = this.formRef.props.form;
-    this.props.onCreateTeam(name);
+    // this.props.onCreateTeam(name);
+    const res = this.props.dispatch(
+      createTeam({ teamname: name, logDate: moment() })
+    );
+    this.props.dispatch(
+      createTeamUserAssignee({
+        teamId: res.id,
+        userId: this.props.userCurrent,
+      })
+    );
     this.setState({ visible: false });
     form.resetFields();
   };
@@ -51,4 +64,8 @@ class TeamCreateButtonPC extends Component {
   }
 }
 
-export default TeamCreateButtonPC;
+const pullingUserCurrent = state => {
+  return { userCurrent: state.currentReducer.userId };
+};
+
+export default connect(pullingUserCurrent)(TeamCreateButtonPC);

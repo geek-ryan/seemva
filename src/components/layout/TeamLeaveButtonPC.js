@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import { Modal, Button, Tooltip } from 'antd';
 
+import { connect } from 'react-redux';
+
+import { deleteTeamUserAssignee } from '../../actions';
+
 class TeamCreateButtonPC extends Component {
   static defaultProps = {
     name: '',
@@ -9,6 +13,12 @@ class TeamCreateButtonPC extends Component {
 
   showLeaveConfirm = () => {
     const onDelete = this.props.onDelete;
+    const assignees = this.props.teamUserAssignees;
+    const teamId = this.props.teamId;
+    const userId = this.props.userId;
+    const dispatch = this.props.dispatch;
+    console.log('confirm', teamId, userId);
+
     Modal.confirm({
       title: 'Leave Team',
       content: (
@@ -22,7 +32,11 @@ class TeamCreateButtonPC extends Component {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        onDelete();
+        // onDelete();
+        const assignee = assignees.filter(
+          assignee => assignee.teamId === teamId && assignee.userId === userId
+        );
+        dispatch(deleteTeamUserAssignee(assignee[0].id));
       },
     });
   };
@@ -43,4 +57,11 @@ class TeamCreateButtonPC extends Component {
   }
 }
 
-export default TeamCreateButtonPC;
+const pullingTeamUserAssignees = state => {
+  return {
+    teamUserAssignees: state.teamUserAssigneeReducer,
+    userId: state.currentReducer.userId,
+  };
+};
+
+export default connect(pullingTeamUserAssignees)(TeamCreateButtonPC);
