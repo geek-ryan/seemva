@@ -54,7 +54,8 @@ class MemberGroupPC extends Component {
 
   render() {
     const { visible, q } = this.state;
-    const { loading, matchUsers, members, useRemove } = this.props;
+    const { loading, matchUsers, useRemove, members } = this.props;
+
     return (
       <React.Fragment>
         <div className="member-group">
@@ -77,6 +78,13 @@ class MemberGroupPC extends Component {
           shape="circle"
           onClick={this.handleShowModal}
         />
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/*---MODAL---*/}
         <Modal
           style={{ top: 20 }}
           title={'Add Members'}
@@ -95,7 +103,7 @@ class MemberGroupPC extends Component {
               className="user-search"
               dataSource={matchUsers}
               renderItem={item =>
-                members.includes(item) ? (
+                this.props.members.includes(item) ? (
                   <ListItem
                     // key={item.id}
                     member={true}
@@ -117,6 +125,13 @@ class MemberGroupPC extends Component {
             {/* {spin 나중에} */}
           </React.Fragment>
         </Modal>
+        {/*---MODAL---*/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
+        {/**/}
       </React.Fragment>
     );
   }

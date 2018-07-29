@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import EditTextareaPC from '../utils/EditTextareaPC';
 import MemberGroupPC from '../utils/MemberGroupPC';
+import MemberGroupCC from '../../containers/MemberGroupCC';
 import LabelPC from './LabelPC';
 // import ActivityPC from './ActivityPC';
 import LabelCC from '../../containers/LabelCC';
@@ -124,9 +125,9 @@ class TaskModalPC extends Component {
         <div className="task-modal__members">
           <h2 className="modal-label">Members</h2>
           <div className="task-modal__members-groups">
-            <MemberGroupPC
+            <MemberGroupCC
               {...this.props}
-              members={taskMembers}
+              // members={taskMembers}
               useRemove={true}
               // onAddMember={user =>
               //   this.props.addMember(user, this.props.task.id)

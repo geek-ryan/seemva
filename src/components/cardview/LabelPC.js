@@ -89,7 +89,6 @@ class LabelPC extends Component {
   };
 
   showAutocompleteSearch = () => {
-    console.log('show auto complete search');
     this.setState({
       inputVisible: true,
       inputValue: '',
@@ -97,7 +96,6 @@ class LabelPC extends Component {
   };
 
   hideAutocompleteSearch = () => {
-    console.log('hide auto complete search');
     this.setState({
       inputVisible: false,
       inputValue: '',

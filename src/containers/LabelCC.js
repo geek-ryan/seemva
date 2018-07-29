@@ -18,8 +18,6 @@ class LabelCC extends Component {
   };
 
   selectSearchLabel = (value, taskID) => {
-    console.log('select search label', value, taskID);
-
     const label = this.props.labels.find(
       item => parseInt(item.id, 10) === parseInt(value, 10)
     );
@@ -123,12 +121,7 @@ class LabelCC extends Component {
           logDate: moment(),
         })
       );
-      console.log(
-        'createLabel',
-        theLabel,
-        'task id',
-        this.state.addedLabel.taskID
-      );
+
       this.props.dispatch(
         createLabelTaskAssignee({
           labelId: theLabel.id,
@@ -196,7 +189,6 @@ const pullingTaskLabels = state => {
         })()
     )
   );
-  console.log('taskLabels', taskLabels, 'assignees', assignees);
   return { taskLabels };
 };
 

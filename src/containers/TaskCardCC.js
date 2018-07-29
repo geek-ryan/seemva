@@ -18,13 +18,15 @@ class TaskCardCC extends Component {
   state = {
     visible: false,
     taskLabels: [],
+    taskMembers: [],
   };
 
   componentDidMount = () => {
+    const taskId = this.props.task.id;
+
     let taskLabels = [];
     const labels = this.props.labels.slice();
     const assignees = this.props.labelTaskAssignees.slice();
-    const taskId = this.props.task.id;
     labels.forEach(label =>
       assignees.forEach(
         assignee =>
@@ -33,7 +35,20 @@ class TaskCardCC extends Component {
           taskLabels.push(label)
       )
     );
-    this.setState({ taskLabels });
+
+    let taskMembers = [];
+    const users = this.props.users.slice();
+    const assignees2 = this.props.taskUserAssignees.slice();
+    users.forEach(user =>
+      assignees2.forEach(
+        assignee =>
+          user.id === assignee.userId &&
+          taskId === assignee.taskId &&
+          taskMembers.push(user)
+      )
+    );
+
+    this.setState({ taskLabels, taskMembers });
   };
 
   // handleSetCurrentTask = () => {
@@ -84,6 +99,7 @@ class TaskCardCC extends Component {
     return (
       <TaskCardPC
         {...this.props}
+        taskMembers={this.state.taskMembers}
         taskLabels={this.state.taskLabels}
         taskModal={this.state}
         taskShowModal={this.taskShowModal}
@@ -97,18 +113,22 @@ class TaskCardCC extends Component {
   }
 }
 
-const pullingTaskMembers = state => {
-  const userArr = state.userReducer.slice();
-  const assigneeArr = state.taskUserAssigneeReducer.slice();
-  const filteredAssigneeArr = assigneeArr.filter(
-    el => el.taskId === state.currentReducer.taskId
-  );
-  const result = userArr.filter(el => {
-    return filteredAssigneeArr.filter(ele => {
-      return el.id === ele.userId;
-    });
-  });
-  return { taskMembers: result };
+const pullingMembers = state => {
+  // const userArr = state.userReducer.slice();
+  // const assigneeArr = state.taskUserAssigneeReducer.slice();
+  // const filteredAssigneeArr = assigneeArr.filter(
+  //   el => el.taskId === state.currentReducer.taskId
+  // );
+  // const result = [];
+  // userArr.forEach(user =>
+  //   filteredAssigneeArr.forEach(assignee => {
+  //     user.id === assignee.userId && result.push(user);
+  //   })
+  // );
+  return {
+    taskUserAssignees: state.taskUserAssigneeReducer,
+    users: state.userReducer,
+  };
 };
 
 // const pullingTaskLabels = state => {
@@ -138,7 +158,7 @@ const pullingTaskActivity = state => {
 };
 
 const combiner = state => {
-  const aaa = pullingTaskMembers(state);
+  const aaa = pullingMembers(state);
   const bbb = pullingLabels(state);
   const ccc = pullingTaskActivity(state);
   return { ...aaa, ...bbb, ...ccc };
